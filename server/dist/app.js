@@ -1,0 +1,55 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const http_1 = __importDefault(require("http"));
+const cors_1 = __importDefault(require("cors"));
+const morgan_1 = __importDefault(require("morgan"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const body_parser_1 = __importDefault(require("body-parser"));
+const routers_1 = __importDefault(require("./routers"));
+const dotenv_1 = __importDefault(require("dotenv"));
+const models_1 = __importDefault(require("./models/"));
+const middlewares_1 = require("./middlewares");
+dotenv_1.default.config();
+const PORT = process.env.SERVER_PORT || 3000;
+const app = express_1.default();
+const httpServer = http_1.default.createServer(app);
+/**
+ * middlewares
+ */
+/* development build, use logger & simulateLatency */
+if (process.env.NODE_ENV === "development") {
+    app.use(morgan_1.default("dev"));
+    app.use(cors_1.default({ credentials: true, origin: "http://localhost:3000" }));
+    // to simulate latency of 50ms - 1000ms
+    // app.use(simulateLatency(50, 1000));
+}
+app.set("port", PORT);
+// app.use(
+//   session({
+//     saveUninitialized: false,
+//     resave: false,
+//     cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }, // 30 days
+//     secret: "nodeauth"
+//   })
+// );
+app.use(body_parser_1.default.json({ limit: "5mb" }));
+app.use(body_parser_1.default.urlencoded({ limit: "5mb", extended: true }));
+app.use(cookie_parser_1.default());
+app.use(middlewares_1.useSession());
+app.use(middlewares_1.checkSession());
+app.get("/", (req, res) => {
+    res.send("Hello World!");
+});
+models_1.default.sequelize.sync().then(() => {
+    httpServer.listen(app.get("port"), () => {
+        console.log("App is running at http://localhost:%d in %s mode", app.get("port"), app.get("env"));
+        console.log("  Press CTRL-C to stop\n");
+    });
+});
+app.use("/api/v1", routers_1.default);
+exports.default = app;
+//# sourceMappingURL=app.js.map
