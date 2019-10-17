@@ -1,34 +1,25 @@
 import session from "express-session";
+import express from "express";
 import Sequelize from "sequelize";
 import dotenv from "dotenv";
 dotenv.config();
-// const SequelizeStore = require("connect-session-sequelize")(session.Store);
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
+const sequelize = new Sequelize(
+  process.env.PSQL_NAME,
+  process.env.PSQL_USER,
+  process.env.PSQL_PASS,
+  {
+    dialect: "sqlite",
+    storage: "./session.sqlite"
+  }
+);
 
-// if (!process.env.PORT) {
-//   require("dotenv").config();
-// }
-// export interface seqStoreInterface {
-//   dbName?: string;
-//   dbUser?: string;
-//   dbPass?: string;
-//   dialect: string;
-//   storage: string;
-// }
-
-// export const seqStore: seqStoreInterface = {
-//   dbName: process.env.PSQL_NAME,
-//   dbUser: process.env.PSQL_USER,
-//   dbPass: process.env.PSQL_PASS,
-//   dialect: "sqlite",
-//   storage: "./session.sqlite"
-// };
-
-// const myStore = new SequelizeStore({
-//   db: seqStore
-// });
+const myStore = new SequelizeStore({
+  db: sequelize
+});
 
 const sessionConfig = {
-  store: null,
+  store: myStore,
   secret: process.env.JWT_SECRET,
   resave: false,
   saveUninitialized: false,
@@ -39,4 +30,6 @@ const sessionConfig = {
     maxAge: 604800000 // 1000 * 60 * 60 * 24 * 7 in milliseconds
   }
 };
+
+myStore.sync();
 export default sessionConfig;
