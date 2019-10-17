@@ -1,7 +1,7 @@
 import * as bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import models from "../models";
-const comparePassword = async function(credentialsPassword, userPassword) {
+const comparePassword = async (credentialsPassword, userPassword) => {
   const isPasswordMatch = await bcrypt.compare(
     credentialsPassword,
     userPassword
@@ -157,6 +157,7 @@ export default {
         .then(user => {
           req.session.user = user;
           req.session.save(() => {});
+
           return res.status(200).send({
             meta: {
               type: "success",
