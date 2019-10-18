@@ -1,13 +1,18 @@
 import * as bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import models from "../models";
-const comparePassword = async (credentialsPassword, userPassword) => {
+
+const comparePassword = async (
+  credentialsPassword: string,
+  userPassword: string
+) => {
   const isPasswordMatch = await bcrypt.compare(
     credentialsPassword,
     userPassword
   );
   return isPasswordMatch;
 };
+
 export default {
   getUsers: async (req: Request, res: Response) => {
     await models.User.findAll().then((posts: any) => {
@@ -47,6 +52,7 @@ export default {
           }
         });
       }
+
       /* save session */
       req.session.user = user;
       req.session.save(() => {});
