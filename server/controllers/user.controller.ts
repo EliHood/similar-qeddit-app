@@ -1,7 +1,9 @@
 import * as bcrypt from "bcrypt";
 import { Request, Response } from "express";
+import jwt from "jsonwebtoken";
 import models from "../models";
-
+import dotenv from "dotenv";
+dotenv.config();
 const comparePassword = async (
   credentialsPassword: string,
   userPassword: string
@@ -57,11 +59,17 @@ export default {
       req.session.user = user;
       req.session.save(() => {});
 
+      // set token and stuff
+      const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+      jwt.verify(token, process.env.JWT_SECRET, (err, data) => {
+        console.log(err, data);
+      });
       res.status(200).send({
         meta: {
           type: "success",
           status: 200,
-          message: "Sucessfully Authenticated"
+          message: "Sucessfully Authenticated",
+          token: token
         }
       });
     } catch (error) {
@@ -163,12 +171,14 @@ export default {
         .then(user => {
           req.session.user = user;
           req.session.save(() => {});
-
+          console.log(user);
+          const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
           return res.status(200).send({
             meta: {
               type: "success",
               status: 200,
-              message: ""
+              message: "",
+              token: token
             },
             user: user
           });
