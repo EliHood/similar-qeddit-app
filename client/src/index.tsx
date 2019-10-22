@@ -5,7 +5,7 @@ import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import { store } from "./store";
-import MyRouter from "./Router";
+import Nav from "./Nav";
 
 const theme = createMuiTheme({
   palette: {
@@ -22,7 +22,7 @@ console.log(store);
 const app = (
   <MuiThemeProvider theme={theme}>
     <Provider store={store}>
-      <MyRouter />
+      <Nav />
     </Provider>
   </MuiThemeProvider>
 );

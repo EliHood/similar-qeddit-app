@@ -1,3 +1,4 @@
 import useSession from "./useSession";
 import checkSession from "./useSession";
-export { useSession, checkSession };
+import authenticationPolicy from "./authPolicy";
+export { useSession, checkSession, authenticationPolicy };

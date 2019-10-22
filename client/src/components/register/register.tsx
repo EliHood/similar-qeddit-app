@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import Typography from "@material-ui/core/Typography";
 import SignUpForm from "../forms/signUp/signUp";
 import GridHoc from "../hoc/grid";
+import IsAuth from "../hoc/isAuthenticated";
 
 export interface registerProps {
   onChange: (event: any) => void;
@@ -70,4 +71,4 @@ class Register extends Component<registerProps, registerState> {
     );
   }
 }
-export default GridHoc(Register);
+export default GridHoc(IsAuth(Register));

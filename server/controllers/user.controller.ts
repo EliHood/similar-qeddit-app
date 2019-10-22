@@ -104,6 +104,33 @@ export default {
       });
     }
   },
+  tryAutoSignInUser: async (req: any, res: Response) => {
+    try {
+      const currentUserId = req.user.id;
+      const user = await models.User.findOne({
+        where: { id: currentUserId },
+        raw: true
+      });
+      /* get user's teams */
+      res.status(200).send({
+        meta: {
+          type: "success",
+          status: 200,
+          message: ""
+        },
+        user: user
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).send({
+        meta: {
+          type: "error",
+          status: 500,
+          message: "server error"
+        }
+      });
+    }
+  },
   signUpUser: async (req: Request, res: Response) => {
     try {
       const credentials = req.body;

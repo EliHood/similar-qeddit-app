@@ -8,5 +8,6 @@ export default {
     localStorage.removeItem("jwtToken");
   },
   //   check if a user is signed in and stuff
-  getLoginStatus: () => localStorage.getItem("jwtToken") !== "",
+  getLoginStatus: () =>
+    localStorage.getItem("jwtToken") !== "undefined" ? true : false
 };
