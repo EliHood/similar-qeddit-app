@@ -20,7 +20,6 @@ const httpServer = http.createServer(app);
 /* development build, use logger & simulateLatency */
 if (process.env.NODE_ENV === "development") {
   app.use(logger("dev"));
-  app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 
   // to simulate latency of 50ms - 1000ms
   // app.use(simulateLatency(50, 1000));
@@ -35,6 +34,16 @@ app.set("port", PORT);
 //     secret: "nodeauth"
 //   })
 // );
+app.use(
+  cors({
+    origin: "http://localhost:3001",
+    preflightContinue: true,
+    credentials: true,
+    allowedHeaders: "X-Requested-With, Content-Type, Authorization",
+    methods: "GET, POST, PATCH, PUT, POST, DELETE, OPTIONS",
+    exposedHeaders: ["Content-Length", "X-Foo", "X-Bar"]
+  })
+);
 app.use(bodyParser.json({ limit: "5mb" }));
 app.use(bodyParser.urlencoded({ limit: "5mb", extended: true }));
 app.use(cookieParser());

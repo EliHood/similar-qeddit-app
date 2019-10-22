@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run server",
-    "server": "cd server && npm run server"
+    "server": "cd server && npm run server",
+    "client": "cd ./client && npm start",
+    "startdev": "concurrently --kill-others \"npm run client\" \"npm run server\" "
   },
   "author": "",
   "license": "ISC",

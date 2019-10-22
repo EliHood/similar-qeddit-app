@@ -1,12 +1,13 @@
-import { put, fork, takeLatest, call } from "redux-saga/effects";
+import jwtDecode from "jwt-decode";
+import { call, fork, put, takeLatest } from "redux-saga/effects";
 import * as actionTypes from "../actions/userActions";
 import * as types from "../actionTypes/userActionTypes";
-import jwtDecode from "jwt-decode";
-import { sessionData } from "../utils";
 import api from "../api/api";
+import { sessionData } from "../utils";
 export function* registerUser(action) {
   try {
-    const user = yield call(api.user.registerUser, action.userData);
+    console.log(action);
+    const user = yield call(api.user.signUp, action.payload);
     console.log(user);
     const { token } = user;
 

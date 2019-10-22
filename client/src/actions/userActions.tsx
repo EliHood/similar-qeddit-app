@@ -1,7 +1,8 @@
 import * as types from "../actionTypes/userActionTypes";
 
-export const signUpInit = () => ({
-  type: types.SIGN_UP_INIT
+export const signUpInit = (payload: object) => ({
+  type: types.SIGN_UP_INIT,
+  payload
 });
 
 export const signUpSuccess = (payload: object) => ({

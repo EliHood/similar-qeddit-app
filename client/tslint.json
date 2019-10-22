@@ -1,6 +1,6 @@
 {
   "defaultSeverity": "error",
-  "extends": ["tslint-react"],
+  "extends": ["tslint:latest", "tslint-react"],
   "jsRules": {},
   "rules": {},
   "rulesDirectory": []

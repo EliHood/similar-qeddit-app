@@ -1,5 +1,5 @@
-import * as types from "../actionTypes/userActionTypes";
 import produce from "immer";
+import * as types from "../actionTypes/userActionTypes";
 
 export interface userState {
   isAuthenticated: boolean;
@@ -8,11 +8,11 @@ export interface userState {
 
 const initialState: userState = {
   isAuthenticated: false,
-  error: ""
+  error: "",
 };
 
 const authReducer = (state = initialState, action: any): userState =>
-  produce(state, draft => {
+  produce(state, (draft) => {
     switch (action.type) {
       case types.SIGN_UP_SUCCESS:
         console.log(action);

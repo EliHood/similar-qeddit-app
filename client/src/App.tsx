@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./App.css";
-import logo from "./logo.svg";
 
 export interface AppProps {}
 export interface AppState {}

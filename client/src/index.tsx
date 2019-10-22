@@ -1,14 +1,30 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
+import { Provider } from "react-redux";
 import "./index.css";
-import store from "./store";
 import * as serviceWorker from "./serviceWorker";
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import { store } from "./store";
+import MyRouter from "./Router";
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#C3DFE0"
+    },
+    secondary: {
+      main: "#000000"
+    }
+  }
+});
+console.log(store);
 
 const app = (
-  <Provider store={}>
-    <Router />
-  </Provider>
+  <MuiThemeProvider theme={theme}>
+    <Provider store={store}>
+      <MyRouter />
+    </Provider>
+  </MuiThemeProvider>
 );
 ReactDOM.render(app, document.getElementById("root"));
 
