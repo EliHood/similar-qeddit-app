@@ -35,10 +35,28 @@ export function* logOut() {
     sessionData.setUserLoggdOut();
     yield put(actionTypes.logOutSuccess(logout));
   } catch (error) {
-    yield put(actionTypes.signUpFailure(error));
+    yield put(actionTypes.logOutFailure(error));
   }
 }
 
+export function* login(action) {
+  try {
+    const login = yield call(api.user.logIn, action.payload);
+    console.log(login);
+    const token = login.meta.token;
+    console.log(token);
+    sessionData.setUserLoggedIn(token);
+    const decoded = jwtDecode(token);
+    yield put(actionTypes.loginSuccess(decoded));
+  } catch (err) {
+    const errMsg = err.response.data.meta.message;
+    yield put(actionTypes.loginFailure(errMsg));
+  }
+}
+
+export function* watchLogin() {
+  yield takeLatest(types.LOG_IN_INIT, login);
+}
 export function* watchAuthLogin() {
   yield takeLatest(types.FETCH_AUTO_LOGIN, getAutoLoginStatus);
 }
@@ -53,4 +71,5 @@ export default function*() {
   yield fork(watchUserRegister);
   yield fork(watchAuthLogin);
   yield fork(watchLogout);
+  yield fork(watchLogin);
 }

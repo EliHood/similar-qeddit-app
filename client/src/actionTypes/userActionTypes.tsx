@@ -9,3 +9,7 @@ export const FETCH_AUTO_LOGIN_FAILURE = "FETCH_AUTO_LOGIN_FAILURE";
 export const LOG_OUT_INIT = "LOG_OUT_INIT";
 export const LOG_OUT_SUCCESS = "LOG_OUT_SUCCESS";
 export const LOG_OUT_FAILURE = "LOG_OUT_FAILURE";
+
+export const LOG_IN_INIT = "LOG_IN_INIT";
+export const LOG_IN_SUCCESS = "LOG_IN_SUCCESS";
+export const LOG_IN_FAILURE = "LOG_IN_FAILURE";

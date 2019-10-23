@@ -26,7 +26,7 @@ export default {
       const credentials = req.body;
       const user = await models.User.findOne({
         where: {
-          email: credentials.email
+          username: credentials.username
         },
         raw: true
       });
@@ -36,7 +36,7 @@ export default {
           meta: {
             type: "error",
             status: 403,
-            message: `this account ${credentials.email} is not yet registered`
+            message: `this account ${credentials.username} is not yet registered`
           }
         });
       }

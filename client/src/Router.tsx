@@ -14,6 +14,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import Login from "./containers/login";
 import PrivateRoute from "./PrivateRoute";
 const MyRouter = props =>
   props.hasError ? (
@@ -45,6 +46,9 @@ const MyRouter = props =>
                     <Button>
                       <Link to="/register">Sign Up</Link>
                     </Button>
+                    <Button>
+                      <Link to="/login">Log In</Link>
+                    </Button>
                   </Fragment>
                 )}
               </Grid>
@@ -53,6 +57,7 @@ const MyRouter = props =>
         </AppBar>
         <Switch>
           <Route exact path="/" component={Landing} />
+          <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
         </Switch>

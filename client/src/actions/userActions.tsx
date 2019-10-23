@@ -42,3 +42,18 @@ export const logOutFailure = (error: object) => ({
   type: types.LOG_OUT_FAILURE,
   error
 });
+
+export const loginInit = (payload: object) => ({
+  type: types.LOG_IN_INIT,
+  payload
+});
+
+export const loginSuccess = (payload: object) => ({
+  type: types.LOG_IN_SUCCESS,
+  payload
+});
+
+export const loginFailure = (error: string) => ({
+  type: types.LOG_IN_FAILURE,
+  error
+});

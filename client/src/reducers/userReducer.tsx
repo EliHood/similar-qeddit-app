@@ -1,6 +1,5 @@
 import produce from "immer";
 import * as types from "../actionTypes/userActionTypes";
-import { type } from "os";
 import { sessionData } from "../utils";
 
 export interface userState {
@@ -29,6 +28,15 @@ const authReducer = (state = initialState, action: any): userState =>
       case types.LOG_OUT_SUCCESS:
         console.log(action);
         draft.isAuthenticated = false;
+        return;
+      case types.LOG_IN_SUCCESS:
+        console.log(action);
+        draft.error = "";
+        draft.isAuthenticated = sessionData.getLoginStatus();
+        return;
+      case types.LOG_IN_FAILURE:
+        console.log(action.error);
+        draft.error = action.error;
         return;
     }
   });
