@@ -3,14 +3,15 @@ import { call, fork, put, takeLatest } from "redux-saga/effects";
 import * as actionTypes from "../actions/userActions";
 import * as types from "../actionTypes/userActionTypes";
 import api from "../api/api";
-import { sessionData } from "../utils";
+import { sessionData, setAuthToken } from "../utils";
+
 export function* registerUser(action) {
   try {
     console.log(action);
     const user = yield call(api.user.signUp, action.payload);
     console.log(user);
     const token = user.meta.token;
-    console.log(token);
+    setAuthToken(token);
     sessionData.setUserLoggedIn(token);
     const decoded = jwtDecode(token);
 
@@ -47,6 +48,8 @@ export function* login(action) {
     console.log(token);
     sessionData.setUserLoggedIn(token);
     const decoded = jwtDecode(token);
+    setAuthToken(token);
+    yield put(actionTypes.getCurrentUser(login.user));
     yield put(actionTypes.loginSuccess(decoded));
   } catch (err) {
     const errMsg = err.response.data.meta.message;

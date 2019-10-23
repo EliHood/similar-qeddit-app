@@ -70,7 +70,8 @@ export default {
           status: 200,
           message: "Sucessfully Authenticated",
           token: token
-        }
+        },
+        user: user
       });
     } catch (error) {
       console.log(error);

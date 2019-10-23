@@ -6,7 +6,9 @@ import * as serviceWorker from "./serviceWorker";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import { store } from "./store";
 import Nav from "./Nav";
+import { userSession } from "./utils";
 
+userSession.userSession();
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -17,7 +19,6 @@ const theme = createMuiTheme({
     }
   }
 });
-console.log(store);
 
 const app = (
   <MuiThemeProvider theme={theme}>

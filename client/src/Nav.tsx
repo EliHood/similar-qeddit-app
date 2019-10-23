@@ -8,14 +8,16 @@ export interface routerContainerState {
 export interface routerContainerProps {
   fetchAutoAuthInit: () => void;
   logOutInit: () => void;
-  user: object;
+  user: {
+    isAuthenticated: boolean;
+  };
 }
 class Nav extends Component<routerContainerProps, routerContainerState> {
   state: routerContainerState = {
     hasError: false
   };
   componentDidMount() {
-    this.props.fetchAutoAuthInit();
+    // this.props.fetchAutoAuthInit();
     console.log(localStorage);
   }
   componentDidCatch(error, info) {
@@ -26,12 +28,12 @@ class Nav extends Component<routerContainerProps, routerContainerState> {
   }
   render() {
     const { hasError } = this.state;
-    console.log(this.props.user);
+    console.log(this.props.user.isAuthenticated);
     return (
       <Router
         hasError={hasError}
         logOut={this.props.logOutInit}
-        user={this.props.user}
+        user={this.props.user.isAuthenticated}
       />
     );
   }

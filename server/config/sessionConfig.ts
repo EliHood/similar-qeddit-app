@@ -27,7 +27,7 @@ const sessionConfig = {
     httpOnly: false,
     path: "/",
     secure: false,
-    maxAge: 604800000 // 1000 * 60 * 60 * 24 * 7 in milliseconds
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
   }
 };
 

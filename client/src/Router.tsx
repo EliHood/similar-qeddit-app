@@ -29,8 +29,11 @@ const MyRouter = props =>
                 TypeScript React App
               </Typography>
               <Grid item>
-                {props.user.isAuthenticated ? (
+                {props.user ? (
                   <Fragment>
+                    <Button>
+                      <Link to="/">Home</Link>
+                    </Button>
                     <Button>
                       <Link to="/dashboard">Dashboard</Link>
                     </Button>
