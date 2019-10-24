@@ -17,7 +17,7 @@ class Nav extends Component<routerContainerProps, routerContainerState> {
     hasError: false
   };
   componentDidMount() {
-    // this.props.fetchAutoAuthInit();
+    this.props.fetchAutoAuthInit();
   }
   componentDidCatch(error, info) {
     console.log(error, info);
