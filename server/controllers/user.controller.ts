@@ -109,12 +109,12 @@ export default {
     try {
       const currentUserId = req.user.id;
       console.log(currentUserId);
+      console.log(currentUserId);
       const user = await models.User.findOne({
         where: { id: currentUserId },
         raw: true
       });
 
-      /* get user's teams */
       res.status(200).send({
         meta: {
           type: "success",
@@ -136,7 +136,7 @@ export default {
   },
   signUpUser: async (req: Request, res: Response) => {
     try {
-      const credentials = req.body;
+      const credentials = req.body.id;
       if (!credentials.username || !credentials.email) {
         return res.status(403).send({
           meta: {
