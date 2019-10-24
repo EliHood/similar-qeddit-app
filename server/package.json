@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "start": "concurrently --kill-others \"npm run ts\" \"npm run server\"",
+    "start": "concurrently --kill-others \"npm run build\" \"npm run server\"",
     "server": "nodemon NODE_ENV=development ./dist/app.js",
     "serve": "nodemon --config nodemon-config.json --inspect dist/app.js",
     "build-ts": "tsc",

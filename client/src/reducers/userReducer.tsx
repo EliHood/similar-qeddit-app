@@ -6,12 +6,14 @@ export interface userState {
   isAuthenticated: boolean;
   error?: string;
   currentUser: object;
+  isLoading: boolean;
 }
 
 const initialState: userState = {
   isAuthenticated: false,
   error: "",
-  currentUser: {}
+  currentUser: {},
+  isLoading: false
 };
 
 const authReducer = (state = initialState, action: any): userState =>
@@ -31,6 +33,7 @@ const authReducer = (state = initialState, action: any): userState =>
       case types.LOG_IN_SUCCESS:
         draft.error = "";
         draft.isAuthenticated = sessionData.getLoginStatus();
+        draft.isLoading = true;
         return;
       case types.GET_CURRENT_USER:
         console.log(action);

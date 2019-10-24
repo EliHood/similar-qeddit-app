@@ -17,8 +17,8 @@ const comparePassword = async (
 
 export default {
   getUsers: async (req: Request, res: Response) => {
-    await models.User.findAll().then((posts: any) => {
-      res.json(posts);
+    await models.User.findAll().then((users: any) => {
+      res.json(users);
     });
   },
   signInUser: async (req: Request, res: Response) => {
@@ -108,10 +108,12 @@ export default {
   tryAutoSignInUser: async (req: any, res: Response) => {
     try {
       const currentUserId = req.user.id;
+      console.log(currentUserId);
       const user = await models.User.findOne({
         where: { id: currentUserId },
         raw: true
       });
+
       /* get user's teams */
       res.status(200).send({
         meta: {

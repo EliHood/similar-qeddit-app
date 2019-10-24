@@ -22,6 +22,7 @@ const sessionConfig = {
   store: myStore,
   secret: process.env.JWT_SECRET,
   resave: false,
+  name: "session",
   saveUninitialized: false,
   cookie: {
     httpOnly: false,

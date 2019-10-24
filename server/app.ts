@@ -2,6 +2,7 @@ import express from "express";
 import http from "http";
 import cors from "cors";
 import logger from "morgan";
+import { Request, Response, NextFunction } from "express";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import apiRouter from "./routers";
@@ -52,6 +53,7 @@ app.use(checkSession());
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+
 models.sequelize.sync().then(() => {
   httpServer.listen(app.get("port"), () => {
     console.log(

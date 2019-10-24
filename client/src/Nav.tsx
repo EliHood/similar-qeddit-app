@@ -18,7 +18,6 @@ class Nav extends Component<routerContainerProps, routerContainerState> {
   };
   componentDidMount() {
     // this.props.fetchAutoAuthInit();
-    console.log(localStorage);
   }
   componentDidCatch(error, info) {
     console.log(error, info);
@@ -26,6 +25,7 @@ class Nav extends Component<routerContainerProps, routerContainerState> {
       hasError: true
     });
   }
+
   render() {
     const { hasError } = this.state;
     console.log(this.props.user.isAuthenticated);

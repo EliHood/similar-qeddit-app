@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import Landing from "./components/landing/landing";
 import Register from "./containers/signup";
-import Dashboard from "./components/dashboard/dashboard";
+import Dashboard from "./containers/dashboard";
 import Grid from "@material-ui/core/Grid";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
