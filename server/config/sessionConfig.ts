@@ -18,9 +18,18 @@ const myStore = new SequelizeStore({
   db: sequelize
 });
 
-const sessionConfig = {
+export interface sessionInterface {
+  store: object;
+  secret: string;
+  resave: boolean;
+  name: string;
+  saveUninitialized: boolean;
+  cookie: object;
+}
+
+const sessionConfig: sessionInterface = {
   store: myStore,
-  secret: process.env.JWT_SECRET,
+  secret: "nodetoken",
   resave: false,
   name: "session",
   saveUninitialized: false,
@@ -28,7 +37,7 @@ const sessionConfig = {
     httpOnly: false,
     path: "/",
     secure: false,
-    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
+    maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
   }
 };
 
