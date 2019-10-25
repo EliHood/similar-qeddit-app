@@ -107,7 +107,7 @@ export default {
   },
   tryAutoSignInUser: async (req: any, res: Response) => {
     try {
-      const currentUserId = req.user.id;
+      const currentUserId = req.session.user.id;
       console.log(currentUserId);
       console.log(currentUserId);
       const user = await models.User.findOne({
