@@ -21,20 +21,15 @@ const httpServer = http.createServer(app);
 /* development build, use logger & simulateLatency */
 if (process.env.NODE_ENV === "development") {
   app.use(logger("dev"));
-
-  // to simulate latency of 50ms - 1000ms
-  // app.use(simulateLatency(50, 1000));
 }
 
 app.set("port", PORT);
-// app.use(
-//   session({
-//     saveUninitialized: false,
-//     resave: false,
-//     cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }, // 30 days
-//     secret: "nodeauth"
-//   })
-// );
+
+app.use(cookieParser());
+app.use(bodyParser.json({ limit: "5mb" }));
+app.use(useSession());
+app.use(checkSession());
+app.use(bodyParser.urlencoded({ limit: "5mb", extended: false }));
 app.use(
   cors({
     origin: "http://localhost:3001",
@@ -45,11 +40,7 @@ app.use(
     exposedHeaders: ["Content-Length", "X-Foo", "X-Bar"]
   })
 );
-app.use(bodyParser.json({ limit: "5mb" }));
-app.use(bodyParser.urlencoded({ limit: "5mb", extended: true }));
-app.use(cookieParser());
-app.use(useSession());
-app.use(checkSession());
+app.use("/api/v1", apiRouter);
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
@@ -65,5 +56,4 @@ models.sequelize.sync().then(() => {
   });
 });
 
-app.use("/api/v1", apiRouter);
 export default app;

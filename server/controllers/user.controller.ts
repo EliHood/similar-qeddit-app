@@ -136,7 +136,7 @@ export default {
   },
   signUpUser: async (req: Request, res: Response) => {
     try {
-      const credentials = req.body.id;
+      const credentials = req.body;
       if (!credentials.username || !credentials.email) {
         return res.status(403).send({
           meta: {

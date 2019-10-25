@@ -15,11 +15,11 @@ export default {
       res.json(posts);
     });
   },
-  createPost: async (req: Request, res: Response) => {
+  createPost: async (req: any, res: Response) => {
     await models.Post.create({
       title: req.body.title,
       postContent: req.body.postContent,
-      authorId: req.user.id
+      authorId: req.session.user.id
     })
       .then(post => {
         res.status(200).send({

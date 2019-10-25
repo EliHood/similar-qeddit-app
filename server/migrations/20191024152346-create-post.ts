@@ -19,15 +19,15 @@ export = {
       },
 
       liked: {
+        allowNull: false,
         type: Sequelize.BOOLEAN,
-        defaultValue: false,
-        allowNull: true
+        defaultValue: false
       },
 
       likeCounts: {
+        allowNull: false,
         type: Sequelize.INTEGER,
-        defaultValue: 0,
-        allowNull: true
+        defaultValue: 0
       },
 
       authorId: {
