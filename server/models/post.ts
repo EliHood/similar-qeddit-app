@@ -25,7 +25,7 @@ export = (sequelize: Sequelize, DataTypes: DataTypes) => {
     title: DataTypes.STRING,
     postContent: DataTypes.STRING,
     liked: {
-      type: DataTypes.Boolean,
+      type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false
     },
