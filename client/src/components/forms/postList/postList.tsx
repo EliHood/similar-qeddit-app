@@ -22,6 +22,8 @@ const PostList = (props: any) => {
             <Typography variant="h6" align="left">
               {post.author.username}
             </Typography>
+
+            <Typography align="right">Likes: {post.likeCounts}</Typography>
             <Typography variant="h6" align="left">
               {moment(post.created_at).calendar()}
             </Typography>
