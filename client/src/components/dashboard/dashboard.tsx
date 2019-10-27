@@ -29,11 +29,13 @@ class Dashboard extends Component<dashboardProps, dashboardState> {
     e.preventDefault();
     const { title, postContent } = this.state;
     const postData = { title, postContent };
-    console.log(postData);
     this.props.createPostInit(postData);
+    this.setState({
+      title: "",
+      postContent: ""
+    });
   };
   render() {
-    console.log(this.props);
     return (
       <Fragment>
         <CreatePost
