@@ -1,9 +1,6 @@
 import { Request, Response } from "express";
 import models from "../models";
 import dotenv from "dotenv";
-import { access } from "fs";
-import { Sequelize } from "sequelize-typescript";
-import { json } from "body-parser";
 
 dotenv.config();
 export default {
