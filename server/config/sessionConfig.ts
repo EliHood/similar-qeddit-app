@@ -1,5 +1,4 @@
 import session from "express-session";
-import express from "express";
 import Sequelize from "sequelize";
 import dotenv from "dotenv";
 dotenv.config();
@@ -22,7 +21,6 @@ export interface sessionInterface {
   store: object;
   secret: string;
   resave: boolean;
-  name: string;
   saveUninitialized: boolean;
   cookie: object;
 }
@@ -31,7 +29,6 @@ const sessionConfig: sessionInterface = {
   store: myStore,
   secret: "nodetoken",
   resave: false,
-  name: "session",
   saveUninitialized: false,
   cookie: {
     httpOnly: false,

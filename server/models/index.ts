@@ -7,19 +7,15 @@ var basename = path.basename(__filename);
 var env = process.env.NODE_ENV || "development";
 var config = require("../config/database.config");
 var db = {};
-
+var dotenv = require("dotenv");
+dotenv.config();
 if (config.use_env_variable) {
   var sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
-  var sequelize = new Sequelize(
-    config.database,
-    config.username,
-    config.password,
-    {
-      host: config.host,
-      dialect: "postgres"
-    }
-  );
+  var sequelize = new Sequelize("elifullstack8", "elihood", "", {
+    host: "127.0.0.1",
+    dialect: "postgres"
+  });
 }
 
 fs.readdirSync(__dirname)

@@ -17,12 +17,16 @@ export interface UserInstance {
 }
 
 export = (sequelize: Sequelize, DataTypes: DataTypes) => {
-  var User = sequelize.define("User", {
-    username: DataTypes.STRING,
-    password: DataTypes.STRING,
-    email: DataTypes.STRING,
-    forget_password: DataTypes.STRING
-  });
+  var User = sequelize.define(
+    "User",
+    {
+      username: DataTypes.STRING,
+      password: DataTypes.STRING,
+      email: DataTypes.STRING,
+      forget_password: DataTypes.STRING
+    },
+    {}
+  );
 
   User.associate = function(models) {
     User.hasMany(models.Post, {

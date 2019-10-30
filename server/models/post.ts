@@ -21,21 +21,25 @@ export interface PostInstance {
 }
 
 export = (sequelize: Sequelize, DataTypes: DataTypes) => {
-  var Post = sequelize.define("Post", {
-    title: DataTypes.STRING,
-    postContent: DataTypes.STRING,
-    liked: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
+  var Post = sequelize.define(
+    "Post",
+    {
+      title: DataTypes.STRING,
+      postContent: DataTypes.STRING,
+      liked: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+      },
+      likeCounts: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+      },
+      authorId: DataTypes.INTEGER
     },
-    likeCounts: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0
-    },
-    authorId: DataTypes.INTEGER
-  });
+    {}
+  );
 
   Post.associate = function(models) {
     Post.belongsTo(models.User, {
@@ -46,10 +50,8 @@ export = (sequelize: Sequelize, DataTypes: DataTypes) => {
     Post.hasMany(models.Likes, {
       foreignKey: "resourceId",
       timestamps: false,
-      onDelete: "CASCADE",
-      scope: {
-        type: "article"
-      }
+      targetKey: "id",
+      onDelete: "CASCADE"
     });
   };
 

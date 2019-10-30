@@ -3,6 +3,7 @@ import models from "../models";
 import dotenv from "dotenv";
 import { access } from "fs";
 import { Sequelize } from "sequelize-typescript";
+import { json } from "body-parser";
 
 dotenv.config();
 export default {
@@ -32,8 +33,7 @@ export default {
             id: post.id
           },
           include: [
-            { model: models.User, as: "author", attributes: ["username"] },
-            { model: models.Likes }
+            { model: models.User, as: "author", attributes: ["username"] }
           ]
         }).then(newPost => {
           res.status(200).send({
@@ -52,38 +52,35 @@ export default {
   },
   likePost: async (req: any, res: Response) => {
     const id = req.params.id;
-    const post = await models.Post.findByPk(id);
-    const userId = req.session.user.id;
-    if (userId == post.authorId) {
-      if (post.liked === true) {
-        post
-          .update({
-            liked: false,
-            likeCounts: post.likeCounts === 0 ? 0 : --post.likeCounts
-          })
-          .then(unliked => {
-            res.status(200).send({
-              message: "You have unliked this post",
-              post: unliked
-            });
+    console.log(id);
+    console.log(req.session.user.id);
+    models.Likes.findOne({
+      where: { userId: req.session.user.id, resourceId: id }
+    }).then(postLike => {
+      if (postLike) {
+        models.Likes.destroy({
+          where: {
+            userId: req.session.user.id,
+            resourceId: id
+          }
+        }).then(unliked => {
+          res.status(200).send({
+            message: "like removed",
+            likes: unliked
           });
+        });
       } else {
-        post
-          .update({
-            liked: true,
-            likeCounts: ++post.likeCounts
-          })
-          .then(liked => {
-            res.status(200).send({
-              message: "This post has been liked",
-              post: liked
-            });
+        models.Likes.create({
+          userId: req.session.user.id,
+          likeByMe: true,
+          resourceId: id
+        }).then(liked => {
+          res.status(200).send({
+            message: "You like this post",
+            likes: liked
           });
+        });
       }
-    } else {
-      res.status(500).send({
-        message: "You are not the current user"
-      });
-    }
+    });
   }
 };

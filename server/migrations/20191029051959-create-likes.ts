@@ -8,31 +8,23 @@ export = {
         autoIncrement: true,
         type: Sequelize.INTEGER
       },
-
-      likes: {
-        type: Sequelize.BOOLEAN
+      likeByMe: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+        allowNull: false
       },
-
       userId: {
         type: Sequelize.INTEGER,
         primaryKey: true
       },
-
       resourceId: {
         type: Sequelize.INTEGER,
         primaryKey: true
       },
-
-      type: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
       },
-
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
