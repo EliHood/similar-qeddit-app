@@ -51,36 +51,42 @@ export default {
     console.log(req.body);
   },
   likePost: async (req: any, res: Response) => {
-    const id = req.params.id;
-    console.log(id);
-    console.log(req.session.user.id);
-    models.Likes.findOne({
-      where: { userId: req.session.user.id, resourceId: id }
-    }).then(postLike => {
-      if (postLike) {
-        models.Likes.destroy({
-          where: {
-            userId: req.session.user.id,
-            resourceId: id
-          }
-        }).then(unliked => {
-          res.status(200).send({
-            message: "like removed",
-            likes: unliked
-          });
-        });
-      } else {
-        models.Likes.create({
-          userId: req.session.user.id,
-          likeByMe: true,
-          resourceId: id
-        }).then(liked => {
-          res.status(200).send({
-            message: "You like this post",
-            likes: liked
-          });
-        });
+    const created = await models.Likes.findOne({
+      where: {
+        userId: req.session.user.id,
+        resourceId: req.params.id
       }
     });
+    console.log(created);
+    const post = await models.Post.findOne({ where: { id: req.params.id } });
+    // if like not created then do this
+    if (!created && post) {
+      await models.Likes.create({
+        userId: req.session.user.id,
+        resourceId: req.params.id
+      }).then(() => {
+        post.increment("likeCounts", { by: 1 });
+        res.status(200).send({
+          message: "You liked this post"
+        });
+      });
+      // else if post does not exist
+    } else if (!post) {
+      res.status(200).send({
+        message: "there is not post to be liked"
+      });
+    } else {
+      // else if a like does exist destroy like
+      await models.Likes.destroy({
+        where: {
+          userId: req.session.user.id
+        }
+      }).then(() => {
+        post.decrement("likeCounts", { by: 1 });
+        res.status(200).send({
+          message: "You unliked this post"
+        });
+      });
+    }
   }
 };

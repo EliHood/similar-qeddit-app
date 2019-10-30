@@ -1,5 +1,5 @@
 import { Sequelize, DataTypes } from "sequelize";
-
+import models from "./";
 export interface PostAttributes {
   title?: string;
   postContent?: string;
@@ -54,6 +54,8 @@ export = (sequelize: Sequelize, DataTypes: DataTypes) => {
       onDelete: "CASCADE"
     });
   };
+
+  Post.prototype.likedByMe = postId => {};
 
   return Post;
 };
