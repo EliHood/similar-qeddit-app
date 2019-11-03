@@ -24,6 +24,7 @@ const PostList = (props: any) => {
             </Typography>
 
             <Typography align="right">Likes: {post.likeCounts}</Typography>
+            <Typography align="right">{post.likedByMe}</Typography>
             <Typography variant="h6" align="left">
               {moment(post.created_at).calendar()}
             </Typography>
