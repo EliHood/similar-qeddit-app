@@ -5,7 +5,7 @@ export interface PostAttributes {
   postContent?: string;
   liked: boolean;
   likeCounts: number;
-  authorId?: number;
+  userId?: number;
 }
 
 export interface PostInstance {
@@ -17,7 +17,7 @@ export interface PostInstance {
   postContent: string;
   liked: boolean;
   likeCounts: number;
-  authorId: number;
+  userId: number;
 }
 
 export = (sequelize: Sequelize, DataTypes: DataTypes) => {
@@ -26,17 +26,15 @@ export = (sequelize: Sequelize, DataTypes: DataTypes) => {
     {
       title: DataTypes.STRING,
       postContent: DataTypes.STRING,
-      liked: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false
-      },
       likeCounts: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0
+        validate: {
+          min: 0,
+        }
       },
-      authorId: DataTypes.INTEGER
+      userId: DataTypes.INTEGER
     },
     {}
   );
@@ -44,7 +42,7 @@ export = (sequelize: Sequelize, DataTypes: DataTypes) => {
   Post.associate = function(models) {
     Post.belongsTo(models.User, {
       as: "author",
-      foreignKey: "authorId",
+      foreignKey: "userId",
       onDelete: "CASCADE"
     });
     Post.hasMany(models.Likes, {
@@ -55,7 +53,7 @@ export = (sequelize: Sequelize, DataTypes: DataTypes) => {
     });
   };
 
-  Post.prototype.likedByMe = postId => {};
+
 
   return Post;
 };

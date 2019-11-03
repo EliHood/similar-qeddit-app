@@ -30,10 +30,10 @@ export = {
         defaultValue: 0
       },
 
-      authorId: {
-        type: Sequelize.INTEGER
+      userId: {
+        type: Sequelize.INTEGER,
+        primaryKey: true
       },
-
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -30,7 +30,7 @@ export = (sequelize: Sequelize, DataTypes: DataTypes) => {
 
   User.associate = function(models) {
     User.hasMany(models.Post, {
-      foreignKey: "authorId",
+      foreignKey: "userId",
       as: "author",
       onDelete: "CASCADE"
     });

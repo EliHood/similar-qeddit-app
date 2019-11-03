@@ -4,24 +4,42 @@ import dotenv from "dotenv";
 
 dotenv.config();
 export default {
-  getPosts: async (req: Request, res: Response) => {
-    await models.Post.findAll({
+  getPosts: async (req: any, res: Response) => {
+    // use async/await here
+    const posts = await models.Post.findAll({
       include: [
         { model: models.User, as: "author", attributes: ["username"] },
-        { model: models.Likes }
+        // limit the likes based on the logged in user
+        {
+          model: models.Likes
+        }
       ],
       order: [["createdAt", "DESC"]],
       limit: 6
-    }).then(posts => {
-      res.json(posts);
     });
+
+    posts.forEach(post => {
+      if (post.Likes.length === 0) {
+        post.setDataValue("likedByMe", false);
+      }
+      post.Likes.forEach(like => {
+        console.log(like.userId);
+        if (like.userId === req.session.user.id) {
+          post.setDataValue("likedByMe", true);
+        } else {
+          post.setDataValue("likedByMe", false);
+        }
+      });
+    });
+
+    return res.json(posts);
   },
   createPost: async (req: any, res: Response) => {
     // console.log(getUser);
     const postData = {
       title: req.body.title,
       postContent: req.body.postContent,
-      authorId: req.session.user.id
+      userId: req.session.user.id
     };
     await models.Post.create(postData)
       .then(post => {
@@ -33,14 +51,14 @@ export default {
             { model: models.User, as: "author", attributes: ["username"] }
           ]
         }).then(newPost => {
-          res.status(200).send({
+          return res.status(200).send({
             message: "post created",
             post: newPost
           });
         });
       })
       .catch(err => {
-        res.status(401).send({
+        return res.status(401).send({
           message: `Something went wrong`,
           error: err
         });
@@ -48,42 +66,77 @@ export default {
     console.log(req.body);
   },
   likePost: async (req: any, res: Response) => {
-    const created = await models.Likes.findOne({
-      where: {
-        userId: req.session.user.id,
-        resourceId: req.params.id
-      }
-    });
-    console.log(created);
-    const post = await models.Post.findOne({ where: { id: req.params.id } });
-    // if like not created then do this
-    if (!created && post) {
-      await models.Likes.create({
-        userId: req.session.user.id,
-        resourceId: req.params.id
-      }).then(() => {
-        post.increment("likeCounts", { by: 1 });
-        res.status(200).send({
+    // fetch created and post at the same time
+
+    const [created, post] = await Promise.all([
+      models.Likes.findOne({
+        where: {
+          userId: req.session.user.id,
+          resourceId: req.params.id
+        }
+      }),
+      models.Post.findOne({
+        where: {
+          id: req.params.id
+        }
+      })
+    ]);
+
+    // no post, no updates
+    if (!post) {
+      return res.status(200).send({
+        message: "there is no post to be liked"
+      });
+    }
+
+    // we are going to make updates, so use a transaction, you will need to reference sequelize
+    let transaction;
+    try {
+      transaction = await models.sequelize.transaction();
+
+      if (!created && post) {
+        // use Promise.all() for concurrency
+        await Promise.all([
+          models.Likes.create(
+            {
+              userId: req.session.user.id,
+              resourceId: req.params.id
+            },
+            { transaction }
+          ),
+          post.increment("likeCounts", { by: 1, transaction })
+        ]);
+
+        await transaction.commit();
+
+        return res.status(200).send({
           message: "You liked this post"
         });
+      }
+
+      await Promise.all([
+        models.Likes.destroy(
+          {
+            where: {
+              userId: req.session.user.id
+            }
+          },
+          { transaction }
+        ),
+        post.decrement("likeCounts", { by: 1, transaction })
+      ]);
+
+      await transaction.commit();
+
+      return res.status(200).send({
+        message: "You unliked this post"
       });
-      // else if post does not exist
-    } else if (!post) {
-      res.status(200).send({
-        message: "there is not post to be liked"
-      });
-    } else {
-      // else if a like does exist destroy like
-      await models.Likes.destroy({
-        where: {
-          userId: req.session.user.id
-        }
-      }).then(() => {
-        post.decrement("likeCounts", { by: 1 });
-        res.status(200).send({
-          message: "You unliked this post"
-        });
-      });
+    } catch (err) {
+      if (transaction) {
+        await transaction.rollback();
+      }
+      console.log("There was an error", err);
+      return res.status(500);
     }
   }
 };

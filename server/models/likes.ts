@@ -1,7 +1,6 @@
 import { Sequelize, DataTypes } from "sequelize";
 
 export interface LikesAttributes {
-  likedByme?: boolean;
   resourceId?: number;
   userId?: number;
 }
@@ -10,7 +9,7 @@ export interface LikesInstance {
   id: number;
   createdAt: Date;
   updatedAt: Date;
-  likedByMe: boolean;
+
   resourceId: number;
   userId: number;
 }
@@ -18,12 +17,7 @@ export interface LikesInstance {
 export = (sequelize: Sequelize, DataTypes: DataTypes) => {
   var Likes = sequelize.define("Likes", {
     userId: DataTypes.INTEGER,
-    resourceId: DataTypes.INTEGER,
-    likeByMe: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-      allowNull: false
-    }
+    resourceId: DataTypes.INTEGER
   });
 
   Likes.associate = function(models) {
