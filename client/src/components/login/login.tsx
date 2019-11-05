@@ -43,7 +43,6 @@ class Login extends Component<loginProps, loginState> {
     this.props.loginInit(creds);
   };
   render() {
-    console.log(this.props.user);
     return (
       <Fragment>
         {this.props.user.error && <div>{this.props.user.error}</div>}

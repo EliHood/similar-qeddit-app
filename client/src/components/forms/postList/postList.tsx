@@ -6,6 +6,8 @@ import Divider from "@material-ui/core/Divider";
 import moment from "moment";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 const PostList = (props: any) => {
   const { posts } = props;
 
@@ -24,9 +26,31 @@ const PostList = (props: any) => {
             </Typography>
 
             <Typography align="right">Likes: {post.likeCounts}</Typography>
-            <Typography align="right">{post.likedByMe}</Typography>
+            <span
+              style={{ cursor: "pointer" }}
+              onClick={() => props.likePost(post.id)}
+            >
+              {" "}
+              Like this post
+            </span>
+            <div style={{ margin: "20px 0px", cursor: "pointer" }}>
+              <span onClick={() => props.dislikePost(post.id)}>
+                Dislike this post
+              </span>
+            </div>
+            <Typography align="right">
+              {/* {post.likedByMe === true ? (
+                <FavoriteIcon style={{ color: "red" }}></FavoriteIcon>
+              ) : (
+                <FavoriteBorderIcon
+                  style={{ color: "red" }}
+                ></FavoriteBorderIcon>
+              )} */
+
+              post.likedByMe.toString()}
+            </Typography>
             <Typography variant="h6" align="left">
-              {moment(post.created_at).calendar()}
+              {moment(post.createdAt).calendar()}
             </Typography>
           </Paper>
         </Grid>

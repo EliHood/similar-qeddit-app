@@ -51,6 +51,7 @@ export default {
             { model: models.User, as: "author", attributes: ["username"] }
           ]
         }).then(newPost => {
+          newPost.setDataValue("likedByMe", false);
           return res.status(200).send({
             message: "post created",
             post: newPost
@@ -109,16 +110,49 @@ export default {
 
         await transaction.commit();
 
-        return res.status(200).send({
+        return res.status(200).json({
           message: "You liked this post"
         });
       }
+    } catch (err) {
+      if (transaction) {
+        await transaction.rollback();
+      }
+      console.log("There was an error", err);
+      return res.status(500);
+    }
+  },
+
+  disLikePost: async (req: any, res: Response) => {
+    const [created, post] = await Promise.all([
+      models.Likes.findOne({
+        where: {
+          userId: req.session.user.id,
+          resourceId: req.params.id
+        }
+      }),
+      models.Post.findOne({
+        where: {
+          id: req.params.id
+        }
+      })
+    ]);
+    // no post, no updates
+    if (!post) {
+      return res.status(200).json({
+        message: "there is no post to be unliked"
+      });
+    }
+    let transaction;
+    try {
+      transaction = await models.sequelize.transaction();
 
       await Promise.all([
         models.Likes.destroy(
           {
             where: {
-              userId: req.session.user.id
+              userId: req.session.user.id,
+              resourceId: req.params.id
             }
           },
           { transaction }
@@ -128,7 +162,7 @@ export default {
 
       await transaction.commit();
 
-      return res.status(200).send({
+      return res.status(200).json({
         message: "You unliked this post"
       });
     } catch (err) {

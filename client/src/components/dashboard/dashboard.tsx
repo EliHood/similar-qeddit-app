@@ -6,6 +6,8 @@ export interface dashboardProps {
   getPostsInit: () => void;
   posts: Array<any>;
   createPostInit: (event: object) => void;
+  likePost: (event: number) => void;
+  dislikePost: (event: number) => void;
 }
 export interface dashboardState {
   title: string;
@@ -45,7 +47,11 @@ class Dashboard extends Component<dashboardProps, dashboardState> {
           onSubmit={this.onSubmit}
         />
         <br />
-        <PostList posts={this.props.posts} />
+        <PostList
+          likePost={this.props.likePost}
+          dislikePost={this.props.dislikePost}
+          posts={this.props.posts}
+        />
       </Fragment>
     );
   }

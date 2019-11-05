@@ -1,8 +1,15 @@
 import { connect } from "react-redux";
 import Dashboard from "../components/dashboard/dashboard";
-import { getPostsInit, createPostInit } from "../actions/postActions";
+import {
+  getPostsInit,
+  createPostInit,
+  dislikePostInit,
+  likePostInit
+} from "../actions/postActions";
 const mapDispatchToProps = (dispatch: any) => ({
   getPostsInit: () => dispatch(getPostsInit()),
+  likePost: (id: number) => dispatch(likePostInit(id)),
+  dislikePost: (id: number) => dispatch(dislikePostInit(id)),
   createPostInit: (postData: object) => dispatch(createPostInit(postData))
 });
 

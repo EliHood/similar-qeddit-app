@@ -5,4 +5,5 @@ const router: express.Router = express.Router();
 router.get("/getPosts", postController.getPosts);
 router.post("/createPost", postController.createPost);
 router.post("/likePost/:id", postController.likePost);
+router.post("/dislikePost/:id", postController.disLikePost);
 export default router;
