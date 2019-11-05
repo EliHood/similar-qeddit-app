@@ -94,7 +94,11 @@ export default {
     let transaction;
     try {
       transaction = await models.sequelize.transaction();
-
+      if (created && post) {
+        return res.status(200).send({
+          message: "You already liked this post"
+        });
+      }
       if (!created && post) {
         // use Promise.all() for concurrency
         await Promise.all([

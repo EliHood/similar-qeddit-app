@@ -39,15 +39,13 @@ const PostList = (props: any) => {
               </span>
             </div>
             <Typography align="right">
-              {/* {post.likedByMe === true ? (
+              {post.likedByMe === true ? (
                 <FavoriteIcon style={{ color: "red" }}></FavoriteIcon>
               ) : (
                 <FavoriteBorderIcon
                   style={{ color: "red" }}
                 ></FavoriteBorderIcon>
-              )} */
-
-              post.likedByMe.toString()}
+              )}
             </Typography>
             <Typography variant="h6" align="left">
               {moment(post.createdAt).calendar()}
