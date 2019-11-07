@@ -12,7 +12,7 @@
     "build": "concurrently \"cd client && npm run build\"",
     "postinstall": "npm postinstall:server && yarn postinstall:client",
     "postinstall:server": "cd server && npm install --production=false ",
-    "postinstall:client": "cd client && npm install --production=false && yarn build"
+    "postinstall:client": "cd client && npm install --production=false && npm build"
   },
   "author": "",
   "license": "ISC",
