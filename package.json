@@ -10,7 +10,7 @@
     "client": "cd ./client && npm start",
     "startdev": "concurrently --kill-others \"npm run client\" \"npm run server\" ",
     "build": "concurrently \"cd client && npm run build\"",
-    "postinstall": "npm postinstall:server && yarn postinstall:client",
+    "postinstall": "npm postinstall:server && npm postinstall:client",
     "postinstall:server": "cd server && npm install --production=false ",
     "postinstall:client": "cd client && npm install --production=false && npm build"
   },
