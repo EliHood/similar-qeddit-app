@@ -1,1 +1,1 @@
-web: node ./server/dist/app.js
+web: cd server && npm run server
