@@ -49,6 +49,6 @@
   "devDependencies": {
     "@types/react": "16.9.9",
     "tslint": "^5.20.0",
-    "typescript": "^3.6.4"
+    "typescript": "^3.7.2"
   }
 }
