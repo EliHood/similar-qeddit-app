@@ -56,12 +56,19 @@ app.use("/api/v1", apiRouter);
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
-// once this is built into the dist folder, it would need to find the client folder from the dist
-// directory
-app.use("*", (req, res: Response) => {
-  console.log(path.join(__dirname, "../../client", "build", "index.html"));
-  res.sendFile(path.join(__dirname, "../../client", "build", "index.html"));
-});
+
+/**
+ * middlewares
+ */
+/* development build, use logger & simulateLatency */
+if (process.env.NODE_ENV === "production") {
+  app.use(logger("dev"));
+
+  app.use("*", (req, res: Response) => {
+    console.log(path.join(__dirname, "../../client", "build", "index.html"));
+    res.sendFile(path.join(__dirname, "../../client", "build", "index.html"));
+  });
+}
 
 models.sequelize.sync().then(() => {
   httpServer.listen(app.get("port"), () => {
