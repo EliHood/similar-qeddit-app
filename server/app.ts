@@ -43,7 +43,7 @@ app.use(useSession());
 app.use(checkSession());
 app.use(
   cors({
-    origin: "http://localhost:3001",
+    origin: process.env.ALLOW_ORIGIN,
     preflightContinue: true,
     credentials: true,
     allowedHeaders: "X-Requested-With, Content-Type, Authorization",
