@@ -4,7 +4,7 @@
   "main": "app.js",
   "scripts": {
     "start": "concurrently --kill-others \"npm run build\" \"npm run server\"",
-    "server": "NODE_ENV=development ./dist/app.js",
+    "server": "node ./dist/app.js",
     "serve": "nodemon --config nodemon-config.json --inspect dist/app.js",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
