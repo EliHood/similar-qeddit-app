@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import apiRouter from "./routers";
 import dotenv from "dotenv";
+import path from "path";
 import session from "express-session";
 import models from "./models/";
 import { useSession, checkSession } from "./middlewares";
@@ -50,9 +51,16 @@ app.use(
     exposedHeaders: ["Content-Length", "X-Foo", "X-Bar"]
   })
 );
+app.use(express.static(path.join(__dirname, "../../client", "build")));
 app.use("/api/v1", apiRouter);
 app.get("/", (req, res) => {
   res.send("Hello World!");
+});
+// once this is built into the dist folder, it would need to find the client folder from the dist
+// directory
+app.use("*", (req, res: Response) => {
+  console.log(path.join(__dirname, "../../client", "build", "index.html"));
+  res.sendFile(path.join(__dirname, "../../client", "build", "index.html"));
 });
 
 models.sequelize.sync().then(() => {
