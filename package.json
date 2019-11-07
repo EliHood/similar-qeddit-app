@@ -10,8 +10,8 @@
     "client": "cd ./client && npm start",
     "startdev": "concurrently --kill-others \"npm run client\" \"npm run server\" ",
     "build": "concurrently \"cd client && npm run build\"",
-    "client-install": "cd ./server && npm install --prefix client",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd ./server npm install --prefix client && cd ./server npm run build --prefix client"
+    "heroku-postbuild": "npm run --prefix client build",
+    "postinstall": "npm --prefix client install && npm --prefix server install"
   },
   "author": "",
   "license": "ISC",
