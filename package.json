@@ -10,9 +10,13 @@
     "client": "cd ./client && npm start",
     "startdev": "concurrently --kill-others \"npm run client\" \"npm run server\" ",
     "build": "concurrently \"cd client && npm run build\"",
-    "postinstall": "npm postinstall:server && npm postinstall:client",
-    "postinstall:server": "cd server && npm install --production=false ",
-    "postinstall:client": "cd client && npm install --production=false && npm build"
+    "postinstall": "yarn postinstall:server && yarn postinstall:client",
+    "postinstall:server": "cd server && yarn install --production=false ",
+    "postinstall:client": "cd client && yarn install --production=false && yarn build"
+  },
+  "engines": {
+    "node": "^8.11.3",
+    "yarn": "^1.9.2"
   },
   "author": "",
   "license": "ISC",
