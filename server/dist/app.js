@@ -67,7 +67,7 @@ if (process.env.NODE_ENV === "production") {
     });
 }
 models_1.default.sequelize.sync().then(() => {
-    httpServer.listen(app.get("port"), host, () => {
+    httpServer.listen(PORT, () => {
         console.log("App is running at http://localhost:%d in %s mode", app.get("port"), app.get("env"));
         console.log("  Press CTRL-C to stop\n");
     });
