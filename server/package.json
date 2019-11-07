@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "./dist/app.js",
   "scripts": {
     "start": "concurrently --kill-others \"npm run build\" \"npm run server\"",
     "server": "node ./dist/app.js",
