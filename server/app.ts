@@ -12,7 +12,7 @@ import session from "express-session";
 import models from "./models/";
 import { useSession, checkSession } from "./middlewares";
 dotenv.config();
-const PORT = process.env.SERVER_PORT || 3000;
+const PORT = process.env.SERVER_PORT || 5000;
 const app: express.Application = express();
 const httpServer = http.createServer(app);
 

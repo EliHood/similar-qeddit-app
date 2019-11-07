@@ -15,7 +15,7 @@ const path_1 = __importDefault(require("path"));
 const models_1 = __importDefault(require("./models/"));
 const middlewares_1 = require("./middlewares");
 dotenv_1.default.config();
-const PORT = process.env.SERVER_PORT || 3000;
+const PORT = process.env.SERVER_PORT || 5000;
 const app = express_1.default();
 const httpServer = http_1.default.createServer(app);
 /**
