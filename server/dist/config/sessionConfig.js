@@ -8,10 +8,19 @@ const sequelize_1 = __importDefault(require("sequelize"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const SequelizeStore = require("connect-session-sequelize")(express_session_1.default.Store);
-const sequelize = new sequelize_1.default(process.env.PSQL_NAME, process.env.PSQL_USER, process.env.PSQL_PASS, {
-    dialect: "sqlite",
-    storage: "./session.sqlite"
-});
+let sequelize;
+if (process.env.NODE_ENV === "development") {
+    sequelize = new sequelize_1.default(process.env.PSQL_NAME, process.env.PSQL_USER, process.env.PSQL_PASS, {
+        dialect: "sqlite",
+        storage: "./session.sqlite"
+    });
+}
+else {
+    sequelize = new sequelize_1.default(process.env.DATABASE_URL, {
+        dialect: "sqlite",
+        storage: "./session.sqlite"
+    });
+}
 const myStore = new SequelizeStore({
     db: sequelize
 });

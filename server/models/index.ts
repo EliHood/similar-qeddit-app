@@ -9,8 +9,8 @@ var config = require("../config/database.config");
 var db = {};
 var dotenv = require("dotenv");
 dotenv.config();
-if (config.use_env_variable) {
-  var sequelize = new Sequelize(process.env[config.use_env_variable], config);
+if (process.env.NODE_ENV === "production") {
+  var sequelize = new Sequelize(process.env.DATABASE_URL, null);
 } else {
   var sequelize = new Sequelize("elifullstack8", "elihood", "", {
     host: "127.0.0.1",

@@ -3,15 +3,24 @@ import Sequelize from "sequelize";
 import dotenv from "dotenv";
 dotenv.config();
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
-const sequelize = new Sequelize(
-  process.env.PSQL_NAME,
-  process.env.PSQL_USER,
-  process.env.PSQL_PASS,
-  {
+
+let sequelize;
+if (process.env.NODE_ENV === "development") {
+  sequelize = new Sequelize(
+    process.env.PSQL_NAME,
+    process.env.PSQL_USER,
+    process.env.PSQL_PASS,
+    {
+      dialect: "sqlite",
+      storage: "./session.sqlite"
+    }
+  );
+} else {
+  sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: "sqlite",
     storage: "./session.sqlite"
-  }
-);
+  });
+}
 
 const myStore = new SequelizeStore({
   db: sequelize
