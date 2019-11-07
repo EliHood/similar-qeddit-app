@@ -8,6 +8,7 @@ import bodyParser from "body-parser";
 import apiRouter from "./routers";
 import dotenv from "dotenv";
 import path from "path";
+
 import session from "express-session";
 import models from "./models/";
 import { useSession, checkSession } from "./middlewares";
@@ -15,7 +16,7 @@ dotenv.config();
 const PORT = process.env.SERVER_PORT || 5000;
 const app: express.Application = express();
 const httpServer = http.createServer(app);
-
+const host = "0.0.0.0";
 /**
  * middlewares
  */
@@ -71,7 +72,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 models.sequelize.sync().then(() => {
-  httpServer.listen(app.get("port"), () => {
+  httpServer.listen(app.get("port"), host, () => {
     console.log(
       "App is running at http://localhost:%d in %s mode",
       app.get("port"),
