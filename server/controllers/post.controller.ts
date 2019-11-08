@@ -26,8 +26,6 @@ export default {
         console.log(like.userId);
         if (like.userId === req.session.user.id) {
           post.setDataValue("likedByMe", true);
-        } else {
-          post.setDataValue("likedByMe", false);
         }
       });
     });
@@ -150,25 +148,26 @@ export default {
     let transaction;
     try {
       transaction = await models.sequelize.transaction();
+      if (created && post) {
+        await Promise.all([
+          models.Likes.destroy(
+            {
+              where: {
+                userId: req.session.user.id,
+                resourceId: req.params.id
+              }
+            },
+            { transaction }
+          ),
+          post.decrement("likeCounts", { by: 1, transaction })
+        ]);
 
-      await Promise.all([
-        models.Likes.destroy(
-          {
-            where: {
-              userId: req.session.user.id,
-              resourceId: req.params.id
-            }
-          },
-          { transaction }
-        ),
-        post.decrement("likeCounts", { by: 1, transaction })
-      ]);
+        await transaction.commit();
 
-      await transaction.commit();
-
-      return res.status(200).json({
-        message: "You unliked this post"
-      });
+        return res.status(200).json({
+          message: "You unliked this post"
+        });
+      }
     } catch (err) {
       if (transaction) {
         await transaction.rollback();

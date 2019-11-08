@@ -18,7 +18,6 @@ dotenv_1.default.config();
 const PORT = process.env.PORT || 5000;
 const app = express_1.default();
 const httpServer = http_1.default.createServer(app);
-const host = "0.0.0.0";
 /**
  * middlewares
  */

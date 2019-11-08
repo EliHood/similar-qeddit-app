@@ -8,15 +8,12 @@ import bodyParser from "body-parser";
 import apiRouter from "./routers";
 import dotenv from "dotenv";
 import path from "path";
-
-import session from "express-session";
 import models from "./models/";
 import { useSession, checkSession } from "./middlewares";
 dotenv.config();
 const PORT = process.env.PORT || 5000;
 const app: express.Application = express();
 const httpServer = http.createServer(app);
-const host = "0.0.0.0";
 /**
  * middlewares
  */
