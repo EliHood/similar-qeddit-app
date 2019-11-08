@@ -17,7 +17,10 @@ export function* registerUser(action) {
 
     yield put(actionTypes.signUpSuccess(decoded));
   } catch (error) {
-    yield put(actionTypes.signUpFailure(error));
+    console.log(error);
+    const errMsg = error.response.data.meta.message;
+    console.log(errMsg);
+    yield put(actionTypes.signUpFailure(errMsg));
   }
 }
 export function* getAutoLoginStatus(action) {

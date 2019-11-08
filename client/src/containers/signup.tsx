@@ -4,8 +4,11 @@ import { signUpInit } from "../actions/userActions";
 const mapDispatchToProps = (dispatch: any) => ({
   signUpInit: (userData: object) => dispatch(signUpInit(userData))
 });
+const mapStateToProps = (state: any) => ({
+  user: state.user
+});
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Register);

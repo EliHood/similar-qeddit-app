@@ -7,6 +7,7 @@ import IsAuth from "../hoc/isAuthenticated";
 export interface registerProps {
   onChange: (event: any) => void;
   signUpInit: (event: object) => void;
+  user?: any;
 }
 export interface registerState {
   username: string;
@@ -59,6 +60,8 @@ class Register extends Component<registerProps, registerState> {
         <Typography variant="h4" style={{ letterSpacing: "2px" }}>
           Register
         </Typography>
+        {this.props.user.error && <div>{this.props.user.error}</div>}
+        {this.state.passErr && <div>{this.state.passErr}</div>}
         <SignUpForm
           submit={this.handleSubmit}
           username={this.state.username}

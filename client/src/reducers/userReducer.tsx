@@ -23,6 +23,10 @@ const authReducer = (state = initialState, action: any): userState =>
         console.log(action);
         draft.isAuthenticated = sessionData.getLoginStatus();
         return;
+      case types.SIGN_UP_FAILURE:
+        console.log(action);
+        draft.error = action.error;
+        return;
       case types.FETCH_AUTO_LOGIN_SUCCESS:
         console.log(action);
         return;

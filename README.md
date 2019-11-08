@@ -12,6 +12,7 @@
 #### Functionalies
 
 - Sign Up
+- Sign Up Validations
 - Log in
 - Log Out
 - Like A Post

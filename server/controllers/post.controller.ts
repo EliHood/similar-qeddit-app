@@ -141,7 +141,7 @@ export default {
     ]);
     // no post, no updates
     if (!post) {
-      return res.status(200).json({
+      return res.status(401).json({
         message: "there is no post to be unliked"
       });
     }

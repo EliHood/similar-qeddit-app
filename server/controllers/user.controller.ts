@@ -219,7 +219,7 @@ export default {
             meta: {
               type: "error",
               status: 500,
-              message: "server error, something went wrong"
+              message: err.message
             }
           });
         });
