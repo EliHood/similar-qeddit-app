@@ -222,7 +222,7 @@ exports.default = {
                     meta: {
                         type: "error",
                         status: 500,
-                        message: err.message
+                        message: err.message.slice(18)
                     }
                 });
             });
