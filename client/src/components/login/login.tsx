@@ -3,6 +3,7 @@ import Typography from "@material-ui/core/Typography";
 import LoginForm from "../forms/login/login";
 import GridHoc from "../hoc/grid";
 import IsAuth from "../hoc/isAuthenticated";
+import { GoogleLogin } from "react-google-login";
 
 export interface loginProps {
   onChange: (event: any) => void;
@@ -55,6 +56,10 @@ class Login extends Component<loginProps, loginState> {
           password={this.state.password}
           loginOnChange={this.handleChange}
         />
+        <h2>Login With Google</h2>
+        <a href={process.env.REACT_APP_BASE_URL + "api/v1/users/auth/google"}>
+          Login With Google
+        </a>
       </Fragment>
     );
   }

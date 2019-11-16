@@ -62,3 +62,17 @@ export const loginFailure = (error: string) => ({
   type: types.LOG_IN_FAILURE,
   error
 });
+
+export const getUser = () => ({
+  type: types.GET_USER
+});
+
+export const getUserSuccess = (payload: object) => ({
+  type: types.GET_USER_SUCCESS,
+  payload
+});
+
+export const getUserFailure = (error: string) => ({
+  type: types.GET_USER_FAILURE,
+  error
+});

@@ -1,6 +1,6 @@
 export default {
   // save logged session
-  setUserLoggedIn: (token: string) => {
+  setUserLoggedIn: (token: any) => {
     localStorage.setItem("jwtToken", token);
   },
   // remove token
@@ -8,5 +8,6 @@ export default {
     localStorage.removeItem("jwtToken");
   },
   //   check if a user is signed in and stuff
-  getLoginStatus: () => (localStorage.getItem("jwtToken") ? true : false)
+  getLoginStatus: () =>
+    localStorage.getItem("jwtToken") !== "null" ? true : false
 };

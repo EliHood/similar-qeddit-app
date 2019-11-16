@@ -23,8 +23,12 @@ export default {
         post.setDataValue("likedByMe", false);
       }
       post.Likes.forEach(like => {
-        console.log(like.userId);
-        if (like.userId === req.session.user.id) {
+        // console.log(like.userId);
+        if (req.user) {
+          if (like.user === req.user.id) {
+            post.setDataValue("likedByMe", true);
+          }
+        } else if (like.user === req.session.user.id) {
           post.setDataValue("likedByMe", true);
         }
       });
@@ -37,7 +41,7 @@ export default {
     const postData = {
       title: req.body.title,
       postContent: req.body.postContent,
-      userId: req.session.user.id
+      userId: req.session.user.id || req.user.id
     };
     await models.Post.create(postData)
       .then(post => {
@@ -70,7 +74,7 @@ export default {
     const [created, post] = await Promise.all([
       models.Likes.findOne({
         where: {
-          userId: req.session.user.id,
+          userId: req.session.user.id || req.user.id,
           resourceId: req.params.id
         }
       }),
@@ -102,7 +106,7 @@ export default {
         await Promise.all([
           models.Likes.create(
             {
-              userId: req.session.user.id,
+              userId: req.session.user.id || req.user.id,
               resourceId: req.params.id
             },
             { transaction }
@@ -129,7 +133,7 @@ export default {
     const [created, post] = await Promise.all([
       models.Likes.findOne({
         where: {
-          userId: req.session.user.id,
+          userId: req.session.user.id || req.user.id,
           resourceId: req.params.id
         }
       }),
@@ -153,7 +157,7 @@ export default {
           models.Likes.destroy(
             {
               where: {
-                userId: req.session.user.id,
+                userId: req.session.user.id || req.user.id,
                 resourceId: req.params.id
               }
             },

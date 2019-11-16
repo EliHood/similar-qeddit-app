@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Router from "./Router";
-import { fetchAutoAuthInit, logOutInit } from "./actions/userActions";
+import { getUser, logOutInit } from "./actions/userActions";
+import { withRouter } from "react-router";
 export interface routerContainerState {
   hasError: boolean;
 }
 export interface routerContainerProps {
-  fetchAutoAuthInit: () => void;
+  getUser: () => void;
   logOutInit: () => void;
   user: {
     isAuthenticated: boolean;
@@ -17,7 +18,7 @@ class Nav extends Component<routerContainerProps, routerContainerState> {
     hasError: false
   };
   componentDidMount() {
-    this.props.fetchAutoAuthInit();
+    this.props.getUser();
   }
   componentDidCatch(error, info) {
     console.log(error, info);
@@ -39,14 +40,11 @@ class Nav extends Component<routerContainerProps, routerContainerState> {
   }
 }
 const dispatchToProps = (dispatch: any) => ({
-  fetchAutoAuthInit: () => dispatch(fetchAutoAuthInit()),
+  getUser: () => dispatch(getUser()),
   logOutInit: () => dispatch(logOutInit())
 });
 
 const mapStateToProps = (state: any) => ({
   user: state.user
 });
-export default connect(
-  mapStateToProps,
-  dispatchToProps
-)(Nav);
+export default connect(mapStateToProps, dispatchToProps)(Nav);

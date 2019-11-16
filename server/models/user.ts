@@ -22,7 +22,7 @@ export = (sequelize: Sequelize, DataTypes: DataTypes) => {
     {
       username: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
           isAlphanumeric: {
             args: true,
@@ -39,7 +39,11 @@ export = (sequelize: Sequelize, DataTypes: DataTypes) => {
         validate:{
           min: 6
         }
-      }
+      },
+      googleId:{
+        type:DataTypes.STRING,
+        allowNull:true
+      },
       email: DataTypes.STRING,
       forget_password: DataTypes.STRING
     },

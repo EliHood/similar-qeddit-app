@@ -12,6 +12,8 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const routers_1 = __importDefault(require("./routers"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const path_1 = __importDefault(require("path"));
+const passport_1 = __importDefault(require("passport"));
+require("./config/passport");
 const models_1 = __importDefault(require("./models/"));
 const middlewares_1 = require("./middlewares");
 dotenv_1.default.config();
@@ -41,6 +43,8 @@ app.use(body_parser_1.default.json({ limit: "5mb" }));
 app.use(body_parser_1.default.urlencoded({ limit: "5mb", extended: true }));
 app.use(middlewares_1.useSession());
 app.use(middlewares_1.checkSession());
+app.use(passport_1.default.initialize());
+app.use(passport_1.default.session());
 app.use(cors_1.default({
     origin: process.env.ALLOW_ORIGIN,
     preflightContinue: true,

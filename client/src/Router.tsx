@@ -1,11 +1,5 @@
 import React, { Fragment } from "react";
-import {
-  HashRouter,
-  Route,
-  BrowserRouter as Router,
-  Link,
-  Switch
-} from "react-router-dom";
+import { HashRouter, Route, Router, Link, Switch } from "react-router-dom";
 import Landing from "./components/landing/landing";
 import Register from "./containers/signup";
 import Dashboard from "./containers/dashboard";
@@ -15,12 +9,14 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Login from "./containers/login";
+import { withRouter } from "react-router";
+import { history } from "./ourHistory";
 import PrivateRoute from "./PrivateRoute";
 const MyRouter = props =>
   props.hasError ? (
     <div>Error</div>
   ) : (
-    <Router history={null}>
+    <Router history={history}>
       <HashRouter>
         <AppBar position="static">
           <Toolbar>

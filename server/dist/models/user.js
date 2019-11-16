@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     var User = sequelize.define("User", {
         username: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
             validate: {
                 isAlphanumeric: {
                     args: true,
@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
             validate: {
                 min: 6
             }
+        },
+        googleId: {
+            type: DataTypes.STRING,
+            allowNull: true
         },
         email: DataTypes.STRING,
         forget_password: DataTypes.STRING

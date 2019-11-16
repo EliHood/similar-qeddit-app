@@ -7,7 +7,9 @@ export default {
     autoLogin: () => Axios.get("/api/v1/users/auth").then(res => res.data),
     logOut: () => Axios.get("/api/v1/users/logout").then(res => res.data),
     logIn: (userData: any) =>
-      Axios.post("/api/v1/users/login", userData).then(res => res.data)
+      Axios.post("/api/v1/users/login", userData).then(res => res.data),
+    currentUser: () =>
+      Axios.get("/api/v1/users/currentUser").then(res => res.data)
   },
   post: {
     createPost: (postData: any) =>

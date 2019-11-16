@@ -4,7 +4,7 @@ import * as actionTypes from "../actions/userActions";
 import * as types from "../actionTypes/userActionTypes";
 import api from "../api/api";
 import { sessionData, setAuthToken } from "../utils";
-
+import { history } from "../ourHistory";
 export function* registerUser(action) {
   try {
     console.log(action);
@@ -25,11 +25,14 @@ export function* registerUser(action) {
 }
 export function* getAutoLoginStatus(action) {
   try {
-    const login = yield call(api.user.autoLogin);
+    const login = yield call(api.user.currentUser);
     console.log(login);
-    yield put(actionTypes.fetchAuthAuthSuccess(login));
+    const token = login.token;
+    setAuthToken(token);
+    sessionData.setUserLoggedIn(token);
+    yield put(actionTypes.getUserSuccess(token));
   } catch (error) {
-    yield put(actionTypes.fetchAuthAuthFailure(error));
+    yield put(actionTypes.getUserFailure(error));
   }
 }
 
@@ -37,6 +40,7 @@ export function* logOut() {
   try {
     const logout = yield call(api.user.logOut);
     sessionData.setUserLoggdOut();
+    history.push("/");
     yield put(actionTypes.logOutSuccess(logout));
   } catch (error) {
     yield put(actionTypes.logOutFailure(error));
@@ -64,7 +68,7 @@ export function* watchLogin() {
   yield takeLatest(types.LOG_IN_INIT, login);
 }
 export function* watchAuthLogin() {
-  yield takeLatest(types.FETCH_AUTO_LOGIN, getAutoLoginStatus);
+  yield takeLatest(types.GET_USER, getAutoLoginStatus);
 }
 export function* watchUserRegister() {
   yield takeLatest(types.SIGN_UP_INIT, registerUser);

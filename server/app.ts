@@ -8,6 +8,8 @@ import bodyParser from "body-parser";
 import apiRouter from "./routers";
 import dotenv from "dotenv";
 import path from "path";
+import passport from "passport";
+import "./config/passport";
 import models from "./models/";
 import { useSession, checkSession } from "./middlewares";
 dotenv.config();
@@ -39,6 +41,8 @@ app.use(bodyParser.json({ limit: "5mb" }));
 app.use(bodyParser.urlencoded({ limit: "5mb", extended: true }));
 app.use(useSession());
 app.use(checkSession());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(
   cors({
     origin: process.env.ALLOW_ORIGIN,

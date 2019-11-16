@@ -47,7 +47,10 @@ export const up = (queryInterface: QueryInterface, Sequelize: any) => {
     forget_password: {
       type: Sequelize.STRING
     },
-
+    googleId: {
+      allowNull: true,
+      type: Sequelize.STRING
+    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE
