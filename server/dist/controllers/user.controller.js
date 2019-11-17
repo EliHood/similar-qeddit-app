@@ -115,35 +115,6 @@ exports.default = {
             });
         }
     }),
-    tryAutoSignInUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        try {
-            const currentUserId = req.session.user.id;
-            console.log(currentUserId);
-            console.log(currentUserId);
-            const user = yield models_1.default.User.findOne({
-                where: { id: currentUserId },
-                raw: true
-            });
-            res.status(200).send({
-                meta: {
-                    type: "success",
-                    status: 200,
-                    message: ""
-                },
-                user: user
-            });
-        }
-        catch (err) {
-            console.log(err);
-            res.status(500).send({
-                meta: {
-                    type: "error",
-                    status: 500,
-                    message: "server error"
-                }
-            });
-        }
-    }),
     currentUser: (req, res) => {
         let curUser;
         let token;

@@ -105,35 +105,6 @@ export default {
       });
     }
   },
-  tryAutoSignInUser: async (req: any, res: Response) => {
-    try {
-      const currentUserId = req.session.user.id;
-      console.log(currentUserId);
-      console.log(currentUserId);
-      const user = await models.User.findOne({
-        where: { id: currentUserId },
-        raw: true
-      });
-
-      res.status(200).send({
-        meta: {
-          type: "success",
-          status: 200,
-          message: ""
-        },
-        user: user
-      });
-    } catch (err) {
-      console.log(err);
-      res.status(500).send({
-        meta: {
-          type: "error",
-          status: 500,
-          message: "server error"
-        }
-      });
-    }
-  },
 
   currentUser: (req: any, res: Response) => {
     let curUser;

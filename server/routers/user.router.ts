@@ -4,7 +4,6 @@ import { authenticationPolicy } from "../middlewares";
 import passport from "passport";
 const router: express.Router = express.Router();
 router.post("/signup", userController.signUpUser);
-router.get("/auth", authenticationPolicy, userController.tryAutoSignInUser);
 router.get("/logOut", userController.logOut);
 router.post("/login", userController.signInUser);
 router.get("/getUsers", userController.getUsers);

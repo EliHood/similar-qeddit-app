@@ -12,11 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = __importStar(require("express"));
 const controllers_1 = require("../controllers");
-const middlewares_1 = require("../middlewares");
 const passport_1 = __importDefault(require("passport"));
 const router = express.Router();
 router.post("/signup", controllers_1.userController.signUpUser);
-router.get("/auth", middlewares_1.authenticationPolicy, controllers_1.userController.tryAutoSignInUser);
 router.get("/logOut", controllers_1.userController.logOut);
 router.post("/login", controllers_1.userController.signInUser);
 router.get("/getUsers", controllers_1.userController.getUsers);
