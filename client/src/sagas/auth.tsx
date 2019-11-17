@@ -26,7 +26,6 @@ export function* registerUser(action) {
 export function* getAutoLoginStatus(action) {
   try {
     const login = yield call(api.user.currentUser);
-    console.log(login);
     const token = login.token;
     setAuthToken(token);
     sessionData.setUserLoggedIn(token);
