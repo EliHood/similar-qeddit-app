@@ -21,7 +21,7 @@ const GoogleSta = passport_google_oauth20_1.default.Strategy;
 passport_1.default.use(new GoogleSta({
     clientID: process.env.clientID,
     clientSecret: process.env.clientSecret,
-    callbackURL: "http://localhost:5000/api/v1/users/auth/google/callback"
+    callbackURL: process.env.callbackURL
 }, (token, tokenSecret, profile, done) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(profile);
     models_1.default.User.findOne({ where: { googleId: profile.id } }).then((userExist) => __awaiter(void 0, void 0, void 0, function* () {
