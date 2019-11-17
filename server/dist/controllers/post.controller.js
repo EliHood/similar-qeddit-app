@@ -50,7 +50,7 @@ exports.default = {
     createPost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // console.log(getUser);
         let postData;
-        if (re.user && req.user.id) {
+        if (req.user && req.user.id) {
             postData = {
                 title: req.body.title,
                 postContent: req.body.postContent,

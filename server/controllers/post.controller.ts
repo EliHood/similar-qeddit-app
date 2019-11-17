@@ -39,7 +39,7 @@ export default {
   createPost: async (req: any, res: Response) => {
     // console.log(getUser);
     let postData;
-    if (re.user && req.user.id) {
+    if (req.user && req.user.id) {
       postData = {
         title: req.body.title,
         postContent: req.body.postContent,
