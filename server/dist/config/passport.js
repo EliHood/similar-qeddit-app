@@ -37,6 +37,7 @@ passport_1.default.use(new GoogleSta({
                 yield Promise.all([
                     models_1.default.User.create({
                         googleId: profile.id,
+                        username: null,
                         email: profile.emails[0].value
                     }, { transaction })
                 ]).then((user) => __awaiter(void 0, void 0, void 0, function* () {

@@ -28,6 +28,7 @@ passport.use(
                 models.User.create(
                   {
                     googleId: profile.id,
+                    username: null,
                     email: profile.emails[0].value
                   },
                   { transaction }

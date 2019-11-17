@@ -25,10 +25,10 @@ export default {
       post.Likes.forEach(like => {
         // console.log(like.userId);
         if (req.user) {
-          if (like.user === req.user.id) {
+          if (like.userId === req.user.id) {
             post.setDataValue("likedByMe", true);
           }
-        } else if (like.user === req.session.user.id) {
+        } else if (like.userId === req.session.user.id) {
           post.setDataValue("likedByMe", true);
         }
       });
@@ -38,11 +38,21 @@ export default {
   },
   createPost: async (req: any, res: Response) => {
     // console.log(getUser);
-    const postData = {
-      title: req.body.title,
-      postContent: req.body.postContent,
-      userId: req.session.user.id || req.user.id
-    };
+    let postData;
+    if (re.user && req.user.id) {
+      postData = {
+        title: req.body.title,
+        postContent: req.body.postContent,
+        userId: req.user.id
+      };
+    } else {
+      postData = {
+        title: req.body.title,
+        postContent: req.body.postContent,
+        userId: req.session.user.id
+      };
+    }
+
     await models.Post.create(postData)
       .then(post => {
         models.Post.findOne({
@@ -70,11 +80,16 @@ export default {
   },
   likePost: async (req: any, res: Response) => {
     // fetch created and post at the same time
-
+    let currentUser;
+    if (req.user) {
+      currentUser = req.user.id;
+    } else {
+      currentUser = req.session.user.id;
+    }
     const [created, post] = await Promise.all([
       models.Likes.findOne({
         where: {
-          userId: req.session.user.id || req.user.id,
+          userId: currentUser,
           resourceId: req.params.id
         }
       }),
@@ -106,7 +121,7 @@ export default {
         await Promise.all([
           models.Likes.create(
             {
-              userId: req.session.user.id || req.user.id,
+              userId: currentUser,
               resourceId: req.params.id
             },
             { transaction }
@@ -130,10 +145,16 @@ export default {
   },
 
   disLikePost: async (req: any, res: Response) => {
+    let currentUser;
+    if (req.user) {
+      currentUser = req.user.id;
+    } else {
+      currentUser = req.session.user.id;
+    }
     const [created, post] = await Promise.all([
       models.Likes.findOne({
         where: {
-          userId: req.session.user.id || req.user.id,
+          userId: currentUser,
           resourceId: req.params.id
         }
       }),
@@ -157,7 +178,7 @@ export default {
           models.Likes.destroy(
             {
               where: {
-                userId: req.session.user.id || req.user.id,
+                userId: currentUser,
                 resourceId: req.params.id
               }
             },

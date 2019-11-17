@@ -36,11 +36,11 @@ exports.default = {
             post.Likes.forEach(like => {
                 // console.log(like.userId);
                 if (req.user) {
-                    if (like.user === req.user.id) {
+                    if (like.userId === req.user.id) {
                         post.setDataValue("likedByMe", true);
                     }
                 }
-                else if (like.user === req.session.user.id) {
+                else if (like.userId === req.session.user.id) {
                     post.setDataValue("likedByMe", true);
                 }
             });
@@ -49,11 +49,21 @@ exports.default = {
     }),
     createPost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // console.log(getUser);
-        const postData = {
-            title: req.body.title,
-            postContent: req.body.postContent,
-            userId: req.session.user.id || req.user.id
-        };
+        let postData;
+        if (re.user && req.user.id) {
+            postData = {
+                title: req.body.title,
+                postContent: req.body.postContent,
+                userId: req.user.id
+            };
+        }
+        else {
+            postData = {
+                title: req.body.title,
+                postContent: req.body.postContent,
+                userId: req.session.user.id
+            };
+        }
         yield models_1.default.Post.create(postData)
             .then(post => {
             models_1.default.Post.findOne({
@@ -81,10 +91,17 @@ exports.default = {
     }),
     likePost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // fetch created and post at the same time
+        let currentUser;
+        if (req.user) {
+            currentUser = req.user.id;
+        }
+        else {
+            currentUser = req.session.user.id;
+        }
         const [created, post] = yield Promise.all([
             models_1.default.Likes.findOne({
                 where: {
-                    userId: req.session.user.id || req.user.id,
+                    userId: currentUser,
                     resourceId: req.params.id
                 }
             }),
@@ -113,7 +130,7 @@ exports.default = {
                 // use Promise.all() for concurrency
                 yield Promise.all([
                     models_1.default.Likes.create({
-                        userId: req.session.user.id || req.user.id,
+                        userId: currentUser,
                         resourceId: req.params.id
                     }, { transaction }),
                     post.increment("likeCounts", { by: 1, transaction })
@@ -133,10 +150,17 @@ exports.default = {
         }
     }),
     disLikePost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        let currentUser;
+        if (req.user) {
+            currentUser = req.user.id;
+        }
+        else {
+            currentUser = req.session.user.id;
+        }
         const [created, post] = yield Promise.all([
             models_1.default.Likes.findOne({
                 where: {
-                    userId: req.session.user.id || req.user.id,
+                    userId: currentUser,
                     resourceId: req.params.id
                 }
             }),
@@ -159,7 +183,7 @@ exports.default = {
                 yield Promise.all([
                     models_1.default.Likes.destroy({
                         where: {
-                            userId: req.session.user.id || req.user.id,
+                            userId: currentUser,
                             resourceId: req.params.id
                         }
                     }, { transaction }),
