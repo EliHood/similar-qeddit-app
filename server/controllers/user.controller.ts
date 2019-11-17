@@ -111,6 +111,8 @@ export default {
     let token;
     if (req.session && req.session.user) {
       curUser = req.session.user.id;
+    } else {
+      curUser = req.user;
     }
     if (req.user) {
       token = jwt.sign({ id: req.user.id }, process.env.JWT_SECRET);
@@ -119,7 +121,7 @@ export default {
     }
 
     return res.status(200).send({
-      user: req.user,
+      user: curUser,
       token: token ? token : null
     });
   },

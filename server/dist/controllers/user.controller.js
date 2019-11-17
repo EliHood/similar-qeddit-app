@@ -121,6 +121,9 @@ exports.default = {
         if (req.session && req.session.user) {
             curUser = req.session.user.id;
         }
+        else {
+            curUser = req.user;
+        }
         if (req.user) {
             token = jsonwebtoken_1.default.sign({ id: req.user.id }, process.env.JWT_SECRET);
         }
@@ -128,7 +131,7 @@ exports.default = {
             token = jsonwebtoken_1.default.sign({ id: req.session.user.id }, process.env.JWT_SECRET);
         }
         return res.status(200).send({
-            user: req.user,
+            user: curUser,
             token: token ? token : null
         });
     },
