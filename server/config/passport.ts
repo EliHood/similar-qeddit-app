@@ -14,15 +14,16 @@ passport.use(
     },
     async (token, tokenSecret, profile, done) => {
       console.log(profile);
-      models.User.findOrCreate({ where: { googleId: profile.id } }).then(
-        async err => {
-          if (profile) {
-            console.log("test", profile.emails[0].value);
-            return done(null, profile);
+      models.User.findOne({ where: { googleId: profile.id } }).then(
+        async userExist => {
+          let transaction;
+          if (userExist) {
+            console.log("hi");
+            return done(null, userExist);
           } else {
-            let transaction;
             try {
               transaction = await models.sequelize.transaction();
+              console.log("test", profile.emails[0].value);
               await Promise.all([
                 models.User.create(
                   {
@@ -49,10 +50,11 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user);
 });
 
 passport.deserializeUser((user, done) => {
+  console.log(user);
   models.User.findOne({ id: user })
     .then(usr => {
       done(null, usr);

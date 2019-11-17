@@ -134,19 +134,7 @@ export default {
       });
     }
   },
-  googleOauth: async (req: any, res: Response) => {
-    // req.session.user = req.user;
-    // req.session.save(() => {});
-    // const token = jwt.sign({ id: req.user.id }, process.env.JWT_SECRET);
-    // console.log(token);
-    // jwt.verify(token, process.env.JWT_SECRET, (err, data) => {
-    //   console.log(err, data);
-    // });
-    // return res.status(200).send({
-    //   token: token
-    // });
-    res.redirect("http:localhost:3001");
-  },
+
   currentUser: (req: any, res: Response) => {
     let curUser;
     let token;

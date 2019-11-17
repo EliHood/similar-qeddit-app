@@ -144,19 +144,6 @@ exports.default = {
             });
         }
     }),
-    googleOauth: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        // req.session.user = req.user;
-        // req.session.save(() => {});
-        // const token = jwt.sign({ id: req.user.id }, process.env.JWT_SECRET);
-        // console.log(token);
-        // jwt.verify(token, process.env.JWT_SECRET, (err, data) => {
-        //   console.log(err, data);
-        // });
-        // return res.status(200).send({
-        //   token: token
-        // });
-        res.redirect("http:localhost:3001");
-    }),
     currentUser: (req, res) => {
         let curUser;
         let token;

@@ -17,8 +17,7 @@ router.get(
   passport.authenticate("google", {
     failureRedirect: "/login",
     successRedirect: process.env.ALLOW_ORIGIN
-  }),
-  userController.googleOauth
+  })
 );
 router.get("/currentUser", userController.currentUser);
 export default router;

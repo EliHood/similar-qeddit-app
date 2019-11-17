@@ -24,15 +24,16 @@ passport_1.default.use(new GoogleSta({
     callbackURL: "http://localhost:5000/api/v1/users/auth/google/callback"
 }, (token, tokenSecret, profile, done) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(profile);
-    models_1.default.User.findOrCreate({ where: { googleId: profile.id } }).then((err) => __awaiter(void 0, void 0, void 0, function* () {
-        if (profile) {
-            console.log("test", profile.emails[0].value);
-            return done(null, profile);
+    models_1.default.User.findOne({ where: { googleId: profile.id } }).then((userExist) => __awaiter(void 0, void 0, void 0, function* () {
+        let transaction;
+        if (userExist) {
+            console.log("hi");
+            return done(null, userExist);
         }
         else {
-            let transaction;
             try {
                 transaction = yield models_1.default.sequelize.transaction();
+                console.log("test", profile.emails[0].value);
                 yield Promise.all([
                     models_1.default.User.create({
                         googleId: profile.id,
@@ -53,9 +54,10 @@ passport_1.default.use(new GoogleSta({
     }));
 })));
 passport_1.default.serializeUser((user, done) => {
-    done(null, user.id);
+    done(null, user);
 });
 passport_1.default.deserializeUser((user, done) => {
+    console.log(user);
     models_1.default.User.findOne({ id: user })
         .then(usr => {
         done(null, usr);

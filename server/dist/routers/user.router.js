@@ -24,7 +24,7 @@ router.get("/auth/google", passport_1.default.authenticate("google", { scope: ["
 router.get("/auth/google/callback", passport_1.default.authenticate("google", {
     failureRedirect: "/login",
     successRedirect: process.env.ALLOW_ORIGIN
-}), controllers_1.userController.googleOauth);
+}));
 router.get("/currentUser", controllers_1.userController.currentUser);
 exports.default = router;
 //# sourceMappingURL=user.router.js.map
