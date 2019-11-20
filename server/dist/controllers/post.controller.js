@@ -1,10 +1,9 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -16,7 +15,7 @@ const models_1 = __importDefault(require("../models"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 exports.default = {
-    getPosts: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    getPosts: (req, res) => __awaiter(this, void 0, void 0, function* () {
         // use async/await here
         const posts = yield models_1.default.Post.findAll({
             include: [
@@ -36,7 +35,7 @@ exports.default = {
             post.Likes.forEach(like => {
                 // console.log(like.userId);
                 if (req.user) {
-                    if (like.userId === req.user.id) {
+                    if (like.userId === req.session.passport.user.id) {
                         post.setDataValue("likedByMe", true);
                     }
                 }
@@ -47,14 +46,15 @@ exports.default = {
         });
         return res.json(posts);
     }),
-    createPost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    createPost: (req, res) => __awaiter(this, void 0, void 0, function* () {
         // console.log(getUser);
         let postData;
         if (req.user && req.user.id) {
+            console.log(req.user.id);
             postData = {
                 title: req.body.title,
                 postContent: req.body.postContent,
-                userId: req.user.id
+                userId: req.session.passport.user.id
             };
         }
         else {
@@ -89,11 +89,11 @@ exports.default = {
         });
         console.log(req.body);
     }),
-    likePost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    likePost: (req, res) => __awaiter(this, void 0, void 0, function* () {
         // fetch created and post at the same time
         let currentUser;
-        if (req.user) {
-            currentUser = req.user.id;
+        if (req.session.passport) {
+            currentUser = req.session.passport.user.id;
         }
         else {
             currentUser = req.session.user.id;
@@ -149,10 +149,10 @@ exports.default = {
             return res.status(500);
         }
     }),
-    disLikePost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    disLikePost: (req, res) => __awaiter(this, void 0, void 0, function* () {
         let currentUser;
-        if (req.user) {
-            currentUser = req.user.id;
+        if (req.session.passport) {
+            currentUser = req.session.passport.user.id;
         }
         else {
             currentUser = req.session.user.id;

@@ -46,6 +46,7 @@
     "morgan": "^1.9.1",
     "nodemon": "^1.19.3",
     "passport": "^0.4.0",
+    "passport-google-oauth": "^2.0.0",
     "passport-google-oauth20": "^2.0.0",
     "path": "^0.12.7",
     "pg": "^7.12.1",

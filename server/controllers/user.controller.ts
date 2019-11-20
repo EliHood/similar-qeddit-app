@@ -1,8 +1,9 @@
 import * as bcrypt from "bcrypt";
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import models from "../models";
 import dotenv from "dotenv";
+
 dotenv.config();
 const comparePassword = async (
   credentialsPassword: string,
@@ -84,9 +85,10 @@ export default {
       });
     }
   },
-  logOut: async (req: Request, res: Response) => {
+  logOut: async (req: any, res: Response) => {
     try {
       req.session.destroy(() => {});
+      req.logout();
       res.status(200).send({
         meta: {
           type: "success",
@@ -105,17 +107,23 @@ export default {
       });
     }
   },
-
   currentUser: (req: any, res: Response) => {
     let curUser;
     let token;
+    /* save session */
+
+    // console.log("currr", req.session.passport.user.id);
+
     if (req.session && req.session.user) {
       curUser = req.session.user.id;
-    } else {
-      curUser = req.user;
+    } else if (req.session) {
+      curUser = req.session.passport ? req.session.passport.user : null;
     }
-    if (req.user) {
-      token = jwt.sign({ id: req.user.id }, process.env.JWT_SECRET);
+    if (req.session && req.session.passport) {
+      token = jwt.sign(
+        { id: req.session.passport.user.id },
+        process.env.JWT_SECRET
+      );
     } else if (req.session && req.session.user) {
       token = jwt.sign({ id: req.session.user.id }, process.env.JWT_SECRET);
     }
@@ -125,6 +133,7 @@ export default {
       token: token ? token : null
     });
   },
+
   signUpUser: async (req: Request, res: Response) => {
     try {
       const credentials = req.body;

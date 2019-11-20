@@ -5,6 +5,21 @@ import models from "../models";
 dotenv.config();
 const GoogleSta = GoogleStrategy.Strategy;
 
+passport.serializeUser((user, done) => {
+  return done(null, user);
+});
+
+passport.deserializeUser((id, done) => {
+  console.log(id);
+  models.User.findOne({ id: id })
+    .then(usr => {
+      return done(null, usr);
+    })
+    .catch(err => {
+      done(err);
+    });
+});
+
 passport.use(
   new GoogleSta(
     {
@@ -23,6 +38,7 @@ passport.use(
           } else {
             try {
               transaction = await models.sequelize.transaction();
+
               console.log("test", profile.emails[0].value);
               await Promise.all([
                 models.User.create(
@@ -49,18 +65,3 @@ passport.use(
     }
   )
 );
-
-passport.serializeUser((user, done) => {
-  done(null, user);
-});
-
-passport.deserializeUser((user, done) => {
-  console.log(user);
-  models.User.findOne({ id: user })
-    .then(usr => {
-      done(null, usr);
-    })
-    .catch(err => {
-      done(err);
-    });
-});

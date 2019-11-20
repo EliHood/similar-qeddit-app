@@ -1,10 +1,9 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -24,17 +23,17 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const models_1 = __importDefault(require("../models"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-const comparePassword = (credentialsPassword, userPassword) => __awaiter(void 0, void 0, void 0, function* () {
+const comparePassword = (credentialsPassword, userPassword) => __awaiter(this, void 0, void 0, function* () {
     const isPasswordMatch = yield bcrypt.compare(credentialsPassword, userPassword);
     return isPasswordMatch;
 });
 exports.default = {
-    getUsers: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    getUsers: (req, res) => __awaiter(this, void 0, void 0, function* () {
         yield models_1.default.User.findAll().then((users) => {
             res.json(users);
         });
     }),
-    signInUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    signInUser: (req, res) => __awaiter(this, void 0, void 0, function* () {
         try {
             const credentials = req.body;
             const user = yield models_1.default.User.findOne({
@@ -93,9 +92,10 @@ exports.default = {
             });
         }
     }),
-    logOut: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    logOut: (req, res) => __awaiter(this, void 0, void 0, function* () {
         try {
             req.session.destroy(() => { });
+            req.logout();
             res.status(200).send({
                 meta: {
                     type: "success",
@@ -118,14 +118,16 @@ exports.default = {
     currentUser: (req, res) => {
         let curUser;
         let token;
+        /* save session */
+        // console.log("currr", req.session.passport.user.id);
         if (req.session && req.session.user) {
             curUser = req.session.user.id;
         }
-        else {
-            curUser = req.user;
+        else if (req.session) {
+            curUser = req.session.passport ? req.session.passport.user : null;
         }
-        if (req.user) {
-            token = jsonwebtoken_1.default.sign({ id: req.user.id }, process.env.JWT_SECRET);
+        if (req.session && req.session.passport) {
+            token = jsonwebtoken_1.default.sign({ id: req.session.passport.user.id }, process.env.JWT_SECRET);
         }
         else if (req.session && req.session.user) {
             token = jsonwebtoken_1.default.sign({ id: req.session.user.id }, process.env.JWT_SECRET);
@@ -135,7 +137,7 @@ exports.default = {
             token: token ? token : null
         });
     },
-    signUpUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    signUpUser: (req, res) => __awaiter(this, void 0, void 0, function* () {
         try {
             const credentials = req.body;
             if (!credentials.username || !credentials.email) {

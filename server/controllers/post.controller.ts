@@ -25,7 +25,7 @@ export default {
       post.Likes.forEach(like => {
         // console.log(like.userId);
         if (req.user) {
-          if (like.userId === req.user.id) {
+          if (like.userId === req.session.passport.user.id) {
             post.setDataValue("likedByMe", true);
           }
         } else if (like.userId === req.session.user.id) {
@@ -39,11 +39,13 @@ export default {
   createPost: async (req: any, res: Response) => {
     // console.log(getUser);
     let postData;
+
     if (req.user && req.user.id) {
+      console.log(req.user.id);
       postData = {
         title: req.body.title,
         postContent: req.body.postContent,
-        userId: req.user.id
+        userId: req.session.passport.user.id
       };
     } else {
       postData = {
@@ -81,8 +83,8 @@ export default {
   likePost: async (req: any, res: Response) => {
     // fetch created and post at the same time
     let currentUser;
-    if (req.user) {
-      currentUser = req.user.id;
+    if (req.session.passport) {
+      currentUser = req.session.passport.user.id;
     } else {
       currentUser = req.session.user.id;
     }
@@ -146,8 +148,8 @@ export default {
 
   disLikePost: async (req: any, res: Response) => {
     let currentUser;
-    if (req.user) {
-      currentUser = req.user.id;
+    if (req.session.passport) {
+      currentUser = req.session.passport.user.id;
     } else {
       currentUser = req.session.user.id;
     }

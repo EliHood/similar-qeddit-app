@@ -1,6 +1,5 @@
 import * as express from "express";
 import { userController } from "../controllers";
-import { authenticationPolicy } from "../middlewares";
 import passport from "passport";
 const router: express.Router = express.Router();
 router.post("/signup", userController.signUpUser);
