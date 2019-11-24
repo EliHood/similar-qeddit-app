@@ -33,6 +33,71 @@ exports.default = {
             res.json(users);
         });
     }),
+    editProfile: (req, res) => __awaiter(this, void 0, void 0, function* () {
+        let curUser;
+        if (req.session && req.session.user) {
+            curUser = req.session.user.id;
+        }
+        else if (req.session) {
+            curUser = req.session.passport ? req.session.passport.user.id : null;
+        }
+        const user = yield models_1.default.User.findOne({
+            where: {
+                id: curUser
+            },
+            attributes: { exclude: ["password"], include: ["bio", "gravatar"] }
+        });
+        if (!user) {
+            return res.status(401).send({
+                message: "Profile err"
+            });
+        }
+        return res.json(user);
+    }),
+    updateProfile: (req, res) => __awaiter(this, void 0, void 0, function* () {
+        const userData = req.body;
+        let transaction;
+        let curUser;
+        if (req.session && req.session.user) {
+            curUser = req.session.user.id;
+        }
+        else if (req.session) {
+            curUser = req.session.passport ? req.session.passport.user.id : null;
+        }
+        try {
+            transaction = yield models_1.default.sequelize.transaction();
+            return models_1.default.User.update({
+                bio: userData.bio,
+                gravatar: userData.gravatar
+            }, {
+                where: {
+                    id: curUser
+                }
+            }, { transaction }).then((user) => __awaiter(this, void 0, void 0, function* () {
+                console.log("sfsff", user);
+                models_1.default.User.findOne({
+                    where: {
+                        id: curUser
+                    },
+                    attributes: ["gravatar", "bio"]
+                }).then((newBio) => __awaiter(this, void 0, void 0, function* () {
+                    console.log("anothfdf", newBio);
+                    yield transaction.commit();
+                    return res.status(200).send({
+                        message: "Profile Updated Successfully",
+                        user: newBio
+                    });
+                }));
+            }));
+        }
+        catch (err) {
+            yield transaction.rollback();
+            return res.status(500).send({
+                message: "Something went wrong",
+                error: err
+            });
+        }
+    }),
     signInUser: (req, res) => __awaiter(this, void 0, void 0, function* () {
         try {
             const credentials = req.body;

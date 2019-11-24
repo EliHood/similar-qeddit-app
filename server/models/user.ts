@@ -33,16 +33,23 @@ export = (sequelize: Sequelize, DataTypes: DataTypes) => {
             msg: "The username needs to be between 6 and 25 characteres long"
           }
         }
-      }
+      },
+      bio: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      gravatar: {
+        type: DataTypes.STRING
+      },
       password: {
         type: DataTypes.STRING,
-        validate:{
+        validate: {
           min: 6
         }
       },
-      googleId:{
-        type:DataTypes.STRING,
-        allowNull:true
+      googleId: {
+        type: DataTypes.STRING,
+        allowNull: true
       },
       email: DataTypes.STRING,
       forget_password: DataTypes.STRING

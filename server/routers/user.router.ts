@@ -6,6 +6,8 @@ router.post("/signup", userController.signUpUser);
 router.get("/logOut", userController.logOut);
 router.post("/login", userController.signInUser);
 router.get("/getUsers", userController.getUsers);
+router.get("/editProfile", userController.editProfile);
+router.put("/updateProfile", userController.updateProfile);
 router.get(
   "/auth/google",
   passport.authenticate("google", { scope: ["email"] })

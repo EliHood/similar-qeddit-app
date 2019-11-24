@@ -5,6 +5,7 @@ import Paper from "@material-ui/core/Paper";
 import moment from "moment";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import Avatar from "@material-ui/core/Avatar";
 const PostList = (props: any) => {
   const { posts } = props;
 
@@ -17,8 +18,15 @@ const PostList = (props: any) => {
               {post.title}
             </Typography>
             <Typography align="left">{post.postContent}</Typography>
-
-            <Typography variant="h6" align="left">
+            <Avatar
+              style={{
+                display: "inline-block",
+                margin: "-5px 0px"
+              }}
+              sizes="small"
+              src={post.author.gravatar}
+            />
+            <Typography display="inline" variant="h6" align="left">
               {post.author.username}
             </Typography>
 

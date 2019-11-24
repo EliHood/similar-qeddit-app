@@ -8,6 +8,15 @@ exports.up = (queryInterface, Sequelize) => {
             primaryKey: true,
             type: Sequelize.INTEGER
         },
+        gravatar: {
+            allowNull: false,
+            defaultValue: "https://gravatar.com/avatar/4ad2c8eea353c159e4c0320ab8621687?s=400&d=robohash&r=x",
+            type: Sequelize.STRING
+        },
+        bio: {
+            allowNull: true,
+            type: Sequelize.TEXT
+        },
         username: {
             type: Sequelize.STRING,
             unique: true,

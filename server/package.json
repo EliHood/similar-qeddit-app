@@ -7,7 +7,7 @@
     "server": "nodemon ./dist/app.js",
     "serve": "nodemon --config nodemon-config.json --inspect dist/app.js",
     "build-ts": "tsc",
-    "watch-ts": "tsc -w",
+    "watch-ts": "tsc --w",
     "build": "rimraf dist && npm run build-ts",
     "migrate": "sequelize db:migrate",
     "rollback": "sequelize db:rollback",

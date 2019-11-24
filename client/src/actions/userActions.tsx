@@ -76,3 +76,32 @@ export const getUserFailure = (error: string) => ({
   type: types.GET_USER_FAILURE,
   error
 });
+
+export const getUserProfile = () => ({
+  type: types.GET_USER_PROFILE
+});
+
+export const getUserProfileSuccess = (payload: object) => ({
+  type: types.GET_USER_PROFILE_SUCCESS,
+  payload
+});
+
+export const getUserProfileFailure = (error: string) => ({
+  type: types.GET_USER_PROFILE_FAILURE,
+  error
+});
+
+export const updateUserProfile = (payload: object) => ({
+  type: types.UPDATE_USER_PROFILE,
+  payload
+});
+
+export const updateUserProfileSuccess = (payload: object) => ({
+  type: types.UPDATE_USER_PROFILE_SUCCESS,
+  payload
+});
+
+export const updateUserProfileFailure = (error: string) => ({
+  type: types.UPDATE_USER_PROFILE_FAILURE,
+  error
+});

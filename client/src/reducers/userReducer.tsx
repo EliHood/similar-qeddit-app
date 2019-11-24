@@ -7,13 +7,17 @@ export interface userState {
   error?: string;
   currentUser: object;
   isLoading: boolean;
+  profileData: object;
+  message: string;
 }
 
 const initialState: userState = {
   isAuthenticated: false,
   error: "",
   currentUser: {},
-  isLoading: false
+  profileData: {},
+  isLoading: false,
+  message: ""
 };
 
 const authReducer = (state = initialState, action: any): userState =>
@@ -48,6 +52,21 @@ const authReducer = (state = initialState, action: any): userState =>
         console.log(action.error);
         draft.error = action.error;
         return;
+      case types.GET_USER_PROFILE_SUCCESS:
+        draft.message = "";
+        draft.profileData = action.payload;
+        break;
+      case types.GET_USER_PROFILE_FAILURE:
+        draft.error = action.error;
+        break;
+      case types.UPDATE_USER_PROFILE_SUCCESS:
+        draft.profileData = action.payload.user;
+        draft.message = action.payload.message;
+        break;
+      case types.UPDATE_USER_PROFILE_FAILURE:
+        console.log(action.error);
+        draft.error = action.error;
+        break;
     }
   });
 

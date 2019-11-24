@@ -34,6 +34,26 @@ export function* getAutoLoginStatus(action) {
     yield put(actionTypes.getUserFailure(error));
   }
 }
+export function* getUserProfile() {
+  try {
+    const profile = yield call(api.user.editProfile);
+    console.log(profile);
+    yield put(actionTypes.getUserProfileSuccess(profile));
+  } catch (error) {
+    yield put(actionTypes.getUserProfileFailure(error));
+  }
+}
+
+export function* updateUserProfile(action) {
+  try {
+    const profile = yield call(api.user.updateProfile, action.payload);
+    yield put(actionTypes.updateUserProfileSuccess(profile));
+  } catch (err) {
+    yield put(
+      actionTypes.updateUserProfileFailure(err.response.data.meta.message)
+    );
+  }
+}
 
 export function* logOut() {
   try {
@@ -66,6 +86,12 @@ export function* login(action) {
 export function* watchLogin() {
   yield takeLatest(types.LOG_IN_INIT, login);
 }
+export function* watchUpdateProfile() {
+  yield takeLatest(types.UPDATE_USER_PROFILE, updateUserProfile);
+}
+export function* watchEditProfile() {
+  yield takeLatest(types.GET_USER_PROFILE, getUserProfile);
+}
 export function* watchAuthLogin() {
   yield takeLatest(types.GET_USER, getAutoLoginStatus);
 }
@@ -81,4 +107,6 @@ export default function*() {
   yield fork(watchAuthLogin);
   yield fork(watchLogout);
   yield fork(watchLogin);
+  yield fork(watchEditProfile);
+  yield fork(watchUpdateProfile);
 }

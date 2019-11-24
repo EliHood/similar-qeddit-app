@@ -45,11 +45,12 @@ passport_1.default.use(new GoogleSta({
         else {
             try {
                 transaction = yield models_1.default.sequelize.transaction();
-                console.log("test", profile.emails[0].value);
+                console.log("test", profile.photos[0].value);
                 yield Promise.all([
                     models_1.default.User.create({
                         googleId: profile.id,
                         username: null,
+                        gravatar: profile.photos[0].value,
                         email: profile.emails[0].value
                     }, { transaction })
                 ]).then((user) => __awaiter(this, void 0, void 0, function* () {

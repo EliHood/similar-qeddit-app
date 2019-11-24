@@ -39,12 +39,13 @@ passport.use(
             try {
               transaction = await models.sequelize.transaction();
 
-              console.log("test", profile.emails[0].value);
+              console.log("test", profile.photos[0].value);
               await Promise.all([
                 models.User.create(
                   {
                     googleId: profile.id,
                     username: null,
+                    gravatar: profile.photos[0].value,
                     email: profile.emails[0].value
                   },
                   { transaction }

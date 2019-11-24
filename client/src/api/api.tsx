@@ -9,7 +9,11 @@ export default {
     logIn: (userData: any) =>
       Axios.post("/api/v1/users/login", userData).then(res => res.data),
     currentUser: () =>
-      Axios.get("/api/v1/users/currentUser").then(res => res.data)
+      Axios.get("/api/v1/users/currentUser").then(res => res.data),
+    editProfile: () =>
+      Axios.get("/api/v1/users/editProfile").then(res => res.data),
+    updateProfile: (userData: any) =>
+      Axios.put("/api/v1/users/updateProfile", userData).then(res => res.data)
   },
   post: {
     createPost: (postData: any) =>

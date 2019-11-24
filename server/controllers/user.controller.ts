@@ -22,6 +22,73 @@ export default {
       res.json(users);
     });
   },
+  editProfile: async (req: Request, res: Response) => {
+    let curUser;
+    if (req.session && req.session.user) {
+      curUser = req.session.user.id;
+    } else if (req.session) {
+      curUser = req.session.passport ? req.session.passport.user.id : null;
+    }
+    const user = await models.User.findOne({
+      where: {
+        id: curUser
+      },
+      attributes: { exclude: ["password"], include: ["bio", "gravatar"] }
+    });
+    if (!user) {
+      return res.status(401).send({
+        message: "Profile err"
+      });
+    }
+    return res.json(user);
+  },
+
+  updateProfile: async (req: Request, res: Response) => {
+    const userData = req.body;
+    let transaction;
+    let curUser;
+    if (req.session && req.session.user) {
+      curUser = req.session.user.id;
+    } else if (req.session) {
+      curUser = req.session.passport ? req.session.passport.user.id : null;
+    }
+    try {
+      transaction = await models.sequelize.transaction();
+      return models.User.update(
+        {
+          bio: userData.bio,
+          gravatar: userData.gravatar
+        },
+        {
+          where: {
+            id: curUser
+          }
+        },
+        { transaction }
+      ).then(async user => {
+        console.log("sfsff", user);
+        models.User.findOne({
+          where: {
+            id: curUser
+          },
+          attributes: ["gravatar", "bio"]
+        }).then(async newBio => {
+          console.log("anothfdf", newBio);
+          await transaction.commit();
+          return res.status(200).send({
+            message: "Profile Updated Successfully",
+            user: newBio
+          });
+        });
+      });
+    } catch (err) {
+      await transaction.rollback();
+      return res.status(500).send({
+        message: "Something went wrong",
+        error: err
+      });
+    }
+  },
   signInUser: async (req: Request, res: Response) => {
     try {
       const credentials = req.body;

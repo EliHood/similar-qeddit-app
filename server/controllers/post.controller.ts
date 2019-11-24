@@ -8,7 +8,11 @@ export default {
     // use async/await here
     const posts = await models.Post.findAll({
       include: [
-        { model: models.User, as: "author", attributes: ["username"] },
+        {
+          model: models.User,
+          as: "author",
+          attributes: ["username", "gravatar", "bio"]
+        },
         // limit the likes based on the logged in user
         {
           model: models.Likes
@@ -62,7 +66,11 @@ export default {
             id: post.id
           },
           include: [
-            { model: models.User, as: "author", attributes: ["username"] }
+            {
+              model: models.User,
+              as: "author",
+              attributes: ["username", "gravatar"]
+            }
           ]
         }).then(newPost => {
           newPost.setDataValue("likedByMe", false);

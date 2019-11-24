@@ -12,7 +12,7 @@ userSession.userSession();
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#C3DFE0"
+      main: "#48A9A6"
     },
     secondary: {
       main: "#000000"

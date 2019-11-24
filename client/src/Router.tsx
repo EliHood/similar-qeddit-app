@@ -3,6 +3,7 @@ import { HashRouter, Route, Router, Link, Switch } from "react-router-dom";
 import Landing from "./components/landing/landing";
 import Register from "./containers/signup";
 import Dashboard from "./containers/dashboard";
+import EditProfile from "./containers/profile";
 import Grid from "@material-ui/core/Grid";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -12,6 +13,7 @@ import Login from "./containers/login";
 import { withRouter } from "react-router";
 import { history } from "./ourHistory";
 import PrivateRoute from "./PrivateRoute";
+import color from "@material-ui/core/colors/amber";
 const MyRouter = props =>
   props.hasError ? (
     <div>Error</div>
@@ -28,13 +30,36 @@ const MyRouter = props =>
                 {props.user ? (
                   <Fragment>
                     <Button>
-                      <Link to="/">Home</Link>
+                      <Link
+                        style={{ color: "#fff", textDecoration: "none" }}
+                        to="/"
+                      >
+                        Home
+                      </Link>
                     </Button>
                     <Button>
-                      <Link to="/dashboard">Dashboard</Link>
+                      <Link
+                        style={{ color: "#fff", textDecoration: "none" }}
+                        to="/dashboard"
+                      >
+                        Dashboard
+                      </Link>
+                    </Button>
+                    <Button>
+                      <Link
+                        style={{ color: "#fff", textDecoration: "none" }}
+                        to="/editProfile"
+                      >
+                        Edit Profile
+                      </Link>
                     </Button>
                     <Button onClick={props.logOut}>
-                      <Link to="/logout">Logout</Link>
+                      <Link
+                        style={{ color: "#fff", textDecoration: "none" }}
+                        to="/logout"
+                      >
+                        Logout
+                      </Link>
                     </Button>
                   </Fragment>
                 ) : (
@@ -57,7 +82,9 @@ const MyRouter = props =>
         <Switch>
           <Route exact path="/" component={Landing} />
           <Route path="/login" component={Login} />
+
           <Route path="/register" component={Register} />
+          <PrivateRoute exact path="/editProfile" component={EditProfile} />
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
         </Switch>
       </HashRouter>

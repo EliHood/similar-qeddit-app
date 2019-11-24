@@ -15,6 +15,13 @@ module.exports = (sequelize, DataTypes) => {
                 }
             }
         },
+        bio: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        gravatar: {
+            type: DataTypes.STRING
+        },
         password: {
             type: DataTypes.STRING,
             validate: {
