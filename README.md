@@ -25,6 +25,10 @@ Once `docker-compose up` is running do
 `docker ps` from here you should see container ids.
 Find the container id for the postgres database or service name in my case its called "database". That container id will be used for the following instructions
 
+some helpful notes
+
+`docker logs` container id
+
 #### Docker Stuff
 
 - `docker exec -it Container id here bash`
