@@ -19,6 +19,10 @@
 - Like A Post
 - Unlike A Post
 
+#### For executing Docker(have your env variables set up)
+
+- `docker-compose up --build --force-recreate`
+
 #### Docker notes on postgres(so i wont everr have to go through the pain of setting this up again lol)
 
 Once `docker-compose up` is running do
