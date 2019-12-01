@@ -8,6 +8,7 @@ services:
     ports:
       - 5000:5000
     environment:
+      # database refers to the database server at the bottom called "database"
       - PSQL_HOST=database
       - PSQL_USER=postgres
       - PORT=5000
