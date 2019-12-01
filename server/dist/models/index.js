@@ -13,8 +13,8 @@ if (process.env.NODE_ENV === "production") {
     var sequelize = new Sequelize(process.env.DATABASE_URL, null);
 }
 else {
-    var sequelize = new Sequelize("elifullstack8", "elihood", "", {
-        host: "127.0.0.1",
+    var sequelize = new Sequelize(process.env.PSQL_NAME, process.env.PSQL_USER, "", {
+        host: process.env.PSQL_HOST,
         dialect: "postgres"
     });
 }

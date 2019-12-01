@@ -14,6 +14,7 @@ import { withRouter } from "react-router";
 import { history } from "./ourHistory";
 import PrivateRoute from "./PrivateRoute";
 import color from "@material-ui/core/colors/amber";
+import { fontWeight } from "@material-ui/system";
 const MyRouter = props =>
   props.hasError ? (
     <div>Error</div>
@@ -31,7 +32,11 @@ const MyRouter = props =>
                   <Fragment>
                     <Button>
                       <Link
-                        style={{ color: "#fff", textDecoration: "none" }}
+                        style={{
+                          color: "#fff",
+                          fontWeight: "700",
+                          textDecoration: "none"
+                        }}
                         to="/"
                       >
                         Home
@@ -39,7 +44,11 @@ const MyRouter = props =>
                     </Button>
                     <Button>
                       <Link
-                        style={{ color: "#fff", textDecoration: "none" }}
+                        style={{
+                          color: "#fff",
+                          textDecoration: "none",
+                          fontWeight: "700"
+                        }}
                         to="/dashboard"
                       >
                         Dashboard
@@ -47,7 +56,11 @@ const MyRouter = props =>
                     </Button>
                     <Button>
                       <Link
-                        style={{ color: "#fff", textDecoration: "none" }}
+                        style={{
+                          color: "#fff",
+                          fontWeight: "700",
+                          textDecoration: "none"
+                        }}
                         to="/editProfile"
                       >
                         Edit Profile
@@ -55,7 +68,11 @@ const MyRouter = props =>
                     </Button>
                     <Button onClick={props.logOut}>
                       <Link
-                        style={{ color: "#fff", textDecoration: "none" }}
+                        style={{
+                          color: "#fff",
+                          fontWeight: "700",
+                          textDecoration: "none"
+                        }}
                         to="/logout"
                       >
                         Logout
