@@ -22,8 +22,8 @@
 #### Docker notes on postgres(so i wont everr have to go through the pain of setting this up again lol)
 
 Once `docker-compose up` is running do
-`docker ps` from here you should see container ids
-find the container id for the postgres database or service name in my case its called "database" that container id will be used for the following instructions
+`docker ps` from here you should see container ids.
+Find the container id for the postgres database or service name in my case its called "database". That container id will be used for the following instructions
 
 #### Docker Stuff
 
