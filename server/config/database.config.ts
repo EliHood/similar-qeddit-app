@@ -28,9 +28,9 @@ export const productionConfig: ProductionDbConfig = {
 };
 
 export const databaseConfig: DatabaseConfig = {
-  username: "elihood",
+  username: "eli",
   password: "",
-  database: "elifullstack8",
+  database: "elitypescript",
   host: "127.0.0.1",
   port: 5432,
   dialect: "postgres",

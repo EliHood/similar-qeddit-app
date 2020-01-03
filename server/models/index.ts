@@ -12,7 +12,7 @@ dotenv.config();
 if (process.env.NODE_ENV === "production") {
   var sequelize = new Sequelize(process.env.DATABASE_URL, null);
 } else {
-  var sequelize = new Sequelize("elifullstack8", "elihood", "", {
+  var sequelize = new Sequelize("elitypescript", "eli", "", {
     host: "127.0.0.1",
     dialect: "postgres"
   });
