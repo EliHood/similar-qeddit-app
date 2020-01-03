@@ -105,3 +105,17 @@ export const updateUserProfileFailure = (error: string) => ({
   type: types.UPDATE_USER_PROFILE_FAILURE,
   error
 });
+
+export const addUsername = (data:string) => ({
+  type: types.ADD_USERNAME,
+  data
+})
+
+export const addEmail = (data: string) => ({
+  type: types.ADD_EMAIL,
+  data
+})
+export const addPassword = (data: string) => ({
+  type: types.ADD_PASSWORD,
+  data
+})

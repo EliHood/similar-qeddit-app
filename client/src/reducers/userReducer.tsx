@@ -1,6 +1,6 @@
 import produce from "immer";
 import * as types from "../actionTypes/userActionTypes";
-import { sessionData } from "../utils";
+import { sessionData, validation } from "../utils";
 
 export interface userState {
   isAuthenticated: boolean;
@@ -9,6 +9,13 @@ export interface userState {
   isLoading: boolean;
   profileData: object;
   message: string;
+  usernameError: any;
+  passwordError: any;
+  emailError:any;
+  email:string,
+  password: string,
+  username: string
+
 }
 
 const initialState: userState = {
@@ -17,7 +24,13 @@ const initialState: userState = {
   currentUser: {},
   profileData: {},
   isLoading: false,
-  message: ""
+  message: "",
+  usernameError: "",
+  passwordError: "",
+  emailError:"",
+  email: "",
+  password: "",
+  username: ""
 };
 
 const authReducer = (state = initialState, action: any): userState =>
@@ -26,6 +39,10 @@ const authReducer = (state = initialState, action: any): userState =>
       case types.SIGN_UP_SUCCESS:
         console.log(action);
         draft.isAuthenticated = sessionData.getLoginStatus();
+        draft.email = ""
+        draft.password = ""
+        draft.username = ""
+        draft.error = ""
         return;
       case types.SIGN_UP_FAILURE:
         console.log(action);
@@ -66,7 +83,20 @@ const authReducer = (state = initialState, action: any): userState =>
       case types.UPDATE_USER_PROFILE_FAILURE:
         console.log(action.error);
         draft.error = action.error;
+        return
+      case types.ADD_EMAIL:
+        console.log( validation.validateEmail(action.data))
+        draft.email = action.data;
+        draft.emailError = validation.validateEmail(action.data)
         break;
+      case types.ADD_PASSWORD:
+        draft.password = action.data
+        draft.passwordError = validation.validatePassword(action.data)
+        break;
+      case types.ADD_USERNAME:
+        draft.username = action.data
+        draft.usernameError = validation.validateUsername(action.data)
+        return
     }
   });
 

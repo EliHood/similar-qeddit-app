@@ -9,7 +9,9 @@ const SignUpForm = (props: any) => (
       style={{ width: "100%" }}
       name="username"
       value={props.username}
-      onChange={props.signUpOnChange}
+      error={props.usernameError === true || props.usernameError === "" ? false : true}
+      helperText={props.usernameError}
+      onChange={props.usernameChange}
       margin="normal"
     />
     <br />
@@ -18,8 +20,10 @@ const SignUpForm = (props: any) => (
       className=""
       style={{ width: "100%" }}
       name="email"
+      error={props.emailError === true || props.emailError === "" ? false : true}
+      helperText={props.emailError}
       value={props.email}
-      onChange={props.signUpOnChange}
+      onChange={props.emailChange}
       margin="normal"
     />
     <br />
@@ -29,26 +33,19 @@ const SignUpForm = (props: any) => (
       type="password"
       style={{ width: "100%" }}
       className=""
+      error={props.passwordError === true || props.passwordError === "" ? false : true}
+      helperText={props.passwordError}
       value={props.password}
-      onChange={props.signUpOnChange}
+      onChange={props.passwordChange}
       margin="normal"
     />
     {/*  */}
     <br />
-    <TextField
-      label="Confirm Password"
-      name="passwordConf"
-      type="password"
-      style={{ width: "100%" }}
-      className=""
-      value={props.passwordConf}
-      onChange={props.signUpOnChange}
-      margin="normal"
-    />
+
     <br />
     <br />
 
-    <Button variant="outlined" color="primary" type="submit">
+    <Button disabled={props.disButton} variant="outlined" color="primary" type="submit">
       Sign Up
     </Button>
   </form>

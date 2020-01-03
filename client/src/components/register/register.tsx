@@ -7,68 +7,65 @@ import IsAuth from "../hoc/isAuthenticated";
 export interface registerProps {
   onChange: (event: any) => void;
   signUpInit: (event: object) => void;
+  addUsername: (event: object) =>  void;
+  addEmail: (event: object) => void;
+  addPassword: (event: object) => void;
   user?: any;
 }
 export interface registerState {
-  username: string;
-  password: string;
-  email: string;
   passwordConf: string;
   passErr: string;
 }
 class Register extends Component<registerProps, registerState> {
   state: registerState = {
-    username: "",
-    password: "",
-    email: "",
     passwordConf: "",
     passErr: ""
   };
 
-  handleChange = (e: any) => {
-    e.preventDefault();
-    this.setState({
-      [e.target.name]: e.target.value
-    } as any);
-  };
+  handleEmailChange = (e: any) => {
+    this.props.addEmail(e.target.value)
+  }
+  handleUsernameChange = (e: any) => {
+    this.props.addUsername(e.target.value)
+  }
+  handlePasswordChange = (e: any) => {
+    this.props.addPassword(e.target.value)
+  }
 
   handleSubmit = (e: any) => {
     e.preventDefault();
-    const { username, email, password, passwordConf } = this.state;
-    this.setState({
-      username: this.state.username,
-      password: this.state.password,
-      passwordConf: this.state.passwordConf,
-      email: this.state.email
-    });
+    const { username, email, password,  } = this.props.user;
     const creds = {
       username,
       email,
       password
     };
     console.log(creds);
-
-    if (password === passwordConf) {
-      this.props.signUpInit(creds);
-    } else {
-      this.setState({ passErr: "Passwords Don't Match" });
-    }
+    this.props.signUpInit(creds);
+    
   };
   render() {
+    const { username, email, password, usernameError, passwordError, emailError  } = this.props.user;
+    const isEnabled =
+    emailError === true && passwordError === true && usernameError === true ? false : true;
     return (
       <Fragment>
         <Typography variant="h4" style={{ letterSpacing: "2px" }}>
           Register
         </Typography>
         {this.props.user.error && <div>{this.props.user.error}</div>}
-        {this.state.passErr && <div>{this.state.passErr}</div>}
         <SignUpForm
           submit={this.handleSubmit}
-          username={this.state.username}
-          password={this.state.password}
-          email={this.state.email}
-          passwordConf={this.state.passwordConf}
-          signUpOnChange={this.handleChange}
+          usernameChange={this.handleUsernameChange}
+          emailChange={this.handleEmailChange}
+          passwordChange={this.handlePasswordChange}
+          username={username}
+          password={password}
+          email={email}
+          usernameError={usernameError}
+          passwordError={passwordError}
+          emailError={emailError}
+          disButton={isEnabled}
         />
       </Fragment>
     );
