@@ -119,3 +119,7 @@ export const addPassword = (data: string) => ({
   type: types.ADD_PASSWORD,
   data
 })
+
+export const initLogin = () => ({
+  type: types.INIT_LOGIN,
+})

@@ -44,6 +44,7 @@ const authReducer = (state = initialState, action: any): userState =>
         draft.username = ""
         draft.error = ""
         return;
+      
       case types.SIGN_UP_FAILURE:
         console.log(action);
         draft.error = action.error;
@@ -60,6 +61,9 @@ const authReducer = (state = initialState, action: any): userState =>
         draft.error = "";
         draft.isAuthenticated = sessionData.getLoginStatus();
         draft.isLoading = true;
+        return;
+      case types.INIT_LOGIN:
+        draft.error = ""
         return;
       case types.GET_CURRENT_USER:
         console.log(action);

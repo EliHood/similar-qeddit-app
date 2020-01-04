@@ -8,6 +8,7 @@ import { GoogleLogin } from "react-google-login";
 export interface loginProps {
   onChange: (event: any) => void;
   loginInit: (event: object) => void;
+  initLogin: () => void;
   user?: any;
 }
 export interface loginState {
@@ -20,7 +21,6 @@ class Login extends Component<loginProps, loginState> {
     username: "",
     password: ""
   };
-
   handleChange = (e: any) => {
     e.preventDefault();
     this.setState({
