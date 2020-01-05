@@ -14,10 +14,6 @@
     "postinstall:server": "cd server && yarn install --production=false ",
     "postinstall:client": "cd client && yarn install --production=false && yarn build"
   },
-  "engines": {
-    "node": "^8.11.3",
-    "yarn": "^1.9.2"
-  },
   "author": "",
   "license": "ISC",
   "dependencies": {
