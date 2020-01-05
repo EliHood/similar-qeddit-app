@@ -21,7 +21,7 @@ export const productionConfig: ProductionDbConfig = {
   username: "root",
   password: null,
   database:
-    "postgres://uvkubxznpfwxum:26a14417c229c962db8393b426458ee072857dc4959ac39bcb138d0830156c61@ec2-54-243-44-102.compute-1.amazonaws.com:5432/ddd7nlo4spioug",
+    "postgres://rsbeejitzzdmec:63c01b4a48e43b9324471818f17b140722504a782cb93b6ab4356be0466b4ad2@ec2-107-21-235-87.compute-1.amazonaws.com:5432/d7lbo94egec9uh",
   host: "127.0.0.1",
   dialect: "postgres",
   use_env_variable: "DATABASE_URL"
