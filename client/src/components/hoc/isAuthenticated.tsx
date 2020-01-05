@@ -19,7 +19,6 @@ export default function(WrappedComponent) {
       if (this.props.user.isAuthenticated) {
         this.props.history.push("/dashboard");
       }
-      console.log(this.props);
     }
     //   this line is magic, redirects to the dashboard after user signs up
     // this replace getDerivedStateFromPropss
