@@ -16,7 +16,7 @@ const EditProfileForm = (props: any) => (
         }}
         name="bio"
         multiline
-        rows="4"
+        rows="3"
         value={props.bio}
         onChange={props.handleChange}
         margin="normal"

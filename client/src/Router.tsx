@@ -34,7 +34,7 @@ const MyRouter = props =>
                       <Link
                         style={{
                           color: "#fff",
-                          fontWeight: "700",
+                          fontWeight: "500",
                           textDecoration: "none"
                         }}
                         to="/"
@@ -47,7 +47,7 @@ const MyRouter = props =>
                         style={{
                           color: "#fff",
                           textDecoration: "none",
-                          fontWeight: "700"
+                          fontWeight: "500"
                         }}
                         to="/dashboard"
                       >
@@ -58,7 +58,7 @@ const MyRouter = props =>
                       <Link
                         style={{
                           color: "#fff",
-                          fontWeight: "700",
+                          fontWeight: "500",
                           textDecoration: "none"
                         }}
                         to="/editProfile"
@@ -70,7 +70,7 @@ const MyRouter = props =>
                       <Link
                         style={{
                           color: "#fff",
-                          fontWeight: "700",
+                          fontWeight: "500",
                           textDecoration: "none"
                         }}
                         to="/logout"
@@ -82,13 +82,19 @@ const MyRouter = props =>
                 ) : (
                   <Fragment>
                     <Button>
-                      <Link to="/">Home</Link>
+                      <Link style ={{  color: "#fff",
+                          fontWeight: "500",
+                          textDecoration: "none"}} to="/">Home</Link>
                     </Button>
                     <Button>
-                      <Link to="/register">Sign Up</Link>
+                      <Link style ={{  color: "#fff",
+                          fontWeight: "500",
+                          textDecoration: "none"}} to="/register">Sign Up</Link>
                     </Button>
                     <Button>
-                      <Link to="/login">Log In</Link>
+                      <Link style ={{  color: "#fff",
+                          fontWeight: "500",
+                          textDecoration: "none"}} to="/login">Log In</Link>
                     </Button>
                   </Fragment>
                 )}
