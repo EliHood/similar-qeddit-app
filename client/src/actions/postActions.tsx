@@ -58,3 +58,18 @@ export const dislikePostFailiure = (error: object) => ({
   type: types.DISLIKE_POST_FAILURE,
   error
 });
+
+export const fetchPostInit = (payload: number) => ({
+  type: types.FETCH_POST_INIT,
+  payload
+})
+
+export const fetchPostSuccess = (payload: object) => ({
+  type: types.FETCH_POST_SUCCESS,
+  payload
+})
+
+export const fetchPostFailure = (error: object) => ({
+  type: types.FETCH_POST_FAILURE,
+  error
+})

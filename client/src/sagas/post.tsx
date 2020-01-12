@@ -6,12 +6,19 @@ import api from "../api/api";
 export function* getPosts(action) {
   try {
     const posts = yield call(api.post.getPosts);
-    console.log(posts);
-
     yield put(actionTypes.getPostsSuccess(posts));
   } catch (error) {
     console.log(error);
     yield put(actionTypes.getPostsFailure(error.response.data.meta.message));
+  }
+}
+export function* fetchPost(action){
+  try{
+    const postPage = yield call(api.post.getPost, action.payload);
+    yield put(actionTypes.fetchPostSuccess(postPage))
+  }
+  catch(error){
+    yield put(actionTypes.fetchPostFailure(error))
   }
 }
 export function* createPost(action) {
@@ -50,6 +57,9 @@ export function* dislikePost(action) {
     );
   }
 }
+export function* watchFetchPost(){
+  yield takeLatest(types.FETCH_POST_INIT, fetchPost)
+}
 export function* watchLikePost() {
   yield takeLatest(types.LIKE_POST_INIT, likePost);
 }
@@ -67,6 +77,7 @@ export function* watchCreatePost() {
 // export function*
 export default function*() {
   yield fork(watchPosts);
+  yield fork(watchFetchPost)
   yield fork(watchCreatePost);
   yield fork(watchLikePost);
   yield fork(watchdisLikePost);

@@ -21,6 +21,7 @@ export default {
     getPosts: () => Axios.get("/api/v1/posts/getPosts").then(res => res.data),
     likePost: (id: number) =>
       Axios.post(`/api/v1/posts/likePost/${id}`).then(res => res.data),
+    getPost: (id: number) => Axios.get(`/api/v1/posts/post/${id}`).then(res => res.data ),
     dislikePost: (id: number) =>
       Axios.post(`/api/v1/posts/dislikePost/${id}`).then(res => res.data)
   }

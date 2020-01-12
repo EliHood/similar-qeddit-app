@@ -40,6 +40,25 @@ export default {
 
     return res.json(posts);
   },
+  postPage: async( req: any, res: Response) => {
+    const postPage = await models.Post.findOne({
+      where:{
+        id: req.params.id;
+      },
+      include: [
+        {
+          model: models.User,
+          as: "author",
+          attributes: ["username", "gravatar", "bio"]
+        },
+        // limit the likes based on the logged in user
+        {
+          model: models.Likes
+        }
+      ],
+    })
+    return res.json(postPage);
+  },
   createPost: async (req: any, res: Response) => {
     // console.log(getUser);
     let postData;

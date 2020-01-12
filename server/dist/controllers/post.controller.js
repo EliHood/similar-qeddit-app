@@ -51,6 +51,25 @@ exports.default = {
         });
         return res.json(posts);
     }),
+    postPage: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        const postPage = yield models_1.default.Post.findOne({
+            where: {
+                id: req.params.id
+            },
+            include: [
+                {
+                    model: models_1.default.User,
+                    as: "author",
+                    attributes: ["username", "gravatar", "bio"]
+                },
+                // limit the likes based on the logged in user
+                {
+                    model: models_1.default.Likes
+                }
+            ],
+        });
+        return res.json(postPage);
+    }),
     createPost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // console.log(getUser);
         let postData;

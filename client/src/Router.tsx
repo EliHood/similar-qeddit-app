@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { HashRouter, Route, Router, Link, Switch } from "react-router-dom";
 import Landing from "./components/landing/landing";
 import Register from "./containers/signup";
+import Post from './containers/postPage'
 import Dashboard from "./containers/dashboard";
 import EditProfile from "./containers/profile";
 import Grid from "@material-ui/core/Grid";
@@ -104,11 +105,11 @@ const MyRouter = props =>
         </AppBar>
         <Switch>
           <Route exact path="/" component={Landing} />
-          <Route path="/login" component={Login} />
-
+          <Route path="/login" component={Login} />       
           <Route path="/register" component={Register} />
           <PrivateRoute exact path="/editProfile" component={EditProfile} />
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
+          <PrivateRoute path="/post/:id" component={Post}/>    
         </Switch>
       </HashRouter>
     </Router>

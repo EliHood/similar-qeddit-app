@@ -2,6 +2,8 @@ import React, { Fragment } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
+import { Link} from "react-router-dom";
+import OurLink from '../../common/OurLink'
 import moment from "moment";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
@@ -15,7 +17,12 @@ const PostList = (props: any) => {
         <Grid item sm={12} md={12} style={{ margin: "20px 0px" }}>
           <Paper style={{ padding: "20px" }}>
             <Typography variant="h3" align="left">
-              {post.title}
+                <OurLink to={{
+                    pathname: `/post/${post.id}`,
+                    state: { post }
+                  }}
+                  title={post.title}
+                /> 
             </Typography>
             <Typography align="left">{post.postContent}</Typography>
             <Avatar
@@ -27,10 +34,11 @@ const PostList = (props: any) => {
               src={post.author.gravatar}
             />
             <Typography display="inline" variant="h6" align="left">
-              {post.author.username}
+                {post.author.username}
             </Typography>
 
             <Typography align="right">Likes: {post.likeCounts}</Typography>
+
             <span
               style={{ cursor: "pointer" }}
               onClick={() => props.likePost(post.id)}
