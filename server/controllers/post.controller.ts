@@ -167,14 +167,9 @@ export default {
             { transaction }
           ),
           post.increment("likeCounts", { by: 1, transaction }),
-          // post.updateAttributes({liked: true}, true)
        
         ]);
-
-        console.log('test user', currentUser)
-
-        const likes = await models.Likes.findAll()
-        
+        const likes = await models.Likes.findAll()    
         if(likes){
           likes.forEach(like =>  {
             console.log('wwdff',like)
@@ -275,23 +270,9 @@ export default {
             },
             { transaction }
           ),
-          post.decrement("likeCounts", { by: 1, transaction }),
-   
-          
+          post.decrement("likeCounts", { by: 1, transaction }),  
         ]);
-
-        post.Likes.forEach( (like) => {
-          console.log('tesssstusff', like)
-          if(like.userId === currentUser){
-            post.setDataValue("likedByMe", false);
-          }
-          else{
-            post.setDataValue("likedByMe",false);
-          }
-        })
-        
         const likes = await models.Likes.findAll()
-        
         if(likes){
           likes.forEach(like =>  {
             console.log('dislike',like)

@@ -174,7 +174,6 @@ exports.default = {
                     }, { transaction }),
                     post.increment("likeCounts", { by: 1, transaction }),
                 ]);
-                console.log('test user', currentUser);
                 const likes = yield models_1.default.Likes.findAll();
                 if (likes) {
                     likes.forEach(like => {
@@ -275,15 +274,6 @@ exports.default = {
                     }, { transaction }),
                     post.decrement("likeCounts", { by: 1, transaction }),
                 ]);
-                post.Likes.forEach((like) => {
-                    console.log('tesssstusff', like);
-                    if (like.userId === currentUser) {
-                        post.setDataValue("likedByMe", false);
-                    }
-                    else {
-                        post.setDataValue("likedByMe", false);
-                    }
-                });
                 const likes = yield models_1.default.Likes.findAll();
                 if (likes) {
                     likes.forEach(like => {
