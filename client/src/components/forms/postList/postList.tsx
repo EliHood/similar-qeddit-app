@@ -2,21 +2,19 @@ import React, { Fragment } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
-import { Link} from "react-router-dom";
 import OurLink from '../../common/OurLink'
 import moment from "moment";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import Avatar from "@material-ui/core/Avatar";
 const PostList = (props: any) => {
-  const { posts } = props;
-
+  const { posts, currentUser} = props;
   return posts.length > 0 ? (
     posts.map((post, i) => (
       <Fragment key={i}>
         <Grid item sm={12} md={12} style={{ margin: "20px 0px" }}>
           <Paper style={{ padding: "20px" }}>
-            <Typography variant="h3" align="left">
+            <Typography variant="h5" align="left">
                 <OurLink to={{
                     pathname: `/post/${post.id}`,
                     state: { post }
@@ -24,22 +22,25 @@ const PostList = (props: any) => {
                   title={post.title}
                 /> 
             </Typography>
-            <Typography align="left">{post.postContent}</Typography>
+            <Grid item sm={12} md={12} style={{ padding:"30px 0px"}} >
+              <Typography align="left">{post.postContent.slice(0,30)}</Typography>
+            </Grid>
             <Avatar
               style={{
                 display: "inline-block",
-                margin: "-5px 0px"
+                margin: "-10px -20px",
+                padding: "0px 30px 0px 20px"
               }}
               sizes="small"
               src={post.author.gravatar}
             />
-            <Typography display="inline" variant="h6" align="left">
+            <Typography display="inline" variant="subtitle1" align="left">
                 {post.author.username}
             </Typography>
 
             <Typography align="right">Likes: {post.likeCounts}</Typography>
 
-            <span
+            {/* <span
               style={{ cursor: "pointer" }}
               onClick={() => props.likePost(post.id)}
             >
@@ -50,16 +51,23 @@ const PostList = (props: any) => {
               <span onClick={() => props.dislikePost(post.id)}>
                 Dislike this post
               </span>
-            </div>
-            <Typography align="right">
-              {post.likedByMe === true ? (
-                <FavoriteIcon style={{ color: "red" }}></FavoriteIcon>
-              ) : (
-                <FavoriteBorderIcon
-                  style={{ color: "red" }}
-                ></FavoriteBorderIcon>
-              )}
-            </Typography>
+            </div> */}
+             <Grid item sm={12} style ={{ padding: "20px 0px"}}>
+              <Typography align="right">          
+                  {post.likedByMe === true ? (
+                    <span style={{ cursor: "pointer"}} onClick={() => props.dislikePost(post.id)}>
+                      <FavoriteIcon style={{ color: "red" }}></FavoriteIcon>
+                    </span>
+                  ) : (
+                    <span onClick = { () => props.likePost(post.id)}>
+                    <FavoriteBorderIcon
+                      style={{ color: "red",  cursor: "pointer"  }}
+                    ></FavoriteBorderIcon>
+                    </span>  
+                  )}  
+                </Typography>
+             </Grid>
+           
             <Typography variant="h6" align="left">
               {moment(post.createdAt).calendar()}
             </Typography>

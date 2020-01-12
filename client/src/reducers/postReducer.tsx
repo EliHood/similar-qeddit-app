@@ -3,12 +3,12 @@ import * as types from "../actionTypes/postActionTypes";
 
 export interface postState {
   posts: Array<any>;
-  postPage:any
+  postPage:any,
 }
 
 const initialState: postState = {
   posts: [],
-  postPage:{}
+  postPage:{},
 };
 
 const postReducer = (state = initialState, action: any): postState =>
@@ -20,11 +20,13 @@ const postReducer = (state = initialState, action: any): postState =>
       case types.CREATE_POST_SUCCESS:
         console.log(action.payload);
         draft.posts = [action.payload.post, ...draft.posts];
+
         return;
       case types.LIKE_POST_SUCCESS:
         console.log(action);
         const findKey = state.posts.findIndex(x => x.id === action.payload.id);
         draft.posts[findKey].likeCounts = draft.posts[findKey].likeCounts + 1;
+        draft.posts[findKey].likedByMe = action.payload.like.post.likedByMe
         // draft.posts[findKey] = [...(draft.posts[findKey].likeCounts + 1)];
         return;
       case types.LIKE_POST_FAILURE:
@@ -44,6 +46,7 @@ const postReducer = (state = initialState, action: any): postState =>
         );
         draft.posts[newfindKey].likeCounts =
           draft.posts[newfindKey].likeCounts - 1;
+        draft.posts[newfindKey].likedByMe = action.payload.dislike.post.likedByMe
         return;
       case types.DISLIKE_POST_FAILURE:
         console.log(action);

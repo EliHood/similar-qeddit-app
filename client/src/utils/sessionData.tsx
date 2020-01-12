@@ -9,5 +9,11 @@ export default {
   },
   //   check if a user is signed in and stuff
   getLoginStatus: () =>
-    localStorage.getItem("jwtToken") !== "null" ? true : false
+    localStorage.getItem("jwtToken") !== "null" ? true : false,
+
+  currentUser: (id: any) => {
+    localStorage.setItem('CurrentUserId', id)
+  },
+  getCurrentUser: () => localStorage.getItem('CurrentUserId')
+  
 };

@@ -125,8 +125,19 @@ export default {
       models.Post.findOne({
         where: {
           id: req.params.id
-        }
-      })
+        },
+        include: [
+          {
+            model: models.User,
+            as: "author",
+            attributes: ["username", "gravatar", "bio"]
+          },
+          // limit the likes based on the logged in user
+          {
+            model: models.Likes
+          }
+        ],
+      }).then((newPost) => newPost)
     ]);
 
     // no post, no updates
@@ -155,13 +166,53 @@ export default {
             },
             { transaction }
           ),
-          post.increment("likeCounts", { by: 1, transaction })
+          post.increment("likeCounts", { by: 1, transaction }),
+          // post.updateAttributes({liked: true}, true)
+       
         ]);
 
+        console.log('test user', currentUser)
+
+        const likes = await models.Likes.findAll()
+        
+        if(likes){
+          likes.forEach(like =>  {
+            console.log('wwdff',like)
+            if(like.userId === currentUser){
+              post.setDataValue("likedByMe", true);
+            } 
+          })
+        } 
+      //   else{
+      //     post.Likes.forEach( (like) => {
+      //       console.log('testusff', like)
+      //       if(like.userId === currentUser){
+      //         post.setDataValue("likedByMe", true);
+      //       }
+      //       else{
+      //         post.setDataValue("likedByMe", false);
+      //       }
+      //     })
+      //     post.save()
+      // }
+        // if (post.Likes.length === 0) {
+        //   post.liked = true,
+        //   post.save()
+        // } else{
+        //   post.Likes.forEach(like => {
+        //     // console.log(like.userId);
+        //     console.log('liked',post)
+        //     if (like.userId === req.session.user.id) {
+        //       post.liked = true,
+        //       post.save()
+        //     }
+        //   });
+        // }
         await transaction.commit();
 
         return res.status(200).json({
-          message: "You liked this post"
+          message: "You liked this post",
+          post:post
         });
       }
     } catch (err) {
@@ -190,7 +241,18 @@ export default {
       models.Post.findOne({
         where: {
           id: req.params.id
-        }
+        },
+        include: [
+          {
+            model: models.User,
+            as: "author",
+            attributes: ["username", "gravatar", "bio"]
+          },
+          // limit the likes based on the logged in user
+          {
+            model: models.Likes
+          }
+        ],
       })
     ]);
     // no post, no updates
@@ -213,13 +275,48 @@ export default {
             },
             { transaction }
           ),
-          post.decrement("likeCounts", { by: 1, transaction })
+          post.decrement("likeCounts", { by: 1, transaction }),
+   
+          
         ]);
 
+        post.Likes.forEach( (like) => {
+          console.log('tesssstusff', like)
+          if(like.userId === currentUser){
+            post.setDataValue("likedByMe", false);
+          }
+          else{
+            post.setDataValue("likedByMe",false);
+          }
+        })
+        
+        const likes = await models.Likes.findAll()
+        
+        if(likes){
+          likes.forEach(like =>  {
+            console.log('dislike',like)
+            if(like.userId === currentUser){
+              post.setDataValue("likedByMe", false);
+            } 
+          })
+        } 
+      //   else{
+      //     post.Likes.forEach( (like) => {
+      //       console.log('testusff', like)
+      //       if(like.userId === currentUser){
+      //         post.setDataValue("likedByMe", true);
+      //       }
+      //       else{
+      //         post.setDataValue("likedByMe", false);
+      //       }
+      //     })
+      //     post.save()
+      // }
         await transaction.commit();
 
         return res.status(200).json({
-          message: "You unliked this post"
+          message: "You unliked this post",
+          post: post
         });
       }
     } catch (err) {

@@ -136,8 +136,19 @@ exports.default = {
             models_1.default.Post.findOne({
                 where: {
                     id: req.params.id
-                }
-            })
+                },
+                include: [
+                    {
+                        model: models_1.default.User,
+                        as: "author",
+                        attributes: ["username", "gravatar", "bio"]
+                    },
+                    // limit the likes based on the logged in user
+                    {
+                        model: models_1.default.Likes
+                    }
+                ],
+            }).then((newPost) => newPost)
         ]);
         // no post, no updates
         if (!post) {
@@ -161,11 +172,47 @@ exports.default = {
                         userId: currentUser,
                         resourceId: req.params.id
                     }, { transaction }),
-                    post.increment("likeCounts", { by: 1, transaction })
+                    post.increment("likeCounts", { by: 1, transaction }),
                 ]);
+                console.log('test user', currentUser);
+                const likes = yield models_1.default.Likes.findAll();
+                if (likes) {
+                    likes.forEach(like => {
+                        console.log('wwdff', like);
+                        if (like.userId === currentUser) {
+                            post.setDataValue("likedByMe", true);
+                        }
+                    });
+                }
+                //   else{
+                //     post.Likes.forEach( (like) => {
+                //       console.log('testusff', like)
+                //       if(like.userId === currentUser){
+                //         post.setDataValue("likedByMe", true);
+                //       }
+                //       else{
+                //         post.setDataValue("likedByMe", false);
+                //       }
+                //     })
+                //     post.save()
+                // }
+                // if (post.Likes.length === 0) {
+                //   post.liked = true,
+                //   post.save()
+                // } else{
+                //   post.Likes.forEach(like => {
+                //     // console.log(like.userId);
+                //     console.log('liked',post)
+                //     if (like.userId === req.session.user.id) {
+                //       post.liked = true,
+                //       post.save()
+                //     }
+                //   });
+                // }
                 yield transaction.commit();
                 return res.status(200).json({
-                    message: "You liked this post"
+                    message: "You liked this post",
+                    post: post
                 });
             }
         }
@@ -195,7 +242,18 @@ exports.default = {
             models_1.default.Post.findOne({
                 where: {
                     id: req.params.id
-                }
+                },
+                include: [
+                    {
+                        model: models_1.default.User,
+                        as: "author",
+                        attributes: ["username", "gravatar", "bio"]
+                    },
+                    // limit the likes based on the logged in user
+                    {
+                        model: models_1.default.Likes
+                    }
+                ],
             })
         ]);
         // no post, no updates
@@ -215,11 +273,42 @@ exports.default = {
                             resourceId: req.params.id
                         }
                     }, { transaction }),
-                    post.decrement("likeCounts", { by: 1, transaction })
+                    post.decrement("likeCounts", { by: 1, transaction }),
                 ]);
+                post.Likes.forEach((like) => {
+                    console.log('tesssstusff', like);
+                    if (like.userId === currentUser) {
+                        post.setDataValue("likedByMe", false);
+                    }
+                    else {
+                        post.setDataValue("likedByMe", false);
+                    }
+                });
+                const likes = yield models_1.default.Likes.findAll();
+                if (likes) {
+                    likes.forEach(like => {
+                        console.log('dislike', like);
+                        if (like.userId === currentUser) {
+                            post.setDataValue("likedByMe", false);
+                        }
+                    });
+                }
+                //   else{
+                //     post.Likes.forEach( (like) => {
+                //       console.log('testusff', like)
+                //       if(like.userId === currentUser){
+                //         post.setDataValue("likedByMe", true);
+                //       }
+                //       else{
+                //         post.setDataValue("likedByMe", false);
+                //       }
+                //     })
+                //     post.save()
+                // }
                 yield transaction.commit();
                 return res.status(200).json({
-                    message: "You unliked this post"
+                    message: "You unliked this post",
+                    post: post
                 });
             }
         }

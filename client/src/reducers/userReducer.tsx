@@ -5,7 +5,6 @@ import { sessionData, validation } from "../utils";
 export interface userState {
   isAuthenticated: boolean;
   error?: string;
-  currentUser: object;
   isLoading: boolean;
   profileData: object;
   message: string;
@@ -21,7 +20,6 @@ export interface userState {
 const initialState: userState = {
   isAuthenticated: false,
   error: "",
-  currentUser: {},
   profileData: {},
   isLoading: false,
   message: "",
@@ -67,7 +65,6 @@ const authReducer = (state = initialState, action: any): userState =>
         return;
       case types.GET_CURRENT_USER:
         console.log(action);
-        draft.currentUser = action.payload;
         return;
       case types.LOG_IN_FAILURE:
         console.log(action.error);

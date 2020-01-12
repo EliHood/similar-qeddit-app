@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     var Post = sequelize.define("Post", {
         title: DataTypes.STRING,
         postContent: DataTypes.STRING,
+        liked: DataTypes.BOOLEAN,
         likeCounts: {
             type: DataTypes.INTEGER,
             allowNull: false,

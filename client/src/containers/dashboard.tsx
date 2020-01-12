@@ -14,7 +14,8 @@ const mapDispatchToProps = (dispatch: any) => ({
 });
 
 const mapStateToProps = (state: any) => ({
-  posts: state.post.posts
+  posts: state.post.posts,
+  user: state.user.currentUserId
 });
 
 export default connect(

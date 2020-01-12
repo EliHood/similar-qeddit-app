@@ -29,7 +29,6 @@ class Nav extends Component<routerContainerProps, routerContainerState> {
 
   render() {
     const { hasError } = this.state;
-    console.log(this.props.user.isAuthenticated);
     return (
       <Router
         hasError={hasError}

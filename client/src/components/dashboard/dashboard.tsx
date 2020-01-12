@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import GridHoc from "../hoc/grid";
 import PostList from "../forms/postList/postList";
 import CreatePost from "../forms/createPost/createPost";
+import { sessionData } from "../../utils";
 export interface dashboardProps {
   getPostsInit: () => void;
   posts: Array<any>;
@@ -51,6 +52,7 @@ class Dashboard extends Component<dashboardProps, dashboardState> {
           likePost={this.props.likePost}
           dislikePost={this.props.dislikePost}
           posts={this.props.posts}
+          currentUser={sessionData.getCurrentUser()}
         />
       </Fragment>
     );

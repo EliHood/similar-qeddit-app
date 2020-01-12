@@ -26,6 +26,7 @@ export = (sequelize: Sequelize, DataTypes: DataTypes) => {
     {
       title: DataTypes.STRING,
       postContent: DataTypes.STRING,
+      liked:DataTypes.BOOLEAN,
       likeCounts: {
         type: DataTypes.INTEGER,
         allowNull: false,
