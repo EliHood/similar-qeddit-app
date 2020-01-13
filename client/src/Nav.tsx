@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Router from "./Router";
-import { getUser, logOutInit } from "./actions/userActions";
 import { withRouter } from "react-router";
+import { getUser, logOutInit } from "./actions/userActions";
+import Router from "./Router";
 export interface routerContainerState {
   hasError: boolean;
 }
@@ -14,20 +14,20 @@ export interface routerContainerProps {
   };
 }
 class Nav extends Component<routerContainerProps, routerContainerState> {
-  state: routerContainerState = {
-    hasError: false
+  public state: routerContainerState = {
+    hasError: false,
   };
-  componentDidMount() {
+  public componentDidMount() {
     this.props.getUser();
   }
-  componentDidCatch(error, info) {
+  public componentDidCatch(error, info) {
     console.log(error, info);
     this.setState({
-      hasError: true
+      hasError: true,
     });
   }
 
-  render() {
+  public render() {
     const { hasError } = this.state;
     return (
       <Router
@@ -40,10 +40,10 @@ class Nav extends Component<routerContainerProps, routerContainerState> {
 }
 const dispatchToProps = (dispatch: any) => ({
   getUser: () => dispatch(getUser()),
-  logOutInit: () => dispatch(logOutInit())
+  logOutInit: () => dispatch(logOutInit()),
 });
 
 const mapStateToProps = (state: any) => ({
-  user: state.user
+  user: state.user,
 });
 export default connect(mapStateToProps, dispatchToProps)(Nav);

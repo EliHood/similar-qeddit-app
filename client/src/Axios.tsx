@@ -6,16 +6,16 @@ const AxiosInstance = Axios.create({
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
-    Accept: "application/json"
-  }
+    "Accept": "application/json",
+  },
 });
 
 AxiosInstance.interceptors.response.use(
-  response =>
+  (response) =>
     // const token = localStorage.getItem('auth');
     // response.headers.Authorization =  token ? `Bearer ${token}` : '';
     // console.log(token);
-    response
+    response,
 );
 
 export default AxiosInstance;

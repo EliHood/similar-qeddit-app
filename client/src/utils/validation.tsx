@@ -1,5 +1,5 @@
-const isLetterOnly = (chars:string) => {
-  let onlyLetter = /^[a-zA-Z]+$/;
+const isLetterOnly = (chars: string) => {
+  const onlyLetter = /^[a-zA-Z]+$/;
   return chars.match(onlyLetter);
 };
 
@@ -13,7 +13,7 @@ const isEmail = (email: string) => {
 };
 
 export default {
-  validateEmail:(chars: string) => {
+  validateEmail: (chars: string) => {
     if (chars.length > 0) {
       if (isEmail(chars)) {
         return true;
@@ -27,17 +27,17 @@ export default {
 
   validateUsername: (chars: string) => {
     if (chars.length > 0) {
-      if(chars.length > 6){
-        return true
-      }else{
-        return "Username must be at least 6 chars"
+      if (chars.length > 6) {
+        return true;
+      } else {
+        return "Username must be at least 6 chars";
       }
-    }else{
+    } else {
       return "Field cannot be empty";
     }
 
   },
-  validatePassword: ( chars:string) => {
+  validatePassword: (chars: string) => {
     if (chars.length > 0) {
       if (chars.length > 6) {
         return true;
@@ -48,7 +48,7 @@ export default {
       return "Field cannot be empty";
     }
   },
- validateString: (chars: string) => {
+  validateString: (chars: string) => {
     if (chars.length > 0) {
       if (isLetterOnly(chars)) {
         if (chars.length > 6) {
@@ -62,11 +62,6 @@ export default {
     } else {
       return "Field cannot be empty";
     }
-  }
-  
+  },
 
-  
-
-
-}
-
+};

@@ -1,7 +1,7 @@
-import React, { Component, Fragment } from "react";
-import GridHoc from "../hoc/grid";
-import EditProfileForm from "../forms/editProfile/editForm";
 import Typography from "@material-ui/core/Typography";
+import React, { Component, Fragment } from "react";
+import EditProfileForm from "../forms/editProfile/editForm";
+import GridHoc from "../hoc/grid";
 export interface dashboardProps {
   getUserProfile: () => void;
   updateUserProfile: (any) => void;
@@ -19,17 +19,6 @@ export interface dashboardState {
   };
 }
 class EditProfile extends Component<dashboardProps, dashboardState> {
-  state: dashboardState = {
-    prevProps: {
-      bio: "",
-      gravatar: ""
-    },
-    bio: "",
-    gravatar: ""
-  };
-  componentDidMount() {
-    this.props.getUserProfile();
-  }
   // deprecated
   // componentWillReceiveProps(nextProps) {
   //   this.setState({
@@ -38,33 +27,44 @@ class EditProfile extends Component<dashboardProps, dashboardState> {
   //   });
   // }
   // gets, the data, and makes fields editable
-  static getDerivedStateFromProps(props, state) {
+  public static getDerivedStateFromProps(props, state) {
     const { prevProps } = state;
     const { bio, gravatar } = props.user;
     return {
       // Store the previous props in state
       prevProps: { bio, gravatar },
       bio: prevProps.bio !== bio ? bio : state.bio,
-      gravatar: prevProps.gravatar !== gravatar ? gravatar : state.gravatar
+      gravatar: prevProps.gravatar !== gravatar ? gravatar : state.gravatar,
     };
   }
-
-  handleChange = (e: any) => {
-    this.setState({
-      [e.target.name]: e.target.value
-    } as any);
+  public state: dashboardState = {
+    prevProps: {
+      bio: "",
+      gravatar: "",
+    },
+    bio: "",
+    gravatar: "",
   };
-  handleSubmit = (e: any) => {
+  public componentDidMount() {
+    this.props.getUserProfile();
+  }
+
+  public handleChange = (e: any) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    } as any);
+  }
+  public handleSubmit = (e: any) => {
     e.preventDefault();
     const { bio, gravatar } = this.state;
     const formData = {
-      bio: bio,
-      gravatar: gravatar
+      bio,
+      gravatar,
     };
     console.log(formData);
     this.props.updateUserProfile(formData);
-  };
-  render() {
+  }
+  public render() {
     const { bio, gravatar } = this.state;
 
     return (

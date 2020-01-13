@@ -12,8 +12,8 @@ export default {
     localStorage.getItem("jwtToken") !== "null" ? true : false,
 
   currentUser: (id: any) => {
-    localStorage.setItem('CurrentUserId', id)
+    localStorage.setItem("CurrentUserId", id);
   },
-  getCurrentUser: () => localStorage.getItem('CurrentUserId')
-  
+  getCurrentUser: () => localStorage.getItem("CurrentUserId"),
+
 };

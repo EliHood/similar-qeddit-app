@@ -8,6 +8,6 @@ import sagas from "./sagas";
 const sagaMiddleware = createSagaMiddleware();
 export const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware))
+  composeWithDevTools(applyMiddleware(sagaMiddleware)),
 );
 sagas.map(sagaMiddleware.run);

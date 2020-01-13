@@ -1,23 +1,23 @@
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import "./index.css";
-import * as serviceWorker from "./serviceWorker";
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import { store } from "./store";
 import Nav from "./Nav";
+import * as serviceWorker from "./serviceWorker";
+import { store } from "./store";
 import { userSession } from "./utils";
 
 userSession.userSession();
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#48A9A6"
+      main: "#48A9A6",
     },
     secondary: {
-      main: "#000000"
-    }
-  }
+      main: "#000000",
+    },
+  },
 });
 
 const app = (

@@ -1,7 +1,7 @@
-import { setAuthToken } from "./";
-import { store } from "../store";
-import { loginSuccess, logOutInit } from "../actions/userActions";
 import jwt_decode from "jwt-decode";
+import { loginSuccess, logOutInit } from "../actions/userActions";
+import { store } from "../store";
+import { setAuthToken } from "./";
 export default {
   userSession: () => {
     if (localStorage.jwtToken) {
@@ -24,5 +24,5 @@ export default {
         }
       }
     }
-  }
+  },
 };

@@ -1,5 +1,5 @@
-import React, { Component, Fragment } from "react";
 import Typography from "@material-ui/core/Typography";
+import React, { Component, Fragment } from "react";
 import SignUpForm from "../forms/signUp/signUp";
 import GridHoc from "../hoc/grid";
 import IsAuth from "../hoc/isAuthenticated";
@@ -17,34 +17,34 @@ export interface registerState {
   passErr: string;
 }
 class Register extends Component<registerProps, registerState> {
-  state: registerState = {
+  public state: registerState = {
     passwordConf: "",
-    passErr: ""
+    passErr: "",
   };
 
-  handleEmailChange = (e: any) => {
-    this.props.addEmail(e.target.value)
+  public handleEmailChange = (e: any) => {
+    this.props.addEmail(e.target.value);
   }
-  handleUsernameChange = (e: any) => {
-    this.props.addUsername(e.target.value)
+  public handleUsernameChange = (e: any) => {
+    this.props.addUsername(e.target.value);
   }
-  handlePasswordChange = (e: any) => {
-    this.props.addPassword(e.target.value)
+  public handlePasswordChange = (e: any) => {
+    this.props.addPassword(e.target.value);
   }
 
-  handleSubmit = (e: any) => {
+  public handleSubmit = (e: any) => {
     e.preventDefault();
-    const { username, email, password,  } = this.props.user;
+    const { username, email, password  } = this.props.user;
     const creds = {
       username,
       email,
-      password
+      password,
     };
     console.log(creds);
     this.props.signUpInit(creds);
-    
-  };
-  render() {
+
+  }
+  public render() {
     const { username, email, password, usernameError, passwordError, emailError  } = this.props.user;
     const isEnabled =
     emailError === true && passwordError === true && usernameError === true ? false : true;

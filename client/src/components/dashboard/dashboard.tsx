@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from "react";
-import GridHoc from "../hoc/grid";
-import PostList from "../forms/postList/postList";
-import CreatePost from "../forms/createPost/createPost";
 import { sessionData } from "../../utils";
+import CreatePost from "../forms/createPost/createPost";
+import PostList from "../forms/postList/postList";
+import GridHoc from "../hoc/grid";
 export interface dashboardProps {
   getPostsInit: () => void;
-  posts: Array<any>;
+  posts: any[];
   createPostInit: (event: object) => void;
   likePost: (event: number) => void;
   dislikePost: (event: number) => void;
@@ -15,30 +15,30 @@ export interface dashboardState {
   postContent: string;
 }
 class Dashboard extends Component<dashboardProps, dashboardState> {
-  state: dashboardState = {
+  public state: dashboardState = {
     title: "",
-    postContent: ""
+    postContent: "",
   };
-  componentDidMount() {
+  public componentDidMount() {
     this.props.getPostsInit();
   }
-  handleChange = (e: any) => {
+  public handleChange = (e: any) => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     } as any);
-  };
+  }
 
-  onSubmit = (e: any) => {
+  public onSubmit = (e: any) => {
     e.preventDefault();
     const { title, postContent } = this.state;
     const postData = { title, postContent };
     this.props.createPostInit(postData);
     this.setState({
       title: "",
-      postContent: ""
+      postContent: "",
     });
-  };
-  render() {
+  }
+  public render() {
     return (
       <Fragment>
         <CreatePost

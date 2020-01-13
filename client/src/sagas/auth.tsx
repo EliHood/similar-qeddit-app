@@ -3,8 +3,8 @@ import { call, fork, put, takeLatest } from "redux-saga/effects";
 import * as actionTypes from "../actions/userActions";
 import * as types from "../actionTypes/userActionTypes";
 import api from "../api/api";
-import { sessionData, setAuthToken } from "../utils";
 import { history } from "../ourHistory";
+import { sessionData, setAuthToken } from "../utils";
 export function* registerUser(action) {
   try {
     console.log(action);
@@ -50,7 +50,7 @@ export function* updateUserProfile(action) {
     yield put(actionTypes.updateUserProfileSuccess(profile));
   } catch (err) {
     yield put(
-      actionTypes.updateUserProfileFailure(err.response.data.meta.message)
+      actionTypes.updateUserProfileFailure(err.response.data.meta.message),
     );
   }
 }
@@ -59,7 +59,7 @@ export function* logOut() {
   try {
     const logout = yield call(api.user.logOut);
     sessionData.setUserLoggdOut();
-    localStorage.removeItem('CurrentUserId')
+    localStorage.removeItem("CurrentUserId");
     history.push("/");
     yield put(actionTypes.logOutSuccess(logout));
   } catch (error) {
@@ -76,8 +76,8 @@ export function* login(action) {
     sessionData.setUserLoggedIn(token);
     const decoded = jwtDecode(token);
     setAuthToken(token);
-    console.log(login.user)
-    sessionData.currentUser(login.user.id.toString())
+    console.log(login.user);
+    sessionData.currentUser(login.user.id.toString());
     yield put(actionTypes.getCurrentUser(login.user));
 
     yield put(actionTypes.loginSuccess(decoded));

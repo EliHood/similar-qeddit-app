@@ -4,26 +4,16 @@ import {  initLogin } from "../../actions/userActions";
 export interface authHocProps {
   user?: any;
   history?: any;
-  initLogin:() => void;
+  initLogin: () => void;
 }
 export interface authState {
   errors: object;
 }
 export default function(WrappedComponent) {
   class IsAuth extends Component<authHocProps, authState> {
-    ourState: authState = {
-      errors: {}
-    };
-    componentDidMount() {
-      this.props.initLogin()
-      if (this.props.user.isAuthenticated) {
-        this.props.history.push("/dashboard");
-      }
-    
-    }
     //   this line is magic, redirects to the dashboard after user signs up
     // this replace getDerivedStateFromPropss
-    static getDerivedStateFromProps(nextProps) {
+    public static getDerivedStateFromProps(nextProps) {
       if (nextProps.user.isAuthenticated) {
         nextProps.history.push("/dashboard");
       }
@@ -32,15 +22,25 @@ export default function(WrappedComponent) {
       }
       return null;
     }
-    render() {
+    public ourState: authState = {
+      errors: {},
+    };
+    public componentDidMount() {
+      this.props.initLogin();
+      if (this.props.user.isAuthenticated) {
+        this.props.history.push("/dashboard");
+      }
+
+    }
+    public render() {
       return <WrappedComponent {...this.props} />;
     }
   }
   const mapStateToProps = (state: any) => ({
-    user: state.user
+    user: state.user,
   });
   const mapDispatchToProps = (dispatch: any) => ({
-    initLogin: () => dispatch(initLogin())
+    initLogin: () => dispatch(initLogin()),
   });
   return connect(mapStateToProps, mapDispatchToProps)(IsAuth);
 }

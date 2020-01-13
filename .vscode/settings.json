@@ -1,6 +1,8 @@
 {
-    "eslint.lintTask.enable": true,
     "eslint.format.enable": true,
-    "eslint.debug": true,
-  
+    "eslint.lintTask.enable": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true,
+        "source.fixAll": true
+    },
 }

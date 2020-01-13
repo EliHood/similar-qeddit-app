@@ -1,35 +1,35 @@
-import React, { Fragment } from "react";
+import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
-import OurLink from '../../common/OurLink'
-import moment from "moment";
+import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import Avatar from "@material-ui/core/Avatar";
+import moment from "moment";
+import React, { Fragment } from "react";
+import OurLink from "../../common/OurLink";
 const PostList = (props: any) => {
   const { posts, currentUser} = props;
   return posts.length > 0 ? (
     posts.map((post, i) => (
       <Fragment key={i}>
-        <Grid item sm={12} md={12} style={{ margin: "20px 0px" }}>
+        <Grid item={true} sm={12} md={12} style={{ margin: "20px 0px" }}>
           <Paper style={{ padding: "20px" }}>
             <Typography variant="h5" align="left">
                 <OurLink to={{
                     pathname: `/post/${post.id}`,
-                    state: { post }
+                    state: { post },
                   }}
                   title={post.title}
-                /> 
+                />
             </Typography>
-            <Grid item sm={12} md={12} style={{ padding:"30px 0px"}} >
-              <Typography align="left">{post.postContent.slice(0,30)}</Typography>
+            <Grid item={true} sm={12} md={12} style={{ padding: "30px 0px"}} >
+              <Typography align="left">{post.postContent.slice(0, 30)}</Typography>
             </Grid>
             <Avatar
               style={{
                 display: "inline-block",
                 margin: "-10px -20px",
-                padding: "0px 30px 0px 20px"
+                padding: "0px 30px 0px 20px",
               }}
               sizes="small"
               src={post.author.gravatar}
@@ -52,22 +52,22 @@ const PostList = (props: any) => {
                 Dislike this post
               </span>
             </div> */}
-             <Grid item sm={12} style ={{ padding: "20px 0px"}}>
-              <Typography align="right">          
+             <Grid item={true} sm={12} style={{ padding: "20px 0px"}}>
+              <Typography align="right">
                   {post.likedByMe === true ? (
                     <span style={{ cursor: "pointer"}} onClick={() => props.dislikePost(post.id)}>
-                      <FavoriteIcon style={{ color: "red" }}></FavoriteIcon>
+                      <FavoriteIcon style={{ color: "red" }}/>
                     </span>
                   ) : (
-                    <span onClick = { () => props.likePost(post.id)}>
+                    <span onClick={() => props.likePost(post.id)}>
                     <FavoriteBorderIcon
                       style={{ color: "red",  cursor: "pointer"  }}
-                    ></FavoriteBorderIcon>
-                    </span>  
-                  )}  
+                    />
+                    </span>
+                  )}
                 </Typography>
              </Grid>
-           
+
             <Typography variant="h6" align="left">
               {moment(post.createdAt).calendar()}
             </Typography>
@@ -77,7 +77,7 @@ const PostList = (props: any) => {
     ))
   ) : (
     <div>
-      <Grid item md={8}>
+      <Grid item={true} md={8}>
         <Typography>No Posts yet</Typography>
       </Grid>
     </div>

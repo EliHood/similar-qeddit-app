@@ -1,9 +1,9 @@
-import React, { Component, Fragment } from "react";
 import Typography from "@material-ui/core/Typography";
+import React, { Component, Fragment } from "react";
+import { GoogleLogin } from "react-google-login";
 import LoginForm from "../forms/login/login";
 import GridHoc from "../hoc/grid";
 import IsAuth from "../hoc/isAuthenticated";
-import { GoogleLogin } from "react-google-login";
 
 export interface loginProps {
   onChange: (event: any) => void;
@@ -17,33 +17,33 @@ export interface loginState {
 }
 
 class Login extends Component<loginProps, loginState> {
-  state: loginState = {
+  public state: loginState = {
     username: "",
-    password: ""
+    password: "",
   };
-  handleChange = (e: any) => {
+  public handleChange = (e: any) => {
     e.preventDefault();
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     } as any);
-  };
+  }
 
-  handleSubmit = (e: any) => {
+  public handleSubmit = (e: any) => {
     e.preventDefault();
     const { username, password } = this.state;
     this.setState({
       username: this.state.username,
-      password: this.state.password
+      password: this.state.password,
     });
     const creds = {
       username,
-      password
+      password,
     };
     console.log(creds);
 
     this.props.loginInit(creds);
-  };
-  render() {
+  }
+  public render() {
     return (
       <Fragment>
         {this.props.user.error && <div>{this.props.user.error}</div>}

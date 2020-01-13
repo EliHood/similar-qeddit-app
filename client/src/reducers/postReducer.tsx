@@ -2,17 +2,17 @@ import produce from "immer";
 import * as types from "../actionTypes/postActionTypes";
 
 export interface postState {
-  posts: Array<any>;
-  postPage:any,
+  posts: any[];
+  postPage: any;
 }
 
 const initialState: postState = {
   posts: [],
-  postPage:{},
+  postPage: {},
 };
 
 const postReducer = (state = initialState, action: any): postState =>
-  produce(state, draft => {
+  produce(state, (draft) => {
     switch (action.type) {
       case types.GET_POSTS_SUCCESS:
         draft.posts = action.payload;
@@ -24,9 +24,9 @@ const postReducer = (state = initialState, action: any): postState =>
         return;
       case types.LIKE_POST_SUCCESS:
         console.log(action);
-        const findKey = state.posts.findIndex(x => x.id === action.payload.id);
+        const findKey = state.posts.findIndex((x) => x.id === action.payload.id);
         draft.posts[findKey].likeCounts = draft.posts[findKey].likeCounts + 1;
-        draft.posts[findKey].likedByMe = action.payload.like.post.likedByMe
+        draft.posts[findKey].likedByMe = action.payload.like.post.likedByMe;
         // draft.posts[findKey] = [...(draft.posts[findKey].likeCounts + 1)];
         return;
       case types.LIKE_POST_FAILURE:
@@ -34,7 +34,7 @@ const postReducer = (state = initialState, action: any): postState =>
         return;
       case types.FETCH_POST_SUCCESS:
         console.log(action);
-        draft.postPage = action.payload
+        draft.postPage = action.payload;
         return;
       case types.FETCH_POST_FAILURE:
         console.log(action);
@@ -42,11 +42,11 @@ const postReducer = (state = initialState, action: any): postState =>
       case types.DISLIKE_POST_SUCCESS:
         console.log(action);
         const newfindKey = state.posts.findIndex(
-          x => x.id === action.payload.id
+          (x) => x.id === action.payload.id,
         );
         draft.posts[newfindKey].likeCounts =
           draft.posts[newfindKey].likeCounts - 1;
-        draft.posts[newfindKey].likedByMe = action.payload.dislike.post.likedByMe
+        draft.posts[newfindKey].likedByMe = action.payload.dislike.post.likedByMe;
         return;
       case types.DISLIKE_POST_FAILURE:
         console.log(action);

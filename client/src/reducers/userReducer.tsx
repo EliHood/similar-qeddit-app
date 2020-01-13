@@ -10,10 +10,10 @@ export interface userState {
   message: string;
   usernameError: any;
   passwordError: any;
-  emailError:any;
-  email:string,
-  password: string,
-  username: string
+  emailError: any;
+  email: string;
+  password: string;
+  username: string;
 
 }
 
@@ -25,24 +25,24 @@ const initialState: userState = {
   message: "",
   usernameError: "",
   passwordError: "",
-  emailError:"",
+  emailError: "",
   email: "",
   password: "",
-  username: ""
+  username: "",
 };
 
 const authReducer = (state = initialState, action: any): userState =>
-  produce(state, draft => {
+  produce(state, (draft) => {
     switch (action.type) {
       case types.SIGN_UP_SUCCESS:
         console.log(action);
         draft.isAuthenticated = sessionData.getLoginStatus();
-        draft.email = ""
-        draft.password = ""
-        draft.username = ""
-        draft.error = ""
+        draft.email = "";
+        draft.password = "";
+        draft.username = "";
+        draft.error = "";
         return;
-      
+
       case types.SIGN_UP_FAILURE:
         console.log(action);
         draft.error = action.error;
@@ -61,7 +61,7 @@ const authReducer = (state = initialState, action: any): userState =>
         draft.isLoading = true;
         return;
       case types.INIT_LOGIN:
-        draft.error = ""
+        draft.error = "";
         return;
       case types.GET_CURRENT_USER:
         console.log(action);
@@ -84,20 +84,20 @@ const authReducer = (state = initialState, action: any): userState =>
       case types.UPDATE_USER_PROFILE_FAILURE:
         console.log(action.error);
         draft.error = action.error;
-        return
+        return;
       case types.ADD_EMAIL:
-        console.log( validation.validateEmail(action.data))
+        console.log(validation.validateEmail(action.data));
         draft.email = action.data;
-        draft.emailError = validation.validateEmail(action.data)
+        draft.emailError = validation.validateEmail(action.data);
         break;
       case types.ADD_PASSWORD:
-        draft.password = action.data
-        draft.passwordError = validation.validatePassword(action.data)
+        draft.password = action.data;
+        draft.passwordError = validation.validatePassword(action.data);
         break;
       case types.ADD_USERNAME:
-        draft.username = action.data
-        draft.usernameError = validation.validateUsername(action.data)
-        return
+        draft.username = action.data;
+        draft.usernameError = validation.validateUsername(action.data);
+        return;
     }
   });
 

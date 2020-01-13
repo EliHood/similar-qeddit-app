@@ -1,7 +1,7 @@
-import React from "react";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
+import React from "react";
 const PostForm = (props: any) => (
   <form onSubmit={props.onSubmit}>
     <Typography variant="h4">New Post</Typography>
@@ -9,7 +9,7 @@ const PostForm = (props: any) => (
       id="outlined-name"
       label="Title"
       style={{
-        width: 560
+        width: 560,
       }}
       name="title"
       value={props.title}
@@ -17,14 +17,14 @@ const PostForm = (props: any) => (
       margin="normal"
       variant="outlined"
     />
-    <br></br>
+    <br/>
     <TextField
       id="outlined-multiline-static"
       label="Post Content"
       name="postContent"
-      multiline
+      multiline={true}
       style={{
-        width: 560
+        width: 560,
       }}
       rows="4"
       value={props.postContent}
@@ -32,8 +32,8 @@ const PostForm = (props: any) => (
       margin="normal"
       variant="outlined"
     />
-    <br></br>
-    <br></br>
+    <br/>
+    <br/>
     <Button variant="outlined" color="primary" type="submit">
       Submit
     </Button>

@@ -1,6 +1,6 @@
-import React from "react";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import React from "react";
 
 const SignUpForm = (props: any) => (
   <form onSubmit={props.submit}>

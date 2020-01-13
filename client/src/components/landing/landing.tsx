@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
 class Landing extends Component {
-  state = {};
-  render() {
+  public state = {};
+  public render() {
     return <div>This is landing page.</div>;
   }
 }
