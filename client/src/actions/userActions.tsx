@@ -43,9 +43,9 @@ export const logOutFailure = (error: object) => ({
   error,
 });
 
-export const loginInit = (payload: object) => ({
+export const loginInit = (payload: object, history:object) => ({
   type: types.LOG_IN_INIT,
-  payload,
+  payload, history
 });
 
 export const loginSuccess = (payload: object) => ({

@@ -60,7 +60,7 @@ export function* logOut() {
     const logout = yield call(api.user.logOut);
     sessionData.setUserLoggdOut();
     localStorage.removeItem("CurrentUserId");
-    history.push("/");
+    window.location.href = "/login";
     yield put(actionTypes.logOutSuccess(logout));
   } catch (error) {
     yield put(actionTypes.logOutFailure(error));
@@ -69,6 +69,7 @@ export function* logOut() {
 
 export function* login(action) {
   try {
+    const history = action.history 
     const login = yield call(api.user.logIn, action.payload);
     console.log(login);
     const token = login.meta.token;
@@ -79,8 +80,8 @@ export function* login(action) {
     console.log(login.user);
     sessionData.currentUser(login.user.id.toString());
     yield put(actionTypes.getCurrentUser(login.user));
-
     yield put(actionTypes.loginSuccess(decoded));
+ 
   } catch (err) {
     const errMsg = err.response.data.meta.message;
     yield put(actionTypes.loginFailure(errMsg));

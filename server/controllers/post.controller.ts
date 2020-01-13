@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import models from "../models";
 import dotenv from "dotenv";
+import sequelize from "sequelize";
 
 dotenv.config();
 export default {
@@ -13,7 +14,6 @@ export default {
           as: "author",
           attributes: ["username", "gravatar", "bio"]
         },
-        // limit the likes based on the logged in user
         {
           model: models.Likes
         }
@@ -39,6 +39,26 @@ export default {
     });
 
     return res.json(posts);
+  },
+
+  getPopularPosts: async(req: any, res: Response) => {
+    const popPosts = await models.Post.findAll({
+      // order: [[ sequelize.fn('max', sequelize.col('likeCounts'))]],
+      include: [
+        {
+          model: models.User,
+          as: "author",
+          attributes: ["username", "gravatar", "bio"]
+        },
+        {
+          model: models.Likes
+        }
+      ],
+      
+      order: [["likeCounts", "DESC"]],
+
+    })
+    return res.json(popPosts);
   },
   postPage: async( req: any, res: Response) => {
     const postPage = await models.Post.findOne({

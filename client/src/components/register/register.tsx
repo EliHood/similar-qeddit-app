@@ -17,22 +17,22 @@ export interface registerState {
   passErr: string;
 }
 class Register extends Component<registerProps, registerState> {
-  public state: registerState = {
+  state: registerState = {
     passwordConf: "",
     passErr: "",
   };
 
-  public handleEmailChange = (e: any) => {
+  handleEmailChange = (e: any) => {
     this.props.addEmail(e.target.value);
   }
-  public handleUsernameChange = (e: any) => {
+  handleUsernameChange = (e: any) => {
     this.props.addUsername(e.target.value);
   }
-  public handlePasswordChange = (e: any) => {
+  handlePasswordChange = (e: any) => {
     this.props.addPassword(e.target.value);
   }
 
-  public handleSubmit = (e: any) => {
+  handleSubmit = (e: any) => {
     e.preventDefault();
     const { username, email, password  } = this.props.user;
     const creds = {
@@ -44,7 +44,7 @@ class Register extends Component<registerProps, registerState> {
     this.props.signUpInit(creds);
 
   }
-  public render() {
+  render() {
     const { username, email, password, usernameError, passwordError, emailError  } = this.props.user;
     const isEnabled =
     emailError === true && passwordError === true && usernameError === true ? false : true;

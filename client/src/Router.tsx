@@ -21,7 +21,6 @@ const MyRouter = (props) =>
     <div>Error</div>
   ) : (
     <Router history={history}>
-      <HashRouter>
         <AppBar position="static">
           <Toolbar>
             <Grid justify="space-between" container={true}>
@@ -111,7 +110,6 @@ const MyRouter = (props) =>
           <PrivateRoute exact={true} path="/dashboard" component={Dashboard} />
           <PrivateRoute path="/post/:id" component={Post}/>
         </Switch>
-      </HashRouter>
     </Router>
   );
 

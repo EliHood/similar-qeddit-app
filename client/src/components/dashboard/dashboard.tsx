@@ -19,16 +19,16 @@ class Dashboard extends Component<dashboardProps, dashboardState> {
     title: "",
     postContent: "",
   };
-  public componentDidMount() {
+  componentDidMount() {
     this.props.getPostsInit();
   }
-  public handleChange = (e: any) => {
+  handleChange = (e: any) => {
     this.setState({
       [e.target.name]: e.target.value,
     } as any);
   }
 
-  public onSubmit = (e: any) => {
+  onSubmit = (e: any) => {
     e.preventDefault();
     const { title, postContent } = this.state;
     const postData = { title, postContent };
@@ -38,7 +38,7 @@ class Dashboard extends Component<dashboardProps, dashboardState> {
       postContent: "",
     });
   }
-  public render() {
+  render() {
     return (
       <Fragment>
         <CreatePost

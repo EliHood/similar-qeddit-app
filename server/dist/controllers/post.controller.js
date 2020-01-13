@@ -25,7 +25,6 @@ exports.default = {
                     as: "author",
                     attributes: ["username", "gravatar", "bio"]
                 },
-                // limit the likes based on the logged in user
                 {
                     model: models_1.default.Likes
                 }
@@ -50,6 +49,23 @@ exports.default = {
             });
         });
         return res.json(posts);
+    }),
+    getPopularPosts: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        const popPosts = yield models_1.default.Post.findAll({
+            // order: [[ sequelize.fn('max', sequelize.col('likeCounts'))]],
+            include: [
+                {
+                    model: models_1.default.User,
+                    as: "author",
+                    attributes: ["username", "gravatar", "bio"]
+                },
+                {
+                    model: models_1.default.Likes
+                }
+            ],
+            order: [["likeCounts", "DESC"]],
+        });
+        return res.json(popPosts);
     }),
     postPage: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const postPage = yield models_1.default.Post.findOne({
