@@ -169,6 +169,7 @@ export default {
           post.increment("likeCounts", { by: 1, transaction }),
        
         ]);
+        // find all likes, and if like === currentUser id, heart will be filled
         const likes = await models.Likes.findAll()    
         if(likes){
           likes.forEach(like =>  {
@@ -178,31 +179,6 @@ export default {
             } 
           })
         } 
-      //   else{
-      //     post.Likes.forEach( (like) => {
-      //       console.log('testusff', like)
-      //       if(like.userId === currentUser){
-      //         post.setDataValue("likedByMe", true);
-      //       }
-      //       else{
-      //         post.setDataValue("likedByMe", false);
-      //       }
-      //     })
-      //     post.save()
-      // }
-        // if (post.Likes.length === 0) {
-        //   post.liked = true,
-        //   post.save()
-        // } else{
-        //   post.Likes.forEach(like => {
-        //     // console.log(like.userId);
-        //     console.log('liked',post)
-        //     if (like.userId === req.session.user.id) {
-        //       post.liked = true,
-        //       post.save()
-        //     }
-        //   });
-        // }
         await transaction.commit();
 
         return res.status(200).json({
@@ -281,18 +257,6 @@ export default {
             } 
           })
         } 
-      //   else{
-      //     post.Likes.forEach( (like) => {
-      //       console.log('testusff', like)
-      //       if(like.userId === currentUser){
-      //         post.setDataValue("likedByMe", true);
-      //       }
-      //       else{
-      //         post.setDataValue("likedByMe", false);
-      //       }
-      //     })
-      //     post.save()
-      // }
         await transaction.commit();
 
         return res.status(200).json({

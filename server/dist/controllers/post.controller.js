@@ -174,6 +174,7 @@ exports.default = {
                     }, { transaction }),
                     post.increment("likeCounts", { by: 1, transaction }),
                 ]);
+                // find all likes, and if like === currentUser id, heart will be filled
                 const likes = yield models_1.default.Likes.findAll();
                 if (likes) {
                     likes.forEach(like => {
@@ -183,31 +184,6 @@ exports.default = {
                         }
                     });
                 }
-                //   else{
-                //     post.Likes.forEach( (like) => {
-                //       console.log('testusff', like)
-                //       if(like.userId === currentUser){
-                //         post.setDataValue("likedByMe", true);
-                //       }
-                //       else{
-                //         post.setDataValue("likedByMe", false);
-                //       }
-                //     })
-                //     post.save()
-                // }
-                // if (post.Likes.length === 0) {
-                //   post.liked = true,
-                //   post.save()
-                // } else{
-                //   post.Likes.forEach(like => {
-                //     // console.log(like.userId);
-                //     console.log('liked',post)
-                //     if (like.userId === req.session.user.id) {
-                //       post.liked = true,
-                //       post.save()
-                //     }
-                //   });
-                // }
                 yield transaction.commit();
                 return res.status(200).json({
                     message: "You liked this post",
@@ -283,18 +259,6 @@ exports.default = {
                         }
                     });
                 }
-                //   else{
-                //     post.Likes.forEach( (like) => {
-                //       console.log('testusff', like)
-                //       if(like.userId === currentUser){
-                //         post.setDataValue("likedByMe", true);
-                //       }
-                //       else{
-                //         post.setDataValue("likedByMe", false);
-                //       }
-                //     })
-                //     post.save()
-                // }
                 yield transaction.commit();
                 return res.status(200).json({
                     message: "You unliked this post",
