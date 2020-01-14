@@ -7,11 +7,6 @@ module.exports = {
                 autoIncrement: true,
                 type: Sequelize.INTEGER
             },
-            likeByMe: {
-                type: Sequelize.BOOLEAN,
-                defaultValue: false,
-                allowNull: false
-            },
             userId: {
                 type: Sequelize.INTEGER,
                 primaryKey: true

@@ -50,23 +50,6 @@ exports.default = {
         });
         return res.json(posts);
     }),
-    getPopularPosts: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        const popPosts = yield models_1.default.Post.findAll({
-            // order: [[ sequelize.fn('max', sequelize.col('likeCounts'))]],
-            include: [
-                {
-                    model: models_1.default.User,
-                    as: "author",
-                    attributes: ["username", "gravatar", "bio"]
-                },
-                {
-                    model: models_1.default.Likes
-                }
-            ],
-            order: [["likeCounts", "DESC"]],
-        });
-        return res.json(popPosts);
-    }),
     postPage: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const postPage = yield models_1.default.Post.findOne({
             where: {
@@ -193,12 +176,13 @@ exports.default = {
                 // find all likes, and if like === currentUser id, heart will be filled
                 const likes = yield models_1.default.Likes.findAll();
                 if (likes.length === 0) {
+                    console.log('this got called');
                     post.setDataValue("likedByMe", true);
                 }
                 if (likes) {
                     likes.forEach(like => {
-                        console.log('wwdff', like);
                         if (like.userId === currentUser) {
+                            console.log('wwdff', like);
                             post.setDataValue("likedByMe", true);
                         }
                     });

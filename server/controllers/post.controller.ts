@@ -21,7 +21,6 @@ export default {
       order: [["createdAt", "DESC"]],
       limit: 6
     });
-
     posts.forEach(post => {
       if (post.Likes.length === 0) {
         post.setDataValue("likedByMe", false);
@@ -39,26 +38,6 @@ export default {
     });
 
     return res.json(posts);
-  },
-
-  getPopularPosts: async(req: any, res: Response) => {
-    const popPosts = await models.Post.findAll({
-      // order: [[ sequelize.fn('max', sequelize.col('likeCounts'))]],
-      include: [
-        {
-          model: models.User,
-          as: "author",
-          attributes: ["username", "gravatar", "bio"]
-        },
-        {
-          model: models.Likes
-        }
-      ],
-      
-      order: [["likeCounts", "DESC"]],
-
-    })
-    return res.json(popPosts);
   },
   postPage: async( req: any, res: Response) => {
     const postPage = await models.Post.findOne({
@@ -192,12 +171,13 @@ export default {
         // find all likes, and if like === currentUser id, heart will be filled
         const likes = await models.Likes.findAll() 
         if (likes.length === 0) {
+          console.log('this got called')
           post.setDataValue("likedByMe", true);
-        }   
+        } 
         if(likes){
           likes.forEach(like =>  {
-            console.log('wwdff',like)
             if(like.userId === currentUser){
+              console.log('wwdff',like)
               post.setDataValue("likedByMe", true);
             } 
           })

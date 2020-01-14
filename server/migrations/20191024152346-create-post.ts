@@ -9,27 +9,22 @@ export = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-
-      title: {
-        type: Sequelize.STRING
-      },
-
-      postContent: {
-        type: Sequelize.TEXT
-      },
-
-      liked: {
+      likedByMe:{
         allowNull: false,
         type: Sequelize.BOOLEAN,
         defaultValue: false
       },
-
+      title: {
+        type: Sequelize.STRING
+      },
+      postContent: {
+        type: Sequelize.TEXT
+      },
       likeCounts: {
         allowNull: false,
         type: Sequelize.INTEGER,
         defaultValue: 0
       },
-
       userId: {
         type: Sequelize.INTEGER,
         primaryKey: true
@@ -38,7 +33,6 @@ export = {
         allowNull: false,
         type: Sequelize.DATE
       },
-
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -3,7 +3,6 @@ import models from "./";
 export interface PostAttributes {
   title?: string;
   postContent?: string;
-  liked: boolean;
   likeCounts: number;
   userId?: number;
 }
@@ -12,10 +11,9 @@ export interface PostInstance {
   id: number;
   createdAt: Date;
   updatedAt: Date;
-
   title: string;
   postContent: string;
-  liked: boolean;
+  likedByMe: boolean;
   likeCounts: number;
   userId: number;
 }
@@ -26,7 +24,11 @@ export = (sequelize: Sequelize, DataTypes: DataTypes) => {
     {
       title: DataTypes.STRING,
       postContent: DataTypes.STRING,
-      liked:DataTypes.BOOLEAN,
+      likedByMe: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false
+      },
       likeCounts: {
         type: DataTypes.INTEGER,
         allowNull: false,

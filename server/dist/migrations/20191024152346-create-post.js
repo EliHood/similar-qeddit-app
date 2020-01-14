@@ -8,16 +8,16 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
+            likedByMe: {
+                allowNull: false,
+                type: Sequelize.BOOLEAN,
+                defaultValue: false
+            },
             title: {
                 type: Sequelize.STRING
             },
             postContent: {
                 type: Sequelize.TEXT
-            },
-            liked: {
-                allowNull: false,
-                type: Sequelize.BOOLEAN,
-                defaultValue: false
             },
             likeCounts: {
                 allowNull: false,
