@@ -12,16 +12,10 @@ export interface authState {
 }
 export default function(WrappedComponent) {
   class IsAuth extends Component<authHocProps, authState> {
-    //   this line is magic, redirects to the dashboard after user signs up
-    // this replace getDerivedStateFromPropss
-    static getDerivedStateFromProps(nextProps) {
-      if (nextProps.user.isAuthenticated) {
-        nextProps.history.push("/dashboard");
+    componentDidUpdate(prevProps){
+      if(prevProps.user.isAuthenticated !== this.props.user.isAuthenticated){
+        this.props.history.push("/dashboard");
       }
-      if (nextProps.errors) {
-        return { errors: nextProps.errors };
-      }
-      return null;
     }
     ourState: authState = {
       errors: {},

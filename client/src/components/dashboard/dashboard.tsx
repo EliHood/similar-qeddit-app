@@ -15,7 +15,7 @@ export interface dashboardState {
   postContent: string;
 }
 class Dashboard extends Component<dashboardProps, dashboardState> {
-  public state: dashboardState = {
+  state: dashboardState = {
     title: "",
     postContent: "",
   };

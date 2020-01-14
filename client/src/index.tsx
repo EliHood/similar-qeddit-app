@@ -23,7 +23,7 @@ const theme = createMuiTheme({
 const app = (
   <MuiThemeProvider theme={theme}>
     <Provider store={store}>
-      <Nav />
+      <Nav  />
     </Provider>
   </MuiThemeProvider>
 );

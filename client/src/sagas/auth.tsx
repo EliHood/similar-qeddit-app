@@ -55,13 +55,14 @@ export function* updateUserProfile(action) {
   }
 }
 
-export function* logOut() {
+export function* logOut(action) {
   try {
+    const history = action.history 
     const logout = yield call(api.user.logOut);
     sessionData.setUserLoggdOut();
     localStorage.removeItem("CurrentUserId");
-    window.location.href = "/login";
     yield put(actionTypes.logOutSuccess(logout));
+    history.push('/login')
   } catch (error) {
     yield put(actionTypes.logOutFailure(error));
   }

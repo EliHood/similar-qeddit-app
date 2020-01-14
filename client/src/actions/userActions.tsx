@@ -29,8 +29,9 @@ export const fetchAuthAuthFailure = (error: object) => ({
   error,
 });
 
-export const logOutInit = () => ({
+export const logOutInit = (history: object) => ({
   type: types.LOG_OUT_INIT,
+  history
 });
 
 export const logOutSuccess = (payload: object) => ({

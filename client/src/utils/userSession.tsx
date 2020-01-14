@@ -2,6 +2,7 @@ import jwt_decode from "jwt-decode";
 import { loginSuccess, logOutInit } from "../actions/userActions";
 import { store } from "../store";
 import { setAuthToken } from "./";
+import { history } from "./../ourHistory";
 export default {
   userSession: () => {
     if (localStorage.jwtToken) {
@@ -18,7 +19,7 @@ export default {
         const currentTime = Date.now() / 1000;
         if (decoded.iat > currentTime) {
           // Logout user
-          store.dispatch(logOutInit());
+          store.dispatch(logOutInit(history));
           // Redirect to login
           window.location.href = "/login";
         }

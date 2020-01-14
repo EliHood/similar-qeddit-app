@@ -66,17 +66,8 @@ const MyRouter = (props) =>
                         Edit Profile
                       </Link>
                     </Button>
-                    <Button onClick={props.logOut}>
-                      <Link
-                        style={{
-                          color: "#fff",
-                          fontWeight: "500",
-                          textDecoration: "none",
-                        }}
-                        to="/logout"
-                      >
+                    <Button style={{ color: '#fff'}} onClick={props.logOut}>
                         Logout
-                      </Link>
                     </Button>
                   </Fragment>
                 ) : (
