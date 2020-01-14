@@ -53,7 +53,7 @@ export default function OurTabs(props) {
     };
     // will sort through original posts array by highest likeCount in DESC order, showing only 2
     const getPopPosts = props.posts.slice().sort( (a, b) => b.likeCounts - a.likeCounts).slice(0,2);
-    console.log(getPopPosts)
+    // console.log(getPopPosts)
     return (
       <div className={classes.root}>
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
