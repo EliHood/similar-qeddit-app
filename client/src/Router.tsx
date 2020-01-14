@@ -96,7 +96,7 @@ const MyRouter = (props) =>
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <PrivateRoute exact={true} path="/editProfile" component={EditProfile} />
-          <PrivateRoute exact={true} path="/dashboard" component={Dashboard} />
+          <PrivateRoute exact={true} path="/dashboard" component={Dashboard} {...props}  />
           <PrivateRoute path="/post/:id" component={Post}/>
         </Switch>
     </Router>

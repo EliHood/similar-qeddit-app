@@ -42,6 +42,7 @@ class Nav extends Component<routerContainerProps, routerContainerState> {
         hasError={hasError}
         logOut={this.ourLogOut}
         user={this.props.user.isAuthenticated}
+        {...this.props.user}
       />
     );
   }
