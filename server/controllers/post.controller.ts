@@ -190,7 +190,10 @@ export default {
        
         ]);
         // find all likes, and if like === currentUser id, heart will be filled
-        const likes = await models.Likes.findAll()    
+        const likes = await models.Likes.findAll() 
+        if (likes.length === 0) {
+          post.setDataValue("likedByMe", true);
+        }   
         if(likes){
           likes.forEach(like =>  {
             console.log('wwdff',like)
@@ -198,7 +201,7 @@ export default {
               post.setDataValue("likedByMe", true);
             } 
           })
-        } 
+        }
         await transaction.commit();
 
         return res.status(200).json({

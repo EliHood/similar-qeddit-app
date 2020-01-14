@@ -45,15 +45,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default function OurTabs(props) {
+    console.log(props)
     const classes = useStyles();
     const [value, setValue] = React.useState(1);
   
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
       setValue(newValue);
     };
-    // will sort through original posts array by highest likeCount in DESC order, showing only 2
-    const getPopPosts = props.posts.slice().filter((item) => item.likeCounts > 3).sort( (a, b) => b.likeCounts - a.likeCounts).slice(0,2);
-    // console.log(getPopPosts)
     return (
       <div className={classes.root}>
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
@@ -64,7 +62,7 @@ export default function OurTabs(props) {
           <PostList
             likePost={props.likePost}
             dislikePost={props.dislikePost}
-            posts={getPopPosts}
+            posts={props.popPosts}
           />
         </TabPanel>
         <TabPanel value={value} index={1}>

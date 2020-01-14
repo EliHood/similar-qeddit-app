@@ -192,6 +192,9 @@ exports.default = {
                 ]);
                 // find all likes, and if like === currentUser id, heart will be filled
                 const likes = yield models_1.default.Likes.findAll();
+                if (likes.length === 0) {
+                    post.setDataValue("likedByMe", true);
+                }
                 if (likes) {
                     likes.forEach(like => {
                         console.log('wwdff', like);

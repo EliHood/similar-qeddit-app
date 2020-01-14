@@ -23,6 +23,7 @@
     "react-scripts": "3.2.0",
     "redux-devtools-extension": "^2.13.8",
     "redux-saga": "^1.1.1",
+    "reselect": "^4.0.0",
     "tslint-react": "^4.1.0",
     "typescript": "^3.7.4"
   },
