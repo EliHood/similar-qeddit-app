@@ -52,7 +52,7 @@ export default function OurTabs(props) {
       setValue(newValue);
     };
     // will sort through original posts array by highest likeCount in DESC order, showing only 2
-    const getPopPosts = props.posts.slice().sort( (a, b) => b.likeCounts - a.likeCounts).slice(0,2);
+    const getPopPosts = props.posts.slice().filter((item) => item.likeCounts > 3).sort( (a, b) => b.likeCounts - a.likeCounts).slice(0,2);
     // console.log(getPopPosts)
     return (
       <div className={classes.root}>
