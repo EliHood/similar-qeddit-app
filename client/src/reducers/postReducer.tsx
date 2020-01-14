@@ -4,11 +4,13 @@ import * as types from "../actionTypes/postActionTypes";
 export interface postState {
   posts: any[];
   postPage: any;
+  popPosts: any[];
 }
 
 const initialState: postState = {
   posts: [],
   postPage: {},
+  popPosts: []
 };
 
 const postReducer = (state = initialState, action: any): postState =>

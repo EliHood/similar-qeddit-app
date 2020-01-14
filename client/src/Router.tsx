@@ -1,10 +1,8 @@
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
-import color from "@material-ui/core/colors/amber";
 import Grid from "@material-ui/core/Grid";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { fontWeight } from "@material-ui/system";
 import React, { Fragment } from "react";
 import { withRouter } from "react-router";
 import { HashRouter, Link, Route, Router, Switch } from "react-router-dom";

@@ -24,7 +24,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-saga": "^1.1.1",
     "tslint-react": "^4.1.0",
-    "typescript": "^3.7.2"
+    "typescript": "^3.7.4"
   },
   "scripts": {
     "start": "PORT=3001 react-scripts start",
@@ -50,6 +50,8 @@
   },
   "devDependencies": {
     "@types/react": "16.9.9",
+    "@typescript-eslint/eslint-plugin": "^2.16.0",
+    "@typescript-eslint/parser": "^2.16.0",
     "eslint": "^6.8.0",
     "tslint": "^5.20.0"
   }

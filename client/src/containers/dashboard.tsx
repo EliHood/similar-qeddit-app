@@ -15,6 +15,7 @@ const mapDispatchToProps = (dispatch: any) => ({
 
 const mapStateToProps = (state: any) => ({
   posts: state.post.posts,
+  popPosts: state.post.popPosts,
   user: state.user.currentUserId,
 });
 

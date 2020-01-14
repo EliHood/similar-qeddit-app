@@ -73,3 +73,4 @@ export const fetchPostFailure = (error: object) => ({
   type: types.FETCH_POST_FAILURE,
   error,
 });
+

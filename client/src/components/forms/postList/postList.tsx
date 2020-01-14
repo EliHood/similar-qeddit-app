@@ -8,7 +8,7 @@ import moment from "moment";
 import React, { Fragment } from "react";
 import OurLink from "../../common/OurLink";
 const PostList = (props: any) => {
-  const { posts, currentUser} = props;
+  const { posts} = props;
   return posts.length > 0 ? (
     posts.map((post, i) => (
       <Fragment key={i}>

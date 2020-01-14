@@ -12,6 +12,7 @@ export function* getPosts(action) {
     yield put(actionTypes.getPostsFailure(error.response.data.meta.message));
   }
 }
+
 export function* fetchPost(action) {
   try {
     const postPage = yield call(api.post.getPost, action.payload);
@@ -56,6 +57,7 @@ export function* dislikePost(action) {
     );
   }
 }
+
 export function* watchFetchPost() {
   yield takeLatest(types.FETCH_POST_INIT, fetchPost);
 }

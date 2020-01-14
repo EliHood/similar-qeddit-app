@@ -3,9 +3,15 @@ import { sessionData } from "../../utils";
 import CreatePost from "../forms/createPost/createPost";
 import PostList from "../forms/postList/postList";
 import GridHoc from "../hoc/grid";
+import Paper from '@material-ui/core/Paper';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import OurTabs from '../forms/tabs/OurTabs'
 export interface dashboardProps {
   getPostsInit: () => void;
+  getPopPostsInit: () => void;
   posts: any[];
+  popPosts: any[];
   createPostInit: (event: object) => void;
   likePost: (event: number) => void;
   dislikePost: (event: number) => void;
@@ -13,11 +19,13 @@ export interface dashboardProps {
 export interface dashboardState {
   title: string;
   postContent: string;
+  value: number
 }
 class Dashboard extends Component<dashboardProps, dashboardState> {
   state: dashboardState = {
     title: "",
     postContent: "",
+    value: 0,
   };
   componentDidMount() {
     this.props.getPostsInit();
@@ -26,6 +34,12 @@ class Dashboard extends Component<dashboardProps, dashboardState> {
     this.setState({
       [e.target.name]: e.target.value,
     } as any);
+  }
+  
+  handleTabChange = (newValue) => {
+    this.setState({
+      value: newValue
+    } as any)
   }
 
   onSubmit = (e: any) => {
@@ -48,12 +62,13 @@ class Dashboard extends Component<dashboardProps, dashboardState> {
           onSubmit={this.onSubmit}
         />
         <br />
-        <PostList
+        <OurTabs {...this.props}/>
+        {/* <PostList
           likePost={this.props.likePost}
           dislikePost={this.props.dislikePost}
           posts={this.props.posts}
           currentUser={sessionData.getCurrentUser()}
-        />
+        /> */}
       </Fragment>
     );
   }

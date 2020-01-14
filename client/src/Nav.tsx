@@ -31,6 +31,7 @@ class Nav extends Component<routerContainerProps, routerContainerState> {
   ourLogOut = (e) => {
     e.preventDefault();
     this.props.logOutInit(history)
+    
   }
 
 
