@@ -49,12 +49,10 @@ const authReducer = (state = initialState, action: any): userState =>
         draft.error = action.error;
         return;
       case types.GET_USER_SUCCESS:
-        console.log(action);
         draft.isAuthenticated = sessionData.getLoginStatus();
         draft.currentUser = action.payload
         return;
       case types.LOG_OUT_SUCCESS:
-        console.log(action);
         draft.isAuthenticated = false;
         return;
       case types.LOG_IN_SUCCESS:
