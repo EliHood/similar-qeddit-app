@@ -26,7 +26,17 @@ exports.default = {
                     attributes: ["username", "gravatar", "bio"]
                 },
                 {
-                    model: models_1.default.Likes
+                    model: models_1.default.Likes,
+                },
+                {
+                    model: models_1.default.Comments,
+                    include: [
+                        {
+                            model: models_1.default.User,
+                            as: "author",
+                            attributes: ["username", "gravatar", "bio"]
+                        }
+                    ]
                 }
             ],
             order: [["createdAt", "DESC"]],
@@ -63,8 +73,8 @@ exports.default = {
                 },
                 // limit the likes based on the logged in user
                 {
-                    model: models_1.default.Likes
-                }
+                    model: models_1.default.Likes,
+                },
             ],
         });
         return res.json(postPage);
@@ -115,6 +125,50 @@ exports.default = {
             });
         });
         console.log(req.body);
+    }),
+    postComment: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        let currentUser;
+        if (req.session.passport) {
+            currentUser = req.session.passport.user.id;
+        }
+        else {
+            currentUser = req.session.user.id;
+        }
+        try {
+            const postData = {
+                comment_body: req.body.comment_body,
+                userId: currentUser,
+                postId: req.body.postId
+            };
+            yield models_1.default.Comments.create(postData)
+                .then((comment) => {
+                console.log('this is the comment', comment);
+                models_1.default.Comments.findOne({
+                    where: {
+                        id: comment.id
+                    },
+                    include: [
+                        {
+                            model: models_1.default.User,
+                            as: "author",
+                            attributes: ["username", "gravatar"]
+                        }
+                    ]
+                }).then(newComment => {
+                    return res.status(200).send({
+                        message: "comment created",
+                        comment: newComment
+                    });
+                });
+            });
+        }
+        catch (error) {
+            console.log("There was an error", error);
+            return res.status(500).send({
+                message: "Failed to write a comment",
+                error: error
+            });
+        }
     }),
     deletePost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {

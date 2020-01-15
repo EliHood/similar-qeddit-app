@@ -15,7 +15,19 @@ export default {
           attributes: ["username", "gravatar", "bio"]
         },
         {
-          model: models.Likes
+          model: models.Likes,
+          
+        },
+        {
+          model: models.Comments,
+          include:[
+            {
+              model: models.User,
+              as: "author",
+              attributes: ["username", "gravatar", "bio"]
+            }
+           
+          ]   
         }
       ],
       order: [["createdAt", "DESC"]],
@@ -53,8 +65,9 @@ export default {
         },
         // limit the likes based on the logged in user
         {
-          model: models.Likes
-        }
+          model: models.Likes,
+          
+        },
       ],
     })
     return res.json(postPage);
@@ -106,6 +119,49 @@ export default {
         });
       });
     console.log(req.body);
+  },
+  postComment: async (req: any, res: Response) => {
+    let currentUser;
+    if (req.session.passport) {
+      currentUser = req.session.passport.user.id;
+    } else {
+      currentUser = req.session.user.id;
+    }
+    try{
+      const postData = {
+        comment_body: req.body.comment_body,
+        userId: currentUser,
+        postId: req.body.postId
+      };
+     await models.Comments.create(postData)
+        .then((comment) => {
+          console.log('this is the comment',comment)
+          models.Comments.findOne({
+            where: {
+              id: comment.id
+            },
+            include: [
+              {
+                model: models.User,
+                as: "author",
+                attributes: ["username", "gravatar"]
+              }
+            ]         
+          }).then( newComment => {
+            return res.status(200).send({
+              message: "comment created",
+              comment: newComment
+            });
+          })
+      })
+    } catch(error){
+      console.log("There was an error", error);
+      return res.status(500).send({
+        message: "Failed to write a comment", 
+        error: error 
+      });
+    }
+
   },
   deletePost: async (req:any, res:Response) => {
     try{
