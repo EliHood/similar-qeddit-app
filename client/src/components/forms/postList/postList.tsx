@@ -55,7 +55,7 @@ const PostList = (props: any) => {
              <Grid container spacing={1} style={{ padding: "20px 0px"}}>
               <Grid item={true} sm={10} lg={10} md={10} style={{ padding: "0px 0px"}}>
                 <Typography align="left">
-                    {post.userId === currentUser.user.id ? (
+                    {currentUser && currentUser.user && post.userId === currentUser.user.id ? (
                       <span style={{cursor: "pointer"}} onClick ={ () => props.deletePost(post.id)}>
                         <DeleteOutlineOutlinedIcon style={{ margin: "-5px 0px"}} color="primary" /> <span>Delete</span>
                       </span>
