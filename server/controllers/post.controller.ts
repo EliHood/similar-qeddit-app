@@ -39,6 +39,7 @@ export default {
 
     return res.json(posts);
   },
+  
   postPage: async( req: any, res: Response) => {
     const postPage = await models.Post.findOne({
       where:{
@@ -105,6 +106,21 @@ export default {
         });
       });
     console.log(req.body);
+  },
+  deletePost: async (req:any, res:Response) => {
+    try{
+      await models.Post.destroy({
+        where:{
+          id: req.params.id
+        }
+      })
+      return res.status(200).send('Post has been deleted!')  
+      
+    }catch(error){
+      console.log("There was an error", error);
+      res.status(401).send("Failed to delete");
+    }
+
   },
   likePost: async (req: any, res: Response) => {
     // fetch created and post at the same time

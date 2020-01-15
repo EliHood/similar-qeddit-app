@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router";
 import { getUser, logOutInit } from "./actions/userActions";
 import Router from "./Router";
 import { history } from "./ourHistory";

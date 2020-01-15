@@ -4,8 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import React, { Fragment } from "react";
-import { withRouter } from "react-router";
-import { HashRouter, Link, Route, Router, Switch } from "react-router-dom";
+import {  Link, Route, Router, Switch } from "react-router-dom";
 import Landing from "./components/landing/landing";
 import Dashboard from "./containers/dashboard";
 import Login from "./containers/login";
@@ -95,9 +94,9 @@ const MyRouter = (props) =>
           <Route exact={true} path="/" component={Landing} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
-          <PrivateRoute exact={true} path="/editProfile" component={EditProfile} />
+          <PrivateRoute exact={true} path="/editProfile" component={EditProfile} {...props} />
           <PrivateRoute exact={true} path="/dashboard" component={Dashboard} {...props}  />
-          <PrivateRoute path="/post/:id" component={Post}/>
+          <PrivateRoute path="/post/:id" component={Post} {...props}/>
         </Switch>
     </Router>
   );

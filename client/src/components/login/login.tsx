@@ -1,10 +1,8 @@
 import Typography from "@material-ui/core/Typography";
 import React, { Component, Fragment } from "react";
-import { GoogleLogin } from "react-google-login";
 import LoginForm from "../forms/login/login";
 import GridHoc from "../hoc/grid";
 import IsAuth from "../hoc/isAuthenticated";
-import { withRouter } from "react-router-dom";
 export interface loginProps {
   onChange: (event: any) => void;
   loginInit: (event: object, history: object) => void;

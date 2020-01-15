@@ -54,9 +54,8 @@ export const loginSuccess = (payload: object) => ({
   payload,
 });
 
-export const getCurrentUser = (payload: object) => ({
+export const getCurrentUser = () => ({
   type: types.GET_CURRENT_USER,
-  payload,
 });
 
 export const loginFailure = (error: string) => ({

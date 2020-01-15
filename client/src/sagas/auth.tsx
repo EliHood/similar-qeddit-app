@@ -28,8 +28,9 @@ export function* getAutoLoginStatus(action) {
     const login = yield call(api.user.currentUser);
     const token = login.token;
     setAuthToken(token);
+    console.log(login)
     sessionData.setUserLoggedIn(token);
-    yield put(actionTypes.getUserSuccess(token));
+    yield put(actionTypes.getUserSuccess(login));
   } catch (error) {
     yield put(actionTypes.getUserFailure(error));
   }
@@ -79,8 +80,6 @@ export function* login(action) {
     const decoded = jwtDecode(token);
     setAuthToken(token);
     console.log(login.user);
-    sessionData.currentUser(login.user.id.toString());
-    yield put(actionTypes.getCurrentUser(login.user));
     yield put(actionTypes.loginSuccess(decoded));
  
   } catch (err) {
@@ -99,7 +98,7 @@ export function* watchEditProfile() {
   yield takeLatest(types.GET_USER_PROFILE, getUserProfile);
 }
 export function* watchAuthLogin() {
-  yield takeLatest(types.GET_USER, getAutoLoginStatus);
+  yield takeLatest(types.GET_CURRENT_USER, getAutoLoginStatus);
 }
 export function* watchUserRegister() {
   yield takeLatest(types.SIGN_UP_INIT, registerUser);

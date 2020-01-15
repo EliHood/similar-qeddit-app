@@ -4,13 +4,13 @@ import * as types from "../actionTypes/postActionTypes";
 export interface postState {
   posts: any[];
   postPage: any;
-  popPosts: any[];
+  error: any
 }
 
 const initialState: postState = {
   posts: [],
   postPage: {},
-  popPosts: []
+  error: null
 };
 
 const postReducer = (state = initialState, action: any): postState =>
@@ -22,7 +22,6 @@ const postReducer = (state = initialState, action: any): postState =>
       case types.CREATE_POST_SUCCESS:
         console.log(action.payload);
         draft.posts = [action.payload.post, ...draft.posts];
-
         return;
       case types.LIKE_POST_SUCCESS:
         console.log(action);
@@ -33,6 +32,7 @@ const postReducer = (state = initialState, action: any): postState =>
         return;
       case types.LIKE_POST_FAILURE:
         console.log(action);
+        draft.error = action.error
         return;
       case types.FETCH_POST_SUCCESS:
         console.log(action);
@@ -40,6 +40,7 @@ const postReducer = (state = initialState, action: any): postState =>
         return;
       case types.FETCH_POST_FAILURE:
         console.log(action);
+        draft.error = action.error
         return;
       case types.DISLIKE_POST_SUCCESS:
         console.log(action);
@@ -50,8 +51,16 @@ const postReducer = (state = initialState, action: any): postState =>
           draft.posts[newfindKey].likeCounts - 1;
         draft.posts[newfindKey].likedByMe = false
         return;
+      case types.DELETE_POST_SUCCESS:
+        console.log(action)
+        draft.posts = [...draft.posts.filter( (item) => item.id !== action.id)]
+        return 
+      case types.DISLIKE_POST_FAILURE:
+        draft.error = action.error
+        return 
       case types.DISLIKE_POST_FAILURE:
         console.log(action);
+        draft.error = action.error
         return;
     }
   });

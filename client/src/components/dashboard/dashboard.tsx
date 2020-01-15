@@ -1,15 +1,12 @@
 import React, { Component, Fragment } from "react";
-import { sessionData } from "../../utils";
 import CreatePost from "../forms/createPost/createPost";
 import PostList from "../forms/postList/postList";
 import GridHoc from "../hoc/grid";
-import Paper from '@material-ui/core/Paper';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import OurTabs from '../forms/tabs/OurTabs'
 export interface dashboardProps {
   getPostsInit: () => void;
   getPopPostsInit: () => void;
+  deletePostInit: (id: number) => void;
   posts: any[];
   popPosts: any[];
   createPostInit: (event: object) => void;
@@ -62,13 +59,8 @@ class Dashboard extends Component<dashboardProps, dashboardState> {
           onSubmit={this.onSubmit}
         />
         <br />
+        {/* pass props redux props to tabs */}
         <OurTabs {...this.props}/>
-        {/* <PostList
-          likePost={this.props.likePost}
-          dislikePost={this.props.dislikePost}
-          posts={this.props.posts}
-          currentUser={sessionData.getCurrentUser()}
-        /> */}
       </Fragment>
     );
   }

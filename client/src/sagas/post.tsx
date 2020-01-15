@@ -58,8 +58,21 @@ export function* dislikePost(action) {
   }
 }
 
+export function* deletePost(action){
+  try{
+    const deletePost = yield call(api.post.deletePost, action.payload);
+    yield put(actionTypes.deletePostSuccess(deletePost, action.payload))
+  } 
+  catch(error){
+    yield put(actionTypes.dislikePostFailiure(error))
+  }
+}
+
 export function* watchFetchPost() {
   yield takeLatest(types.FETCH_POST_INIT, fetchPost);
+}
+export function* watchDeletePost(){
+  yield takeLatest(types.DELETE_POST_INIT, deletePost)
 }
 export function* watchLikePost() {
   yield takeLatest(types.LIKE_POST_INIT, likePost);
@@ -78,6 +91,7 @@ export function* watchCreatePost() {
 // export function*
 export default function*() {
   yield fork(watchPosts);
+  yield fork(watchDeletePost)
   yield fork(watchFetchPost);
   yield fork(watchCreatePost);
   yield fork(watchLikePost);

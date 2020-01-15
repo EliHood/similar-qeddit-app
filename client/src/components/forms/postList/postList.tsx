@@ -3,12 +3,13 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import moment from "moment";
 import React, { Fragment } from "react";
 import OurLink from "../../common/OurLink";
 const PostList = (props: any) => {
-  const { posts} = props;
+  const { posts, currentUser} = props;
   return posts.length > 0 ? (
     posts.map((post, i) => (
       <Fragment key={i}>
@@ -39,7 +40,6 @@ const PostList = (props: any) => {
             </Typography>
 
             <Typography align="right">Likes: {post.likeCounts}</Typography>
-
             {/* <span
               style={{ cursor: "pointer" }}
               onClick={() => props.likePost(post.id)}
@@ -52,7 +52,19 @@ const PostList = (props: any) => {
                 Dislike this post
               </span>
             </div> */}
-             <Grid item={true} sm={12} style={{ padding: "20px 0px"}}>
+             <Grid container spacing={1} style={{ padding: "20px 0px"}}>
+              <Grid item={true} sm={10} lg={10} md={10} style={{ padding: "0px 0px"}}>
+                <Typography align="left">
+                    {post.userId === currentUser.user.id ? (
+                      <span style={{cursor: "pointer"}} onClick ={ () => props.deletePost(post.id)}>
+                        <DeleteOutlineOutlinedIcon style={{ margin: "-5px 0px"}} color="primary" /> <span>Delete</span>
+                      </span>
+                    ):(
+                      null
+                    )}
+                  </Typography>
+                </Grid>
+            <Grid item={true} sm={2} lg={2} style={{ padding: "0px 15px"}}>
               <Typography align="right">
                   {post.likedByMe === true ? (
                     <span style={{ cursor: "pointer"}} onClick={() => props.dislikePost(post.id)}>
@@ -66,6 +78,7 @@ const PostList = (props: any) => {
                     </span>
                   )}
                 </Typography>
+                </Grid>
              </Grid>
 
             <Typography variant="h6" align="left">

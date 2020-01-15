@@ -14,12 +14,13 @@ export interface userState {
   email: string;
   password: string;
   username: string;
-
+  currentUser:object;
 }
 
 const initialState: userState = {
   isAuthenticated: false,
   error: "",
+  currentUser:{},
   profileData: {},
   isLoading: false,
   message: "",
@@ -50,6 +51,7 @@ const authReducer = (state = initialState, action: any): userState =>
       case types.GET_USER_SUCCESS:
         console.log(action);
         draft.isAuthenticated = sessionData.getLoginStatus();
+        draft.currentUser = action.payload
         return;
       case types.LOG_OUT_SUCCESS:
         console.log(action);
@@ -62,9 +64,6 @@ const authReducer = (state = initialState, action: any): userState =>
         return;
       case types.INIT_LOGIN:
         draft.error = "";
-        return;
-      case types.GET_CURRENT_USER:
-        console.log(action);
         return;
       case types.LOG_IN_FAILURE:
         console.log(action.error);

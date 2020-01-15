@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 
 // calling educer postInitialState, so it will have access to initialState properties
 const postSelector = (state: any) => state.post
+const userSelector = (state: any) => state.user
 
 export const getPosts = () => 
     createSelector(
@@ -13,5 +14,10 @@ export const getPosts = () =>
 export const getPopPosts = () =>
     createSelector(
         postSelector,
-        state => state.posts.slice().filter((item) => item.likeCounts > 1).sort( (a, b) => b.likeCounts - a.likeCounts).slice(0,2)
+        state => state.posts.filter((item) => item.likeCounts > 1).sort( (a, b) => b.likeCounts - a.likeCounts).slice(0,2)
+    )
+export const getUser = () => 
+    createSelector(
+        userSelector,
+        state => state.currentUser
     )

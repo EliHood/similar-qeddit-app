@@ -74,3 +74,17 @@ export const fetchPostFailure = (error: object) => ({
   error,
 });
 
+export const deletePostInit = (payload: number) => ({
+  type: types.DELETE_POST_INIT,
+  payload
+})
+
+export const deletePostSuccess = (payload: object, id: number) => ({
+  type: types.DELETE_POST_SUCCESS,
+  payload, id
+})
+
+export const deletePostFailure = (error: object) => ({
+  type: types.DELETE_POST_FAILURE,
+  error
+})

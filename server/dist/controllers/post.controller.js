@@ -116,6 +116,20 @@ exports.default = {
         });
         console.log(req.body);
     }),
+    deletePost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            yield models_1.default.Post.destroy({
+                where: {
+                    id: req.params.id
+                }
+            });
+            return res.status(200).send('Post has been deleted!');
+        }
+        catch (error) {
+            console.log("There was an error", error);
+            res.status(401).send("Failed to delete");
+        }
+    }),
     likePost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // fetch created and post at the same time
         let currentUser;

@@ -187,7 +187,7 @@ exports.default = {
         /* save session */
         // console.log("currr", req.session.passport.user.id);
         if (req.session && req.session.user) {
-            curUser = req.session.user.id;
+            curUser = req.session.user;
         }
         else if (req.session) {
             curUser = req.session.passport ? req.session.passport.user : null;

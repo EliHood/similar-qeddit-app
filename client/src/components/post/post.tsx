@@ -1,9 +1,6 @@
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import React, { Component, Fragment } from "react";
-import IsAuth from "../../components/hoc/isAuthenticated";
-import LoginForm from "../forms/login/login";
-import GridHoc from "../hoc/grid";
 export interface PostProps {
     fetchPostInit: (event) => void;
     post: any;
