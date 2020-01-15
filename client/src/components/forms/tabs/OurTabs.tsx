@@ -57,13 +57,13 @@ export default function OurTabs(props) {
           <Tab label="Newest" {...a11yProps(1)} />
         </Tabs>
         <TabPanel value={value} index={0}>
-          {/* <PostList
+          <PostList
             likePost={props.likePost}
             deletePost={props.deletePostInit}
             dislikePost={props.dislikePost}
             posts={props.popPosts}
-            
-          /> */}
+            currentUser={props.user}
+          />
         </TabPanel>
         <TabPanel value={value} index={1}>
           <PostList
