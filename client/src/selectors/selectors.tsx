@@ -1,4 +1,5 @@
 import { createSelector } from "reselect";
+import { stat } from "fs";
 
 // calling educer postInitialState, so it will have access to initialState properties
 const postSelector = (state: any) => state.post;
@@ -21,3 +22,23 @@ export const getUser = () =>
         userSelector,
         (state) => state.currentUser,
     );
+export const getTitleError = () =>
+    createSelector(
+        postSelector,
+        (state) => state.titleError
+    )
+export const getBodyError = () =>
+    createSelector(
+        postSelector,
+        (state) => state.bodyError
+    )
+export const title = () =>
+    createSelector(
+        postSelector,
+        (state) => state.title
+    )
+export const postContent = () =>
+    createSelector(
+        postSelector,
+        (state) => state.postContent
+    )

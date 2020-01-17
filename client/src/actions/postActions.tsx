@@ -103,3 +103,13 @@ export const postCommentFailure = (error: object) => ({
   type: types.POST_COMMENT_FAILURE,
   error,
 });
+
+export const addTitle = (data: string) => ({
+  type: types.ADD_TITLE,
+  data
+})
+
+export const addContent = (data: string) => ({
+  type: types.ADD_CONTENT,
+  data
+})

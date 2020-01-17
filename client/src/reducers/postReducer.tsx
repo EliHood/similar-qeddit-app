@@ -1,16 +1,25 @@
 import produce from "immer";
 import * as types from "../actionTypes/postActionTypes";
-
+import { validation } from '../utils';
 export interface postState {
   posts: any[];
   postPage: any;
   error: any;
+  titleError: any;
+  bodyError: any;
+  title: string
+  postContent: string
+
 }
 
 const initialState: postState = {
   posts: [],
   postPage: {},
-  error: null,
+  titleError: null,
+  bodyError: null,
+  title: "",
+  postContent: "",
+  error: null
 };
 
 const postReducer = (state = initialState, action: any): postState =>
@@ -70,6 +79,14 @@ const postReducer = (state = initialState, action: any): postState =>
         console.log(action);
         draft.error = action.error;
         return;
+      case types.ADD_TITLE:
+        draft.title = action.data;
+        draft.titleError = validation.validateString(action.data);
+        return
+      case types.ADD_CONTENT:
+        draft.postContent = action.data;
+        draft.bodyError = validation.validateContent(action.data);
+        return
     }
   });
 

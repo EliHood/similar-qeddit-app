@@ -12,12 +12,14 @@ const PostForm = (props: any) => (
         width: 560,
       }}
       name="title"
+      error={props.titleError === true || props.titleError === null ? false : true}
+      helperText={props.titleError}
       value={props.title}
-      onChange={props.handleChange}
+      onChange={props.handleTitleChange}
       margin="normal"
       variant="outlined"
     />
-    <br/>
+    <br />
     <TextField
       id="outlined-multiline-static"
       label="Post Content"
@@ -27,14 +29,16 @@ const PostForm = (props: any) => (
         width: 560,
       }}
       rows="4"
+      error={props.bodyError === true || props.bodyError === null ? false : true}
+      helperText={props.bodyError}
       value={props.postContent}
-      onChange={props.handleChange}
+      onChange={props.handleContentChange}
       margin="normal"
       variant="outlined"
     />
-    <br/>
-    <br/>
-    <Button variant="outlined" color="primary" type="submit">
+    <br />
+    <br />
+    <Button disabled={props.disButton} variant="outlined" color="primary" type="submit">
       Submit
     </Button>
   </form>

@@ -8,7 +8,14 @@ export interface dashboardProps {
   getPopPostsInit: () => void;
   deletePostInit: (id: number) => void;
   postCommentInit: (event: object) => void;
+  titleError?: boolean;
+  bodyError?: boolean;
   posts: any[];
+  error: any[];
+  title: string;
+  postContent: string;
+  addTitle: (data: string) => void;
+  addContent: (data: string) => void;
   popPosts: any[];
   createPostInit: (event: object) => void;
   likePost: (event: number) => void;
@@ -25,43 +32,56 @@ class Dashboard extends Component<dashboardProps, dashboardState> {
     postContent: "",
     value: 0,
   };
-  public componentDidMount() {
+  componentDidMount() {
     this.props.getPostsInit();
   }
-  public handleChange = (e: any) => {
+  handleChange = (e: any) => {
     this.setState({
       [e.target.name]: e.target.value,
     } as any);
   }
 
-  public handleTabChange = (newValue) => {
+  handleTitleChange = (e: any) => {
+    e.preventDefault()
+    this.props.addTitle(e.target.value)
+  }
+
+  handleContentChange = (e: any) => {
+    e.preventDefault();
+    this.props.addContent(e.target.value)
+  }
+
+  handleTabChange = (newValue) => {
     this.setState({
       value: newValue,
     } as any);
   }
 
-  public onSubmit = (e: any) => {
+  onSubmit = (e: any) => {
     e.preventDefault();
-    const { title, postContent } = this.state;
+    const { title, postContent } = this.props;
     const postData = { title, postContent };
+    console.log(postData)
     this.props.createPostInit(postData);
-    this.setState({
-      title: "",
-      postContent: "",
-    });
+
   }
-  public render() {
+  render() {
+    const isEnabled = this.props.titleError === true && this.props.bodyError === true ? false : true
     return (
       <Fragment>
         <CreatePost
-          title={this.state.title}
-          postContent={this.state.postContent}
-          handleChange={this.handleChange}
+          title={this.props.title}
+          postContent={this.props.postContent}
+          handleTitleChange={this.handleTitleChange}
+          handleContentChange={this.handleContentChange}
           onSubmit={this.onSubmit}
+          disButton={isEnabled}
+          titleError={this.props.titleError}
+          bodyError={this.props.bodyError}
         />
         <br />
         {/* pass props redux props to tabs */}
-        <OurTabs {...this.props}/>
+        <OurTabs {...this.props} />
       </Fragment>
     );
   }

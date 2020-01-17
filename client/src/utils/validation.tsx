@@ -50,18 +50,24 @@ export default {
   },
   validateString: (chars: string) => {
     if (chars.length > 0) {
-      if (isLetterOnly(chars)) {
-        if (chars.length > 6) {
-          return true;
-        } else {
-          return "Must be at least 6 chars";
-        }
+      if (chars.length > 6) {
+        return true;
       } else {
-        return "Title must contain only letters";
+        return "Must be at least 6 chars";
       }
     } else {
       return "Field cannot be empty";
     }
   },
-
+  validateContent: (chars: string) => {
+    if (chars.length > 0) {
+      if (chars.length > 10) {
+        return true;
+      } else {
+        return "Must be at least 10 chars";
+      }
+    } else {
+      return "Field cannot be empty";
+    }
+  }
 };
