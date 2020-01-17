@@ -28,7 +28,7 @@ export function* getAutoLoginStatus(action) {
     const login = yield call(api.user.currentUser);
     const token = login.token;
     setAuthToken(token);
-    console.log(login)
+    console.log(login);
     sessionData.setUserLoggedIn(token);
     yield put(actionTypes.getUserSuccess(login));
   } catch (error) {
@@ -58,12 +58,12 @@ export function* updateUserProfile(action) {
 
 export function* logOut(action) {
   try {
-    const history = action.history 
+    const history = action.history;
     const logout = yield call(api.user.logOut);
     sessionData.setUserLoggdOut();
     localStorage.removeItem("CurrentUserId");
     yield put(actionTypes.logOutSuccess(logout));
-    history.push('/login')
+    history.push("/login");
   } catch (error) {
     yield put(actionTypes.logOutFailure(error));
   }
@@ -71,7 +71,7 @@ export function* logOut(action) {
 
 export function* login(action) {
   try {
-    const history = action.history 
+    const history = action.history;
     const login = yield call(api.user.logIn, action.payload);
     console.log(login);
     const token = login.meta.token;
@@ -81,7 +81,7 @@ export function* login(action) {
     setAuthToken(token);
     console.log(login.user);
     yield put(actionTypes.loginSuccess(decoded));
- 
+
   } catch (err) {
     const errMsg = err.response.data.meta.message;
     yield put(actionTypes.loginFailure(errMsg));

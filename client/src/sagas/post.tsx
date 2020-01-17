@@ -58,21 +58,30 @@ export function* dislikePost(action) {
   }
 }
 
-export function* deletePost(action){
-  try{
+export function* deletePost(action) {
+  try {
     const deletePost = yield call(api.post.deletePost, action.payload);
-    yield put(actionTypes.deletePostSuccess(deletePost, action.payload))
-  } 
-  catch(error){
-    yield put(actionTypes.dislikePostFailiure(error))
+    yield put(actionTypes.deletePostSuccess(deletePost, action.payload));
+  } catch (error) {
+    yield put(actionTypes.dislikePostFailiure(error));
+  }
+}
+
+export function* postComment(action) {
+  try {
+    const data = yield call(api.post.postComment, action.payload);
+    console.log(data)
+    yield put(actionTypes.postCommentSuccess(data.comment, action.payload.postId));
+  } catch (error) {
+    yield put(actionTypes.postCommentFailure(error.response.data));
   }
 }
 
 export function* watchFetchPost() {
   yield takeLatest(types.FETCH_POST_INIT, fetchPost);
 }
-export function* watchDeletePost(){
-  yield takeLatest(types.DELETE_POST_INIT, deletePost)
+export function* watchDeletePost() {
+  yield takeLatest(types.DELETE_POST_INIT, deletePost);
 }
 export function* watchLikePost() {
   yield takeLatest(types.LIKE_POST_INIT, likePost);
@@ -80,7 +89,9 @@ export function* watchLikePost() {
 export function* watchdisLikePost() {
   yield takeLatest(types.DISLIKE_POST_INIT, dislikePost);
 }
-
+export function* watchPostComment() {
+  yield takeLatest(types.POST_COMMENT_INIT, postComment);
+}
 export function* watchPosts() {
   yield takeLatest(types.GET_POSTS_INIT, getPosts);
 }
@@ -91,7 +102,8 @@ export function* watchCreatePost() {
 // export function*
 export default function*() {
   yield fork(watchPosts);
-  yield fork(watchDeletePost)
+  yield fork(watchPostComment);
+  yield fork(watchDeletePost);
   yield fork(watchFetchPost);
   yield fork(watchCreatePost);
   yield fork(watchLikePost);

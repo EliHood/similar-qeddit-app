@@ -4,13 +4,13 @@ import * as types from "../actionTypes/postActionTypes";
 export interface postState {
   posts: any[];
   postPage: any;
-  error: any
+  error: any;
 }
 
 const initialState: postState = {
   posts: [],
   postPage: {},
-  error: null
+  error: null,
 };
 
 const postReducer = (state = initialState, action: any): postState =>
@@ -27,12 +27,12 @@ const postReducer = (state = initialState, action: any): postState =>
         console.log(action);
         const findKey = state.posts.findIndex((x) => x.id === action.payload.id);
         draft.posts[findKey].likeCounts = draft.posts[findKey].likeCounts + 1;
-        draft.posts[findKey].likedByMe = true
+        draft.posts[findKey].likedByMe = true;
         // draft.posts[findKey] = [...(draft.posts[findKey].likeCounts + 1)];
         return;
       case types.LIKE_POST_FAILURE:
         console.log(action);
-        draft.error = action.error
+        draft.error = action.error;
         return;
       case types.FETCH_POST_SUCCESS:
         console.log(action);
@@ -40,7 +40,7 @@ const postReducer = (state = initialState, action: any): postState =>
         return;
       case types.FETCH_POST_FAILURE:
         console.log(action);
-        draft.error = action.error
+        draft.error = action.error;
         return;
       case types.DISLIKE_POST_SUCCESS:
         console.log(action);
@@ -49,18 +49,26 @@ const postReducer = (state = initialState, action: any): postState =>
         );
         draft.posts[newfindKey].likeCounts =
           draft.posts[newfindKey].likeCounts - 1;
-        draft.posts[newfindKey].likedByMe = false
+        draft.posts[newfindKey].likedByMe = false;
         return;
       case types.DELETE_POST_SUCCESS:
-        console.log(action)
-        draft.posts = [...draft.posts.filter( (item) => item.id !== action.id)]
-        return 
+        console.log(action);
+        draft.posts = [...draft.posts.filter((item) => item.id !== action.id)];
+        return;
       case types.DISLIKE_POST_FAILURE:
-        draft.error = action.error
-        return 
+        draft.error = action.error;
+        return;
+      case types.POST_COMMENT_SUCCESS:
+        console.log(action);
+        const findCommentKey = state.posts.findIndex((x) => x.id === action.payload.postId);
+        draft.posts[findCommentKey].Comments = [...draft.posts[findCommentKey].Comments, action.payload]
+        return;
+      case types.POST_COMMENT_FAILURE:
+        draft.error = action.error;
+        return;
       case types.DISLIKE_POST_FAILURE:
         console.log(action);
-        draft.error = action.error
+        draft.error = action.error;
         return;
     }
   });

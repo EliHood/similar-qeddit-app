@@ -14,13 +14,13 @@ export interface userState {
   email: string;
   password: string;
   username: string;
-  currentUser:object;
+  currentUser: object;
 }
 
 const initialState: userState = {
   isAuthenticated: false,
   error: "",
-  currentUser:{},
+  currentUser: {},
   profileData: {},
   isLoading: false,
   message: "",
@@ -50,7 +50,7 @@ const authReducer = (state = initialState, action: any): userState =>
         return;
       case types.GET_USER_SUCCESS:
         draft.isAuthenticated = sessionData.getLoginStatus();
-        draft.currentUser = action.payload
+        draft.currentUser = action.payload;
         return;
       case types.LOG_OUT_SUCCESS:
         draft.isAuthenticated = false;

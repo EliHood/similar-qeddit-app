@@ -27,7 +27,7 @@ export default {
               attributes: ["username", "gravatar", "bio"]
             }
            
-          ]   
+          ],
         }
       ],
       order: [["createdAt", "DESC"]],
@@ -102,8 +102,20 @@ export default {
               model: models.User,
               as: "author",
               attributes: ["username", "gravatar"]
+            },
+            {
+              model: models.Comments,
+              include:[
+                {
+                  model: models.User,
+                  as: "author",
+                  attributes: ["username", "gravatar", "bio"]
+                }
+               
+              ]   
             }
-          ]
+          ],
+          
         }).then(newPost => {
           newPost.setDataValue("likedByMe", false);
           return res.status(200).send({
@@ -127,6 +139,7 @@ export default {
     } else {
       currentUser = req.session.user.id;
     }
+
     try{
       const postData = {
         comment_body: req.body.comment_body,

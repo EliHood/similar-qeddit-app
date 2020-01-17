@@ -12,22 +12,22 @@ export interface authState {
 }
 export default function(WrappedComponent) {
   class IsAuth extends Component<authHocProps, authState> {
-    componentDidUpdate(prevProps){
-      if(prevProps.user.isAuthenticated !== this.props.user.isAuthenticated){
+    public ourState: authState = {
+      errors: {},
+    };
+    public componentDidUpdate(prevProps) {
+      if (prevProps.user.isAuthenticated !== this.props.user.isAuthenticated) {
         this.props.history.push("/dashboard");
       }
     }
-    ourState: authState = {
-      errors: {},
-    };
-    componentDidMount() {
+    public componentDidMount() {
       this.props.initLogin();
       if (this.props.user.isAuthenticated) {
         this.props.history.push("/dashboard");
       }
 
     }
-    render() {
+    public render() {
       return <WrappedComponent {...this.props} />;
     }
   }

@@ -1,12 +1,19 @@
 {
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
-      },
-      "eslint.validate": [
+    },
+    "eslint.validate": [
         "javascript",
         "javascriptreact",
-        { "language": "typescript", "autoFix": true },
-        { "language": "typescriptreact", "autoFix": true }
+        "typescriptreact",
+        {
+            "language": "typescript",
+            "autoFix": true
+        },
+        {
+            "language": "typescriptreact",
+            "autoFix": true
+        }
     ],
     "editor.formatOnSave": true,
     "[javascript]": {
@@ -19,6 +26,7 @@
         "editor.formatOnSave": false
     },
     "[typescriptreact]": {
-        "editor.formatOnSave": false
-    }
+        "editor.formatOnSave": true
+    },
+    "eslint.enable": true,
 }

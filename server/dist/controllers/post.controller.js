@@ -36,7 +36,7 @@ exports.default = {
                             as: "author",
                             attributes: ["username", "gravatar", "bio"]
                         }
-                    ]
+                    ],
                 }
             ],
             order: [["createdAt", "DESC"]],
@@ -108,8 +108,18 @@ exports.default = {
                         model: models_1.default.User,
                         as: "author",
                         attributes: ["username", "gravatar"]
+                    },
+                    {
+                        model: models_1.default.Comments,
+                        include: [
+                            {
+                                model: models_1.default.User,
+                                as: "author",
+                                attributes: ["username", "gravatar", "bio"]
+                            }
+                        ]
                     }
-                ]
+                ],
             }).then(newPost => {
                 newPost.setDataValue("likedByMe", false);
                 return res.status(200).send({

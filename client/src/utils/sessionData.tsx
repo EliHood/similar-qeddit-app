@@ -11,5 +11,4 @@ export default {
   getLoginStatus: () =>
     localStorage.getItem("jwtToken") !== "null" ? true : false,
 
-
 };

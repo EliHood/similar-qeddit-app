@@ -1,12 +1,13 @@
 import React, { Component, Fragment } from "react";
 import CreatePost from "../forms/createPost/createPost";
 import PostList from "../forms/postList/postList";
+import OurTabs from "../forms/tabs/OurTabs";
 import GridHoc from "../hoc/grid";
-import OurTabs from '../forms/tabs/OurTabs'
 export interface dashboardProps {
   getPostsInit: () => void;
   getPopPostsInit: () => void;
   deletePostInit: (id: number) => void;
+  postCommentInit: (event: object) => void;
   posts: any[];
   popPosts: any[];
   createPostInit: (event: object) => void;
@@ -16,30 +17,30 @@ export interface dashboardProps {
 export interface dashboardState {
   title: string;
   postContent: string;
-  value: number
+  value: number;
 }
 class Dashboard extends Component<dashboardProps, dashboardState> {
-  state: dashboardState = {
+  public state: dashboardState = {
     title: "",
     postContent: "",
     value: 0,
   };
-  componentDidMount() {
+  public componentDidMount() {
     this.props.getPostsInit();
   }
-  handleChange = (e: any) => {
+  public handleChange = (e: any) => {
     this.setState({
       [e.target.name]: e.target.value,
     } as any);
   }
-  
-  handleTabChange = (newValue) => {
+
+  public handleTabChange = (newValue) => {
     this.setState({
-      value: newValue
-    } as any)
+      value: newValue,
+    } as any);
   }
 
-  onSubmit = (e: any) => {
+  public onSubmit = (e: any) => {
     e.preventDefault();
     const { title, postContent } = this.state;
     const postData = { title, postContent };
@@ -49,7 +50,7 @@ class Dashboard extends Component<dashboardProps, dashboardState> {
       postContent: "",
     });
   }
-  render() {
+  public render() {
     return (
       <Fragment>
         <CreatePost

@@ -1,7 +1,19 @@
 {
   "defaultSeverity": "error",
-  "extends": ["tslint:latest", "tslint-react"],
+  "extends": [
+    "tslint:latest",
+    "tslint-react",
+    "tslint-config-prettier"
+  ],
   "jsRules": {},
   "rules": {},
-  "rulesDirectory": []
+  "rulesDirectory": [],
+  "items": {
+    "type": "string",
+    "enum": [
+      "no-public",
+      "check-accessor",
+      "check-constructor",
+    ]
+  }
 }

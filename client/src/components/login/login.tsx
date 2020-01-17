@@ -8,7 +8,7 @@ export interface loginProps {
   loginInit: (event: object, history: object) => void;
   initLogin: () => void;
   user?: any;
-  history?:any;
+  history?: any;
 }
 export interface loginState {
   username: string;
@@ -16,18 +16,18 @@ export interface loginState {
 }
 
 class Login extends Component<loginProps, loginState> {
-  state: loginState = {
+  public state: loginState = {
     username: "",
     password: "",
   };
-  handleChange = (e: any) => {
+  public handleChange = (e: any) => {
     e.preventDefault();
     this.setState({
       [e.target.name]: e.target.value,
     } as any);
   }
 
-  handleSubmit = (e: any) => {
+  public handleSubmit = (e: any) => {
     e.preventDefault();
     const { username, password } = this.state;
     this.setState({
@@ -42,7 +42,7 @@ class Login extends Component<loginProps, loginState> {
 
     this.props.loginInit(creds, this.props.history);
   }
-  render() {
+  public render() {
     return (
       <Fragment>
         {this.props.user.error && <div>{this.props.user.error}</div>}

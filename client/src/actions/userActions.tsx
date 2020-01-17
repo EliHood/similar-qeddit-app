@@ -31,7 +31,7 @@ export const fetchAuthAuthFailure = (error: object) => ({
 
 export const logOutInit = (history: object) => ({
   type: types.LOG_OUT_INIT,
-  history
+  history,
 });
 
 export const logOutSuccess = (payload: object) => ({
@@ -44,9 +44,9 @@ export const logOutFailure = (error: object) => ({
   error,
 });
 
-export const loginInit = (payload: object, history:object) => ({
+export const loginInit = (payload: object, history: object) => ({
   type: types.LOG_IN_INIT,
-  payload, history
+  payload, history,
 });
 
 export const loginSuccess = (payload: object) => ({

@@ -1,5 +1,5 @@
 import jwt_decode from "jwt-decode";
-import { loginSuccess, logOutInit, getCurrentUser } from "../actions/userActions";
+import { getCurrentUser, loginSuccess, logOutInit } from "../actions/userActions";
 import { store } from "../store";
 import { setAuthToken } from "./";
 import { history } from "./../ourHistory";
@@ -21,7 +21,7 @@ export default {
           // Logout user
           store.dispatch(logOutInit(history));
           // Redirect to login
-          localStorage.clear()
+          localStorage.clear();
           window.location.href = "/login";
         }
       }

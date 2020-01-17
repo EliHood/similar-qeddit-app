@@ -63,7 +63,7 @@ const MyRouter = (props) =>
                         Edit Profile
                       </Link>
                     </Button>
-                    <Button style={{ color: '#fff'}} onClick={props.logOut}>
+                    <Button style={{ color: "#fff"}} onClick={props.logOut}>
                         Logout
                     </Button>
                   </Fragment>
@@ -71,18 +71,18 @@ const MyRouter = (props) =>
                   <Fragment>
                     <Button>
                       <Link style={{  color: "#fff",
-                                       fontWeight: "500",
-                                       textDecoration: "none"}} to="/">Home</Link>
+                                      fontWeight: "500",
+                                      textDecoration: "none"}} to="/">Home</Link>
                     </Button>
                     <Button>
                       <Link style={{  color: "#fff",
-                                       fontWeight: "500",
-                                       textDecoration: "none"}} to="/register">Sign Up</Link>
+                                      fontWeight: "500",
+                                      textDecoration: "none"}} to="/register">Sign Up</Link>
                     </Button>
                     <Button>
                       <Link style={{  color: "#fff",
-                                       fontWeight: "500",
-                                       textDecoration: "none"}} to="/login">Log In</Link>
+                                      fontWeight: "500",
+                                      textDecoration: "none"}} to="/login">Log In</Link>
                     </Button>
                   </Fragment>
                 )}

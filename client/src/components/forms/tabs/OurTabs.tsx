@@ -1,11 +1,11 @@
-import React from 'react';
-import { makeStyles, Theme } from '@material-ui/core/styles';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import './style.css';
+import Box from "@material-ui/core/Box";
+import { makeStyles, Theme } from "@material-ui/core/styles";
+import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
+import Typography from "@material-ui/core/Typography";
+import React, { useState } from "react";
 import PostList from "../postList/postList";
+import "./style.css";
 interface TabPanelProps {
   children?: React.ReactNode;
   index: any;
@@ -29,8 +29,8 @@ function TabPanel(props: TabPanelProps) {
   }
 function a11yProps(index: any) {
     return {
-        id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
+        "id": `simple-tab-${index}`,
+        "aria-controls": `simple-tabpanel-${index}`,
     };
 }
 
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     root: {
         flexGrow: 1,
         backgroundColor: theme.palette.background.paper,
-        padding:'30px 0px',
+        padding: "30px 0px",
         // width: '300px',
     },
 }));
@@ -46,7 +46,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function OurTabs(props) {
     const classes = useStyles();
     const [value, setValue] = React.useState(1);
-  
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
       setValue(newValue);
     };
@@ -63,6 +62,7 @@ export default function OurTabs(props) {
             dislikePost={props.dislikePost}
             posts={props.popPosts}
             currentUser={props.user}
+            postComment={props.postCommentInit}
           />
         </TabPanel>
         <TabPanel value={value} index={1}>
@@ -72,9 +72,9 @@ export default function OurTabs(props) {
             deletePost={props.deletePostInit}
             posts={props.posts}
             currentUser={props.user}
+            postComment={props.postCommentInit}
           />
         </TabPanel>
       </div>
     );
   }
-

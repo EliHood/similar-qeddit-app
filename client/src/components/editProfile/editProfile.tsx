@@ -37,7 +37,7 @@ class EditProfile extends Component<dashboardProps, dashboardState> {
       gravatar: prevProps.gravatar !== gravatar ? gravatar : state.gravatar,
     };
   }
-  state: dashboardState = {
+  public state: dashboardState = {
     prevProps: {
       bio: "",
       gravatar: "",
@@ -45,16 +45,16 @@ class EditProfile extends Component<dashboardProps, dashboardState> {
     bio: "",
     gravatar: "",
   };
-  componentDidMount() {
+  public componentDidMount() {
     this.props.getUserProfile();
   }
 
-  handleChange = (e: any) => {
+  public handleChange = (e: any) => {
     this.setState({
       [e.target.name]: e.target.value,
     } as any);
   }
-  handleSubmit = (e: any) => {
+  public handleSubmit = (e: any) => {
     e.preventDefault();
     const { bio, gravatar } = this.state;
     const formData = {

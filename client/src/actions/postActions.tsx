@@ -76,15 +76,30 @@ export const fetchPostFailure = (error: object) => ({
 
 export const deletePostInit = (payload: number) => ({
   type: types.DELETE_POST_INIT,
-  payload
-})
+  payload,
+});
 
 export const deletePostSuccess = (payload: object, id: number) => ({
   type: types.DELETE_POST_SUCCESS,
-  payload, id
-})
+  payload, id,
+});
 
 export const deletePostFailure = (error: object) => ({
   type: types.DELETE_POST_FAILURE,
-  error
-})
+  error,
+});
+
+export const postCommentInit = (payload: object) => ({
+  type: types.POST_COMMENT_INIT,
+  payload,
+});
+
+export const postCommentSuccess = (payload: object, id: number) => ({
+  type: types.POST_COMMENT_SUCCESS,
+  payload, id,
+});
+
+export const postCommentFailure = (error: object) => ({
+  type: types.POST_COMMENT_FAILURE,
+  error,
+});
