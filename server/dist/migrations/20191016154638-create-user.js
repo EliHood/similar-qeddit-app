@@ -10,7 +10,7 @@ exports.up = (queryInterface, Sequelize) => {
         },
         gravatar: {
             allowNull: false,
-            defaultValue: "https://gravatar.com/avatar/4ad2c8eea353c159e4c0320ab8621687?s=400&d=robohash&r=x",
+            defaultValue: "https://i.pravatar.cc/150?img=11",
             type: Sequelize.STRING
         },
         bio: {
