@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {  initLogin } from "../../actions/userActions";
+import { initLogin } from "../../actions/userActions";
+import LoadingOverlay from 'react-loading-overlay';
 
 export interface authHocProps {
   user?: any;
@@ -10,25 +11,25 @@ export interface authHocProps {
 export interface authState {
   errors: object;
 }
-export default function(WrappedComponent) {
+export default function (WrappedComponent) {
   class IsAuth extends Component<authHocProps, authState> {
-    public ourState: authState = {
+    ourState: authState = {
       errors: {},
     };
-    public componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps) {
       if (prevProps.user.isAuthenticated !== this.props.user.isAuthenticated) {
         this.props.history.push("/dashboard");
       }
     }
-    public componentDidMount() {
+    componentDidMount() {
       this.props.initLogin();
       if (this.props.user.isAuthenticated) {
         this.props.history.push("/dashboard");
       }
 
     }
-    public render() {
-      return <WrappedComponent {...this.props} />;
+    render() {
+      return <WrappedComponent {...this.props} />
     }
   }
   const mapStateToProps = (state: any) => ({

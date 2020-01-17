@@ -7,7 +7,6 @@ import Nav from "./Nav";
 import * as serviceWorker from "./serviceWorker";
 import { store } from "./store";
 import { userSession } from "./utils";
-
 userSession.userSession();
 const theme = createMuiTheme({
   palette: {
@@ -23,7 +22,7 @@ const theme = createMuiTheme({
 const app = (
   <MuiThemeProvider theme={theme}>
     <Provider store={store}>
-      <Nav  />
+      <Nav />
     </Provider>
   </MuiThemeProvider>
 );

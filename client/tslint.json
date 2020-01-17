@@ -6,7 +6,12 @@
     "tslint-config-prettier"
   ],
   "jsRules": {},
-  "rules": {},
+  "rules": {
+    "no-consecutive-blank-lines": [
+      true,
+      1
+    ]
+  },
   "rulesDirectory": [],
   "items": {
     "type": "string",

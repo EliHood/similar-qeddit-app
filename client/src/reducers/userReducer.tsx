@@ -15,6 +15,7 @@ export interface userState {
   password: string;
   username: string;
   currentUser: object;
+
 }
 
 const initialState: userState = {
@@ -22,7 +23,7 @@ const initialState: userState = {
   error: "",
   currentUser: {},
   profileData: {},
-  isLoading: false,
+  isLoading: true,
   message: "",
   usernameError: "",
   passwordError: "",
@@ -58,7 +59,7 @@ const authReducer = (state = initialState, action: any): userState =>
       case types.LOG_IN_SUCCESS:
         draft.error = "";
         draft.isAuthenticated = sessionData.getLoginStatus();
-        draft.isLoading = true;
+        draft.isLoading = false;
         return;
       case types.INIT_LOGIN:
         draft.error = "";
