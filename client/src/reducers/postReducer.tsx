@@ -31,6 +31,8 @@ const postReducer = (state = initialState, action: any): postState =>
       case types.CREATE_POST_SUCCESS:
         console.log(action.payload);
         draft.posts = [action.payload.post, ...draft.posts];
+        draft.title = ''
+        draft.postContent = ''
         return;
       case types.LIKE_POST_SUCCESS:
         console.log(action);
