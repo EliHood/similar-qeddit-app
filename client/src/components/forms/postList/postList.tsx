@@ -49,7 +49,7 @@ export default function PostList(props: any) {
               />
             </Typography>
             <Grid item={true} sm={12} md={12} style={{ padding: "30px 0px" }} >
-              <Typography align="left">{post.postContent.slice(0, 30)}</Typography>
+              <Typography align="left">{post.postContent.slice(0, 50)}</Typography>
             </Grid>
             <Avatar
               style={{
