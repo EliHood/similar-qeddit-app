@@ -8,7 +8,8 @@ import {
   likePostInit,
   postCommentInit,
   addTitle,
-  addContent
+  addContent,
+  deleteCommentInit
 } from "../actions/postActions";
 import Dashboard from "../components/dashboard/dashboard";
 import { getPopPosts, getPosts, getUser, getBodyError, getTitleError, title, postContent } from "./../selectors/selectors";
@@ -20,6 +21,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   postCommentInit: (commentData: object) => dispatch(postCommentInit(commentData)),
   dislikePost: (id: number) => dispatch(dislikePostInit(id)),
   deletePostInit: (id: number) => dispatch(deletePostInit(id)),
+  deleteComment: (id: number, postId: number) => dispatch(deleteCommentInit(id, postId)),
   createPostInit: (postData: object) => dispatch(createPostInit(postData)),
 });
 

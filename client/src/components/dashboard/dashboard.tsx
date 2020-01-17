@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import CreatePost from "../forms/createPost/createPost";
 import PostList from "../forms/postList/postList";
-import OurTabs from "../forms/tabs/OurTabs";
+import OurTabs from "../tabs/OurTabs";
 import GridHoc from "../hoc/grid";
 export interface dashboardProps {
   getPostsInit: () => void;

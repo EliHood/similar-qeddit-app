@@ -94,6 +94,22 @@ export const postCommentInit = (payload: object) => ({
   payload,
 });
 
+export const deleteCommentInit = (payload: number, postId: number) => ({
+  type: types.DELETE_COMMENT_INIT,
+  payload, postId,
+})
+
+export const deleteCommentSuccess = (payload: object, id: number, postId: number) => ({
+  type: types.DELETE_COMMENT_SUCCESS,
+  payload, id, postId
+})
+
+export const deleteCommentFailure = (error: object) => ({
+  type: types.DELETE_COMMENT_FAILURE,
+  error
+})
+
+
 export const postCommentSuccess = (payload: object, id: number) => ({
   type: types.POST_COMMENT_SUCCESS,
   payload, id,

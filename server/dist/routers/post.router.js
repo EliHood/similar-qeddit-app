@@ -14,6 +14,7 @@ router.get("/getPosts", controllers_1.postController.getPosts);
 router.get("/post/:id", controllers_1.postController.postPage);
 router.post('/postComment', controllers_1.postController.postComment);
 router.delete('/deletePost/:id', controllers_1.postController.deletePost);
+router.delete('/deleteComment/:id', controllers_1.postController.deleteComment);
 router.post("/createPost", controllers_1.postController.createPost);
 router.post("/likePost/:id", controllers_1.postController.likePost);
 router.post("/dislikePost/:id", controllers_1.postController.disLikePost);

@@ -66,6 +66,7 @@ const postReducer = (state = initialState, action: any): postState =>
         console.log(action);
         draft.posts = [...draft.posts.filter((item) => item.id !== action.id)];
         return;
+
       case types.DISLIKE_POST_FAILURE:
         draft.error = action.error;
         return;
@@ -89,6 +90,16 @@ const postReducer = (state = initialState, action: any): postState =>
         draft.postContent = action.data;
         draft.bodyError = validation.validateContent(action.data);
         return
+      case types.DELETE_COMMENT_SUCCESS:
+        const newPostKey = state.posts.findIndex(
+          (x) => x.id === action.postId,
+        );
+        draft.posts[newPostKey].Comments = [...draft.posts[newPostKey].Comments.filter((item) => item.id !== action.id)];
+        // draft.posts = draft.posts[newPostKey].Comments.filter((item) => item.id !== action.id);
+        return;
+      case types.DELETE_COMMENT_FAILURE:
+        draft.error = action.error
+        return;
     }
   });
 

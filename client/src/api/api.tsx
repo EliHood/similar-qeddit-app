@@ -28,5 +28,7 @@ export default {
       Axios.post(`/api/v1/posts/dislikePost/${id}`).then((res) => res.data),
     postComment: (commentData: any) =>
       Axios.post("/api/v1/posts/postComment", commentData).then((res) => res.data),
+    deleteComment: (id: number) =>
+      Axios.delete(`/api/v1/posts/deleteComment/${id}`).then((res) => res.data),
   },
 };

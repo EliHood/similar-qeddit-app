@@ -79,6 +79,20 @@ exports.default = {
         });
         return res.json(postPage);
     }),
+    deleteComment: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            yield models_1.default.Comments.destroy({
+                where: {
+                    id: req.params.id
+                }
+            });
+            return res.status(200).send('Comment has been deleted!');
+        }
+        catch (error) {
+            console.log("There was an error", error);
+            res.status(401).send("Failed to delete comment");
+        }
+    }),
     createPost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // console.log(getUser);
         let postData;

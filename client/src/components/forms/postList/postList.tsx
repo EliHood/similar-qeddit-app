@@ -126,7 +126,7 @@ export default function PostList(props: any) {
               {post.Comments.length > 0 ? (
                 <Fragment>
                   <Typography style={{ padding: "10px 0px", margin: "20px 0px" }}>Commments</Typography>
-                  <CommentList comments={post.Comments} />
+                  <CommentList user={currentUser} deleteComment={props.deleteComment} userId={post.userId} postId={post.id} comments={post.Comments} />
                   {/*  if show more hide show more button and show show less comments button */}
                 </Fragment>
               ) : (

@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import moment from "moment";
+import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
 import React, { Fragment, useState } from "react";
 
 export default function CommentList(props: any) {
@@ -30,7 +31,18 @@ export default function CommentList(props: any) {
                                 {comment.comment_body}
                             </Typography>
                         </ListItem>
+                        {props.user && props.user.user && props.userId === props.user.user.id ? (
+                            <Typography style={{ display: 'inline-block', float: 'right' }} align="right">
+                                <span style={{ cursor: "pointer" }} onClick={() => props.deleteComment(comment.id, props.postId)}>
+                                    <DeleteOutlineOutlinedIcon style={{ margin: "-5px 0px" }} color="primary" /> <span>Delete</span>
+                                </span>
+                            </Typography>
+                        ) : (
+                                null
+                            )}
+
                         <Typography style={{ padding: "0px 0px" }} variant="caption" align="left">{comment.author.username}</Typography>
+
                         <Typography style={{ fontSize: "12px" }} variant="body1" align="left">{moment(comment.createdAt).calendar()}</Typography>
                         <Divider variant="fullWidth" component="li" />
                     </List>

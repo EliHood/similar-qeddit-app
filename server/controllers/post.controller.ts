@@ -72,6 +72,21 @@ export default {
     })
     return res.json(postPage);
   },
+  deleteComment: async (req: any, res: Response) => {
+    try{
+      await models.Comments.destroy({
+        where:{
+          id: req.params.id
+        }
+      })
+      return res.status(200).send('Comment has been deleted!')  
+      
+    }catch(error){
+      console.log("There was an error", error);
+      res.status(401).send("Failed to delete comment");
+    }
+
+  },
   createPost: async (req: any, res: Response) => {
     // console.log(getUser);
     let postData;
