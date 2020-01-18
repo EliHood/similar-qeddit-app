@@ -38,17 +38,11 @@ export default function PostList(props: any) {
       gifUrl
 
     };
-    if (comment_body.length > 6) {
-      if (props.postComment(formData)) {
-        setIsComment(false)
-        setCommentBody('')
-      }
-    }
-    if (gifUrl !== null) {
-      props.postComment(formData)
-      setIsComment(false)
 
-    }
+    props.postComment(formData)
+    setIsComment(false)
+
+
 
   };
   const { posts, currentUser } = props;
