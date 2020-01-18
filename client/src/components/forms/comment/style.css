@@ -1,9 +1,9 @@
 .fGONoI{
-    width: 100%;
+    width: 100% !important;
     height: 400px;
 }
-.sc-bwzfXH{
-    width: 100%;
+.sc-bwzfXH.fGONoI{
+    width: 100% !important;
 }
 .hNdwup{
     width: 100%;

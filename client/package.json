@@ -30,7 +30,7 @@
     "typescript": "^3.7.4"
   },
   "scripts": {
-    "start": "PORT=3001 set HTTPS=true&&react-scripts start",
+    "start": "PORT=3001 react-scripts start",
     "lint": "tslint --fix --project tsconfig.json",
     "build": "react-scripts build",
     "test": "react-scripts test",
