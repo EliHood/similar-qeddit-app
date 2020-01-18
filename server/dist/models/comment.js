@@ -1,9 +1,14 @@
 "use strict";
+const sequelize_1 = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     var Comment = sequelize.define('Comments', {
         comment_body: {
-            allowNull: false,
+            allowNull: true,
             type: DataTypes.STRING
+        },
+        gifUrl: {
+            allowNull: true,
+            type: sequelize_1.Sequelize.STRING
         },
         userId: DataTypes.INTEGER,
         postId: DataTypes.INTEGER

@@ -8,6 +8,10 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
+            gifUrl: {
+                allowNull: true,
+                type: Sequelize.STRING
+            },
             userId: {
                 type: Sequelize.INTEGER,
                 primaryKey: true
@@ -18,7 +22,7 @@ module.exports = {
             },
             comment_body: {
                 type: Sequelize.STRING,
-                allowNull: false,
+                allowNull: true,
             },
             createdAt: {
                 allowNull: false,

@@ -9,6 +9,10 @@ export = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
+            gifUrl:{
+                allowNull: true,
+                type: Sequelize.STRING
+            },
             userId: {
                 type: Sequelize.INTEGER,
                 primaryKey: true
@@ -19,7 +23,7 @@ export = {
             },
             comment_body: {
                 type: Sequelize.STRING,
-                allowNull: false,
+                allowNull: true,
             },
             createdAt: {
                 allowNull: false,

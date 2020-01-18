@@ -8,10 +8,9 @@
     "serve": "nodemon --config nodemon-config.json --inspect dist/app.js",
     "build-ts": "tsc",
     "watch-ts": "tsc --w",
-    "sequelize-ts": "node_modules/.bin/sequelize",
     "build": "rimraf dist && npm run build-ts",
     "migrate": "sequelize db:migrate",
-    "rollback": "sequelize db:rollback",
+    "rollback": "sequelize db:migrate:undo:all",
     "test": "echo \"Error: no test specified\" && exit 1",
     "ts": "tsc -w"
   },

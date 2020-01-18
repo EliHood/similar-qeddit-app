@@ -159,8 +159,10 @@ export default {
       const postData = {
         comment_body: req.body.comment_body,
         userId: currentUser,
-        postId: req.body.postId
+        postId: req.body.id,
+        gifUrl: req.body.gifUrl
       };
+      console.log('dfffcheck',postData)
      await models.Comments.create(postData)
         .then((comment) => {
           console.log('this is the comment',comment)

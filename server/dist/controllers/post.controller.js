@@ -162,8 +162,10 @@ exports.default = {
             const postData = {
                 comment_body: req.body.comment_body,
                 userId: currentUser,
-                postId: req.body.postId
+                postId: req.body.id,
+                gifUrl: req.body.gifUrl
             };
+            console.log('dfffcheck', postData);
             yield models_1.default.Comments.create(postData)
                 .then((comment) => {
                 console.log('this is the comment', comment);

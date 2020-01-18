@@ -21,8 +21,12 @@ export interface CommentInstance {
 export = (sequelize: Sequelize, DataTypes: DataTypes) => {
     var Comment = sequelize.define('Comments', {
         comment_body: {
-            allowNull: false,
+            allowNull: true,
             type:DataTypes.STRING
+        },
+        gifUrl:{
+            allowNull: true,
+            type: Sequelize.STRING
         },
         userId: DataTypes.INTEGER,
         postId: DataTypes.INTEGER

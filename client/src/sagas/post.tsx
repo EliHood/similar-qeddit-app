@@ -70,7 +70,7 @@ export function* deletePost(action) {
 export function* postComment(action) {
   try {
     const data = yield call(api.post.postComment, action.payload);
-    yield put(actionTypes.postCommentSuccess(data.comment, action.payload.postId));
+    yield put(actionTypes.postCommentSuccess(data.comment, action.payload.id));
   } catch (error) {
     yield put(actionTypes.postCommentFailure(error.response.data));
   }

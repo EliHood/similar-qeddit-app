@@ -14,25 +14,42 @@ import CommentList from "../../forms/commentList/CommentList";
 export default function PostList(props: any) {
   const [isComment, setIsComment] = useState(false);
   const [comment_body, setCommentBody] = useState('');
-
+  const [gifUrl, setGifUrl] = useState('')
   const writeComment = (id) => {
     setIsComment(isComment ? "" : id);
   };
+
+  const commentChange = (comment) => {
+    setGifUrl('')
+    setCommentBody(comment);
+  }
+  const selectGif = (e) => {
+    console.log(e)
+    setGifUrl(e.downsized_large.url)
+    setCommentBody('')
+    // you wont be able to add text comment with a gif, it will look weird :(
+  }
 
   const commentSubmit = (e: any, id: number) => {
     e.preventDefault();
     const formData = {
       comment_body,
-      postId: id
+      id,
+      gifUrl
+
     };
     if (comment_body.length > 6) {
       if (props.postComment(formData)) {
         setIsComment(false)
         setCommentBody('')
       }
-    } else {
-      alert("Comment must be at least 6 characters")
     }
+    if (gifUrl !== null) {
+      props.postComment(formData)
+      setIsComment(false)
+
+    }
+
   };
   const { posts, currentUser } = props;
   return posts.length > 0 ? (
@@ -116,9 +133,11 @@ export default function PostList(props: any) {
               {isComment === post.id
                 ? (
                   <CommentForm
-                    commentChange={e => setCommentBody(e.target.value)}
+                    commentChange={e => commentChange(e.target.value)}
                     comment_body={comment_body}
                     onSubmit={e => commentSubmit(e, post.id)}
+                    gifUrl={selectGif}
+                    isGif={gifUrl}
                   />
                 )
                 : null}

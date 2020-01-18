@@ -30,6 +30,11 @@ export default function CommentList(props: any) {
                             <Typography color="primary" align="left">
                                 {comment.comment_body}
                             </Typography>
+                            {comment.gifUrl && (
+                                <div style={{ display: "block" }}>
+                                    <img src={`${comment.gifUrl}`} />
+                                </div>
+                            )}
                         </ListItem>
                         {props.user && props.user.user && comment.userId === props.user.user.id ? (
                             <Typography style={{ display: 'inline-block', float: 'right' }} align="right">

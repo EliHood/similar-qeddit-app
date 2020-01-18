@@ -71,8 +71,7 @@ const postReducer = (state = initialState, action: any): postState =>
         draft.error = action.error;
         return;
       case types.POST_COMMENT_SUCCESS:
-        console.log(action);
-        const findCommentKey = state.posts.findIndex((x) => x.id === action.payload.postId);
+        const findCommentKey = state.posts.findIndex((x) => x.id === action.id);
         draft.posts[findCommentKey].Comments = [...draft.posts[findCommentKey].Comments, action.payload]
         return;
       case types.POST_COMMENT_FAILURE:
