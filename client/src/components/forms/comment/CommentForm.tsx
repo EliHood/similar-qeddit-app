@@ -8,7 +8,7 @@ const CommentForm = (props) => (
     <form onSubmit={props.onSubmit}>
       <TextField
         type="text"
-        style={{ borderRadius: "50%"}}
+        style={{ borderRadius: "50%" }}
         id="outlined-multiline-static"
         label="Write A Comment"
         multiline={true}
@@ -20,11 +20,11 @@ const CommentForm = (props) => (
         variant="outlined"
         onChange={props.commentChange}
       />
-      <br/>
-      <br/>
+      <br />
+      <br />
       <Button type="submit" variant="outlined" color="primary">
         Post A Comment
-      </Button>
+     </Button>
     </form>
   </div>
 );

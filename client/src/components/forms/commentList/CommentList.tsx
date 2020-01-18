@@ -31,7 +31,7 @@ export default function CommentList(props: any) {
                                 {comment.comment_body}
                             </Typography>
                         </ListItem>
-                        {props.user && props.user.user && props.userId === props.user.user.id ? (
+                        {props.user && props.user.user && comment.userId === props.user.user.id ? (
                             <Typography style={{ display: 'inline-block', float: 'right' }} align="right">
                                 <span style={{ cursor: "pointer" }} onClick={() => props.deleteComment(comment.id, props.postId)}>
                                     <DeleteOutlineOutlinedIcon style={{ margin: "-5px 0px" }} color="primary" /> <span>Delete</span>
@@ -40,7 +40,6 @@ export default function CommentList(props: any) {
                         ) : (
                                 null
                             )}
-
                         <Typography style={{ padding: "0px 0px" }} variant="caption" align="left">{comment.author.username}</Typography>
 
                         <Typography style={{ fontSize: "12px" }} variant="body1" align="left">{moment(comment.createdAt).calendar()}</Typography>
@@ -67,4 +66,3 @@ export default function CommentList(props: any) {
     )
 
 };
-

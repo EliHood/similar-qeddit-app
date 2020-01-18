@@ -10,7 +10,15 @@
     "no-consecutive-blank-lines": [
       true,
       1
-    ]
+    ],
+    "jsx-wrap-multiline": false,
+    "jsx-alignment": true,
+    "member-access": false,
+    "object-literal-sort-keys": false,
+    "ordered-imports": false,
+    "interface-name": false,
+    "no-console": false,
+    "no-trailing-whitespace": true
   },
   "rulesDirectory": [],
   "items": {
@@ -18,7 +26,7 @@
     "enum": [
       "no-public",
       "check-accessor",
-      "check-constructor",
+      "check-constructor"
     ]
   }
 }

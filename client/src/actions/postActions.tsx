@@ -109,7 +109,6 @@ export const deleteCommentFailure = (error: object) => ({
   error
 })
 
-
 export const postCommentSuccess = (payload: object, id: number) => ({
   type: types.POST_COMMENT_SUCCESS,
   payload, id,
