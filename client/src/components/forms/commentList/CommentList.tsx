@@ -32,7 +32,7 @@ export default function CommentList(props: any) {
                             </Typography>
                             {comment.gifUrl && (
                                 <div style={{ display: "block" }}>
-                                    <img src={`${comment.gifUrl}`} />
+                                    <img width="100%" height="300px" src={`${comment.gifUrl}`} />
                                 </div>
                             )}
                         </ListItem>
