@@ -1,13 +1,18 @@
 import React, { Fragment } from 'react';
-// import GiphySelect from 'react-giphy-select';
-import Picker from 'react-giphy-picker'
-import Button from "@material-ui/core/Button";
-import 'react-giphy-select/lib/styles.css';
+import ReactGiphySearchbox from "react-giphy-searchbox";
 import './style.css';
 export default function GifSection(props) {
     return (
         <Fragment>
-            <Picker onSelected={(e) => props.select(e)} />
+            <ReactGiphySearchbox
+                searchFormClassName={{ padding: "20px 0px" }}
+                apiKey="9Ixlv3DWC1biJRI57RanyL7RTbfzz0o7"
+                onSelect={(e) => props.select(e)}
+                masonryConfig={[
+                    { columns: 4, imageWidth: 110, gutter: 5 },
+                    { mq: "1000px", columns: 4, imageWidth: 120, gutter: 5 }
+                ]}
+            />
         </Fragment>
     )
 

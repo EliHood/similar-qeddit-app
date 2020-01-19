@@ -26,7 +26,7 @@ export default function PostList(props: any) {
   }
   const selectGif = (e) => {
     console.log(e)
-    setGifUrl(e.downsized_large.url)
+    setGifUrl(e.images.downsized_large.url)
     setCommentBody('')
     // you wont be able to add text comment with a gif, it will look weird :(
   }
@@ -41,6 +41,7 @@ export default function PostList(props: any) {
     };
     props.postComment(formData)
     setIsComment(false)
+    setCommentBody('');
 
   };
   const { posts, currentUser } = props;
