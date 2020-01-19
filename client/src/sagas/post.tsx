@@ -59,12 +59,19 @@ export function* dislikePost(action) {
 }
 
 export function* deletePost(action) {
-  try {
-    const deletePost = yield call(api.post.deletePost, action.payload);
-    yield put(actionTypes.deletePostSuccess(deletePost, action.payload));
-  } catch (error) {
-    yield put(actionTypes.dislikePostFailiure(error));
+  const deleteConfirmation = window.confirm('Are you sure you want to delete your post ?')
+  if (deleteConfirmation) {
+    try {
+      const deletePost = yield call(api.post.deletePost, action.payload);
+      yield put(actionTypes.deletePostSuccess(deletePost, action.payload));
+    } catch (error) {
+      yield put(actionTypes.dislikePostFailiure(error));
+    }
+
+  } else {
+    return null
   }
+
 }
 
 export function* postComment(action) {
@@ -77,12 +84,19 @@ export function* postComment(action) {
 }
 
 export function* deleteComment(action) {
-  try {
-    const deleteComment = yield call(api.post.deleteComment, action.payload);
-    yield put(actionTypes.deleteCommentSuccess(deleteComment, action.payload, action.postId));
-  } catch (error) {
-    yield put(actionTypes.deleteCommentFailure(error));
+  const deleteConfirmation = window.confirm('Are you sure you want to delete your comment ?')
+  if (deleteConfirmation) {
+    try {
+      const deleteComment = yield call(api.post.deleteComment, action.payload);
+      yield put(actionTypes.deleteCommentSuccess(deleteComment, action.payload, action.postId));
+    } catch (error) {
+
+      yield put(actionTypes.deleteCommentFailure(error));
+    }
+  } else {
+    return null
   }
+
 }
 
 export function* watchFetchPost() {

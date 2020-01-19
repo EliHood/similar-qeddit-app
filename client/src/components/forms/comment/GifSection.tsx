@@ -8,7 +8,6 @@ export default function GifSection(props) {
     return (
         <Fragment>
             <Picker onSelected={(e) => props.select(e)} />
-
         </Fragment>
     )
 

@@ -17,6 +17,7 @@ export default function PostList(props: any) {
   const [gifUrl, setGifUrl] = useState('')
   const writeComment = (id) => {
     setIsComment(isComment ? "" : id);
+
   };
 
   const commentChange = (comment) => {
@@ -38,11 +39,8 @@ export default function PostList(props: any) {
       gifUrl
 
     };
-
     props.postComment(formData)
     setIsComment(false)
-
-
 
   };
   const { posts, currentUser } = props;
