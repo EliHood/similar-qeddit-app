@@ -62,7 +62,7 @@ export function* deletePost(action) {
   const deleteConfirmation = window.confirm('Are you sure you want to delete your post ?')
   if (deleteConfirmation) {
     try {
-      const deletePost = yield call(api.post.deletePost, action.payload);
+      const deletePost = yield call(api.post.deletePost, action.payload, action.userId);
       yield put(actionTypes.deletePostSuccess(deletePost, action.payload));
     } catch (error) {
       yield put(actionTypes.dislikePostFailiure(error));
@@ -85,12 +85,12 @@ export function* postComment(action) {
 
 export function* deleteComment(action) {
   const deleteConfirmation = window.confirm('Are you sure you want to delete your comment ?')
+  console.log(action)
   if (deleteConfirmation) {
     try {
-      const deleteComment = yield call(api.post.deleteComment, action.payload);
+      const deleteComment = yield call(api.post.deleteComment, action.payload, action.userId);
       yield put(actionTypes.deleteCommentSuccess(deleteComment, action.payload, action.postId));
     } catch (error) {
-
       yield put(actionTypes.deleteCommentFailure(error));
     }
   } else {

@@ -80,17 +80,29 @@ exports.default = {
         return res.json(postPage);
     }),
     deleteComment: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        try {
-            yield models_1.default.Comments.destroy({
-                where: {
-                    id: req.params.id
-                }
-            });
-            return res.status(200).send('Comment has been deleted!');
+        let currentUser;
+        if (req.session.passport) {
+            currentUser = req.session.passport.user.id;
         }
-        catch (error) {
-            console.log("There was an error", error);
-            res.status(401).send("Failed to delete comment");
+        else {
+            currentUser = req.session.user.id;
+        }
+        if (req.params.userId == currentUser) {
+            try {
+                yield models_1.default.Comments.destroy({
+                    where: {
+                        id: req.params.id
+                    }
+                });
+                return res.status(200).send('Comment has been deleted!');
+            }
+            catch (error) {
+                console.log("There was an error", error);
+                res.status(401).send("Failed to delete comment");
+            }
+        }
+        else {
+            return res.status(500).send("You can't delete another user post");
         }
     }),
     createPost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -197,17 +209,30 @@ exports.default = {
         }
     }),
     deletePost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        try {
-            yield models_1.default.Post.destroy({
-                where: {
-                    id: req.params.id
-                }
-            });
-            return res.status(200).send('Post has been deleted!');
+        let currentUser;
+        if (req.session.passport) {
+            currentUser = req.session.passport.user.id;
         }
-        catch (error) {
-            console.log("There was an error", error);
-            res.status(401).send("Failed to delete");
+        else {
+            currentUser = req.session.user.id;
+        }
+        console.log(req.params);
+        if (req.params.userId == currentUser) {
+            try {
+                yield models_1.default.Post.destroy({
+                    where: {
+                        id: req.params.id
+                    }
+                });
+                return res.status(200).send('Post has been deleted!');
+            }
+            catch (error) {
+                console.log("There was an error", error);
+                res.status(401).send("Failed to delete");
+            }
+        }
+        else {
+            return res.status(500).send("You can't delete another user post");
         }
     }),
     likePost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {

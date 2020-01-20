@@ -73,19 +73,29 @@ export default {
     return res.json(postPage);
   },
   deleteComment: async (req: any, res: Response) => {
-    try{
-      await models.Comments.destroy({
-        where:{
-          id: req.params.id
-        }
-      })
-      return res.status(200).send('Comment has been deleted!')  
-      
-    }catch(error){
-      console.log("There was an error", error);
-      res.status(401).send("Failed to delete comment");
+    let currentUser;
+    if (req.session.passport) {
+      currentUser = req.session.passport.user.id;
+    } else {
+      currentUser = req.session.user.id;
     }
-
+    if(req.params.userId == currentUser){
+      try{
+        await models.Comments.destroy({
+          where:{
+            id: req.params.id
+          }
+        })
+        return res.status(200).send('Comment has been deleted!')  
+        
+      }catch(error){
+        console.log("There was an error", error);
+        res.status(401).send("Failed to delete comment");
+      }
+    }else{
+      return res.status(500).send("You can't delete another user post");
+    }
+  
   },
   createPost: async (req: any, res: Response) => {
     // console.log(getUser);
@@ -194,17 +204,28 @@ export default {
 
   },
   deletePost: async (req:any, res:Response) => {
-    try{
-      await models.Post.destroy({
-        where:{
-          id: req.params.id
-        }
-      })
-      return res.status(200).send('Post has been deleted!')  
-      
-    }catch(error){
-      console.log("There was an error", error);
-      res.status(401).send("Failed to delete");
+    let currentUser;
+    if (req.session.passport) {
+      currentUser = req.session.passport.user.id;
+    } else {
+      currentUser = req.session.user.id;
+    }
+    console.log(req.params)
+    if(req.params.userId == currentUser){ 
+      try{
+        await models.Post.destroy({
+          where:{
+            id: req.params.id
+          }
+        })
+        return res.status(200).send('Post has been deleted!')  
+        
+      }catch(error){
+        console.log("There was an error", error);
+        res.status(401).send("Failed to delete");
+      }
+    }else{
+      return res.status(500).send("You can't delete another user post");
     }
 
   },

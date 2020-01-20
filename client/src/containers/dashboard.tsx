@@ -20,8 +20,8 @@ const mapDispatchToProps = (dispatch: any) => ({
   addContent: (data: string) => dispatch(addContent(data)),
   postCommentInit: (commentData: object) => dispatch(postCommentInit(commentData)),
   dislikePost: (id: number) => dispatch(dislikePostInit(id)),
-  deletePostInit: (id: number) => dispatch(deletePostInit(id)),
-  deleteComment: (id: number, postId: number) => dispatch(deleteCommentInit(id, postId)),
+  deletePostInit: (id: number, userId: number) => dispatch(deletePostInit(id, userId)),
+  deleteComment: (id: number, postId: number, userId: number) => dispatch(deleteCommentInit(id, postId, userId)),
   createPostInit: (postData: object) => dispatch(createPostInit(postData)),
 });
 

@@ -38,7 +38,7 @@ export default function CommentList(props: any) {
                         </ListItem>
                         {props.user && props.user.user && comment.userId === props.user.user.id ? (
                             <Typography style={{ display: 'inline-block', float: 'right' }} align="right">
-                                <span style={{ cursor: "pointer" }} onClick={() => props.deleteComment(comment.id, props.postId)}>
+                                <span style={{ cursor: "pointer" }} onClick={() => props.deleteComment(comment.id, props.postId, comment.userId)}>
                                     <DeleteOutlineOutlinedIcon style={{ margin: "-5px 0px" }} color="primary" /> <span>Delete</span>
                                 </span>
                             </Typography>

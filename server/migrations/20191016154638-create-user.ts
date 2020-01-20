@@ -32,7 +32,6 @@ export const up = (queryInterface: QueryInterface, Sequelize: any) => {
         }
       }
     },
-
     password: {
       type: Sequelize.STRING,
       validate: {
@@ -55,6 +54,13 @@ export const up = (queryInterface: QueryInterface, Sequelize: any) => {
     },
 
     forget_password: {
+      type: Sequelize.STRING
+    },
+    email_verified:{
+      type: Sequelize.BOOLEAN,
+      defaultValue: false
+    },
+    email_confirmation_token:{
       type: Sequelize.STRING
     },
     googleId: {
