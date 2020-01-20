@@ -102,7 +102,7 @@ exports.default = {
             }
         }
         else {
-            return res.status(500).send("You can't delete another user post");
+            return res.status(500).send("You can't delete another user comment");
         }
     }),
     createPost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {

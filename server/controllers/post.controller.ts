@@ -93,7 +93,7 @@ export default {
         res.status(401).send("Failed to delete comment");
       }
     }else{
-      return res.status(500).send("You can't delete another user post");
+      return res.status(500).send("You can't delete another user comment");
     }
   
   },
