@@ -113,15 +113,6 @@ export default {
         raw: true
       });
 
-      if(user.email_verified === false){
-        return res.status(403).send({
-          meta: {
-            type: "error",
-            status: 403,
-            message: `Please activate your account to login`,
-          }
-        });
-      }
       /* user not registered */
       if (!user) {
         return res.status(403).send({
@@ -129,6 +120,15 @@ export default {
             type: "error",
             status: 403,
             message: `this account ${credentials.username} is not yet registered`
+          }
+        });
+      }
+      if(user.email_verified === false){
+        return res.status(403).send({
+          meta: {
+            type: "error",
+            status: 403,
+            message: `Please activate your account to login`,
           }
         });
       }
@@ -227,7 +227,35 @@ export default {
   emailConfirmationToken: async (req: any, res:Response) => {
     let token = req.params.token;
     console.log('testing',req.params)
-    jwt.verify(token,"ok",(err,result) =>{
+    const user = await models.User.findOne({
+      where:{
+        id: req.params.userId,
+      },
+      raw: true
+    })
+
+    jwt.verify(token, process.env.JWT_SECRET, (err,result) =>{
+      if(user.email_verified === true){
+        return res.status(500).send({
+          meta: {
+            type: "error",
+            status: 500,
+            message: "You already activated your account"
+          }  
+        })
+      } 
+      if(err){
+        console.log(err)
+        return res.status(500).send({
+          meta: {
+            type: "error",
+            err:err,
+            status: 500,
+            message: "Invalid Token"
+          }
+        });  
+      }
+      else {
         models.User.findOne({
           where:{
             id: req.params.userId
@@ -239,10 +267,11 @@ export default {
         }).then( () => {
           let decoded = jwt.decode(token,{complete:true});
           return res.status(200).send({
-            message: "Email Validated",
+            message: "Thank you, account has been activated",
             user:{
               token: decoded,
-              id: req.params.id
+              id: req.params.id,
+              result
             },
             decoded
           })
@@ -252,6 +281,7 @@ export default {
             err
           })
         })
+      }
     });
   },
   signUpUser: async (req: Request, res: Response) => {

@@ -91,13 +91,13 @@ export function* login(action) {
 }
 
 export function* emailConfirmation(action) {
-  console.log(action)
   try {
     const emailConfirmation = yield call(api.user.emailConfirmation, action.payload.userId, action.payload.token);
     console.log(emailConfirmation)
-
+    yield put(actionTypes.emailConfirmationSuccess(emailConfirmation))
   } catch (err) {
-    yield put(actionTypes.emailConfirmationFailure(err))
+    console.log(err.response.data.meta.message)
+    yield put(actionTypes.emailConfirmationFailure(err.response.data.meta.message))
   }
 }
 

@@ -97,6 +97,13 @@ const authReducer = (state = initialState, action: any): userState =>
         draft.username = action.data;
         draft.usernameError = validation.validateUsername(action.data);
         return;
+      case types.EMAIL_CONFIRMATION_FAILURE:
+        console.log(action)
+        draft.error = action.error
+        return
+      case types.EMAIL_CONFIRMATION_SUCCESS:
+        draft.message = action.payload.message
+        return
     }
   });
 

@@ -117,15 +117,6 @@ exports.default = {
                 },
                 raw: true
             });
-            if (user.email_verified === false) {
-                return res.status(403).send({
-                    meta: {
-                        type: "error",
-                        status: 403,
-                        message: `Please activate your account to login`,
-                    }
-                });
-            }
             /* user not registered */
             if (!user) {
                 return res.status(403).send({
@@ -133,6 +124,15 @@ exports.default = {
                         type: "error",
                         status: 403,
                         message: `this account ${credentials.username} is not yet registered`
+                    }
+                });
+            }
+            if (user.email_verified === false) {
+                return res.status(403).send({
+                    meta: {
+                        type: "error",
+                        status: 403,
+                        message: `Please activate your account to login`,
                     }
                 });
             }
@@ -224,31 +224,60 @@ exports.default = {
     emailConfirmationToken: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         let token = req.params.token;
         console.log('testing', req.params);
-        jsonwebtoken_1.default.verify(token, "ok", (err, result) => {
-            models_1.default.User.findOne({
-                where: {
-                    id: req.params.userId
-                }
-            }).then((user) => {
-                user.update({
-                    email_verified: true
-                });
-            }).then(() => {
-                let decoded = jsonwebtoken_1.default.decode(token, { complete: true });
-                return res.status(200).send({
-                    message: "Email Validated",
-                    user: {
-                        token: decoded,
-                        id: req.params.id
-                    },
-                    decoded
-                });
-            }).catch((err) => {
+        const user = yield models_1.default.User.findOne({
+            where: {
+                id: req.params.userId,
+            },
+            raw: true
+        });
+        jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET, (err, result) => {
+            if (user.email_verified === true) {
                 return res.status(500).send({
-                    message: "Something went wrong",
-                    err
+                    meta: {
+                        type: "error",
+                        status: 500,
+                        message: "You already activated your account"
+                    }
                 });
-            });
+            }
+            if (err) {
+                console.log(err);
+                return res.status(500).send({
+                    meta: {
+                        type: "error",
+                        err: err,
+                        status: 500,
+                        message: "Invalid Token"
+                    }
+                });
+            }
+            else {
+                models_1.default.User.findOne({
+                    where: {
+                        id: req.params.userId
+                    }
+                }).then((user) => {
+                    user.update({
+                        email_verified: true
+                    });
+                }).then(() => {
+                    let decoded = jsonwebtoken_1.default.decode(token, { complete: true });
+                    return res.status(200).send({
+                        message: "Thank you, account has been activated",
+                        user: {
+                            token: decoded,
+                            id: req.params.id,
+                            result
+                        },
+                        decoded
+                    });
+                }).catch((err) => {
+                    return res.status(500).send({
+                        message: "Something went wrong",
+                        err
+                    });
+                });
+            }
         });
     }),
     signUpUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {

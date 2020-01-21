@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Alert, AlertTitle } from '@material-ui/lab';
+
+
 export default function EmailConfirmationSuccess(props) {
     console.log(props)
     const didMountRef = useRef()
@@ -9,15 +11,23 @@ export default function EmailConfirmationSuccess(props) {
             props.emailConfirmationInit(props.match.params);
 
         } else {
-            // console.log('this is component didupdate')
+            console.log('this is component didupdate')
         }
     });
+    console.log(props)
     return (
         <div>
-            <Alert severity="success">
-                <AlertTitle>Success</AlertTitle>
-                Thank you for Activating, login in here... <a href="/login">Login</a>
-            </Alert>
+            {props.user.includes("Thank you") ? (
+                <Alert severity="success">
+                    <AlertTitle>Success</AlertTitle>
+                    {props.user} <a href="/login">Login</a>
+                </Alert>
+            ) : (
+                    <Alert severity="warning">
+                        <AlertTitle>Error</AlertTitle>
+                        {props.error}
+                    </Alert>
+                )}
         </div>
     )
 }
