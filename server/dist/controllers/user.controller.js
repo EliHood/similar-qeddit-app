@@ -20,14 +20,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt = __importStar(require("bcrypt"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const models_1 = __importDefault(require("../models"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const nodemailer_1 = __importDefault(require("nodemailer"));
+const models_1 = __importDefault(require("../models"));
+const nodemailer_mailgun_transport_1 = __importDefault(require("nodemailer-mailgun-transport"));
 dotenv_1.default.config();
 const comparePassword = (credentialsPassword, userPassword) => __awaiter(void 0, void 0, void 0, function* () {
     const isPasswordMatch = yield bcrypt.compare(credentialsPassword, userPassword);
     return isPasswordMatch;
 });
+const auth = {
+    auth: {
+        api_key: `${process.env.API_KEY}`,
+        domain: `${process.env.DOMAIN}`,
+    },
+};
+const nodemailerMailgun = nodemailer_1.default.createTransport(nodemailer_mailgun_transport_1.default(auth));
 exports.default = {
     getUsers: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         yield models_1.default.User.findAll().then((users) => {
@@ -108,6 +117,15 @@ exports.default = {
                 },
                 raw: true
             });
+            if (user.email_verified === false) {
+                return res.status(403).send({
+                    meta: {
+                        type: "error",
+                        status: 403,
+                        message: `Please activate your account to login`,
+                    }
+                });
+            }
             /* user not registered */
             if (!user) {
                 return res.status(403).send({
@@ -142,9 +160,9 @@ exports.default = {
                     type: "success",
                     status: 200,
                     message: "Sucessfully Authenticated",
-                    token: token
+                    token
                 },
-                user: user
+                user
             });
         }
         catch (error) {
@@ -203,9 +221,40 @@ exports.default = {
             token: token ? token : null
         });
     },
+    emailConfirmationToken: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        let token = req.params.token;
+        console.log('testing', req.params);
+        jsonwebtoken_1.default.verify(token, "ok", (err, result) => {
+            models_1.default.User.findOne({
+                where: {
+                    id: req.params.userId
+                }
+            }).then((user) => {
+                user.update({
+                    email_verified: true
+                });
+            }).then(() => {
+                let decoded = jsonwebtoken_1.default.decode(token, { complete: true });
+                return res.status(200).send({
+                    message: "Email Validated",
+                    user: {
+                        token: decoded,
+                        id: req.params.id
+                    },
+                    decoded
+                });
+            }).catch((err) => {
+                return res.status(500).send({
+                    message: "Something went wrong",
+                    err
+                });
+            });
+        });
+    }),
     signUpUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const credentials = req.body;
+            console.log('test', credentials);
             if (!credentials.username || !credentials.email) {
                 return res.status(403).send({
                     meta: {
@@ -264,15 +313,31 @@ exports.default = {
                 req.session.user = user;
                 req.session.save(() => { });
                 console.log(user);
-                const token = jsonwebtoken_1.default.sign({ id: user.id }, process.env.JWT_SECRET);
+                const token = jsonwebtoken_1.default.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+                const msg = {
+                    from: 'typescriptappexample@example.com',
+                    to: req.body.email,
+                    subject: 'Welcome to React TypeScript App',
+                    html: `<p>Click this to active your account <a href='${process.env.ALLOW_ORIGIN}/emailConfirmationSuccess/${user.id}/${token}'>${process.env.ALLOW_ORIGIN}/emailConfirmationSuccess/${user.id}/${token}</a></p>` // html body
+                };
+                console.log('sending mail');
+                nodemailerMailgun.sendMail(msg, (err, response) => {
+                    if (err) {
+                        console.error('there was an error: ', err);
+                    }
+                    else {
+                        console.log('here is the res: ', response);
+                    }
+                });
+                user.update({ email_confirmation_token: token });
                 return res.status(200).send({
                     meta: {
                         type: "success",
                         status: 200,
-                        message: "",
-                        token: token
+                        message: `Email has been sent to ${req.body.email}, please activate your account`,
+                        token
                     },
-                    user: user
+                    user
                 });
             })
                 .catch(err => {

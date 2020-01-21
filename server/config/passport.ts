@@ -1,6 +1,6 @@
+import dotenv from "dotenv";
 import passport from "passport";
 import GoogleStrategy from "passport-google-oauth20";
-import dotenv from "dotenv";
 import models from "../models";
 dotenv.config();
 const GoogleSta = GoogleStrategy.Strategy;
@@ -11,7 +11,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((id, done) => {
   console.log(id);
-  models.User.findOne({ id: id })
+  models.User.findOne({ id })
     .then(usr => {
       return done(null, usr);
     })

@@ -12,9 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const dotenv_1 = __importDefault(require("dotenv"));
 const passport_1 = __importDefault(require("passport"));
 const passport_google_oauth20_1 = __importDefault(require("passport-google-oauth20"));
-const dotenv_1 = __importDefault(require("dotenv"));
 const models_1 = __importDefault(require("../models"));
 dotenv_1.default.config();
 const GoogleSta = passport_google_oauth20_1.default.Strategy;
@@ -23,7 +23,7 @@ passport_1.default.serializeUser((user, done) => {
 });
 passport_1.default.deserializeUser((id, done) => {
     console.log(id);
-    models_1.default.User.findOne({ id: id })
+    models_1.default.User.findOne({ id })
         .then(usr => {
         return done(null, usr);
     })

@@ -4,6 +4,7 @@
     },
     "eslint.validate": [
         "javascript",
+        "typescript",
         "javascriptreact",
         "typescriptreact",
         {
@@ -29,4 +30,5 @@
         "editor.formatOnSave": true
     },
     "eslint.enable": true,
+    "eslint.format.enable": true,
 }

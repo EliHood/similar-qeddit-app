@@ -8,14 +8,16 @@ import { sessionData, setAuthToken } from "../utils";
 export function* registerUser(action) {
   try {
     console.log(action);
+    const history = action.history
     const user = yield call(api.user.signUp, action.payload);
     console.log(user);
     const token = user.meta.token;
-    setAuthToken(token);
-    sessionData.setUserLoggedIn(token);
+    // setAuthToken(token);
+    // sessionData.setUserLoggedIn(token);
     const decoded = jwtDecode(token);
-
-    yield put(actionTypes.signUpSuccess(decoded));
+    console.log(user);
+    yield put(actionTypes.signUpSuccess({}, user));
+    history.push({ pathname: "/emailConfirmation", state: user });
   } catch (error) {
     console.log(error);
     const errMsg = error.response.data.meta.message;
@@ -88,8 +90,22 @@ export function* login(action) {
   }
 }
 
+export function* emailConfirmation(action) {
+  console.log(action)
+  try {
+    const emailConfirmation = yield call(api.user.emailConfirmation, action.payload.userId, action.payload.token);
+    console.log(emailConfirmation)
+
+  } catch (err) {
+    yield put(actionTypes.emailConfirmationFailure(err))
+  }
+}
+
 export function* watchLogin() {
   yield takeLatest(types.LOG_IN_INIT, login);
+}
+export function* watchEmailConfirmation() {
+  yield takeLatest(types.EMAIL_CONFIRMATION_INIT, emailConfirmation);
 }
 export function* watchUpdateProfile() {
   yield takeLatest(types.UPDATE_USER_PROFILE, updateUserProfile);
@@ -107,11 +123,12 @@ export function* watchLogout() {
   yield takeLatest(types.LOG_OUT_INIT, logOut);
 }
 // export function*
-export default function*() {
+export default function* () {
   yield fork(watchUserRegister);
   yield fork(watchAuthLogin);
   yield fork(watchLogout);
   yield fork(watchLogin);
+  yield fork(watchEmailConfirmation)
   yield fork(watchEditProfile);
   yield fork(watchUpdateProfile);
 }

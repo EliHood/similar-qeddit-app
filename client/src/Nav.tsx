@@ -17,23 +17,23 @@ class Nav extends Component<routerContainerProps, routerContainerState> {
   public state: routerContainerState = {
     hasError: false,
   };
-  public componentDidMount() {
+  componentDidMount() {
     this.props.getUser();
   }
-  public componentDidCatch(error, info) {
+  componentDidCatch(error, info) {
     console.log(error, info);
     this.setState({
       hasError: true,
     });
   }
 
-  public ourLogOut = (e) => {
+  ourLogOut = (e) => {
     e.preventDefault();
     this.props.logOutInit(history);
 
   }
 
-  public render() {
+  render() {
     const { hasError } = this.state;
     return (
       <Router

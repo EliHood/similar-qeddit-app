@@ -56,13 +56,6 @@ export const up = (queryInterface: QueryInterface, Sequelize: any) => {
     forget_password: {
       type: Sequelize.STRING
     },
-    email_verified:{
-      type: Sequelize.BOOLEAN,
-      defaultValue: false
-    },
-    email_confirmation_token:{
-      type: Sequelize.STRING
-    },
     googleId: {
       allowNull: true,
       type: Sequelize.STRING
@@ -71,7 +64,13 @@ export const up = (queryInterface: QueryInterface, Sequelize: any) => {
       allowNull: false,
       type: Sequelize.DATE
     },
-
+    email_verified:{
+      type: Sequelize.BOOLEAN,
+      defaultValue: false
+    },
+    email_confirmation_token:{
+      type: Sequelize.STRING,
+    },
     updatedAt: {
       allowNull: false,
       type: Sequelize.DATE

@@ -1,8 +1,10 @@
 import * as bcrypt from "bcrypt";
+import dotenv from "dotenv";
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import nodemailer from 'nodemailer';
 import models from "../models";
-import dotenv from "dotenv";
+import mg from 'nodemailer-mailgun-transport';
 
 dotenv.config();
 const comparePassword = async (
@@ -15,6 +17,18 @@ const comparePassword = async (
   );
   return isPasswordMatch;
 };
+
+const auth = {
+  auth: {
+    api_key: `${process.env.API_KEY}`,
+    domain: `${process.env.DOMAIN}`,
+  },
+  // proxy: 'http://user:pass@localhost:3000' // optional proxy, default is false
+}
+ 
+const nodemailerMailgun = nodemailer.createTransport(mg(auth));
+ 
+
 
 export default {
   getUsers: async (req: Request, res: Response) => {
@@ -98,6 +112,16 @@ export default {
         },
         raw: true
       });
+
+      if(user.email_verified === false){
+        return res.status(403).send({
+          meta: {
+            type: "error",
+            status: 403,
+            message: `Please activate your account to login`,
+          }
+        });
+      }
       /* user not registered */
       if (!user) {
         return res.status(403).send({
@@ -137,9 +161,9 @@ export default {
           type: "success",
           status: 200,
           message: "Sucessfully Authenticated",
-          token: token
+          token
         },
-        user: user
+        user
       });
     } catch (error) {
       console.log(error);
@@ -200,10 +224,40 @@ export default {
       token: token ? token : null
     });
   },
-
+  emailConfirmationToken: async (req: any, res:Response) => {
+    let token = req.params.token;
+    console.log('testing',req.params)
+    jwt.verify(token,"ok",(err,result) =>{
+        models.User.findOne({
+          where:{
+            id: req.params.userId
+          }
+        }).then( (user) => {
+          user.update({
+            email_verified:true
+          })
+        }).then( () => {
+          let decoded = jwt.decode(token,{complete:true});
+          return res.status(200).send({
+            message: "Email Validated",
+            user:{
+              token: decoded,
+              id: req.params.id
+            },
+            decoded
+          })
+        }).catch( (err) => {
+          return res.status(500).send({
+            message: "Something went wrong",
+            err
+          })
+        })
+    });
+  },
   signUpUser: async (req: Request, res: Response) => {
     try {
       const credentials = req.body;
+      console.log('test',credentials)
       if (!credentials.username || !credentials.email) {
         return res.status(403).send({
           meta: {
@@ -269,15 +323,30 @@ export default {
           req.session.user = user;
           req.session.save(() => {});
           console.log(user);
-          const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+          const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+          const msg = {
+            from: 'typescriptappexample@example.com',
+            to: req.body.email,
+            subject: 'Welcome to React TypeScript App',
+            html: `<p>Click this to active your account <a href='${process.env.ALLOW_ORIGIN}/emailConfirmationSuccess/${user.id}/${token}'>${process.env.ALLOW_ORIGIN}/emailConfirmationSuccess/${user.id}/${token}</a></p>` // html body
+          };
+          console.log('sending mail')
+          nodemailerMailgun.sendMail( msg, (err, response) => {
+            if (err) {
+              console.error('there was an error: ', err);
+            } else {
+              console.log('here is the res: ', response);
+            }
+          });
+          user.update({email_confirmation_token: token})
           return res.status(200).send({
             meta: {
               type: "success",
               status: 200,
-              message: "",
-              token: token
+              message: `Email has been sent to ${req.body.email}, please activate your account`,
+              token
             },
-            user: user
+            user
           });
         })
         .catch(err => {

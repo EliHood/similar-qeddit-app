@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes } from "sequelize";
+import { DataTypes, Sequelize } from "sequelize";
 
 export interface LikesAttributes {
   resourceId?: number;
@@ -15,7 +15,7 @@ export interface LikesInstance {
 }
 
 export = (sequelize: Sequelize, DataTypes: DataTypes) => {
-  var Likes = sequelize.define("Likes", {
+  let Likes = sequelize.define("Likes", {
     userId: DataTypes.INTEGER,
     resourceId: DataTypes.INTEGER
   });

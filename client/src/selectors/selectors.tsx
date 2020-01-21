@@ -10,7 +10,11 @@ export const getPosts = () =>
         postSelector,
         (state) => state.posts,
     );
-
+export const userConfirmation = () =>
+    createSelector(
+        userSelector,
+        (state) => state.message
+    )
 // will sort through original posts array by highest likeCount in DESC order, showing only 2
 export const getPopPosts = () =>
     createSelector(

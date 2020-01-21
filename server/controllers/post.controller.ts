@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
-import models from "../models";
 import dotenv from "dotenv";
+import { Request, Response } from "express";
 import sequelize from "sequelize";
+import models from "../models";
 
 dotenv.config();
 export default {
@@ -198,7 +198,7 @@ export default {
       console.log("There was an error", error);
       return res.status(500).send({
         message: "Failed to write a comment", 
-        error: error 
+        error 
       });
     }
 
@@ -309,7 +309,7 @@ export default {
 
         return res.status(200).json({
           message: "You liked this post",
-          post:post
+          post
         });
       }
     } catch (err) {
@@ -387,7 +387,7 @@ export default {
 
         return res.status(200).json({
           message: "You unliked this post",
-          post: post
+          post
         });
       }
     } catch (err) {

@@ -1,6 +1,6 @@
 import {
-    Sequelize,
-    DataTypes
+    DataTypes,
+    Sequelize
 } from 'sequelize';
 
 export interface CommentAttributes {
@@ -19,7 +19,7 @@ export interface CommentInstance {
 }
 
 export = (sequelize: Sequelize, DataTypes: DataTypes) => {
-    var Comment = sequelize.define('Comments', {
+    let Comment = sequelize.define('Comments', {
         comment_body: {
             allowNull: true,
             type:DataTypes.STRING

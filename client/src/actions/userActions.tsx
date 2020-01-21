@@ -1,13 +1,29 @@
 import * as types from "../actionTypes/userActionTypes";
 
-export const signUpInit = (payload: object) => ({
+
+export const emailConfirmationInit = (payload: object) => ({
+  type: types.EMAIL_CONFIRMATION_INIT,
+  payload
+})
+
+export const emailConfirmationSuccess = (payload: object) => ({
+  type: types.EMAIL_CONFIRMATION_SUCCESS,
+  payload
+})
+
+export const emailConfirmationFailure = (error: object) => ({
+  type: types.EMAIL_CONFIRMATION_FAILURE,
+  error
+})
+
+export const signUpInit = (payload: object, history: object) => ({
   type: types.SIGN_UP_INIT,
-  payload,
+  payload, history
 });
 
-export const signUpSuccess = (payload: object) => ({
+export const signUpSuccess = (payload: object, user: object) => ({
   type: types.SIGN_UP_SUCCESS,
-  payload,
+  payload, user
 });
 
 export const signUpFailure = (error: object) => ({

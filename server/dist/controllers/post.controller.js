@@ -12,8 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const models_1 = __importDefault(require("../models"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const models_1 = __importDefault(require("../models"));
 dotenv_1.default.config();
 exports.default = {
     getPosts: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -204,7 +204,7 @@ exports.default = {
             console.log("There was an error", error);
             return res.status(500).send({
                 message: "Failed to write a comment",
-                error: error
+                error
             });
         }
     }),
@@ -309,7 +309,7 @@ exports.default = {
                 yield transaction.commit();
                 return res.status(200).json({
                     message: "You liked this post",
-                    post: post
+                    post
                 });
             }
         }
@@ -384,7 +384,7 @@ exports.default = {
                 yield transaction.commit();
                 return res.status(200).json({
                     message: "You unliked this post",
-                    post: post
+                    post
                 });
             }
         }

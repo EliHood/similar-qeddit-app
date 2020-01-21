@@ -6,11 +6,12 @@ import IsAuth from "../hoc/isAuthenticated";
 
 export interface registerProps {
   onChange: (event: any) => void;
-  signUpInit: (event: object) => void;
-  addUsername: (event: object) =>  void;
+  signUpInit: (event: object, history: object) => void;
+  addUsername: (event: object) => void;
   addEmail: (event: object) => void;
   addPassword: (event: object) => void;
   user?: any;
+  history?: any;
 }
 export interface registerState {
   passwordConf: string;
@@ -34,20 +35,20 @@ class Register extends Component<registerProps, registerState> {
 
   public handleSubmit = (e: any) => {
     e.preventDefault();
-    const { username, email, password  } = this.props.user;
+    const { username, email, password } = this.props.user;
     const creds = {
       username,
       email,
       password,
     };
     console.log(creds);
-    this.props.signUpInit(creds);
+    this.props.signUpInit(creds, this.props.history);
 
   }
   public render() {
-    const { username, email, password, usernameError, passwordError, emailError  } = this.props.user;
+    const { username, email, password, usernameError, passwordError, emailError } = this.props.user;
     const isEnabled =
-    emailError === true && passwordError === true && usernameError === true ? false : true;
+      emailError === true && passwordError === true && usernameError === true ? false : true;
     return (
       <Fragment>
         <Typography variant="h4" style={{ letterSpacing: "2px" }}>

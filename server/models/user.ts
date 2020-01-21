@@ -1,10 +1,14 @@
-import { Sequelize, DataTypes } from "sequelize";
+import { DataTypes, Sequelize } from "sequelize";
 
 export interface UserAttributes {
   username?: string;
   password?: string;
   email?: string;
   forget_password?: string;
+  emailVerified?:boolean;
+  email_confirmation_token?:string;
+
+
 }
 export interface UserInstance {
   id: number;
@@ -14,6 +18,8 @@ export interface UserInstance {
   password: string;
   email: string;
   forget_password: string;
+  emailVerified?:boolean;
+  email_confirmation_token?:string;
 }
 
 export = (sequelize: Sequelize, DataTypes: DataTypes) => {
@@ -46,6 +52,13 @@ export = (sequelize: Sequelize, DataTypes: DataTypes) => {
         validate: {
           min: 6
         }
+      },
+      email_verified:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      },
+      email_confirmation_token:{
+        type: DataTypes.STRING,
       },
       googleId: {
         type: DataTypes.STRING,

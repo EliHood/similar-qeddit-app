@@ -1,4 +1,4 @@
-import { Response, NextFunction } from "express";
+import { NextFunction, Response } from "express";
 import models from "../models";
 
 export default () => async (req: any, res: Response, next: NextFunction) => {

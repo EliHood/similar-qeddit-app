@@ -11,8 +11,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = __importStar(require("express"));
-const controllers_1 = require("../controllers");
 const passport_1 = __importDefault(require("passport"));
+const controllers_1 = require("../controllers");
 const router = express.Router();
 router.post("/signup", controllers_1.userController.signUpUser);
 router.get("/logOut", controllers_1.userController.logOut);
@@ -20,6 +20,7 @@ router.post("/login", controllers_1.userController.signInUser);
 router.get("/getUsers", controllers_1.userController.getUsers);
 router.get("/editProfile", controllers_1.userController.editProfile);
 router.put("/updateProfile", controllers_1.userController.updateProfile);
+router.get("/emailConfirmation/:userId/:token", controllers_1.userController.emailConfirmationToken);
 router.get("/auth/google", passport_1.default.authenticate("google", { scope: ["email"] }));
 router.get("/auth/google/callback", passport_1.default.authenticate("google", {
     failureRedirect: "/login",

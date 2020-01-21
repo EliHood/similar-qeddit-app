@@ -1,7 +1,7 @@
 "use strict";
 const sequelize_1 = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-    var Comment = sequelize.define('Comments', {
+    let Comment = sequelize.define('Comments', {
         comment_body: {
             allowNull: true,
             type: DataTypes.STRING

@@ -28,6 +28,13 @@ module.exports = (sequelize, DataTypes) => {
                 min: 6
             }
         },
+        email_verified: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        },
+        email_confirmation_token: {
+            type: DataTypes.STRING,
+        },
         googleId: {
             type: DataTypes.STRING,
             allowNull: true

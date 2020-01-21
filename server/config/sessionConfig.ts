@@ -1,6 +1,6 @@
+import dotenv from "dotenv";
 import session from "express-session";
 import Sequelize from "sequelize";
-import dotenv from "dotenv";
 dotenv.config();
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 

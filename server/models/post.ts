@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes } from "sequelize";
+import { DataTypes, Sequelize } from "sequelize";
 import models from "./";
 export interface PostAttributes {
   title?: string;
@@ -19,7 +19,7 @@ export interface PostInstance {
 }
 
 export = (sequelize: Sequelize, DataTypes: DataTypes) => {
-  var Post = sequelize.define(
+  let Post = sequelize.define(
     "Post",
     {
       title: DataTypes.STRING,

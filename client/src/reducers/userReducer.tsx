@@ -31,20 +31,21 @@ const initialState: userState = {
   email: "",
   password: "",
   username: "",
+
 };
 
 const authReducer = (state = initialState, action: any): userState =>
   produce(state, (draft) => {
     switch (action.type) {
       case types.SIGN_UP_SUCCESS:
-        console.log(action);
-        draft.isAuthenticated = sessionData.getLoginStatus();
+        console.log(action.user.meta.message);
+        // draft.isAuthenticated = sessionData.getLoginStatus();
         draft.email = "";
         draft.password = "";
         draft.username = "";
         draft.error = "";
+        draft.message = action.user.meta.message
         return;
-
       case types.SIGN_UP_FAILURE:
         console.log(action);
         draft.error = action.error;

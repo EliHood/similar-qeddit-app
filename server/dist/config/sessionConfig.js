@@ -3,9 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const dotenv_1 = __importDefault(require("dotenv"));
 const express_session_1 = __importDefault(require("express-session"));
 const sequelize_1 = __importDefault(require("sequelize"));
-const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const SequelizeStore = require("connect-session-sequelize")(express_session_1.default.Store);
 let sequelize;
