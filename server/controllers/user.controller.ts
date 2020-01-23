@@ -5,7 +5,8 @@ import jwt from "jsonwebtoken";
 import nodemailer from 'nodemailer';
 import models from "../models";
 import mg from 'nodemailer-mailgun-transport';
-
+import sgMail from '@sendgrid/mail';
+import sgTransport from 'nodemailer-sendgrid-transport'
 dotenv.config();
 const comparePassword = async (
   credentialsPassword: string,
@@ -20,13 +21,13 @@ const comparePassword = async (
 
 const auth = {
   auth: {
-    api_key: `${process.env.API_KEY}`,
-    domain: `${process.env.DOMAIN}`,
+    api_user: `${process.env.SENDGRID_NAME}`,
+    api_key: `${process.env.SENDGRID_PASSWORD}`,
   },
   // proxy: 'http://user:pass@localhost:3000' // optional proxy, default is false
 }
  
-const nodemailerMailgun = nodemailer.createTransport(mg(auth));
+const nodemailerMailgun = nodemailer.createTransport(sgTransport(auth));
  
 
 
@@ -224,7 +225,50 @@ export default {
       token: token ? token : null
     });
   },
+  resendEmailConfirmation: async (req: any, res: Response) => {
+    try {  
+      console.log('sdsfsffsf',req.session.user.email)
+      const user = req.session.user
+      const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      const msg = {
+        from: 'typescriptappexample@example.com',
+        to: user.email,
+        subject: 'Welcome to React TypeScript App',
+        html: `<p>Click this to active your account <a href='${process.env.ALLOW_ORIGIN}/emailConfirmationSuccess/${user.id}/${token}'>${process.env.ALLOW_ORIGIN}/emailConfirmationSuccess/${user.id}/${token}</a></p>` // html body
+      };
+      console.log('sending mail')
+      nodemailerMailgun.sendMail( msg, (err, response) => {
+        if (err) {
+          console.error('there was an error: ', err);
+        } else {
+          console.log('here is the res: ', response);
+        }
+      });
+
+      return res.status(200).send({
+        meta: {
+          type: "success",
+          status: 200,
+          message: `Email has been re-sent to ${user.email}, please activate your account`,
+          token
+        },
+        user
+      });
+    }catch(err){
+
+      return res.status(500).send({
+        meta: {
+          type: "err",
+          status: 500,
+          err: err,
+          message: 'There has been an error resending confirmation email',
+        }
+      });
+    }
+   
+  },
   emailConfirmationToken: async (req: any, res:Response) => {
+    
     let token = req.params.token;
     console.log('testing',req.params)
     const user = await models.User.findOne({
@@ -233,56 +277,60 @@ export default {
       },
       raw: true
     })
-
-    jwt.verify(token, process.env.JWT_SECRET, (err,result) =>{
-      if(user.email_verified === true){
-        return res.status(500).send({
-          meta: {
-            type: "error",
-            status: 500,
-            message: "You already activated your account"
-          }  
-        })
-      } 
-      if(err){
-        console.log(err)
-        return res.status(500).send({
-          meta: {
-            type: "error",
-            err:err,
-            status: 500,
-            message: "Invalid Token"
-          }
-        });  
-      }
-      else {
-        models.User.findOne({
-          where:{
-            id: req.params.userId
-          }
-        }).then( (user) => {
-          user.update({
-            email_verified:true
-          })
-        }).then( () => {
-          let decoded = jwt.decode(token,{complete:true});
-          return res.status(200).send({
-            message: "Thank you, account has been activated",
-            user:{
-              token: decoded,
-              id: req.params.id,
-              result
-            },
-            decoded
-          })
-        }).catch( (err) => {
+    if(user.email_verified === true){
+      return res.status(500).send({
+        meta: {
+          type: "error",
+          status: 500,
+          message: "You already activated your account"
+        }  
+      })
+    } else {
+    try {
+      jwt.verify(token, process.env.JWT_SECRET, (err,result) =>{
+        if(err){
+          console.log(err)
           return res.status(500).send({
-            message: "Something went wrong",
-            err
-          })
-        })
+            meta: {
+              type: "error",
+              err:err,
+              status: 500,
+              message: "Invalid Token"
+            }
+          });  
+        }
+        else {
+            models.User.findOne({
+              where:{
+                id: req.params.userId
+              }
+            }).then( (user) => {
+              user.update({
+                email_verified:true
+              })
+            }).then( () => {
+              let decoded = jwt.decode(token,{complete:true});
+              return res.status(200).send({
+                message: "Thank you, account has been activated",
+                user:{
+                  token: decoded,
+                  id: req.params.id,
+                  result
+                },
+                decoded
+              })
+            }).catch( (err) => {
+              return res.status(500).send({
+                message: "Something went wrong",
+                err
+              })
+            })
+          }
+        });
+      } catch(err){
+        console.log(err)
       }
-    });
+    }
   },
   signUpUser: async (req: Request, res: Response) => {
     try {

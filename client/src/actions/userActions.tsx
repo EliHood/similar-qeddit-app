@@ -16,6 +16,20 @@ export const emailConfirmationFailure = (error: object) => ({
   error
 })
 
+export const resendEmailConfirmationInit = () => ({
+  type: types.RESEND_EMAIL_CONFIRMATION_INIT,
+})
+
+export const resendEmailConfirmationSuccess = (payload: object) => ({
+  type: types.RESEND_EMAIL_CONFIRMATION_SUCCESS,
+  payload
+})
+
+export const resendEmailConfirmationFailure = (error: object) => ({
+  type: types.RESEND_EMAIL_CONFIRMATION_FAILURE,
+  error
+})
+
 export const signUpInit = (payload: object, history: object) => ({
   type: types.SIGN_UP_INIT,
   payload, history

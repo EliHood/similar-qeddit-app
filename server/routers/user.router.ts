@@ -8,6 +8,7 @@ router.post("/login", userController.signInUser);
 router.get("/getUsers", userController.getUsers);
 router.get("/editProfile", userController.editProfile);
 router.put("/updateProfile", userController.updateProfile);
+router.post('/resendConfirmation', userController.resendEmailConfirmation);
 router.get("/emailConfirmation/:userId/:token", userController.emailConfirmationToken)
 router.get(
   "/auth/google",

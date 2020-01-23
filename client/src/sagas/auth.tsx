@@ -30,13 +30,13 @@ export function* getAutoLoginStatus(action) {
     const login = yield call(api.user.currentUser);
     const token = login.token;
     setAuthToken(token);
-    console.log(login);
     sessionData.setUserLoggedIn(token);
     yield put(actionTypes.getUserSuccess(login));
   } catch (error) {
     yield put(actionTypes.getUserFailure(error));
   }
 }
+
 export function* getUserProfile() {
   try {
     const profile = yield call(api.user.editProfile);
@@ -96,13 +96,29 @@ export function* emailConfirmation(action) {
     console.log(emailConfirmation)
     yield put(actionTypes.emailConfirmationSuccess(emailConfirmation))
   } catch (err) {
+    console.log(err.response.data)
     console.log(err.response.data.meta.message)
     yield put(actionTypes.emailConfirmationFailure(err.response.data.meta.message))
   }
 }
 
+export function* resendEmailConfirmation(action) {
+  try {
+    const resendEmailConfirmation = yield call(api.user.resendConfirmation);
+    console.log(resendEmailConfirmation)
+    yield put(actionTypes.resendEmailConfirmationSuccess(resendEmailConfirmation))
+  } catch (err) {
+    console.log(err)
+    yield put(actionTypes.resendEmailConfirmationFailure(err))
+  }
+}
+
 export function* watchLogin() {
   yield takeLatest(types.LOG_IN_INIT, login);
+}
+
+export function* watchResendEmailConfirmation() {
+  yield takeLatest(types.RESEND_EMAIL_CONFIRMATION_INIT, resendEmailConfirmation)
 }
 export function* watchEmailConfirmation() {
   yield takeLatest(types.EMAIL_CONFIRMATION_INIT, emailConfirmation);
@@ -126,6 +142,7 @@ export function* watchLogout() {
 export default function* () {
   yield fork(watchUserRegister);
   yield fork(watchAuthLogin);
+  yield fork(watchResendEmailConfirmation)
   yield fork(watchLogout);
   yield fork(watchLogin);
   yield fork(watchEmailConfirmation)

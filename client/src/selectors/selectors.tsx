@@ -1,15 +1,28 @@
 import { createSelector } from "reselect";
-import { stat } from "fs";
+
 
 // calling educer postInitialState, so it will have access to initialState properties
 const postSelector = (state: any) => state.post;
 const userSelector = (state: any) => state.user;
+const postSelectorId = (state: any) => state.post
 
-export const getPosts = () =>
+export const getPosts = () => // this gets all posts
     createSelector(
         postSelector,
         (state) => state.posts,
     );
+
+export const getUserPosts = (params) => {
+    return createSelector(
+        postSelector,
+        (state) => {
+            return state.posts.filter(post => {
+                return post.Likes.find(like => like.userId == params.userId)
+            })
+        }
+    )
+}
+
 export const userConfirmation = () =>
     createSelector(
         userSelector,

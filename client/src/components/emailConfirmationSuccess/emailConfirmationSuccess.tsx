@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Alert, AlertTitle } from '@material-ui/lab';
+import GridHoc from "../hoc/grid";
 
-
-export default function EmailConfirmationSuccess(props) {
+function EmailConfirmationSuccess(props) {
     console.log(props)
     const didMountRef = useRef()
     useEffect(() => {
@@ -31,3 +31,5 @@ export default function EmailConfirmationSuccess(props) {
         </div>
     )
 }
+
+export default GridHoc(EmailConfirmationSuccess)

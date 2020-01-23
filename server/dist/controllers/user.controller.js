@@ -24,7 +24,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const nodemailer_1 = __importDefault(require("nodemailer"));
 const models_1 = __importDefault(require("../models"));
-const nodemailer_mailgun_transport_1 = __importDefault(require("nodemailer-mailgun-transport"));
+const nodemailer_sendgrid_transport_1 = __importDefault(require("nodemailer-sendgrid-transport"));
 dotenv_1.default.config();
 const comparePassword = (credentialsPassword, userPassword) => __awaiter(void 0, void 0, void 0, function* () {
     const isPasswordMatch = yield bcrypt.compare(credentialsPassword, userPassword);
@@ -32,11 +32,11 @@ const comparePassword = (credentialsPassword, userPassword) => __awaiter(void 0,
 });
 const auth = {
     auth: {
-        api_key: `${process.env.API_KEY}`,
-        domain: `${process.env.DOMAIN}`,
+        api_user: `${process.env.SENDGRID_NAME}`,
+        api_key: `${process.env.SENDGRID_PASSWORD}`,
     },
 };
-const nodemailerMailgun = nodemailer_1.default.createTransport(nodemailer_mailgun_transport_1.default(auth));
+const nodemailerMailgun = nodemailer_1.default.createTransport(nodemailer_sendgrid_transport_1.default(auth));
 exports.default = {
     getUsers: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         yield models_1.default.User.findAll().then((users) => {
@@ -221,6 +221,47 @@ exports.default = {
             token: token ? token : null
         });
     },
+    resendEmailConfirmation: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            console.log('sdsfsffsf', req.session.user.email);
+            const user = req.session.user;
+            const token = jsonwebtoken_1.default.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            const msg = {
+                from: 'typescriptappexample@example.com',
+                to: user.email,
+                subject: 'Welcome to React TypeScript App',
+                html: `<p>Click this to active your account <a href='${process.env.ALLOW_ORIGIN}/emailConfirmationSuccess/${user.id}/${token}'>${process.env.ALLOW_ORIGIN}/emailConfirmationSuccess/${user.id}/${token}</a></p>` // html body
+            };
+            console.log('sending mail');
+            nodemailerMailgun.sendMail(msg, (err, response) => {
+                if (err) {
+                    console.error('there was an error: ', err);
+                }
+                else {
+                    console.log('here is the res: ', response);
+                }
+            });
+            return res.status(200).send({
+                meta: {
+                    type: "success",
+                    status: 200,
+                    message: `Email has been re-sent to ${user.email}, please activate your account`,
+                    token
+                },
+                user
+            });
+        }
+        catch (err) {
+            return res.status(500).send({
+                meta: {
+                    type: "err",
+                    status: 500,
+                    err: err,
+                    message: 'There has been an error resending confirmation email',
+                }
+            });
+        }
+    }),
     emailConfirmationToken: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         let token = req.params.token;
         console.log('testing', req.params);
@@ -230,55 +271,62 @@ exports.default = {
             },
             raw: true
         });
-        jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET, (err, result) => {
-            if (user.email_verified === true) {
-                return res.status(500).send({
-                    meta: {
-                        type: "error",
-                        status: 500,
-                        message: "You already activated your account"
+        if (user.email_verified === true) {
+            return res.status(500).send({
+                meta: {
+                    type: "error",
+                    status: 500,
+                    message: "You already activated your account"
+                }
+            });
+        }
+        else {
+            try {
+                jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET, (err, result) => {
+                    if (err) {
+                        console.log(err);
+                        return res.status(500).send({
+                            meta: {
+                                type: "error",
+                                err: err,
+                                status: 500,
+                                message: "Invalid Token"
+                            }
+                        });
+                    }
+                    else {
+                        models_1.default.User.findOne({
+                            where: {
+                                id: req.params.userId
+                            }
+                        }).then((user) => {
+                            user.update({
+                                email_verified: true
+                            });
+                        }).then(() => {
+                            let decoded = jsonwebtoken_1.default.decode(token, { complete: true });
+                            return res.status(200).send({
+                                message: "Thank you, account has been activated",
+                                user: {
+                                    token: decoded,
+                                    id: req.params.id,
+                                    result
+                                },
+                                decoded
+                            });
+                        }).catch((err) => {
+                            return res.status(500).send({
+                                message: "Something went wrong",
+                                err
+                            });
+                        });
                     }
                 });
             }
-            if (err) {
+            catch (err) {
                 console.log(err);
-                return res.status(500).send({
-                    meta: {
-                        type: "error",
-                        err: err,
-                        status: 500,
-                        message: "Invalid Token"
-                    }
-                });
             }
-            else {
-                models_1.default.User.findOne({
-                    where: {
-                        id: req.params.userId
-                    }
-                }).then((user) => {
-                    user.update({
-                        email_verified: true
-                    });
-                }).then(() => {
-                    let decoded = jsonwebtoken_1.default.decode(token, { complete: true });
-                    return res.status(200).send({
-                        message: "Thank you, account has been activated",
-                        user: {
-                            token: decoded,
-                            id: req.params.id,
-                            result
-                        },
-                        decoded
-                    });
-                }).catch((err) => {
-                    return res.status(500).send({
-                        message: "Something went wrong",
-                        err
-                    });
-                });
-            }
-        });
+        }
     }),
     signUpUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {

@@ -12,6 +12,8 @@ export default {
       Axios.get("/api/v1/users/currentUser").then((res) => res.data),
     editProfile: () =>
       Axios.get("/api/v1/users/editProfile").then((res) => res.data),
+    resendConfirmation: () =>
+      Axios.post("/api/v1/users/resendConfirmation").then((res) => res.data),
     emailConfirmation: (userId: number, token: number) =>
       Axios.get(`/api/v1/users/emailConfirmation/${userId}/${token}`).then((res) => res.data),
     updateProfile: (userData: any) =>

@@ -45,30 +45,30 @@ const authReducer = (state = initialState, action: any): userState =>
         draft.username = "";
         draft.error = "";
         draft.message = action.user.meta.message
-        return;
+        break;
       case types.SIGN_UP_FAILURE:
         console.log(action);
         draft.error = action.error;
-        return;
+        break;
       case types.GET_USER_SUCCESS:
         draft.isAuthenticated = sessionData.getLoginStatus();
         draft.currentUser = action.payload;
-        return;
+        break;
       case types.LOG_OUT_SUCCESS:
         draft.isAuthenticated = false;
-        return;
+        break;
       case types.LOG_IN_SUCCESS:
         draft.error = "";
         draft.isAuthenticated = sessionData.getLoginStatus();
         draft.isLoading = false;
-        return;
+        break;
       case types.INIT_LOGIN:
         draft.error = "";
-        return;
+        break;
       case types.LOG_IN_FAILURE:
         console.log(action.error);
         draft.error = action.error;
-        return;
+        break;
       case types.GET_USER_PROFILE_SUCCESS:
         draft.message = "";
         draft.profileData = action.payload;
@@ -83,7 +83,7 @@ const authReducer = (state = initialState, action: any): userState =>
       case types.UPDATE_USER_PROFILE_FAILURE:
         console.log(action.error);
         draft.error = action.error;
-        return;
+        break;
       case types.ADD_EMAIL:
         console.log(validation.validateEmail(action.data));
         draft.email = action.data;
@@ -96,14 +96,23 @@ const authReducer = (state = initialState, action: any): userState =>
       case types.ADD_USERNAME:
         draft.username = action.data;
         draft.usernameError = validation.validateUsername(action.data);
-        return;
+        break;
       case types.EMAIL_CONFIRMATION_FAILURE:
         console.log(action)
         draft.error = action.error
-        return
+        break
       case types.EMAIL_CONFIRMATION_SUCCESS:
+        console.log(action)
         draft.message = action.payload.message
-        return
+        break
+      case types.RESEND_EMAIL_CONFIRMATION_SUCCESS:
+        console.log(action.payload)
+        draft.message = action.payload.meta.message
+        break
+      case types.RESEND_EMAIL_CONFIRMATION_FAILURE:
+        draft.error = action.error
+        break
+
     }
   });
 
