@@ -1,21 +1,9 @@
-import React, { Component, useState, useEffect } from 'react';
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
+import React, { Component } from 'react';
 import PostList from "../forms/postList/postList";
-import {
-    createPostInit,
-    deletePostInit,
-    dislikePostInit,
-    getPostsInit,
-    likePostInit,
-    postCommentInit,
-    addTitle,
-    addContent,
-    deleteCommentInit
-} from "../../actions/postActions";
-import { getUserPosts, getUser, getBodyError, getTitleError, title, postContent } from "../../selectors/selectors";
+import GridHoc from "../hoc/grid";
 export interface IProps {
     match?: any
+    user?: any
     getPostsInit: () => void;
     deletePostInit: (id: number, userId: number) => void;
     deleteComment: (id: number, postId: number, userId: number) => void;
@@ -32,7 +20,7 @@ export interface IProps {
     likePost: (event: number) => void;
     dislikePost: (event: number) => void;
 }
-export default class Likes extends Component<IProps, {}> {
+class Likes extends Component<IProps, {}> {
     state = {
 
     }
@@ -49,7 +37,7 @@ export default class Likes extends Component<IProps, {}> {
                     deleteComment={this.props.deleteComment}
                     dislikePost={this.props.dislikePost}
                     posts={this.props.posts}
-                    // currentUser={this.props.user}
+                    currentUser={this.props.user}
                     postComment={this.props.postCommentInit}
                 />
             </div>
@@ -57,4 +45,4 @@ export default class Likes extends Component<IProps, {}> {
     }
 }
 
-
+export default GridHoc(Likes)
