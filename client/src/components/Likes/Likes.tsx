@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PostList from "../forms/postList/postList";
 import GridHoc from "../hoc/grid";
+import { Typography } from '@material-ui/core';
 export interface IProps {
     match?: any
     user?: any
@@ -21,16 +22,14 @@ export interface IProps {
     dislikePost: (event: number) => void;
 }
 class Likes extends Component<IProps, {}> {
-    state = {
-
-    }
     componentDidMount() {
         this.props.getPostsInit()
     }
     render() {
         console.log(this.props.posts) // this needs to be passed to container
         return (
-            <div>
+            <Fragment>
+
                 <PostList
                     likePost={this.props.likePost}
                     deletePost={this.props.deletePostInit}
@@ -40,7 +39,7 @@ class Likes extends Component<IProps, {}> {
                     currentUser={this.props.user}
                     postComment={this.props.postCommentInit}
                 />
-            </div>
+            </Fragment>
         )
     }
 }

@@ -13,10 +13,6 @@ import { getUserPosts, getUser, getBodyError, getTitleError, title, postContent 
 const mapStateToProps = (state, ownProps) => createStructuredSelector({
     posts: getUserPosts(ownProps.match.params),
     user: getUser(),
-    titleError: getTitleError(),
-    bodyError: getBodyError(),
-    title: title(),
-    postContent: postContent()
 })
 
 const mapDispatchToProps = (dispatch: any) => ({

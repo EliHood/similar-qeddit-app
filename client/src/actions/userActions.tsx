@@ -153,3 +153,49 @@ export const addPassword = (data: string) => ({
 export const initLogin = () => ({
   type: types.INIT_LOGIN,
 });
+
+export const getProfileInit = (data: string) => ({
+  type: types.GET_PROFILE_INIT,
+  data
+})
+
+export const getProfileSuccess = (data: string) => ({
+  type: types.GET_PROFILE_SUCCESS,
+  data
+})
+
+export const getProfileFailure = (err: object) => ({
+  type: types.GET_USER_PROFILE_FAILURE,
+  err
+})
+
+
+export const followUserInit = (data: string, id: number) => ({
+  type: types.FOLLOW_USER_INIT,
+  data, id
+})
+
+export const followUserSuccess = (payload: object, id: number) => ({
+  type: types.FOLLOW_USER_SUCCESS,
+  payload, id
+})
+
+export const followUserFailure = (err: object) => ({
+  type: types.FOLLOW_USER_FAILURE,
+  err
+})
+
+export const unfollowUserInit = (data: string, id: number) => ({
+  type: types.UNFOLLOW_USER_INIT,
+  data, id
+})
+
+export const unfollowUserSuccess = (payload: object, id: number) => ({
+  type: types.UNFOLLOW_USER_SUCCESS,
+  payload, id
+})
+
+export const unfollowUserFailure = (err: object) => ({
+  type: types.UNFOLLOW_USER_FAILURE,
+  err
+})

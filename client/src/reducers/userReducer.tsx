@@ -8,6 +8,7 @@ export interface userState {
   isLoading: boolean;
   profileData: object;
   message: string;
+  profilePage: any
   usernameError: any;
   passwordError: any;
   emailError: any;
@@ -23,6 +24,7 @@ const initialState: userState = {
   error: "",
   currentUser: {},
   profileData: {},
+  profilePage: null,
   isLoading: true,
   message: "",
   usernameError: "",
@@ -112,6 +114,37 @@ const authReducer = (state = initialState, action: any): userState =>
       case types.RESEND_EMAIL_CONFIRMATION_FAILURE:
         draft.error = action.error
         break
+      case types.GET_PROFILE_SUCCESS:
+        console.log(action)
+        draft.profilePage = action.data
+        break;
+      case types.GET_PROFILE_FAILURE:
+        console.log(action);
+        draft.error = action.error
+        break;
+      case types.FOLLOW_USER_SUCCESS:
+        console.log(action.payload);
+        console.log(action)
+        const findKey = action.payload.follow.UserFollowers.findIndex((item) => item.followerId === action.id)
+        console.log(findKey)
+        draft.profilePage.UserFollowers = [...draft.profilePage.UserFollowers, action.payload.follow.UserFollowers[findKey]]
+        draft.profilePage.isFollowing = true
+        break;
+      case types.FOLLOW_USER_FAILURE:
+        console.log(action);
+        draft.error = action.error
+        break
+      case types.UNFOLLOW_USER_SUCCESS:
+        console.log(action);
+        console.log(action.payload.follow.UserFollowers)
+        draft.profilePage.UserFollowers = [...draft.profilePage.UserFollowers.filter((item) => item.followerId !== action.id)]
+        draft.profilePage.isFollowing = false
+        break;
+      case types.UNFOLLOW_USER_FAILURE:
+        console.log(action);
+        draft.error = action.error
+        break
+
 
     }
   });

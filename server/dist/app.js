@@ -20,6 +20,7 @@ dotenv_1.default.config();
 const PORT = process.env.PORT || 5000;
 const app = express_1.default();
 const httpServer = http_1.default.createServer(app);
+// const io = socketIo(httpServer);
 /**
  * middlewares
  */
@@ -58,6 +59,11 @@ app.use("/api/v1", routers_1.default);
 app.get("/", (req, res) => {
     res.send("Hello World!");
 });
+// // whenever a user connects on port 3000 via
+// // a websocket, log that a user has connected
+// io.on("connection", function(socket: any) {
+//   console.log("a user connected");
+// });
 /**
  * middlewares
  */

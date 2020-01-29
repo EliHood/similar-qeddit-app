@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import { NextFunction, Request, Response } from "express";
+import * as socketIo from 'socket.io';
 import http from "http";
 import logger from "morgan";
 import passport from "passport";
@@ -16,6 +17,7 @@ dotenv.config();
 const PORT = process.env.PORT || 5000;
 const app: express.Application = express();
 const httpServer = http.createServer(app);
+// const io = socketIo(httpServer);
 /**
  * middlewares
  */
@@ -58,6 +60,13 @@ app.use("/api/v1", apiRouter);
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+
+// // whenever a user connects on port 3000 via
+// // a websocket, log that a user has connected
+// io.on("connection", function(socket: any) {
+//   console.log("a user connected");
+// });
+
 
 /**
  * middlewares

@@ -102,6 +102,38 @@ export function* emailConfirmation(action) {
   }
 }
 
+export function* getProfile(action) {
+  try {
+    const profile = yield call(api.user.getProfile, action.data)
+    yield put(actionTypes.getProfileSuccess(profile));
+  }
+  catch (err) {
+    yield put(actionTypes.getProfileFailure(err))
+  }
+}
+
+export function* followUser(action) {
+  try {
+    const follow = yield call(api.user.followUser, action.data)
+    console.log(follow)
+    yield put(actionTypes.followUserSuccess(follow, action.id))
+  }
+  catch (err) {
+    yield put(actionTypes.followUserFailure(err))
+  }
+}
+
+export function* unfollowUser(action) {
+  try {
+    const unfollow = yield call(api.user.unfollowUser, action.data)
+    console.log(unfollow)
+    yield put(actionTypes.unfollowUserSuccess(unfollow, action.id))
+  }
+  catch (err) {
+    yield put(actionTypes.followUserFailure(err))
+  }
+}
+
 export function* resendEmailConfirmation(action) {
   try {
     const resendEmailConfirmation = yield call(api.user.resendConfirmation);
@@ -115,6 +147,17 @@ export function* resendEmailConfirmation(action) {
 
 export function* watchLogin() {
   yield takeLatest(types.LOG_IN_INIT, login);
+}
+
+export function* watchFollowUser() {
+  yield takeLatest(types.FOLLOW_USER_INIT, followUser)
+}
+export function* watchUnFollowUser() {
+  yield takeLatest(types.UNFOLLOW_USER_INIT, unfollowUser)
+}
+
+export function* watchProfile() {
+  yield takeLatest(types.GET_PROFILE_INIT, getProfile)
 }
 
 export function* watchResendEmailConfirmation() {
@@ -142,7 +185,10 @@ export function* watchLogout() {
 export default function* () {
   yield fork(watchUserRegister);
   yield fork(watchAuthLogin);
-  yield fork(watchResendEmailConfirmation)
+  yield fork(watchFollowUser)
+  yield fork(watchUnFollowUser)
+  yield fork(watchResendEmailConfirmation);
+  yield fork(watchProfile)
   yield fork(watchLogout);
   yield fork(watchLogin);
   yield fork(watchEmailConfirmation)

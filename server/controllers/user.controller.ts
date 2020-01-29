@@ -4,8 +4,6 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import nodemailer from 'nodemailer';
 import models from "../models";
-import mg from 'nodemailer-mailgun-transport';
-import sgMail from '@sendgrid/mail';
 import sgTransport from 'nodemailer-sendgrid-transport'
 dotenv.config();
 const comparePassword = async (
@@ -32,10 +30,114 @@ const nodemailerMailgun = nodemailer.createTransport(sgTransport(auth));
 
 
 export default {
-  getUsers: async (req: Request, res: Response) => {
-    await models.User.findAll().then((users: any) => {
-      res.json(users);
+  getUsers: async (req: any, res: Response) => {
+   const users = await models.User.findAll({
+      include:[
+        {
+          model: models.Followers,
+          as: "UserFollowers",
+          include:[
+            {
+              model: models.User,
+              as: "followerDetails",
+              attributes: ["username"]
+            }
+          ] 
+        },
+        {
+          model: models.Following,
+          as: "UserFollowings",
+          include:[
+            {
+              model: models.User,
+              as: "followingDetails",
+              attributes: ["username"]
+            }
+          ]
+        },         
+      ],
+
+    })
+    users.forEach(user => {
+      console.log('testtt', user.UserFollowers)
+
+      user.setDataValue("isFollowing", false);
+      if (user.UserFollowings.length && user.UserFollowers.length === 0) {
+        user.setDataValue("isFollowing", false);
+        console.log('fsfsfsfsfsfs')
+      }
+      if (user.UserFollowings.length && user.UserFollowers.length === 0) {
+        user.setDataValue("isFollowing", false);
+        console.log('fsfsfsfsfsfs')
+      }
+      else{ 
+        user.UserFollowings.forEach(myUser => {
+          if (myUser.following === req.session.user.id) {
+            user.setDataValue("isFollowing", true);
+          }
+        });  
+        user.UserFollowers.forEach(myUser => {
+          if (myUser.followerId === req.session.user.id) {
+            user.setDataValue("isFollowing", true);
+          }
+        });  
+      }    
     });
+    return res.json(users);
+  },
+  profile: async (req: Request, res: Response) => {
+    let curUser;
+    if (req.session && req.session.user) {
+      curUser = req.session.user.id;
+    } else if (req.session) {
+      curUser = req.session.passport ? req.session.passport.user.id : null;
+    }
+    try{
+    const username = req.params.username
+    const findUser = await models.User.findOne({
+      where: {
+        username: username
+      },
+      include:[
+        {
+          model: models.Followers,
+          as: "UserFollowers",
+          include:[
+            {
+              model: models.User,
+              as: "followerDetails",
+              attributes: ["username"]
+            }
+          ] 
+        },
+        {
+          model: models.Following,
+          as: "UserFollowings"
+        }
+      ],   
+    }) 
+    findUser.setDataValue("isFollowing", false)
+    if(findUser){
+      findUser.UserFollowers.forEach( (item) => {
+        if(item.followerId === curUser){
+          findUser.setDataValue("isFollowing", true);
+        }
+        else{
+          findUser.setDataValue("isFollowing", false);
+        }  
+      })
+      return res.status(200).send(findUser);
+    }else{
+      return res.status(500).send({
+        message: "User not found"
+      })
+    }
+    } catch(err) {
+        return res.status(500).send({
+          message: "Something went wrong",
+          err: err
+        })
+    }
   },
   editProfile: async (req: Request, res: Response) => {
     let curUser;
@@ -199,6 +301,149 @@ export default {
       });
     }
   },
+  followUser: async (req: any, res:Response) => {
+    let curUser;
+    if (req.session && req.session.user) {
+      curUser = req.session.user.id;
+    } else if (req.session) {
+      curUser = req.session.passport ? req.session.passport.user.id : null;
+    }
+    const { username } = req.params;
+    try{
+      const userToFollow = await models.User.findOne({
+        where: { username: username }
+      });
+      if(userToFollow.id === curUser){
+        return res.status(500).send({
+            message: "You can't follow yourself"
+        })
+      }
+      console.log('dsdsdd',userToFollow.id)
+      await models.Following.create({
+        following: userToFollow.id,
+        userId: curUser
+      })
+      await models.Followers.create({
+        followerId: curUser,
+        userId: userToFollow.id
+      }).then( (user) => {
+        console.log('dsdsd',user)
+         models.User.findOne({
+           where:{
+             id: userToFollow.id
+           },
+           include:[
+            {
+              model: models.Followers,
+              as: "UserFollowers",
+              include:[
+                {
+                  model: models.User,
+                  as: "followerDetails",
+                  attributes: ["username"]
+                }
+              ] 
+            },
+            {
+              model: models.Following,
+              as: "UserFollowings"
+            }
+          ]
+         }).then( (follow) => {
+          follow.setDataValue("isFollowing", true);
+          return res.status(200).send({
+            message: `You are now following ${userToFollow.username}`,
+            follow: follow
+          });
+         })
+      })
+    } catch(err) {
+      return res.status(500).send({
+        message: "Something went wrong ",
+        err
+      })
+    } 
+  },
+  unFollowUser: async (req: any, res: Response) => {
+    let curUser;
+    if (req.session && req.session.user) {
+      curUser = req.session.user.id;
+    } else if (req.session) {
+      curUser = req.session.passport ? req.session.passport.user.id : null;
+    }
+    const { username } = req.params;
+    try{
+      const userToFollow = await models.User.findOne({
+        where: { username: username }
+      });
+      if(userToFollow.id === curUser){
+        return res.status(500).send({
+          message: "You can't unfollow yourself"
+        })
+      }
+      const isFollowed = await models.Following.findOne({
+        where: { following: userToFollow.id}
+      })
+      // if(isFollowed){
+      //   return res.status(200).send({
+      //     message: "You already unfollowed this user"
+      //   })
+      // }
+
+      await models.Following.destroy({
+        where:{
+          following: userToFollow.id,
+          userId: curUser
+        }
+      })
+      await models.Followers.destroy({
+        where:{
+          followerId: curUser,
+          userId: userToFollow.id
+        }
+      }).then( (user) => {
+        console.log('dsdsd',user)
+         models.User.findOne({
+           where:{
+             id: curUser
+           },
+           include:[
+            {
+              model: models.Followers,
+              as: "UserFollowers",
+              include:[
+                {
+                  model: models.User,
+                  as: "followerDetails",
+                  attributes: ["username"]
+                }
+              ] 
+            },
+            {
+              model: models.Following,
+              as: "UserFollowings"
+            }
+          ]
+         }).then( (follow) => {
+          follow.setDataValue("isFollowing", false);
+          console.log('fsfsfsfs',follow)
+          return res.status(200).send({
+            message: `You are unfollowing ${userToFollow.username}`,
+            follow: follow
+          });
+         })
+      });
+
+    } catch(err) {
+      return res.status(500).send({
+        message: "Something went wrong ",
+        err
+      })
+    } 
+
+  },
+
+
   currentUser: (req: any, res: Response) => {
     let curUser;
     let token;

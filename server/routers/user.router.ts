@@ -8,6 +8,9 @@ router.post("/login", userController.signInUser);
 router.get("/getUsers", userController.getUsers);
 router.get("/editProfile", userController.editProfile);
 router.put("/updateProfile", userController.updateProfile);
+router.get('/profile/:username', userController.profile)
+router.post('/followUser/:username', userController.followUser)
+router.delete('/unfollowUser/:username', userController.unFollowUser)
 router.post('/resendConfirmation', userController.resendEmailConfirmation);
 router.get("/emailConfirmation/:userId/:token", userController.emailConfirmationToken)
 router.get(

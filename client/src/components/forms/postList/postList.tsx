@@ -45,6 +45,7 @@ export default function PostList(props: any) {
 
   };
   const { posts, currentUser } = props;
+  console.log(posts)
   return posts.length > 0 ? (
     posts.map((post, i) => (
       <Fragment key={i}>
@@ -71,9 +72,13 @@ export default function PostList(props: any) {
               src={post.author.gravatar}
             />
             <Typography display="inline" variant="subtitle1" align="left">
-              {post.author.username}
+              <OurLink to={{
+                pathname: `/profile/${post.author.username}`,
+                state: { post },
+              }}
+                title={post.author.username}
+              />
             </Typography>
-
             <Typography align="right">Likes: {post.likeCounts}</Typography>
             {/* <span
               style={{ cursor: "pointer" }}

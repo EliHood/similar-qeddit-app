@@ -12,6 +12,12 @@ export default {
       Axios.get("/api/v1/users/currentUser").then((res) => res.data),
     editProfile: () =>
       Axios.get("/api/v1/users/editProfile").then((res) => res.data),
+    getProfile: (username: string) =>
+      Axios.get(`/api/v1/users/profile/${username}`).then((res) => res.data),
+    followUser: (username: string) =>
+      Axios.post(`/api/v1/users/followUser/${username}`).then((res) => res.data),
+    unfollowUser: (username: string) =>
+      Axios.delete(`/api/v1/users/unfollowUser/${username}`).then((res) => res.data),
     resendConfirmation: () =>
       Axios.post("/api/v1/users/resendConfirmation").then((res) => res.data),
     emailConfirmation: (userId: number, token: number) =>
