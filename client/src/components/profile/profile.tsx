@@ -29,7 +29,6 @@ class Profile extends Component<profileProps, {}> {
         const currentUser = this.props.currentUser.user
         const userFollowerCount = user && user.UserFollowers ? user.UserFollowers.length : ""
         const followerPlural = userFollowerCount.length > 1 ? "Follower" : "Followers"
-        console.log(user)
         return (
             <Fragment>
                 {/* <Typography variant="h6" style={{ margin: "20px 0px" }}>Your Profile</Typography> */}

@@ -116,6 +116,7 @@ export default {
       ],   
     }) 
     // findUser.setDataValue("isFollowing", false)
+    
     if(findUser){
       findUser.UserFollowers.forEach( (item) => {
         if(item.followerId === curUser){
