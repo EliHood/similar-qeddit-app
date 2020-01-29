@@ -61,7 +61,6 @@ export default {
     users.forEach(user => {
       console.log('testtt', user.UserFollowers)
 
-      user.setDataValue("isFollowing", false);
       if (user.UserFollowings.length && user.UserFollowers.length === 0) {
         user.setDataValue("isFollowing", false);
         console.log('fsfsfsfsfsfs')
@@ -116,13 +115,13 @@ export default {
         }
       ],   
     }) 
-    findUser.setDataValue("isFollowing", false)
+    // findUser.setDataValue("isFollowing", false)
     if(findUser){
       findUser.UserFollowers.forEach( (item) => {
         if(item.followerId === curUser){
           findUser.setDataValue("isFollowing", true);
         }
-        else{
+        else if(item.followerId === curUser){
           findUser.setDataValue("isFollowing", false);
         }  
       })
