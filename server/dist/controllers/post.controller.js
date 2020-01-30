@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 const models_1 = __importDefault(require("../models"));
+const sockets_1 = require("../sockets");
 dotenv_1.default.config();
 exports.default = {
     getPosts: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -192,12 +193,14 @@ exports.default = {
                             attributes: ["username", "gravatar"]
                         }
                     ]
-                }).then(newComment => {
+                }).then((newComment) => __awaiter(void 0, void 0, void 0, function* () {
+                    // console.log('dsdsdssdsd',newComment.postId, comment.id)
+                    sockets_1.NotificationServ.newCommentNotification(newComment.postId, newComment.userId);
                     return res.status(200).send({
                         message: "comment created",
                         comment: newComment
                     });
-                });
+                }));
             });
         }
         catch (error) {

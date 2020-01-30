@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import { Request, Response } from "express";
 import sequelize from "sequelize";
 import models from "../models";
-
+import { NotificationServ } from '../sockets';
 dotenv.config();
 export default {
   getPosts: async (req: any, res: Response) => {
@@ -187,11 +187,14 @@ export default {
                 attributes: ["username", "gravatar"]
               }
             ]         
-          }).then( newComment => {
+          }).then(async newComment => {
+            // console.log('dsdsdssdsd',newComment.postId, comment.id)
+             NotificationServ.newCommentNotification(newComment.postId, newComment.userId);
             return res.status(200).send({
               message: "comment created",
               comment: newComment
             });
+          
           })
       })
     } catch(error){

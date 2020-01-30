@@ -23,6 +23,17 @@ export const getUserPosts = (params) => {
     )
 }
 
+export const getNotification = () =>
+    createSelector(
+        postSelector,
+        (state) => state.notification
+    )
+
+export const getIsNotified = () =>
+    createSelector(
+        postSelector,
+        (state) => state.isNotified
+    )
 export const userConfirmation = () =>
     createSelector(
         userSelector,

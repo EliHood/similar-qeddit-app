@@ -55,6 +55,7 @@
     "passport-google-oauth20": "^2.0.0",
     "path": "^0.12.7",
     "pg": "^7.12.1",
+    "pusher": "^3.0.0",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.19.6",
     "sequelize-cli": "^5.5.1",

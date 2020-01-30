@@ -1,7 +1,39 @@
-import { call, fork, put, takeLatest } from "redux-saga/effects";
+import { call, fork, put, takeEvery, take, takeLatest } from "redux-saga/effects";
+import { eventChannel } from 'redux-saga';
 import * as actionTypes from "../actions/postActions";
 import * as types from "../actionTypes/postActionTypes";
 import api from "../api/api";
+import Pusher from 'pusher-js';
+import { toast } from 'react-toastify';
+function createEventChannel(pusher: Pusher.Pusher) {
+  return eventChannel((emitter) => {
+    const channel = pusher.subscribe('notification');
+    channel.bind('my-event', (data: string) => {
+      console.log(data)
+      // we need an emitter for notificationSuccess method to work
+      emitter(data);
+      toast.success(data);
+    })
+    return () => channel.unbind('my-event', emitter);
+  });
+}
+
+export function* getNotification() {
+  try {
+    const pusherClient = new Pusher('0d45d56558d5bdcbc179', {
+      cluster: 'us2',
+      forceTLS: true
+    });
+    const channel = yield call(createEventChannel, pusherClient);
+    while (true) {
+      const data = yield take(channel);
+      yield put(actionTypes.notificationSuccess(data))
+    }
+  } catch (err) {
+    yield put(actionTypes.notificationFailure(err))
+  }
+}
+
 
 export function* getPosts(action) {
   try {
@@ -102,6 +134,11 @@ export function* deleteComment(action) {
 export function* watchFetchPost() {
   yield takeLatest(types.FETCH_POST_INIT, fetchPost);
 }
+// dont use a watcher for notifications, it will keep calling itself
+// export function* watchNotifications() {
+//   yield takeEvery(types.INIT_NOTIFICATION, getNotification)
+// }
+
 export function* watchDeletePost() {
   yield takeLatest(types.DELETE_POST_INIT, deletePost);
 }
@@ -127,6 +164,7 @@ export function* watchCreatePost() {
 // export function*
 export default function* () {
   yield fork(watchPosts);
+  yield fork(getNotification)
   yield fork(watchPostComment);
   yield fork(watchDeletePost);
   yield fork(watchFetchPost);

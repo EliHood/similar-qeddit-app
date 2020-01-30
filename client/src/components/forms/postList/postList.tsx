@@ -1,3 +1,4 @@
+import React, { Fragment, useState, useEffect, useRef } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -7,14 +8,28 @@ import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined"
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import moment from "moment";
-import React, { Fragment, useState } from "react";
 import OurLink from "../../common/OurLink";
 import CommentForm from "../../forms/comment/CommentForm";
 import CommentList from "../../forms/commentList/CommentList";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 export default function PostList(props: any) {
   const [isComment, setIsComment] = useState(false);
   const [comment_body, setCommentBody] = useState('');
   const [gifUrl, setGifUrl] = useState('')
+  const [ourNotifications, setNotifications] = useState([])
+  const didMountRef = useRef()
+  useEffect(() => {
+    if (!didMountRef.current) {
+      props.getNotifications();
+
+    } else {
+      console.log('test')
+    }
+
+  })
   const writeComment = (id) => {
     setIsComment(isComment ? "" : id);
 
@@ -43,12 +58,16 @@ export default function PostList(props: any) {
     setIsComment(false)
     setCommentBody('');
 
+
   };
-  const { posts, currentUser } = props;
-  console.log(posts)
+  const { posts, currentUser, isNotified, notification } = props;
+  console.log(notification)
   return posts.length > 0 ? (
     posts.map((post, i) => (
       <Fragment key={i}>
+        {notification && (
+          <ToastContainer autoClose={1000} position={toast.POSITION.BOTTOM_RIGHT} />
+        )}
         <Grid item={true} sm={12} md={12} style={{ margin: "20px 0px" }}>
           <Paper style={{ padding: "20px", }}>
             <Typography variant="h5" align="left">

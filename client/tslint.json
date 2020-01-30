@@ -11,6 +11,14 @@
       true,
       1
     ],
+    "indent": [
+      "error",
+      0
+    ],
+    "react/tsx-indent": [
+      "error",
+      0
+    ],
     "jsx-wrap-multiline": false,
     "jsx-alignment": true,
     "member-access": false,

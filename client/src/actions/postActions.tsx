@@ -128,3 +128,16 @@ export const addContent = (data: string) => ({
   type: types.ADD_CONTENT,
   data
 })
+export const notificationInit = () => ({
+  type: types.INIT_NOTIFICATION
+})
+
+export const notificationSuccess = (payload: object) => ({
+  type: types.NOTIFICATION_SUCCESS,
+  payload
+})
+
+export const notificationFailure = (err: object) => ({
+  type: types.NOTIFICATION_FAILURE,
+  err
+})

@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getUser, logOutInit } from "./actions/userActions";
 import { history } from "./ourHistory";
+import Pusher from 'pusher-js';
 import Router from "./Router";
 export interface routerContainerState {
   hasError: boolean;
+  messages: Array<any>;
 }
 export interface routerContainerProps {
   getUser: () => void;
@@ -16,9 +18,11 @@ export interface routerContainerProps {
 class Nav extends Component<routerContainerProps, routerContainerState> {
   public state: routerContainerState = {
     hasError: false,
+    messages: []
   };
   componentDidMount() {
     this.props.getUser();
+
   }
   componentDidCatch(error, info) {
     console.log(error, info);

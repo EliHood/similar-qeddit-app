@@ -64,6 +64,9 @@ export default function OurTabs(props) {
           posts={props.popPosts}
           currentUser={props.user}
           postComment={props.postCommentInit}
+          isNotified={props.isNotified}
+          getNotifications={props.notificationInit}
+          notification={props.notification}
         />
       </TabPanel>
       <TabPanel value={value} index={1}>
@@ -75,6 +78,9 @@ export default function OurTabs(props) {
           posts={props.posts}
           currentUser={props.user}
           postComment={props.postCommentInit}
+          isNotified={props.isNotified}
+          getNotifications={props.notificationInit}
+          notification={props.notification}
         />
       </TabPanel>
     </div>

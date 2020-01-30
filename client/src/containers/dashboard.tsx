@@ -8,13 +8,15 @@ import {
   likePostInit,
   postCommentInit,
   addTitle,
+  notificationInit,
   addContent,
   deleteCommentInit
 } from "../actions/postActions";
 import Dashboard from "../components/dashboard/dashboard";
-import { getPopPosts, getPosts, getUser, getBodyError, getTitleError, title, postContent } from "./../selectors/selectors";
+import { getPopPosts, getPosts, getUser, getNotification, getIsNotified, getBodyError, getTitleError, title, postContent } from "./../selectors/selectors";
 const mapDispatchToProps = (dispatch: any) => ({
   getPostsInit: () => dispatch(getPostsInit()),
+  notificationInit: () => dispatch(notificationInit()),
   likePost: (id: number) => dispatch(likePostInit(id)),
   addTitle: (data: string) => dispatch(addTitle(data)),
   addContent: (data: string) => dispatch(addContent(data)),
@@ -29,10 +31,12 @@ const mapStateToProps = createStructuredSelector({
   posts: getPosts(),
   popPosts: getPopPosts(),
   user: getUser(),
+  isNotified: getIsNotified(),
   titleError: getTitleError(),
   bodyError: getBodyError(),
   title: title(),
-  postContent: postContent()
+  postContent: postContent(),
+  notification: getNotification()
 });
 
 export default connect(

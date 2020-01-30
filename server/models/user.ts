@@ -86,7 +86,10 @@ export = (sequelize: Sequelize, DataTypes: DataTypes) => {
       onDelete: 'CASCADE',
       as: 'followerDetails'
     });
-
+    User.hasMany(models.Notification, {
+      foreignKey: 'userId',
+      onDelete: 'CASCADE'
+    });
     User.hasMany(models.Following, {
       foreignKey: 'userId',
       onDelete: 'CASCADE',

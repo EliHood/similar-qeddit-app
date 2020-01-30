@@ -9,6 +9,8 @@ export interface postState {
   bodyError: any;
   title: string
   postContent: string
+  isNotified: boolean;
+  notification: string;
 
 }
 
@@ -19,7 +21,9 @@ const initialState: postState = {
   bodyError: null,
   title: "",
   postContent: "",
-  error: null
+  error: null,
+  isNotified: false,
+  notification: ""
 };
 
 const postReducer = (state = initialState, action: any): postState =>
@@ -72,6 +76,7 @@ const postReducer = (state = initialState, action: any): postState =>
         return;
       case types.POST_COMMENT_SUCCESS:
         const findCommentKey = state.posts.findIndex((x) => x.id === action.id);
+        draft.isNotified = true
         draft.posts[findCommentKey].Comments = [...draft.posts[findCommentKey].Comments, action.payload]
         return;
       case types.POST_COMMENT_FAILURE:
@@ -97,6 +102,14 @@ const postReducer = (state = initialState, action: any): postState =>
         // draft.posts = draft.posts[newPostKey].Comments.filter((item) => item.id !== action.id);
         return;
       case types.DELETE_COMMENT_FAILURE:
+        draft.error = action.error
+        return;
+      case types.NOTIFICATION_SUCCESS:
+        console.log(action)
+        draft.notification = action.payload
+        return;
+      case types.NOTIFICATION_FAILURE:
+        console.log(action);
         draft.error = action.error
         return;
     }
