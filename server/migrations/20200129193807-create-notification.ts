@@ -1,10 +1,9 @@
 import {
     QueryInterface,
-    SequelizeStatic
 } from 'sequelize';
 
 export = {
-    up: (queryInterface: QueryInterface, Sequelize: SequelizeStatic) => {
+    up: (queryInterface: QueryInterface, Sequelize: any) => {
         return queryInterface.createTable('Notifications', {
             id: {
                 allowNull: false,
@@ -22,7 +21,6 @@ export = {
                 references: {
                   model: 'Users',
                   key: 'id',
-                  as: 'userId'
                 }
             },
             status: {
@@ -40,7 +38,7 @@ export = {
         });
     },
 
-    down: (queryInterface: QueryInterface, Sequelize: SequelizeStatic) => {
+    down: (queryInterface: QueryInterface, Sequelize: any) => {
         return queryInterface.dropTable('Notifications');
     }
 };
