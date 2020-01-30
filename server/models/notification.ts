@@ -24,7 +24,7 @@ export interface NotificationInstance {
 export = (sequelize: Sequelize, DataTypes: DataTypes) => {
     var Notification = sequelize.define('Notification', {
         userId: {
-          type: DataTypes.UUID,
+          type: DataTypes.INTEGER,
           allowNull: false
         },
         body: {
