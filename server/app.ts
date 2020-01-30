@@ -4,7 +4,6 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import { NextFunction, Request, Response } from "express";
-import * as socketIo from 'socket.io';
 import http from "http";
 import logger from "morgan";
 import passport from "passport";
