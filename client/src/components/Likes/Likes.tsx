@@ -20,6 +20,9 @@ export interface IProps {
     createPostInit: (event: object) => void;
     likePost: (event: number) => void;
     dislikePost: (event: number) => void;
+    isNotified?: boolean;
+    notificationInit: () => void;
+    notification: string;
 }
 class Likes extends Component<IProps, {}> {
     componentDidMount() {
@@ -29,7 +32,6 @@ class Likes extends Component<IProps, {}> {
         console.log(this.props.posts) // this needs to be passed to container
         return (
             <Fragment>
-
                 <PostList
                     likePost={this.props.likePost}
                     deletePost={this.props.deletePostInit}
@@ -38,6 +40,9 @@ class Likes extends Component<IProps, {}> {
                     posts={this.props.posts}
                     currentUser={this.props.user}
                     postComment={this.props.postCommentInit}
+                    isNotified={this.props.isNotified}
+                    getNotifications={this.props.notificationInit}
+                    notification={this.props.notification}
                 />
             </Fragment>
         )
