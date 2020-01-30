@@ -13,12 +13,14 @@
     "rollback": "sequelize db:migrate:undo:all",
     "test": "echo \"Error: no test specified\" && exit 1",
     "ts": "tsc -w",
-    "lint": "tslint --fix --project tsconfig.json"
+    "lint": "tslint --fix -c tslint.json ./**/*.ts"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^12.7.12",
+    "prettier": "^1.19.1",
+    "tslint-plugin-prettier": "^2.1.0",
     "typescript": "^3.6.4"
   },
   "dependencies": {
@@ -63,6 +65,7 @@
     "sequelize-typescript": "^1.0.0",
     "socket.io": "^2.3.0",
     "sqlite3": "^4.1.0",
+    "tslint": "^6.0.0",
     "tslint-config-prettier": "^1.18.0"
   },
   "description": ""

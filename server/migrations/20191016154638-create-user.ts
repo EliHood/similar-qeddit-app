@@ -10,8 +10,7 @@ export const up = (queryInterface: QueryInterface, Sequelize: any) => {
     },
     gravatar: {
       allowNull: false,
-      defaultValue:
-        "https://i.pravatar.cc/150?img=11",
+      defaultValue: "https://i.pravatar.cc/150?img=11",
       type: Sequelize.STRING
     },
     bio: {
@@ -64,12 +63,12 @@ export const up = (queryInterface: QueryInterface, Sequelize: any) => {
       allowNull: false,
       type: Sequelize.DATE
     },
-    email_verified:{
+    email_verified: {
       type: Sequelize.BOOLEAN,
       defaultValue: false
     },
-    email_confirmation_token:{
-      type: Sequelize.STRING,
+    email_confirmation_token: {
+      type: Sequelize.STRING
     },
     updatedAt: {
       allowNull: false,

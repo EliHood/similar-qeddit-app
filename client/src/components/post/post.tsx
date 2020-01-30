@@ -12,26 +12,26 @@ export interface PostState {
 }
 
 class Post extends Component<PostProps, PostState> {
-    public componentDidMount() {
+    componentDidMount() {
         const id = parseInt(this.props.match.params.id);
         this.props.fetchPostInit(id);
     }
-    public render() {
-       const {title, postContent, author, createdAt} = this.props.post;
-       return(
+    render() {
+        const { title, postContent, author, createdAt } = this.props.post;
+        return (
             <Fragment>
                 <Grid item={true} sm={12} md={12} style={{ margin: "20px 0px", padding: "0px 200px" }}>
-                    <Grid item={true} style={{ padding: "20px 0px"}}>
+                    <Grid item={true} style={{ padding: "20px 0px" }}>
                         <Typography variant="h2" align="center">
                             {title}
                         </Typography>
                     </Grid>
-                    <Grid item={true} sm={12} md={12} style={{ padding: "40px 0px"}}>
-                        <Typography style={{ lineHeight: "32px"}} variant="body1" align="left">
+                    <Grid item={true} sm={12} md={12} style={{ padding: "40px 0px" }}>
+                        <Typography style={{ lineHeight: "32px" }} variant="body1" align="left">
                             {postContent}
                         </Typography>
                     </Grid>
-                    <Grid item={true} sm={12} md={12} style={{ padding: "20px 0px"}}>
+                    <Grid item={true} sm={12} md={12} style={{ padding: "20px 0px" }}>
                         <Typography display="inline" variant="h6" align="left">
                             By: {author && author ? author.username : ""}
                         </Typography>
@@ -40,6 +40,5 @@ class Post extends Component<PostProps, PostState> {
             </Fragment>
         );
     }
-
 }
 export default Post;

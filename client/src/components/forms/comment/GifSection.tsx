@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
+import React, { Fragment } from "react";
 import ReactGiphySearchbox from "react-giphy-searchbox";
-import './style.css';
+import "./style.css";
 export default function GifSection(props) {
     return (
         <Fragment>
@@ -10,10 +10,9 @@ export default function GifSection(props) {
                 onSelect={(e) => props.select(e)}
                 masonryConfig={[
                     { columns: 4, imageWidth: 110, gutter: 5 },
-                    { mq: "1000px", columns: 4, imageWidth: 120, gutter: 5 }
+                    { mq: "1000px", columns: 4, imageWidth: 120, gutter: 5 },
                 ]}
             />
         </Fragment>
-    )
-
+    );
 }

@@ -1,34 +1,19 @@
 {
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
-    },
-    "eslint.validate": [
-        "javascript",
-        "typescript",
-        "javascriptreact",
-        "typescriptreact",
-        {
-            "language": "typescript",
-            "autoFix": true
-        },
-        {
-            "language": "typescriptreact",
-            "autoFix": true
-        }
-    ],
-    "editor.formatOnSave": true,
-    "[javascript]": {
-        "editor.formatOnSave": false
-    },
-    "[javascriptreact]": {
-        "editor.formatOnSave": false
-    },
-    "[typescript]": {
-        "editor.formatOnSave": false
-    },
-    "[typescriptreact]": {
-        "editor.formatOnSave": true
-    },
-    "eslint.enable": true,
-    "eslint.format.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": [
+    {
+      "language": "typescriptreact"
+    }
+  ],
+  // "[typescriptreact]": {
+  //     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  // },
+  "editor.formatOnSave": true,
+  // "[typescriptreact]": {
+  //     "editor.formatOnSave": true
+  // },
+  "eslint.enable": true,
+  "eslint.format.enable": true
 }

@@ -1,16 +1,13 @@
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { resendEmailConfirmationInit } from "../actions/userActions";
 import EmailConfirmation from "../components/emailConfirmation/emailConfirmation";
 import { userConfirmation } from "./../selectors/selectors";
-import { resendEmailConfirmationInit } from "../actions/userActions";
 const mapDispatchToProps = (dispatch: any) => ({
-    resendEmailConfirmationInit: () => dispatch(resendEmailConfirmationInit())
+    resendEmailConfirmationInit: () => dispatch(resendEmailConfirmationInit()),
 });
 
 const mapStateToProps = createStructuredSelector({
-    user: userConfirmation()
+    user: userConfirmation(),
 });
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(EmailConfirmation);
+export default connect(mapStateToProps, mapDispatchToProps)(EmailConfirmation);

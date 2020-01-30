@@ -6,7 +6,7 @@ const mapDispatchToProps = (dispatch: any) => ({
 });
 
 const mapStateToProps = (state: any) => ({
- post: state.post.postPage,
+    post: state.post.postPage,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Post);

@@ -1,10 +1,10 @@
-import React, { Component, Fragment } from 'react';
+import { Typography } from "@material-ui/core";
+import React, { Component, Fragment } from "react";
 import PostList from "../forms/postList/postList";
 import GridHoc from "../hoc/grid";
-import { Typography } from '@material-ui/core';
 export interface IProps {
-    match?: any
-    user?: any
+    match?: any;
+    user?: any;
     getPostsInit: () => void;
     deletePostInit: (id: number, userId: number) => void;
     deleteComment: (id: number, postId: number, userId: number) => void;
@@ -26,10 +26,10 @@ export interface IProps {
 }
 class Likes extends Component<IProps, {}> {
     componentDidMount() {
-        this.props.getPostsInit()
+        this.props.getPostsInit();
     }
     render() {
-        console.log(this.props.posts) // this needs to be passed to container
+        console.log(this.props.posts); // this needs to be passed to container
         return (
             <Fragment>
                 <PostList
@@ -45,8 +45,8 @@ class Likes extends Component<IProps, {}> {
                     notification={this.props.notification}
                 />
             </Fragment>
-        )
+        );
     }
 }
 
-export default GridHoc(Likes)
+export default GridHoc(Likes);

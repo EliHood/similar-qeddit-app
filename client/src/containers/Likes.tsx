@@ -1,21 +1,14 @@
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import Likes from "./../components/Likes/Likes"
-import {
-    deletePostInit,
-    dislikePostInit,
-    getPostsInit,
-    likePostInit,
-    postCommentInit,
-    notificationInit,
-    deleteCommentInit
-} from "./../actions/postActions";
-import { getUserPosts, getUser, getNotification, getBodyError, getTitleError, title, postContent } from "./../selectors/selectors";
-const mapStateToProps = (state, ownProps) => createStructuredSelector({
-    posts: getUserPosts(ownProps.match.params),
-    user: getUser(),
-    notification: getNotification()
-})
+import { deleteCommentInit, deletePostInit, dislikePostInit, getPostsInit, likePostInit, notificationInit, postCommentInit } from "./../actions/postActions";
+import Likes from "./../components/Likes/Likes";
+import { getBodyError, getNotification, getTitleError, getUser, getUserPosts, postContent, title } from "./../selectors/selectors";
+const mapStateToProps = (state, ownProps) =>
+    createStructuredSelector({
+        posts: getUserPosts(ownProps.match.params),
+        user: getUser(),
+        notification: getNotification(),
+    });
 
 const mapDispatchToProps = (dispatch: any) => ({
     notificationInit: () => dispatch(notificationInit()),
@@ -25,10 +18,6 @@ const mapDispatchToProps = (dispatch: any) => ({
     dislikePost: (id: number) => dispatch(dislikePostInit(id)),
     deletePostInit: (id: number, userId: number) => dispatch(deletePostInit(id, userId)),
     deleteComment: (id: number, postId: number, userId: number) => dispatch(deleteCommentInit(id, postId, userId)),
-
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(Likes);
+export default connect(mapStateToProps, mapDispatchToProps)(Likes);

@@ -1,40 +1,11 @@
 {
   "defaultSeverity": "error",
-  "extends": [
-    "tslint:latest",
-    "tslint-react",
-    "tslint-config-prettier"
-  ],
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier", "tslint-plugin-prettier"],
   "jsRules": {},
   "rules": {
-    "no-consecutive-blank-lines": [
-      true,
-      1
-    ],
-    "indent": [
-      "error",
-      0
-    ],
-    "react/tsx-indent": [
-      "error",
-      0
-    ],
-    "jsx-wrap-multiline": false,
-    "jsx-alignment": true,
-    "member-access": false,
-    "object-literal-sort-keys": false,
-    "ordered-imports": false,
-    "interface-name": false,
-    "no-console": false,
-    "no-trailing-whitespace": true
+    "prettier": true,
+    "member-access": [true, "no-public"],
+    "@typescript-eslint/explicit-member-accessibility": ["error", "no-public"]
   },
-  "rulesDirectory": [],
-  "items": {
-    "type": "string",
-    "enum": [
-      "no-public",
-      "check-accessor",
-      "check-constructor"
-    ]
-  }
+  "rulesDirectory": []
 }

@@ -1,2 +1,2 @@
-import  NotificationServ from './notificationService'
-export { NotificationServ } 
+import NotificationServ from "./notificationService";
+export { NotificationServ };

@@ -6,8 +6,5 @@ import rootReducer from "./reducers";
 // NEW CODE: You can also remove the redux-thunk dependency
 import sagas from "./sagas";
 const sagaMiddleware = createSagaMiddleware();
-export const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware)),
-);
+export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
 sagas.map(sagaMiddleware.run);

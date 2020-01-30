@@ -1,0 +1,26 @@
+{
+    "printWidth": 200,
+    "tabWidth": 4,
+    "trailingComma": "all",
+    "arrowParens": "always",
+    "overrides": [
+        {
+            "files": "*.json",
+            "options": {
+                "tabWidth": 2
+            }
+        },
+        {
+            "files": ".prettierrc",
+            "options": {
+                "parser": "json"
+            }
+        },
+        {
+            "files": ".nycrc",
+            "options": {
+                "parser": "json"
+            }
+        }
+    ]
+}

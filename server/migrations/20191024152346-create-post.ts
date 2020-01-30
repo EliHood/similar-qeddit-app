@@ -9,7 +9,7 @@ export = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      likedByMe:{
+      likedByMe: {
         allowNull: false,
         type: Sequelize.BOOLEAN,
         defaultValue: false

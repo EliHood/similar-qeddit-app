@@ -9,22 +9,22 @@ import { store } from "./store";
 import { userSession } from "./utils";
 userSession.userSession();
 const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#48A9A6",
+    palette: {
+        primary: {
+            main: "#48A9A6",
+        },
+        secondary: {
+            main: "#000000",
+        },
     },
-    secondary: {
-      main: "#000000",
-    },
-  },
 });
 
 const app = (
-  <MuiThemeProvider theme={theme}>
-    <Provider store={store}>
-      <Nav />
-    </Provider>
-  </MuiThemeProvider>
+    <MuiThemeProvider theme={theme}>
+        <Provider store={store}>
+            <Nav />
+        </Provider>
+    </MuiThemeProvider>
 );
 ReactDOM.render(app, document.getElementById("root"));
 

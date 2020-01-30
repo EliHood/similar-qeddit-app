@@ -19,7 +19,7 @@ export interface PostInstance {
 }
 
 export = (sequelize: Sequelize, DataTypes: DataTypes) => {
-  let Post = sequelize.define(
+  const Post = sequelize.define(
     "Post",
     {
       title: DataTypes.STRING,
