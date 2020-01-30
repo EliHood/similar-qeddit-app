@@ -47,7 +47,7 @@ app.use(passport.session());
 app.use(
   cors({
     origin: process.env.ALLOW_ORIGIN,
-    preflightContinue: true,
+    preflightContinue: false,
     credentials: true,
     allowedHeaders: "X-Requested-With, Content-Type, Authorization",
     methods: "GET, POST, PATCH, PUT, POST, DELETE, OPTIONS",
