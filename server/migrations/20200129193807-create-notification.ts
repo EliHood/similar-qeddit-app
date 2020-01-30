@@ -21,6 +21,7 @@ export = {
                 references: {
                   model: 'Users',
                   key: 'id',
+           
                 }
             },
             status: {
