@@ -66,7 +66,7 @@ exports.up = (queryInterface, Sequelize) => {
             defaultValue: false
         },
         email_confirmation_token: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING
         },
         updatedAt: {
             allowNull: false,

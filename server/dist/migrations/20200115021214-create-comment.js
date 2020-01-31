@@ -1,7 +1,7 @@
 "use strict";
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('Comments', {
+        return queryInterface.createTable("Comments", {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -22,7 +22,7 @@ module.exports = {
             },
             comment_body: {
                 type: Sequelize.STRING,
-                allowNull: true,
+                allowNull: true
             },
             createdAt: {
                 allowNull: false,
@@ -35,7 +35,7 @@ module.exports = {
         });
     },
     down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable('Comments');
+        return queryInterface.dropTable("Comments");
     }
 };
 //# sourceMappingURL=20200115021214-create-comment.js.map

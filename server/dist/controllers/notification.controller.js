@@ -18,10 +18,12 @@ exports.default = {
         return __awaiter(this, void 0, void 0, function* () {
             const { userId } = req.params;
             const notification = yield models_1.default.Notification.findAll({
-                where: { userId: userId, status: 'unread' }
+                where: { userId, status: "unread" }
             });
             const responseObject = notification.map(item => ({
-                body: item.body, notficationId: item.id, status: item.status
+                body: item.body,
+                notficationId: item.id,
+                status: item.status
             }));
             return res.send(responseObject);
         });
@@ -35,7 +37,7 @@ exports.default = {
                     id: notificationId
                 }
             });
-            notificationObject.status = 'read';
+            notificationObject.status = "read";
             const response = yield notificationObject.save();
             return res.send({
                 status: response.status,

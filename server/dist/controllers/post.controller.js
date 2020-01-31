@@ -398,6 +398,6 @@ exports.default = {
             console.log("There was an error", err);
             return res.status(500);
         }
-    })
+    }),
 };
 //# sourceMappingURL=post.controller.js.map

@@ -17,16 +17,16 @@ const pusherConfig_1 = __importDefault(require("./pusherConfig"));
 exports.default = {
     newCommentNotification(postId, commenterId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const post = yield models_1.default.Post.findOne({ where: { id: postId }, });
+            const post = yield models_1.default.Post.findOne({ where: { id: postId } });
             const commenter = yield models_1.default.User.findOne({ where: { id: commenterId } });
             const { userId, title } = post;
             const commenterName = commenter.username;
             console.log(commenterName);
             const body = `${commenterName} just commented on your article: ${title}`;
             console.log(body);
-            yield models_1.default.Notification.create({ userId, body, status: 'unread' });
-            pusherConfig_1.default.trigger('notification', 'my-event', body);
+            yield models_1.default.Notification.create({ userId, body, status: "unread" });
+            pusherConfig_1.default.trigger("notification", "my-event", body);
         });
-    },
+    }
 };
 //# sourceMappingURL=notificationService.js.map

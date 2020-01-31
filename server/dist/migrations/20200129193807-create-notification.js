@@ -1,7 +1,7 @@
 "use strict";
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('Notifications', {
+        return queryInterface.createTable("Notifications", {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -14,15 +14,15 @@ module.exports = {
             userId: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
-                onDelete: 'CASCADE',
+                onDelete: "CASCADE",
                 references: {
-                    model: 'Users',
-                    key: 'id',
+                    model: "Users",
+                    key: "id"
                 }
             },
             status: {
                 type: Sequelize.ENUM,
-                values: ['read', 'unread']
+                values: ["read", "unread"]
             },
             createdAt: {
                 allowNull: false,
@@ -35,7 +35,7 @@ module.exports = {
         });
     },
     down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable('Notifications');
+        return queryInterface.dropTable("Notifications");
     }
 };
 //# sourceMappingURL=20200129193807-create-notification.js.map

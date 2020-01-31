@@ -1,6 +1,6 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-    var User = sequelize.define("User", {
+    const User = sequelize.define("User", {
         username: {
             type: DataTypes.STRING,
             allowNull: true,
@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: false
         },
         email_confirmation_token: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING
         },
         googleId: {
             type: DataTypes.STRING,
@@ -49,28 +49,28 @@ module.exports = (sequelize, DataTypes) => {
             onDelete: "CASCADE"
         });
         User.hasMany(models.Followers, {
-            foreignKey: 'userId',
-            onDelete: 'CASCADE',
-            as: 'UserFollowers'
+            foreignKey: "userId",
+            onDelete: "CASCADE",
+            as: "UserFollowers"
         });
         User.hasMany(models.Followers, {
-            foreignKey: 'followerId',
-            onDelete: 'CASCADE',
-            as: 'followerDetails'
+            foreignKey: "followerId",
+            onDelete: "CASCADE",
+            as: "followerDetails"
         });
         User.hasMany(models.Notification, {
-            foreignKey: 'userId',
-            onDelete: 'CASCADE'
+            foreignKey: "userId",
+            onDelete: "CASCADE"
         });
         User.hasMany(models.Following, {
-            foreignKey: 'userId',
-            onDelete: 'CASCADE',
-            as: 'UserFollowings'
+            foreignKey: "userId",
+            onDelete: "CASCADE",
+            as: "UserFollowings"
         });
         User.hasMany(models.Following, {
-            foreignKey: 'following',
-            onDelete: 'CASCADE',
-            as: 'followingDetails'
+            foreignKey: "following",
+            onDelete: "CASCADE",
+            as: "followingDetails"
         });
     };
     return User;

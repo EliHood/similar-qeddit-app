@@ -23,8 +23,8 @@ const bcrypt = __importStar(require("bcrypt"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const nodemailer_1 = __importDefault(require("nodemailer"));
-const models_1 = __importDefault(require("../models"));
 const nodemailer_sendgrid_transport_1 = __importDefault(require("nodemailer-sendgrid-transport"));
+const models_1 = __importDefault(require("../models"));
 dotenv_1.default.config();
 const comparePassword = (credentialsPassword, userPassword) => __awaiter(void 0, void 0, void 0, function* () {
     const isPasswordMatch = yield bcrypt.compare(credentialsPassword, userPassword);
@@ -33,8 +33,9 @@ const comparePassword = (credentialsPassword, userPassword) => __awaiter(void 0,
 const auth = {
     auth: {
         api_user: `${process.env.SENDGRID_NAME}`,
-        api_key: `${process.env.SENDGRID_PASSWORD}`,
-    },
+        api_key: `${process.env.SENDGRID_PASSWORD}`
+    }
+    // proxy: 'http://user:pass@localhost:3000' // optional proxy, default is false
 };
 const nodemailerMailgun = nodemailer_1.default.createTransport(nodemailer_sendgrid_transport_1.default(auth));
 exports.default = {
@@ -62,18 +63,18 @@ exports.default = {
                             attributes: ["username"]
                         }
                     ]
-                },
-            ],
+                }
+            ]
         });
         users.forEach(user => {
-            console.log('testtt', user.UserFollowers);
+            console.log("testtt", user.UserFollowers);
             if (user.UserFollowings.length && user.UserFollowers.length === 0) {
                 user.setDataValue("isFollowing", false);
-                console.log('fsfsfsfsfsfs');
+                console.log("fsfsfsfsfsfs");
             }
             if (user.UserFollowings.length && user.UserFollowers.length === 0) {
                 user.setDataValue("isFollowing", false);
-                console.log('fsfsfsfsfsfs');
+                console.log("fsfsfsfsfsfs");
             }
             else {
                 user.UserFollowings.forEach(myUser => {
@@ -102,7 +103,7 @@ exports.default = {
             const username = req.params.username;
             const findUser = yield models_1.default.User.findOne({
                 where: {
-                    username: username
+                    username
                 },
                 include: [
                     {
@@ -120,11 +121,11 @@ exports.default = {
                         model: models_1.default.Following,
                         as: "UserFollowings"
                     }
-                ],
+                ]
             });
             // findUser.setDataValue("isFollowing", false)
             if (findUser) {
-                findUser.UserFollowers.forEach((item) => {
+                findUser.UserFollowers.forEach(item => {
                     if (item.followerId === curUser) {
                         findUser.setDataValue("isFollowing", true);
                     }
@@ -143,7 +144,7 @@ exports.default = {
         catch (err) {
             return res.status(500).send({
                 message: "Something went wrong",
-                err: err
+                err
             });
         }
     }),
@@ -236,7 +237,7 @@ exports.default = {
                     meta: {
                         type: "error",
                         status: 403,
-                        message: `Please activate your account to login`,
+                        message: `Please activate your account to login`
                     }
                 });
             }
@@ -314,14 +315,14 @@ exports.default = {
         const { username } = req.params;
         try {
             const userToFollow = yield models_1.default.User.findOne({
-                where: { username: username }
+                where: { username }
             });
             if (userToFollow.id === curUser) {
                 return res.status(500).send({
                     message: "You can't follow yourself"
                 });
             }
-            console.log('dsdsdd', userToFollow.id);
+            console.log("dsdsdd", userToFollow.id);
             yield models_1.default.Following.create({
                 following: userToFollow.id,
                 userId: curUser
@@ -329,8 +330,8 @@ exports.default = {
             yield models_1.default.Followers.create({
                 followerId: curUser,
                 userId: userToFollow.id
-            }).then((user) => {
-                console.log('dsdsd', user);
+            }).then(user => {
+                console.log("dsdsd", user);
                 models_1.default.User.findOne({
                     where: {
                         id: userToFollow.id
@@ -352,11 +353,11 @@ exports.default = {
                             as: "UserFollowings"
                         }
                     ]
-                }).then((follow) => {
+                }).then(follow => {
                     follow.setDataValue("isFollowing", true);
                     return res.status(200).send({
                         message: `You are now following ${userToFollow.username}`,
-                        follow: follow
+                        follow
                     });
                 });
             });
@@ -379,7 +380,7 @@ exports.default = {
         const { username } = req.params;
         try {
             const userToFollow = yield models_1.default.User.findOne({
-                where: { username: username }
+                where: { username }
             });
             if (userToFollow.id === curUser) {
                 return res.status(500).send({
@@ -405,8 +406,8 @@ exports.default = {
                     followerId: curUser,
                     userId: userToFollow.id
                 }
-            }).then((user) => {
-                console.log('dsdsd', user);
+            }).then(user => {
+                console.log("dsdsd", user);
                 models_1.default.User.findOne({
                     where: {
                         id: curUser
@@ -428,12 +429,12 @@ exports.default = {
                             as: "UserFollowings"
                         }
                     ]
-                }).then((follow) => {
+                }).then(follow => {
                     follow.setDataValue("isFollowing", false);
-                    console.log('fsfsfsfs', follow);
+                    console.log("fsfsfsfs", follow);
                     return res.status(200).send({
                         message: `You are unfollowing ${userToFollow.username}`,
-                        follow: follow
+                        follow
                     });
                 });
             });
@@ -469,22 +470,24 @@ exports.default = {
     },
     resendEmailConfirmation: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            console.log('sdsfsffsf', req.session.user.email);
+            console.log("sdsfsffsf", req.session.user.email);
             const user = req.session.user;
-            const token = jsonwebtoken_1.default.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            const token = jsonwebtoken_1.default.sign({ id: user.id }, process.env.JWT_SECRET, {
+                expiresIn: "1h"
+            });
             const msg = {
-                from: 'typescriptappexample@example.com',
+                from: "typescriptappexample@example.com",
                 to: user.email,
-                subject: 'Welcome to React TypeScript App',
+                subject: "Welcome to React TypeScript App",
                 html: `<p>Click this to active your account <a href='${process.env.ALLOW_ORIGIN}/emailConfirmationSuccess/${user.id}/${token}'>${process.env.ALLOW_ORIGIN}/emailConfirmationSuccess/${user.id}/${token}</a></p>` // html body
             };
-            console.log('sending mail');
+            console.log("sending mail");
             nodemailerMailgun.sendMail(msg, (err, response) => {
                 if (err) {
-                    console.error('there was an error: ', err);
+                    console.error("there was an error: ", err);
                 }
                 else {
-                    console.log('here is the res: ', response);
+                    console.log("here is the res: ", response);
                 }
             });
             return res.status(200).send({
@@ -502,18 +505,18 @@ exports.default = {
                 meta: {
                     type: "err",
                     status: 500,
-                    err: err,
-                    message: 'There has been an error resending confirmation email',
+                    err,
+                    message: "There has been an error resending confirmation email"
                 }
             });
         }
     }),
     emailConfirmationToken: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        let token = req.params.token;
-        console.log('testing', req.params);
+        const token = req.params.token;
+        console.log("testing", req.params);
         const user = yield models_1.default.User.findOne({
             where: {
-                id: req.params.userId,
+                id: req.params.userId
             },
             raw: true
         });
@@ -534,7 +537,7 @@ exports.default = {
                         return res.status(500).send({
                             meta: {
                                 type: "error",
-                                err: err,
+                                err,
                                 status: 500,
                                 message: "Invalid Token"
                             }
@@ -545,12 +548,14 @@ exports.default = {
                             where: {
                                 id: req.params.userId
                             }
-                        }).then((user) => {
+                        })
+                            .then(user => {
                             user.update({
                                 email_verified: true
                             });
-                        }).then(() => {
-                            let decoded = jsonwebtoken_1.default.decode(token, { complete: true });
+                        })
+                            .then(() => {
+                            const decoded = jsonwebtoken_1.default.decode(token, { complete: true });
                             return res.status(200).send({
                                 message: "Thank you, account has been activated",
                                 user: {
@@ -560,7 +565,8 @@ exports.default = {
                                 },
                                 decoded
                             });
-                        }).catch((err) => {
+                        })
+                            .catch(err => {
                             return res.status(500).send({
                                 message: "Something went wrong",
                                 err
@@ -577,7 +583,7 @@ exports.default = {
     signUpUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const credentials = req.body;
-            console.log('test', credentials);
+            console.log("test", credentials);
             if (!credentials.username || !credentials.email) {
                 return res.status(403).send({
                     meta: {
@@ -636,20 +642,22 @@ exports.default = {
                 req.session.user = user;
                 req.session.save(() => { });
                 console.log(user);
-                const token = jsonwebtoken_1.default.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+                const token = jsonwebtoken_1.default.sign({ id: user.id }, process.env.JWT_SECRET, {
+                    expiresIn: "1h"
+                });
                 const msg = {
-                    from: 'typescriptappexample@example.com',
+                    from: "typescriptappexample@example.com",
                     to: req.body.email,
-                    subject: 'Welcome to React TypeScript App',
+                    subject: "Welcome to React TypeScript App",
                     html: `<p>Click this to active your account <a href='${process.env.ALLOW_ORIGIN}/emailConfirmationSuccess/${user.id}/${token}'>${process.env.ALLOW_ORIGIN}/emailConfirmationSuccess/${user.id}/${token}</a></p>` // html body
                 };
-                console.log('sending mail');
+                console.log("sending mail");
                 nodemailerMailgun.sendMail(msg, (err, response) => {
                     if (err) {
-                        console.error('there was an error: ', err);
+                        console.error("there was an error: ", err);
                     }
                     else {
-                        console.log('here is the res: ', response);
+                        console.log("here is the res: ", response);
                     }
                 });
                 user.update({ email_confirmation_token: token });
