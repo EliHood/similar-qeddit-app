@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, useState, useEffect, useRef, Fragment } from "react";
 import CreatePost from "../forms/createPost/createPost";
 import PostList from "../forms/postList/postList";
 import GridHoc from "../hoc/grid";
@@ -21,69 +21,55 @@ export interface dashboardProps {
     likePost: (event: number) => void;
     dislikePost: (event: number) => void;
 }
-export interface dashboardState {
-    title: string;
-    postContent: string;
-    value: number;
-}
-class Dashboard extends Component<dashboardProps, dashboardState> {
-    state: dashboardState = {
-        title: "",
-        postContent: "",
-        value: 0,
-    };
-    componentDidMount() {
-        this.props.getPostsInit();
-    }
-    handleChange = (e: any) => {
-        this.setState({
-            [e.target.name]: e.target.value,
-        } as any);
-    };
 
-    handleTitleChange = (e: any) => {
+function Dashboard(props: dashboardProps) {
+    const [title, setTitle] = useState<string>("");
+    const [postContent, setContent] = useState<string>("");
+    const [value, setValue] = useState<number>(0);
+    const didMountRef = useRef<Object>();
+    useEffect(() => {
+        if (!didMountRef.current) {
+            props.getPostsInit();
+        } else {
+            console.log("this is component didupdate");
+        }
+    }, []); // array prevents an infinite loop
+
+    const handleTitleChange = (e: any) => {
         e.preventDefault();
-        this.props.addTitle(e.target.value);
+        props.addTitle(e.target.value);
     };
 
-    handleContentChange = (e: any) => {
+    const handleContentChange = (e: any) => {
         e.preventDefault();
-        this.props.addContent(e.target.value);
+        props.addContent(e.target.value);
     };
-
-    handleTabChange = (newValue) => {
-        this.setState({
-            value: newValue,
-        } as any);
-    };
-
-    onSubmit = (e: any) => {
+    const onSubmit = (e: any) => {
         e.preventDefault();
-        const { title, postContent } = this.props;
+        const { title, postContent } = props;
         const postData = { title, postContent };
         console.log(postData);
-        this.props.createPostInit(postData);
+        props.createPostInit(postData);
     };
-    render() {
-        const isEnabled = this.props.titleError === true && this.props.bodyError === true ? false : true;
-        return (
-            <Fragment>
-                <CreatePost
-                    title={this.props.title}
-                    postContent={this.props.postContent}
-                    handleTitleChange={this.handleTitleChange}
-                    handleContentChange={this.handleContentChange}
-                    onSubmit={this.onSubmit}
-                    disButton={isEnabled}
-                    titleError={this.props.titleError}
-                    bodyError={this.props.bodyError}
-                />
-                <br />
-                {/* pass props redux props to tabs */}
-                <OurTabs {...this.props} />
-            </Fragment>
-        );
-    }
+    const isEnabled = props.titleError === true && props.bodyError === true ? false : true;
+
+    return (
+        <Fragment>
+            <CreatePost
+                title={props.title}
+                postContent={props.postContent}
+                handleTitleChange={handleTitleChange}
+                handleContentChange={handleContentChange}
+                onSubmit={onSubmit}
+                disButton={isEnabled}
+                titleError={props.titleError}
+                bodyError={props.bodyError}
+            />
+            <br />
+            {/* pass props redux props to tabs */}
+            <OurTabs {...props} />
+        </Fragment>
+    );
 }
 
 export default GridHoc(Dashboard);

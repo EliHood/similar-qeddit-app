@@ -7,7 +7,16 @@ import GifIcon from "@material-ui/icons/Gif";
 import TextFieldsIcon from "@material-ui/icons/TextFields";
 import React, { Fragment, useState } from "react";
 import GifSection from "./GifSection";
-export default function CommentForm(props) {
+
+export interface commentProps {
+    onSubmit: (e: any) => void;
+    comment_body: string;
+    commentChange: (e: any) => void;
+    gifUrl: (e: any) => void;
+    isGif: string;
+}
+
+export default function CommentForm(props: commentProps) {
     const [isGifSelected, setGifSelected] = useState(false);
     return (
         <Fragment>

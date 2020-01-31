@@ -400,5 +400,5 @@ export default {
       console.log("There was an error", err);
       return res.status(500);
     }
-  }
+  },
 };

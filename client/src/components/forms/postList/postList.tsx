@@ -92,18 +92,6 @@ export default function PostList(props: any) {
                             />
                         </Typography>
                         <Typography align="right">Likes: {post.likeCounts}</Typography>
-                        {/* <span
-              style={{ cursor: "pointer" }}
-              onClick={() => props.likePost(post.id)}
-            >
-              {" "}
-              Like this post
-            </span>
-            <div style={{ margin: "20px 0px", cursor: "pointer" }}>
-              <span onClick={() => props.dislikePost(post.id)}>
-                Dislike this post
-              </span>
-            </div> */}
                         <Grid container={true} spacing={1} style={{ padding: "20px 0px" }}>
                             <Grid item={true} sm={10} lg={10} md={10} style={{ padding: "0px 0px" }}>
                                 <Typography align="left">
@@ -138,7 +126,7 @@ export default function PostList(props: any) {
                             </Button>
                             {isComment === post.id ? (
                                 <CommentForm
-                                    commentChange={(e) => commentChange(e.target.value)}
+                                    commentChange={(e: any) => commentChange(e.target.value)}
                                     comment_body={comment_body}
                                     onSubmit={(e) => commentSubmit(e, post.id)}
                                     gifUrl={selectGif}
