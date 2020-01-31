@@ -313,59 +313,76 @@ exports.default = {
             curUser = req.session.passport ? req.session.passport.user.id : null;
         }
         const { username } = req.params;
-        try {
-            const userToFollow = yield models_1.default.User.findOne({
-                where: { username }
-            });
-            if (userToFollow.id === curUser) {
-                return res.status(500).send({
-                    message: "You can't follow yourself"
+        if (curUser) {
+            try {
+                const userToFollow = yield models_1.default.User.findOne({
+                    where: { username }
                 });
-            }
-            console.log("dsdsdd", userToFollow.id);
-            yield models_1.default.Following.create({
-                following: userToFollow.id,
-                userId: curUser
-            });
-            yield models_1.default.Followers.create({
-                followerId: curUser,
-                userId: userToFollow.id
-            }).then(user => {
-                console.log("dsdsd", user);
-                models_1.default.User.findOne({
+                if (userToFollow.id === curUser) {
+                    return res.status(500).send({
+                        message: "You can't follow yourself"
+                    });
+                }
+                const alreadyFollowed = yield models_1.default.Followers.findOne({
                     where: {
-                        id: userToFollow.id
-                    },
-                    include: [
-                        {
-                            model: models_1.default.Followers,
-                            as: "UserFollowers",
-                            include: [
-                                {
-                                    model: models_1.default.User,
-                                    as: "followerDetails",
-                                    attributes: ["username"]
-                                }
-                            ]
+                        followerId: curUser
+                    }
+                });
+                if (alreadyFollowed) {
+                    return res.status(500).send({
+                        message: "You're already following this user"
+                    });
+                }
+                console.log("dsdsdd", userToFollow.id);
+                yield models_1.default.Following.create({
+                    following: userToFollow.id,
+                    userId: curUser
+                });
+                yield models_1.default.Followers.create({
+                    followerId: curUser,
+                    userId: userToFollow.id
+                }).then(user => {
+                    console.log("dsdsd", user);
+                    models_1.default.User.findOne({
+                        where: {
+                            id: userToFollow.id
                         },
-                        {
-                            model: models_1.default.Following,
-                            as: "UserFollowings"
-                        }
-                    ]
-                }).then(follow => {
-                    follow.setDataValue("isFollowing", true);
-                    return res.status(200).send({
-                        message: `You are now following ${userToFollow.username}`,
-                        follow
+                        include: [
+                            {
+                                model: models_1.default.Followers,
+                                as: "UserFollowers",
+                                include: [
+                                    {
+                                        model: models_1.default.User,
+                                        as: "followerDetails",
+                                        attributes: ["username"]
+                                    }
+                                ]
+                            },
+                            {
+                                model: models_1.default.Following,
+                                as: "UserFollowings"
+                            }
+                        ]
+                    }).then(follow => {
+                        follow.setDataValue("isFollowing", true);
+                        return res.status(200).send({
+                            message: `You are now following ${userToFollow.username}`,
+                            follow
+                        });
                     });
                 });
-            });
+            }
+            catch (err) {
+                return res.status(500).send({
+                    message: "Something went wrong ",
+                    err
+                });
+            }
         }
-        catch (err) {
+        else {
             return res.status(500).send({
-                message: "Something went wrong ",
-                err
+                message: "You must be logged in to follow a user"
             });
         }
     }),
@@ -378,71 +395,78 @@ exports.default = {
             curUser = req.session.passport ? req.session.passport.user.id : null;
         }
         const { username } = req.params;
-        try {
-            const userToFollow = yield models_1.default.User.findOne({
-                where: { username }
-            });
-            if (userToFollow.id === curUser) {
-                return res.status(500).send({
-                    message: "You can't unfollow yourself"
+        if (curUser) {
+            try {
+                const userToFollow = yield models_1.default.User.findOne({
+                    where: { username }
                 });
-            }
-            const isFollowed = yield models_1.default.Following.findOne({
-                where: { following: userToFollow.id }
-            });
-            // if(isFollowed){
-            //   return res.status(200).send({
-            //     message: "You already unfollowed this user"
-            //   })
-            // }
-            yield models_1.default.Following.destroy({
-                where: {
-                    following: userToFollow.id,
-                    userId: curUser
+                if (userToFollow.id === curUser) {
+                    return res.status(500).send({
+                        message: "You can't unfollow yourself"
+                    });
                 }
-            });
-            yield models_1.default.Followers.destroy({
-                where: {
-                    followerId: curUser,
-                    userId: userToFollow.id
-                }
-            }).then(user => {
-                console.log("dsdsd", user);
-                models_1.default.User.findOne({
+                const isFollowed = yield models_1.default.Following.findOne({
+                    where: { following: userToFollow.id }
+                });
+                // if(isFollowed){
+                //   return res.status(200).send({
+                //     message: "You already unfollowed this user"
+                //   })
+                // }
+                yield models_1.default.Following.destroy({
                     where: {
-                        id: curUser
-                    },
-                    include: [
-                        {
-                            model: models_1.default.Followers,
-                            as: "UserFollowers",
-                            include: [
-                                {
-                                    model: models_1.default.User,
-                                    as: "followerDetails",
-                                    attributes: ["username"]
-                                }
-                            ]
+                        following: userToFollow.id,
+                        userId: curUser
+                    }
+                });
+                yield models_1.default.Followers.destroy({
+                    where: {
+                        followerId: curUser,
+                        userId: userToFollow.id
+                    }
+                }).then(user => {
+                    console.log("dsdsd", user);
+                    models_1.default.User.findOne({
+                        where: {
+                            id: curUser
                         },
-                        {
-                            model: models_1.default.Following,
-                            as: "UserFollowings"
-                        }
-                    ]
-                }).then(follow => {
-                    follow.setDataValue("isFollowing", false);
-                    console.log("fsfsfsfs", follow);
-                    return res.status(200).send({
-                        message: `You are unfollowing ${userToFollow.username}`,
-                        follow
+                        include: [
+                            {
+                                model: models_1.default.Followers,
+                                as: "UserFollowers",
+                                include: [
+                                    {
+                                        model: models_1.default.User,
+                                        as: "followerDetails",
+                                        attributes: ["username"]
+                                    }
+                                ]
+                            },
+                            {
+                                model: models_1.default.Following,
+                                as: "UserFollowings"
+                            }
+                        ]
+                    }).then(follow => {
+                        follow.setDataValue("isFollowing", false);
+                        console.log("fsfsfsfs", follow);
+                        return res.status(200).send({
+                            message: `You are unfollowing ${userToFollow.username}`,
+                            follow
+                        });
                     });
                 });
-            });
+            }
+            catch (err) {
+                return res.status(500).send({
+                    message: "Something went wrong ",
+                    err
+                });
+            }
         }
-        catch (err) {
+        else {
             return res.status(500).send({
-                message: "Something went wrong ",
-                err
+                message: "You must be logged in to unfollow a user"
             });
         }
     }),
