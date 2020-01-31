@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import LoadingOverlay from "react-loading-overlay";
 import { connect } from "react-redux";
 import { initLogin } from "../../actions/userActions";
 

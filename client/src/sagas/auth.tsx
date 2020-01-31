@@ -3,7 +3,6 @@ import { call, fork, put, takeLatest } from "redux-saga/effects";
 import * as actionTypes from "../actions/userActions";
 import * as types from "../actionTypes/userActionTypes";
 import api from "../api/api";
-import { history } from "../ourHistory";
 import { sessionData, setAuthToken } from "../utils";
 export function* registerUser(action) {
     try {
@@ -11,10 +10,10 @@ export function* registerUser(action) {
         const history = action.history;
         const user = yield call(api.user.signUp, action.payload);
         console.log(user);
-        const token = user.meta.token;
+        // const token = user.meta.token;
         // setAuthToken(token);
         // sessionData.setUserLoggedIn(token);
-        const decoded = jwtDecode(token);
+        // const decoded = jwtDecode(token);
         console.log(user);
         yield put(actionTypes.signUpSuccess({}, user));
         history.push({ pathname: "/emailConfirmation", state: user });
@@ -71,7 +70,6 @@ export function* logOut(action) {
 
 export function* login(action) {
     try {
-        const history = action.history;
         const login = yield call(api.user.logIn, action.payload);
         console.log(login);
         const token = login.meta.token;

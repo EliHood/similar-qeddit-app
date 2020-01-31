@@ -1,6 +1,5 @@
-import React, { Component, useState, useEffect, useRef, Fragment } from "react";
+import React, { useEffect, useRef, Fragment } from "react";
 import CreatePost from "../forms/createPost/createPost";
-import PostList from "../forms/postList/postList";
 import GridHoc from "../hoc/grid";
 import OurTabs from "../tabs/OurTabs";
 export interface dashboardProps {
@@ -23,9 +22,9 @@ export interface dashboardProps {
 }
 
 function Dashboard(props: dashboardProps) {
-    const [title, setTitle] = useState<string>("");
-    const [postContent, setContent] = useState<string>("");
-    const [value, setValue] = useState<number>(0);
+    // const [title, setTitle] = useState<string>("");
+    // const [content, setContent] = useState<string>("");
+    // const [value, setValue] = useState<number>(0);
     const didMountRef = useRef<Object>();
     useEffect(() => {
         if (!didMountRef.current) {

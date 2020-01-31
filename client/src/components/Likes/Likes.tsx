@@ -1,4 +1,3 @@
-import { Typography } from "@material-ui/core";
 import React, { Component, Fragment } from "react";
 import PostList from "../forms/postList/postList";
 import GridHoc from "../hoc/grid";

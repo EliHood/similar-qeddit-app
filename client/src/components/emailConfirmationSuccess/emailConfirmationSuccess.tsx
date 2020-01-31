@@ -1,5 +1,5 @@
 import { Alert, AlertTitle } from "@material-ui/lab";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import GridHoc from "../hoc/grid";
 
 function EmailConfirmationSuccess(props) {

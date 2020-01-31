@@ -17,7 +17,7 @@ class Post extends Component<PostProps, PostState> {
         this.props.fetchPostInit(id);
     }
     render() {
-        const { title, postContent, author, createdAt } = this.props.post;
+        const { title, postContent, author } = this.props.post;
         return (
             <Fragment>
                 <Grid item={true} sm={12} md={12} style={{ margin: "20px 0px", padding: "0px 200px" }}>

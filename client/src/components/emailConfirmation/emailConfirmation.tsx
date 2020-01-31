@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import GridHoc from "../hoc/grid";
 export interface emailConfirmation {
     resendEmailConfirmationInit: () => void;

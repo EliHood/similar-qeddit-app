@@ -3,7 +3,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import PersonIcon from "@material-ui/icons/Person";
-import React, { Component, Fragment, useState } from "react";
+import React, { Component, Fragment } from "react";
 import OurLink from "../common/OurLink";
 import GridHoc from "../hoc/grid";
 export interface profileProps {

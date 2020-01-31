@@ -1,4 +1,3 @@
-import Pusher from "pusher-js";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getUser, logOutInit } from "./actions/userActions";

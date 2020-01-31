@@ -4,11 +4,12 @@
 
 - Express
 - Docker
-- React(tsx)
+- React(tsx) (some React Hooks)
 - TypeScript
 - Redux
 - Redux Saga
 - Sequelize
+- Pusher
 
 #### Functionalies
 
@@ -18,6 +19,11 @@
 - Log Out
 - Like A Post
 - Unlike A Post
+- Add Comment to a Post
+- Email Confirmation
+- Edit Profile
+- Comment Notifications
+- Follower User/Unfollow User
 
 #### For executing Docker(have your env variables set up)
 

@@ -18,7 +18,6 @@ export default function PostList(props: any) {
     const [isComment, setIsComment] = useState(false);
     const [comment_body, setCommentBody] = useState("");
     const [gifUrl, setGifUrl] = useState("");
-    const [ourNotifications, setNotifications] = useState([]);
     const didMountRef = useRef();
     useEffect(() => {
         if (!didMountRef.current) {
@@ -53,7 +52,7 @@ export default function PostList(props: any) {
         setIsComment(false);
         setCommentBody("");
     };
-    const { posts, currentUser, isNotified, notification } = props;
+    const { posts, currentUser, notification } = props;
     console.log(notification);
     return posts.length > 0 ? (
         posts.map((post, i) => (

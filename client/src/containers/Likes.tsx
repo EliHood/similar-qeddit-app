@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { deleteCommentInit, deletePostInit, dislikePostInit, getPostsInit, likePostInit, notificationInit, postCommentInit } from "./../actions/postActions";
 import Likes from "./../components/Likes/Likes";
-import { getBodyError, getNotification, getTitleError, getUser, getUserPosts, postContent, title } from "./../selectors/selectors";
+import { getNotification, getUser, getUserPosts } from "./../selectors/selectors";
 const mapStateToProps = (state, ownProps) =>
     createStructuredSelector({
         posts: getUserPosts(ownProps.match.params),

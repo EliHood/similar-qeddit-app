@@ -1,7 +1,7 @@
 import Pusher from "pusher-js";
 import { toast } from "react-toastify";
 import { eventChannel } from "redux-saga";
-import { call, fork, put, take, takeEvery, takeLatest } from "redux-saga/effects";
+import { call, fork, put, take, takeLatest } from "redux-saga/effects";
 import * as actionTypes from "../actions/postActions";
 import * as types from "../actionTypes/postActionTypes";
 import api from "../api/api";
