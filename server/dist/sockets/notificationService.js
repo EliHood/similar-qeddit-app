@@ -20,9 +20,10 @@ exports.default = {
             const post = yield models_1.default.Post.findOne({ where: { id: postId } });
             const commenter = yield models_1.default.User.findOne({ where: { id: commenterId } });
             const { userId, title } = post;
+            console.log("notification", userId);
             const commenterName = commenter.username;
             console.log(commenterName);
-            const body = `${commenterName} just commented on your article: ${title}`;
+            const body = `${commenterName} just commented on article: ${title}`;
             console.log(body);
             yield models_1.default.Notification.create({ userId, body, status: "unread" });
             pusherConfig_1.default.trigger("notification", "my-event", body);

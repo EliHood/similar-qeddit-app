@@ -14,6 +14,8 @@ export default {
         resendConfirmation: () => Axios.post("/api/v1/users/resendConfirmation").then((res) => res.data),
         emailConfirmation: (userId: number, token: number) => Axios.get(`/api/v1/users/emailConfirmation/${userId}/${token}`).then((res) => res.data),
         updateProfile: (userData: any) => Axios.put("/api/v1/users/updateProfile", userData).then((res) => res.data),
+        getNotifications: (id: number) => Axios.get(`/api/v1/notifications/${id}`).then((res) => res.data),
+        markAsRead: (id: number) => Axios.post(`/api/v1/notifications/markAsRead/${id}`).then((res) => res.data),
     },
     post: {
         createPost: (postData: any) => Axios.post("/api/v1/posts/createPost", postData).then((res) => res.data),

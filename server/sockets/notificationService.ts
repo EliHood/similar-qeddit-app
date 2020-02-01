@@ -5,9 +5,10 @@ export default {
     const post = await models.Post.findOne({ where: { id: postId } });
     const commenter = await models.User.findOne({ where: { id: commenterId } });
     const { userId, title } = post;
+    console.log("notification", userId);
     const commenterName = commenter.username;
     console.log(commenterName);
-    const body = `${commenterName} just commented on your article: ${title}`;
+    const body = `${commenterName} just commented on article: ${title}`;
     console.log(body);
     await models.Notification.create({ userId, body, status: "unread" });
 

@@ -188,12 +188,13 @@ export default {
               }
             ]         
           }).then(async newComment => {
-            // console.log('dsdsdssdsd',newComment.postId, comment.id)
-             NotificationServ.newCommentNotification(newComment.postId, newComment.userId);
-            return res.status(200).send({
-              message: "comment created",
-              comment: newComment
-            });
+           console.log('dsdsdssdsd',newComment.postId, newComment.userId) // con
+            NotificationServ.newCommentNotification(newComment.postId, newComment.userId);
+        
+          return res.status(200).send({
+            message: "comment created",
+            comment: newComment
+          });
           
           })
       })

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getUser, logOutInit } from "./actions/userActions";
+import { getUser, logOutInit, initGetNotifications } from "./actions/userActions";
 import { history } from "./ourHistory";
 import Router from "./Router";
 export interface routerContainerState {
@@ -10,6 +10,7 @@ export interface routerContainerState {
 export interface routerContainerProps {
     getUser: () => void;
     logOutInit: (data) => void;
+    initGetNotifications: (id: number) => void;
     user: {
         isAuthenticated: boolean;
     };
@@ -35,12 +36,13 @@ class Nav extends Component<routerContainerProps, routerContainerState> {
 
     render() {
         const { hasError } = this.state;
-        return <Router hasError={hasError} logOut={this.ourLogOut} user={this.props.user.isAuthenticated} {...this.props.user} />;
+        return <Router notifications={this.props.initGetNotifications} hasError={hasError} logOut={this.ourLogOut} user={this.props.user.isAuthenticated} {...this.props.user} />;
     }
 }
 const dispatchToProps = (dispatch: any) => ({
     getUser: () => dispatch(getUser()),
     logOutInit: (data: object) => dispatch(logOutInit(data)),
+    initGetNotifications: (id: number) => dispatch(initGetNotifications(id)),
 });
 
 const mapStateToProps = (state: any) => ({

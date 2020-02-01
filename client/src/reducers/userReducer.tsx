@@ -16,6 +16,7 @@ export interface userState {
     password: string;
     username: string;
     currentUser: object;
+    getNotifications: any;
 }
 
 const initialState: userState = {
@@ -31,6 +32,7 @@ const initialState: userState = {
     emailError: "",
     email: "",
     password: "",
+    getNotifications: [],
     username: "",
 };
 
@@ -139,6 +141,21 @@ const authReducer = (state = initialState, action: any): userState =>
                 draft.profilePage.isFollowing = false;
                 break;
             case types.UNFOLLOW_USER_FAILURE:
+                console.log(action);
+                draft.error = action.error;
+                break;
+            case types.GET_NOTIFICATIONS_SUCCESS:
+                draft.getNotifications = action.payload;
+                break;
+            case types.GET_NOTIFICATIONS_FAILURE:
+                console.log(action);
+                draft.error = action.error;
+                break;
+            case types.MARK_AS_READ_SUCCESS:
+                const markKey = state.getNotifications.findIndex((notification) => notification.notificationId === action.id);
+                draft.getNotifications[markKey].status = [...action.payload.notifications[markKey].status];
+                break;
+            case types.MARK_AS_READ_FAILURE:
                 console.log(action);
                 draft.error = action.error;
                 break;

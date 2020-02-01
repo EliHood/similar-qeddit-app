@@ -194,7 +194,7 @@ exports.default = {
                         }
                     ]
                 }).then((newComment) => __awaiter(void 0, void 0, void 0, function* () {
-                    // console.log('dsdsdssdsd',newComment.postId, comment.id)
+                    console.log('dsdsdssdsd', newComment.postId, newComment.userId); // con
                     sockets_1.NotificationServ.newCommentNotification(newComment.postId, newComment.userId);
                     return res.status(200).send({
                         message: "comment created",

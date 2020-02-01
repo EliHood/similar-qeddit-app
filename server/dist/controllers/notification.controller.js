@@ -17,33 +17,50 @@ exports.default = {
     getAllNotifications(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { userId } = req.params;
+            console.log(userId);
             const notification = yield models_1.default.Notification.findAll({
-                where: { userId, status: "unread" }
+                where: { userId }
             });
             const responseObject = notification.map(item => ({
                 body: item.body,
-                notficationId: item.id,
+                notificationId: item.id,
                 status: item.status
             }));
             return res.send(responseObject);
         });
     },
-    markAsRead(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const { decoded: { id: userId }, params: { notificationId } } = req;
-            const notificationObject = yield models_1.default.Notification.findOne({
-                where: {
-                    userId,
-                    id: notificationId
-                }
+    markAsRead: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        const { notificationId } = req.params;
+        console.log("test", notificationId);
+        const userId = req.session.user.id;
+        console.log("dsdsdsdee", userId, notificationId);
+        const notificationObject = yield models_1.default.Notification.findOne({
+            where: {
+                userId,
+                id: notificationId
+            }
+        });
+        notificationObject
+            .update({
+            status: "read"
+        })
+            .then((response) => __awaiter(void 0, void 0, void 0, function* () {
+            console.log(response);
+            const notifications = yield models_1.default.Notification.findAll({
+                where: { userId }
             });
-            notificationObject.status = "read";
-            const response = yield notificationObject.save();
-            return res.send({
+            const responseObject = notifications.map(item => ({
+                body: item.body,
+                notificationId: item.id,
+                status: item.status
+            }));
+            // console.log(notifications);
+            return res.status(200).send({
+                notifications: responseObject,
                 status: response.status,
                 createdAt: response.createdAt
             });
-        });
-    }
+        }));
+    })
 };
 //# sourceMappingURL=notification.controller.js.map

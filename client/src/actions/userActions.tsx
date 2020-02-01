@@ -1,4 +1,5 @@
 import * as types from "../actionTypes/userActionTypes";
+import { type } from "os";
 
 export const emailConfirmationInit = (payload: object) => ({
     type: types.EMAIL_CONFIRMATION_INIT,
@@ -202,5 +203,36 @@ export const unfollowUserSuccess = (payload: object, id: number) => ({
 
 export const unfollowUserFailure = (err: object) => ({
     type: types.UNFOLLOW_USER_FAILURE,
+    err,
+});
+
+export const initGetNotifications = (payload: number) => ({
+    type: types.INIT_GET_NOTIFICATIONS,
+    payload,
+});
+
+export const getNotificationsSuccess = (payload: object) => ({
+    type: types.GET_NOTIFICATIONS_SUCCESS,
+    payload,
+});
+
+export const getNotificationsFailure = (err: object) => ({
+    type: types.GET_NOTIFICATIONS_FAILURE,
+    err,
+});
+
+export const markAsReadInit = (payload: number) => ({
+    type: types.MARK_AS_READ_INIT,
+    payload,
+});
+
+export const markAsReadSuccess = (payload: object, id: number) => ({
+    type: types.MARK_AS_READ_SUCCESS,
+    payload,
+    id,
+});
+
+export const markAsReadFailure = (err: object) => ({
+    type: types.MARK_AS_READ_FAILURE,
     err,
 });

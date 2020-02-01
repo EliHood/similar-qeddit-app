@@ -37,3 +37,5 @@ export const getTitleError = () => createSelector(postSelector, (state) => state
 export const getBodyError = () => createSelector(postSelector, (state) => state.bodyError);
 export const title = () => createSelector(postSelector, (state) => state.title);
 export const postContent = () => createSelector(postSelector, (state) => state.postContent);
+
+export const getNotifications = () => createSelector(userSelector, (state) => state.getNotifications);

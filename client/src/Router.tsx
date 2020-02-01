@@ -5,6 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import React, { Fragment } from "react";
 import { Link, Route, Router, Switch } from "react-router-dom";
+import Notification from "./containers/notificationTooltip";
 import Landing from "./components/landing/landing";
 import Dashboard from "./containers/dashboard";
 import EmailConfirmation from "./containers/emailConfirmation";
@@ -17,7 +18,19 @@ import Profile from "./containers/profilePage";
 import Register from "./containers/signup";
 import { history } from "./ourHistory";
 import PrivateRoute from "./PrivateRoute";
-const MyRouter = (props) => {
+function MyRouter(props) {
+    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    const open = Boolean(anchorEl);
+    const id = open ? "simple-popover" : undefined;
+    const handleNotificationClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+        console.log(props);
+        props.notifications(user.id);
+    };
+
     const user = props.currentUser.user ? props.currentUser.user : "";
     return props.hasError ? (
         <div>Error</div>
@@ -82,6 +95,15 @@ const MyRouter = (props) => {
                                             Edit Profile
                                         </Link>
                                     </Button>
+                                    <Notification
+                                        userId={user.id}
+                                        id={id}
+                                        handleClose={handleClose}
+                                        open={open}
+                                        anchorEl={anchorEl}
+                                        handleNotificationClick={handleNotificationClick}
+                                        title={"Notifications"}
+                                    />
                                     <Button>
                                         <Link
                                             style={{
@@ -159,6 +181,6 @@ const MyRouter = (props) => {
             </Switch>
         </Router>
     );
-};
+}
 
 export default MyRouter;

@@ -18,7 +18,8 @@ export = {
         onDelete: "CASCADE",
         references: {
           model: "Users",
-          key: "id"
+          key: "id",
+          as: "userId"
         }
       },
       status: {

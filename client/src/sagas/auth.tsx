@@ -137,6 +137,34 @@ export function* resendEmailConfirmation(action) {
     }
 }
 
+export function* getNotifications(action) {
+    try {
+        const notifications = yield call(api.user.getNotifications, action.payload);
+        yield put(actionTypes.getNotificationsSuccess(notifications));
+    } catch (err) {
+        yield put(actionTypes.getNotificationsFailure(err));
+    }
+}
+
+export function* markAsRead(action) {
+    console.log(action);
+    try {
+        const mark = yield call(api.user.markAsRead, action.payload);
+        console.log(mark);
+        yield put(actionTypes.markAsReadSuccess(mark, action.payload));
+    } catch (err) {
+        yield put(actionTypes.markAsReadFailure(err));
+    }
+}
+
+export function* watchNotifications() {
+    yield takeLatest(types.INIT_GET_NOTIFICATIONS, getNotifications);
+}
+
+export function* watchMarkAsRead() {
+    yield takeLatest(types.MARK_AS_READ_INIT, markAsRead);
+}
+
 export function* watchLogin() {
     yield takeLatest(types.LOG_IN_INIT, login);
 }
@@ -176,6 +204,8 @@ export function* watchLogout() {
 // export function*
 export default function*() {
     yield fork(watchUserRegister);
+    yield fork(watchMarkAsRead);
+    yield fork(watchNotifications);
     yield fork(watchAuthLogin);
     yield fork(watchFollowUser);
     yield fork(watchUnFollowUser);
