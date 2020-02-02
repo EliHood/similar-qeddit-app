@@ -19,7 +19,7 @@ exports.default = {
             const { userId } = req.params;
             console.log(userId);
             const notification = yield models_1.default.Notification.findAll({
-                where: { userId }
+                where: { userId, status: "unread" }
             });
             const responseObject = notification.map(item => ({
                 body: item.body,

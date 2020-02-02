@@ -7,7 +7,7 @@ export default {
     const { userId } = req.params;
     console.log(userId);
     const notification = await models.Notification.findAll({
-      where: { userId }
+      where: { userId, status: "unread" }
     });
 
     const responseObject = notification.map(item => ({

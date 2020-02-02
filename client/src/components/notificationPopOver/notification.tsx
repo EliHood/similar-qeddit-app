@@ -15,6 +15,7 @@ export default function Notification(props: any) {
             console.log("test");
         }
     }, []);
+
     return (
         <Fragment>
             <Button style={{ color: "#fff" }} aria-describedby={id} onClick={props.handleNotificationClick}>
@@ -39,7 +40,7 @@ export default function Notification(props: any) {
                     Notifications:{" "}
                 </Typography>
                 <Divider />
-                {props.getNotifications.length > 0 ? (
+                {props.getNotifications.length > 0 && props.getNotifications.find((item) => item.status === "unread") ? (
                     props.getNotifications.map((notification, i) =>
                         notification.status === "unread" ? (
                             <Fragment key={i}>
