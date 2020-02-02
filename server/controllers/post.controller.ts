@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import sequelize from "sequelize";
 import models from "../models";
 import { NotificationServ } from '../sockets';
+import pusherConfig from "./../sockets/pusherConfig";
 dotenv.config();
 export default {
   getPosts: async (req: any, res: Response) => {
@@ -190,11 +191,11 @@ export default {
           }).then(async newComment => {
            console.log('dsdsdssdsd',newComment.postId, newComment.userId) // con
             NotificationServ.newCommentNotification(newComment.postId, newComment.userId);
-        
-          return res.status(200).send({
-            message: "comment created",
-            comment: newComment
-          });
+            pusherConfig.trigger('post-comments', 'new-comment', { comment: newComment });
+            return res.status(200).send({
+              message: "comment created",
+              comment: newComment
+            });
           
           })
       })

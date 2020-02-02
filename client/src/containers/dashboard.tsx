@@ -1,10 +1,23 @@
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { addContent, addTitle, createPostInit, deleteCommentInit, deletePostInit, dislikePostInit, getPostsInit, likePostInit, notificationInit, postCommentInit } from "../actions/postActions";
+import {
+    addContent,
+    addTitle,
+    createPostInit,
+    deleteCommentInit,
+    initCommentUpdates,
+    deletePostInit,
+    dislikePostInit,
+    getPostsInit,
+    likePostInit,
+    notificationInit,
+    postCommentInit,
+} from "../actions/postActions";
 import Dashboard from "../components/dashboard/dashboard";
 import { getBodyError, getIsNotified, getNotification, getPopPosts, getPosts, getTitleError, getUser, postContent, title } from "./../selectors/selectors";
 const mapDispatchToProps = (dispatch: any) => ({
     getPostsInit: () => dispatch(getPostsInit()),
+    initCommentUpdates: () => dispatch(initCommentUpdates()),
     notificationInit: () => dispatch(notificationInit()),
     likePost: (id: number) => dispatch(likePostInit(id)),
     addTitle: (data: string) => dispatch(addTitle(data)),

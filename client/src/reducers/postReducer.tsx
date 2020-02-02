@@ -29,7 +29,12 @@ const postReducer = (state = initialState, action: any): postState =>
     produce(state, (draft) => {
         switch (action.type) {
             case types.GET_POSTS_SUCCESS:
+                console.log(action);
                 draft.posts = action.payload;
+                return;
+            case types.GET_POSTS_FAILURE:
+                console.log(action);
+                draft.error = action.error;
                 return;
             case types.CREATE_POST_SUCCESS:
                 console.log(action.payload);
@@ -70,10 +75,10 @@ const postReducer = (state = initialState, action: any): postState =>
             case types.DISLIKE_POST_FAILURE:
                 draft.error = action.error;
                 return;
+            // Post comment will not be appending comment to the array state, comment update
+            // success will because comments will be real time
             case types.POST_COMMENT_SUCCESS:
-                const findCommentKey = state.posts.findIndex((x) => x.id === action.id);
-                draft.isNotified = true;
-                draft.posts[findCommentKey].Comments = [...draft.posts[findCommentKey].Comments, action.payload];
+                console.log(action);
                 return;
             case types.POST_COMMENT_FAILURE:
                 draft.error = action.error;
@@ -105,6 +110,15 @@ const postReducer = (state = initialState, action: any): postState =>
             case types.NOTIFICATION_FAILURE:
                 console.log(action);
                 draft.error = action.error;
+                return;
+            case types.COMMENT_UPDATES_SUCCESS:
+                console.log(action);
+                const findCommentKey2 = state.posts.findIndex((x) => x.id === action.payload.comment.postId);
+                console.log(findCommentKey2);
+                draft.posts[findCommentKey2].Comments = [...draft.posts[findCommentKey2].Comments, action.payload.comment];
+                return;
+            case types.COMMENT_UPDATES_FAILURE:
+                console.log(action);
                 return;
         }
     });

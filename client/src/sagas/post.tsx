@@ -18,6 +18,35 @@ function createEventChannel(pusher: Pusher.Pusher) {
     });
 }
 
+function createCommentChannel(pusher: Pusher.Pusher) {
+    return eventChannel((emitter) => {
+        const channel = pusher.subscribe("post-comments");
+        channel.bind("new-comment", (data: string) => {
+            console.log(data);
+            // we need an emitter for notificationSuccess method to work
+            emitter(data);
+        });
+        return () => channel.unbind("new-comment", emitter);
+    });
+}
+
+export function* commentUpdates() {
+    try {
+        const pusherClient = new Pusher("0d45d56558d5bdcbc179", {
+            cluster: "us2",
+            forceTLS: true,
+        });
+        const channel = yield call(createCommentChannel, pusherClient);
+        while (true) {
+            const data = yield take(channel);
+            console.log(data);
+            yield put(actionTypes.commentUpdatesSuccess(data));
+        }
+    } catch (err) {
+        yield put(actionTypes.commentUpdatesFailure(err));
+    }
+}
+
 export function* getNotification() {
     try {
         const pusherClient = new Pusher("0d45d56558d5bdcbc179", {
@@ -158,6 +187,7 @@ export function* watchCreatePost() {
 // export function*
 export default function*() {
     yield fork(watchPosts);
+    yield fork(commentUpdates);
     yield fork(getNotification);
     yield fork(watchPostComment);
     yield fork(watchDeletePost);

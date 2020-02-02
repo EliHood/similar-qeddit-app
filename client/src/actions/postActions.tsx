@@ -148,3 +148,17 @@ export const notificationFailure = (err: object) => ({
     type: types.NOTIFICATION_FAILURE,
     err,
 });
+
+export const initCommentUpdates = () => ({
+    type: types.INIT_COMMENT_UPDATES,
+});
+
+export const commentUpdatesSuccess = (payload: object) => ({
+    type: types.COMMENT_UPDATES_SUCCESS,
+    payload,
+});
+
+export const commentUpdatesFailure = (err: object) => ({
+    type: types.COMMENT_UPDATES_FAILURE,
+    err,
+});

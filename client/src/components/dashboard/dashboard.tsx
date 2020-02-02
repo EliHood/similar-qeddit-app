@@ -19,6 +19,7 @@ export interface dashboardProps {
     createPostInit: (event: object) => void;
     likePost: (event: number) => void;
     dislikePost: (event: number) => void;
+    initCommentUpdates: () => void;
 }
 
 function Dashboard(props: dashboardProps) {
@@ -29,6 +30,7 @@ function Dashboard(props: dashboardProps) {
     useEffect(() => {
         if (!didMountRef.current) {
             props.getPostsInit();
+            props.initCommentUpdates();
         } else {
             console.log("this is component didupdate");
         }

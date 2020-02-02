@@ -7,6 +7,11 @@
       "language": "typescriptreact"
     }
   ],
+  "eslint.validate": [
+    {
+      "language": "typescript"
+    }
+  ],
   // "[typescriptreact]": {
   //     "editor.defaultFormatter": "esbenp.prettier-vscode"
   // },
