@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Typography from "@material-ui/core/Typography";
+import OurListItem from "../../common/OurListItem";
 import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
 import moment from "moment";
 import React, { Fragment, useState } from "react";
@@ -25,7 +26,7 @@ export default function CommentList(props: any) {
             {props.comments.slice(0, showMore).map((comment, i) => (
                 <div key={i}>
                     <List style={{ paddingBottom: "20px" }}>
-                        <ListItem alignItems="center" style={{ padding: "0px" }}>
+                        <OurListItem>
                             <Typography color="primary" align="left">
                                 {comment.comment_body}
                             </Typography>
@@ -34,7 +35,7 @@ export default function CommentList(props: any) {
                                     <img width="100%" height="300px" src={`${comment.gifUrl}`} />
                                 </div>
                             )}
-                        </ListItem>
+                        </OurListItem>
                         {props.user && props.user.user && comment.userId === props.user.user.id ? (
                             <Typography style={{ display: "inline-block", float: "right" }} align="right">
                                 <span style={{ cursor: "pointer" }} onClick={() => props.deleteComment(comment.id, props.postId, comment.userId)}>

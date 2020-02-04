@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-const OurLink = (props: any) => (
-    <Link {...props} style={{ color: "#333", fontWeight: "500", textDecoration: "none" }}>
-        {" "}
-        {props.title}
-    </Link>
-);
+import styled from "styled-components";
+const TheLink = styled(Link)`
+    color: #333;
+    fontweight: 500;
+    text-decoration: none;
+`;
+const OurLink = (props: any) => <TheLink {...props}> {props.title}</TheLink>;
+
 export default OurLink;
