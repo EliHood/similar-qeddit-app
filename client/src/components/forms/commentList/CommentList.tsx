@@ -9,8 +9,8 @@ import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined"
 import moment from "moment";
 import React, { Fragment, useState } from "react";
 export default function CommentList(props: any) {
-    const [showMore, setShowMore] = useState(3);
-    const [showLessFlag, setShowLessFlag] = useState(false);
+    const [showMore, setShowMore] = useState<Number>(3);
+    const [showLessFlag, setShowLessFlag] = useState<Boolean>(false);
     const showComments = (e) => {
         e.preventDefault();
         setShowMore(12);

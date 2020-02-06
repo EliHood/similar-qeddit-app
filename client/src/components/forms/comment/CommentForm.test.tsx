@@ -1,5 +1,6 @@
 import React from "react";
 import { shallow, mount, render } from "enzyme";
+import Grid from "@material-ui/core/Grid";
 import CommentForm from "./CommentForm";
 import TextField from "@material-ui/core/TextField";
 import { createMount } from "@material-ui/core/test-utils";
@@ -43,21 +44,4 @@ describe("<CommentForm/>", () => {
             });
         expect(props.commentChange).toHaveBeenCalled();
     });
-
-    // describe("<CommentForm/> should test onChange", () => {
-    //     const value = "Test";
-    //     beforeEach(() => {
-    //         let input = wrapper.find("TextField");
-    //         console.log(input);
-
-    //         input.simulate("change", {
-    //             target: { name: "comment_body", value: value },
-    //         });
-    //     });
-
-    //     it("comment body changes to value", () => {
-    //         const inputValue = wrapper.find(".commentInput");
-    //         expect(inputValue.props().comment_body).toBe(value);
-    //     });
-    // });
 });

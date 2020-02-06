@@ -16,7 +16,7 @@ export interface commentProps {
 }
 
 export default function CommentForm(props: commentProps) {
-    const [isGifSelected, setGifSelected] = useState(false);
+    const [isGifSelected, setGifSelected] = useState<Boolean>(false);
     return (
         <Fragment>
             <form onSubmit={props.onSubmit}>
