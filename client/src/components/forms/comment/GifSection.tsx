@@ -5,6 +5,7 @@ export default function GifSection(props) {
     return (
         <Fragment>
             <ReactGiphySearchbox
+                wrapperClassName="gifForm"
                 searchFormClassName={{ padding: "20px 0px" }}
                 apiKey="9Ixlv3DWC1biJRI57RanyL7RTbfzz0o7"
                 onSelect={(e) => props.select(e)}

@@ -23,6 +23,7 @@ export default function CommentForm(props: commentProps) {
                 {isGifSelected === false ? (
                     <Fragment>
                         <TextField
+                            className="commentInput"
                             type="text"
                             style={{ borderRadius: "50%" }}
                             id="outlined-multiline-static"
