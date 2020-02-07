@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import React from "react";
 const PostForm = (props: any) => (
     <form onSubmit={props.onSubmit}>
-        <Typography style={{ paddingBottom: "20px" }} variant="h4">
+        <Typography className="title" style={{ paddingBottom: "20px" }} variant="h4">
             New Post
         </Typography>
         <TextField
@@ -45,7 +45,7 @@ const PostForm = (props: any) => (
             {props.bodyError}
         </FormHelperText>
         <br />
-        <Button disabled={props.disButton} variant="outlined" color="primary" type="submit">
+        <Button className="butSub" disabled={props.disButton} variant="outlined" color="primary" type="submit">
             Submit
         </Button>
     </form>
