@@ -37,7 +37,7 @@ const EditProfileForm = (props: any) => (
                 variant="outlined"
             />
         </FormGroup>
-        <Button variant="outlined" color="primary" type="submit">
+        <Button className="subBtn" variant="outlined" color="primary" type="submit">
             Submit
         </Button>
     </form>
