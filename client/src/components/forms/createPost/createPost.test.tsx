@@ -1,5 +1,6 @@
 import React from "react";
 import { createShallow, createMount } from "@material-ui/core/test-utils";
+import FormHelperText from "@material-ui/core/FormHelperText";
 import toJson from "enzyme-to-json";
 import PostForm from "./createPost";
 import Post from "../../post/post";
@@ -26,6 +27,9 @@ describe("<PostForm/>", () => {
     it("should render <PostForm/> component", () => {
         expect(wrapper.find("form")).toHaveLength(1);
     });
+    it("should render <FormHelperText/>", () => {
+        expect(wrapper.find(FormHelperText).at(0)).toHaveLength(1);
+    });
     it("should have title header", () => {
         expect(
             wrapper
@@ -44,7 +48,6 @@ describe("<PostForm/>", () => {
         const content = "Another content";
         expect(wrapper.props().postContent).toBe(content);
     });
-
     it("should test handleTitleChange onChange", () => {
         // console.log(wrapper.find(TextField).debug());
         const title = "Test";
@@ -70,6 +73,12 @@ describe("<PostForm/>", () => {
         // console.log(wrapper.find(TextField).debug());
         const submit = jest.fn();
         wrapper.simulate("submit", { submit });
+        expect(props.onSubmit).toBeCalled();
+    });
+
+    it("should test onSubmit button", () => {
+        const button = wrapper.find(".MuiButton-label");
+        button.simulate("click");
         expect(props.onSubmit).toBeCalled();
     });
 });

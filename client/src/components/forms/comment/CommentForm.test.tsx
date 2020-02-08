@@ -24,14 +24,14 @@ describe("<CommentForm/>", () => {
         expect(wrapper.exists()).toBe(true);
     });
 
-    it("should test comment_body value", () => {
+    it("should test comment_body props", () => {
         // console.log(wrapper.find(TextField).debug());
         const comment_body = "Test";
         expect(wrapper.find(TextField).props().value).toBe(comment_body);
     });
 
     // when using mount call  .props.onChange instead of simulate(which for shallow )
-    it("should test comment_body onChange", () => {
+    it("should test comment_body props", () => {
         // console.log(wrapper.find(TextField).debug());
         const comment_body = "Test";
         wrapper
