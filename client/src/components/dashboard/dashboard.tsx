@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, Fragment } from "react";
-import CreatePost from "../forms/createPost/createPost";
+import PostForm from "../forms/createPost/createPost";
 import GridHoc from "../hoc/grid";
 import OurTabs from "../tabs/OurTabs";
 export interface dashboardProps {
@@ -56,7 +56,7 @@ function Dashboard(props: dashboardProps) {
 
     return (
         <Fragment>
-            <CreatePost
+            <PostForm
                 title={props.title}
                 postContent={props.postContent}
                 handleTitleChange={handleTitleChange}
@@ -74,3 +74,5 @@ function Dashboard(props: dashboardProps) {
 }
 
 export default GridHoc(Dashboard);
+// will be useful for unit testing.
+export { Dashboard as DashboardComponent };
