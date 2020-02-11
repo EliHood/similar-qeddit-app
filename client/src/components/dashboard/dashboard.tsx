@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, Fragment } from "react";
+import React, { useRef, Fragment } from "react";
 import PostForm from "../forms/createPost/createPost";
 import GridHoc from "../hoc/grid";
 import OurTabs from "../tabs/OurTabs";
@@ -27,10 +27,11 @@ function Dashboard(props: dashboardProps) {
     // const [content, setContent] = useState<string>("");
     // const [value, setValue] = useState<number>(0);
     const didMountRef = useRef<Object>();
-    useEffect(() => {
+    React.useEffect(() => {
         if (!didMountRef.current) {
             props.getPostsInit();
             props.initCommentUpdates();
+            console.log("test");
         } else {
             console.log("this is component didupdate");
         }

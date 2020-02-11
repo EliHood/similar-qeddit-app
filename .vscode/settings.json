@@ -21,5 +21,5 @@
   // },
   "eslint.enable": true,
   "eslint.format.enable": true,
-  "workbench.colorTheme": "Default Light+"
+  "workbench.colorTheme": "Monokai"
 }
