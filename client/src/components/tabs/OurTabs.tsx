@@ -44,7 +44,7 @@ export default function OurTabs(props) {
     };
     return (
         <div className={classes.root}>
-            <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+            <Tabs className="tabMenu" value={value} onChange={handleChange} aria-label="simple tabs example">
                 <Tab label="Trending" {...a11yProps(0)} />
                 <Tab label="Newest" {...a11yProps(1)} />
             </Tabs>
