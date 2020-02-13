@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { LikesComponent as Likes } from "./Likes";
 import { shallow, mount, render } from "enzyme";
 import { createShallow, createMount } from "@material-ui/core/test-utils";
@@ -11,13 +11,9 @@ describe("<Likes/>", () => {
         getPostsInit: jest.fn(),
         posts: [],
     };
-    const mockUseEffect = () => {
-        useEffect.mockImplementationOnce((f) => f());
-    };
 
     beforeEach(() => {
-        useEffect = jest.spyOn(React, "useEffect");
-        mockUseEffect();
+        useEffect = jest.spyOn(Likes.prototype, "componentDidMount");
         wrapper = shallow(<Likes {...props} />);
     });
 
@@ -25,6 +21,7 @@ describe("<Likes/>", () => {
         expect(wrapper.find(PostList).at(0)).toHaveLength(1);
     });
     it("Should execute getPostsInit", () => {
+        expect(useEffect).toHaveBeenCalled();
         expect(props.getPostsInit).toHaveBeenCalled();
     });
 });
