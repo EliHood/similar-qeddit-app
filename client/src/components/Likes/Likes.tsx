@@ -49,3 +49,4 @@ class Likes extends Component<IProps, {}> {
 }
 
 export default GridHoc(Likes);
+export { Likes as LikesComponent };
