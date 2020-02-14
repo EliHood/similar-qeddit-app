@@ -21,5 +21,6 @@
   // },
   "eslint.enable": true,
   "eslint.format.enable": true,
-  "workbench.colorTheme": "Monokai"
+  "workbench.colorTheme": "Visual Studio Light",
+  "workbench.preferredLightColorTheme": "Visual Studio Light"
 }
