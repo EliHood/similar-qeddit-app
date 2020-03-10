@@ -2,7 +2,7 @@ import React, { useRef, Fragment } from "react";
 import PostForm from "../forms/createPost/createPost";
 import GridHoc from "../hoc/grid";
 import OurTabs from "../tabs/OurTabs";
-import { PostHook } from "../common/handleHook";
+import { InputHook } from "../common/handleHook";
 export interface dashboardProps {
     getPostsInit: () => void;
     getPopPostsInit: () => void;
@@ -28,7 +28,7 @@ function Dashboard(props: dashboardProps) {
     // const [content, setContent] = useState<string>("");
     // const [value, setValue] = useState<number>(0);
     const didMountRef = useRef<Object>();
-    const { handleInputChange } = PostHook(props);
+    const { handleInputChange } = InputHook(props);
     React.useEffect(() => {
         if (!didMountRef.current) {
             props.getPostsInit();

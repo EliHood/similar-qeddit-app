@@ -11,9 +11,11 @@ export interface userState {
     profilePage: any;
     usernameError: any;
     passwordError: any;
+    passwordConfError: any;
     emailError: any;
     email: string;
     password: string;
+    passwordConf: string;
     username: string;
     currentUser: object;
     getNotifications: any;
@@ -32,6 +34,8 @@ const initialState: userState = {
     emailError: "",
     email: "",
     password: "",
+    passwordConf: "",
+    passwordConfError: "",
     getNotifications: [],
     username: "",
 };
@@ -94,6 +98,13 @@ const authReducer = (state = initialState, action: any): userState =>
             case types.ADD_PASSWORD:
                 draft.password = action.data;
                 draft.passwordError = validation.validatePassword(action.data);
+                draft.passwordConf = "";
+                draft.passwordConfError = "";
+                break;
+            case types.ADD_PASSWORD_CONF:
+                const password = state.password;
+                draft.passwordConf = action.data;
+                draft.passwordConfError = validation.validatePasswordConf(action.data, password);
                 break;
             case types.ADD_USERNAME:
                 draft.username = action.data;

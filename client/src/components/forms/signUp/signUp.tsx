@@ -44,6 +44,26 @@ const SignUpForm = (props: any) => (
         <FormHelperText error={true} id="component-helper-text">
             {props.passwordError}
         </FormHelperText>
+        {props.password.length > 6 ? (
+            <TextField
+                label="Confirm Pasword"
+                name="passwordConf"
+                type="password"
+                style={{ width: "100%" }}
+                className=""
+                error={props.passwordConfError === true || props.passwordConfError === "" ? false : true}
+                value={props.passwordConf}
+                onChange={props.passwordConfChange}
+                margin="dense"
+            />
+        ) : null}
+        {props.passwordConfError === true || props.passwordConfError === "" ? (
+            false
+        ) : true ? (
+            <FormHelperText error={true} id="component-helper-text">
+                {props.passwordConfError}
+            </FormHelperText>
+        ) : null}
         <br />
         <br />
         <Button disabled={props.disButton} variant="outlined" color="primary" type="submit">

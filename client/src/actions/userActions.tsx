@@ -148,6 +148,12 @@ export const addEmail = (data: string) => ({
     type: types.ADD_EMAIL,
     data,
 });
+
+export const addPasswordConf = (data: string) => ({
+    type: types.ADD_PASSWORD_CONF,
+    data,
+});
+
 export const addPassword = (data: string) => ({
     type: types.ADD_PASSWORD,
     data,

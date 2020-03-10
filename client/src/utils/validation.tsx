@@ -47,6 +47,19 @@ export default {
             return "Field cannot be empty";
         }
     },
+    validatePasswordConf: (chars: string, password: string) => {
+        if (chars.length > 0) {
+            if (chars.length < 6) {
+                return "Must be at least 6 chars";
+            } else if (chars !== password) {
+                return "Passwords doesn't match";
+            } else {
+                return true;
+            }
+        } else {
+            return "Field cannot be empty";
+        }
+    },
     validateString: (chars: string) => {
         if (chars.length > 0) {
             if (chars.length > 6) {
