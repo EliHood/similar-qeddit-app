@@ -33,7 +33,7 @@ function Register(registerProps: any) {
     };
     const { username, email, password, passwordConf, passwordConfError, usernameError, passwordError, emailError } = registerProps.user;
 
-    const isEnabled = emailError === true && passwordError === true && usernameError === true ? false : true;
+    const isEnabled = passwordConfError === true && emailError === true && passwordError === true && usernameError === true ? false : true;
     return (
         <Fragment>
             <Typography variant="h4" style={{ letterSpacing: "2px" }}>
