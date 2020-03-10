@@ -2,6 +2,7 @@ import React, { useRef, Fragment } from "react";
 import PostForm from "../forms/createPost/createPost";
 import GridHoc from "../hoc/grid";
 import OurTabs from "../tabs/OurTabs";
+import { PostHook } from "../common/handleHook";
 export interface dashboardProps {
     getPostsInit: () => void;
     getPopPostsInit: () => void;
@@ -27,6 +28,7 @@ function Dashboard(props: dashboardProps) {
     // const [content, setContent] = useState<string>("");
     // const [value, setValue] = useState<number>(0);
     const didMountRef = useRef<Object>();
+    const { handleInputChange } = PostHook(props);
     React.useEffect(() => {
         if (!didMountRef.current) {
             props.getPostsInit();
@@ -37,15 +39,16 @@ function Dashboard(props: dashboardProps) {
         }
     }, []); // array prevents an infinite loop
 
-    const handleTitleChange = (e: any) => {
-        e.preventDefault();
-        props.addTitle(e.target.value);
-    };
+    // const handleTitleChange = (e: any) => {
+    //     e.preventDefault();
+    //     console.log(e.target.name);
+    //     props.addTitle(e.target.value);
+    // };
 
-    const handleContentChange = (e: any) => {
-        e.preventDefault();
-        props.addContent(e.target.value);
-    };
+    // const handleContentChange = (e: any) => {
+    //     e.preventDefault();
+    //     props.addContent(e.target.value);
+    // };
     const onSubmit = (e: any) => {
         e.preventDefault();
         const { title, postContent } = props;
@@ -60,8 +63,8 @@ function Dashboard(props: dashboardProps) {
             <PostForm
                 title={props.title}
                 postContent={props.postContent}
-                handleTitleChange={handleTitleChange}
-                handleContentChange={handleContentChange}
+                handleTitleChange={handleInputChange}
+                handleContentChange={handleInputChange}
                 onSubmit={onSubmit}
                 disButton={isEnabled}
                 titleError={props.titleError}
