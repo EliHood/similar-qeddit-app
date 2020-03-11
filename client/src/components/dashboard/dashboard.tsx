@@ -3,6 +3,7 @@ import PostForm from "../forms/createPost/createPost";
 import GridHoc from "../hoc/grid";
 import OurTabs from "../tabs/OurTabs";
 import { InputHook } from "../common/handleHook";
+import usePostsHook from "./../common/postsHook";
 export interface dashboardProps {
     getPostsInit: () => void;
     getPopPostsInit: () => void;
@@ -27,28 +28,19 @@ function Dashboard(props: dashboardProps) {
     // const [title, setTitle] = useState<string>("");
     // const [content, setContent] = useState<string>("");
     // const [value, setValue] = useState<number>(0);
-    const didMountRef = useRef<Object>();
     const { handleInputChange } = InputHook(props);
-    React.useEffect(() => {
-        if (!didMountRef.current) {
-            props.getPostsInit();
-            props.initCommentUpdates();
-            console.log("test");
-        } else {
-            console.log("this is component didupdate");
-        }
-    }, []); // array prevents an infinite loop
-
-    // const handleTitleChange = (e: any) => {
-    //     e.preventDefault();
-    //     console.log(e.target.name);
-    //     props.addTitle(e.target.value);
-    // };
-
-    // const handleContentChange = (e: any) => {
-    //     e.preventDefault();
-    //     props.addContent(e.target.value);
-    // };
+    // this hook
+    usePostsHook();
+    // replaces this
+    // React.useEffect(() => {
+    //     if (!didMountRef.current) {
+    //         props.getPostsInit();
+    //         props.initCommentUpdates();
+    //         console.log("test");
+    //     } else {
+    //         console.log("this is component didupdate");
+    //     }
+    // }, []); // array prevents an infinite loop
     const onSubmit = (e: any) => {
         e.preventDefault();
         const { title, postContent } = props;

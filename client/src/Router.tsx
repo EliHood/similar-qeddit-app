@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import React, { Fragment } from "react";
 import { Link, Route, Router, Switch } from "react-router-dom";
 import Notification from "./containers/notificationTooltip";
-import Landing from "./components/landing/landing";
+import Landing from "./containers/landing";
 import Dashboard from "./containers/dashboard";
 import EmailConfirmation from "./containers/emailConfirmation";
 import EmailConfirmationSuccess from "./containers/emailConfirmationSuccess";
@@ -167,7 +167,7 @@ function MyRouter(props) {
                 </Toolbar>
             </AppBar>
             <Switch>
-                <Route exact={true} path="/" component={Landing} />
+                <Route exact={true} path="/" component={Landing} {...props} />
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />
                 <Route path="/emailConfirmation" component={EmailConfirmation} {...props} />

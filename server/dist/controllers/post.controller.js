@@ -44,6 +44,8 @@ exports.default = {
             order: [["createdAt", "DESC"]],
             limit: 6
         });
+        let currentUser;
+        currentUser = req.session && req.session.user ? req.session.user.id : 0;
         posts.forEach(post => {
             if (post.Likes.length === 0) {
                 post.setDataValue("likedByMe", false);
@@ -55,9 +57,12 @@ exports.default = {
                         post.setDataValue("likedByMe", true);
                     }
                 }
-                else if (like.userId === req.session.user.id) {
+                else if (like.userId === currentUser) {
                     post.setDataValue("likedByMe", true);
                 }
+                // else if(like.userId !== currentUser) {
+                //   post.setDataValue("likedByMe", false);
+                // }
             });
         });
         return res.json(posts);

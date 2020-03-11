@@ -8,6 +8,7 @@ dotenv.config();
 export default {
   getPosts: async (req: any, res: Response) => {
     // use async/await here
+    
     const posts = await models.Post.findAll({
       include: [
         {
@@ -34,6 +35,8 @@ export default {
       order: [["createdAt", "DESC"]],
       limit: 6
     });
+    let currentUser;
+    currentUser = req.session && req.session.user ? req.session.user.id : 0
     posts.forEach(post => {
       if (post.Likes.length === 0) {
         post.setDataValue("likedByMe", false);
@@ -44,9 +47,12 @@ export default {
           if (like.userId === req.session.passport.user.id) {
             post.setDataValue("likedByMe", true);
           }
-        } else if (like.userId === req.session.user.id) {
+        } else if (like.userId === currentUser) {
           post.setDataValue("likedByMe", true);
-        }
+        } 
+        // else if(like.userId !== currentUser) {
+        //   post.setDataValue("likedByMe", false);
+        // }
       });
     });
 

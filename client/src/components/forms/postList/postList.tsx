@@ -13,8 +13,9 @@ import "react-toastify/dist/ReactToastify.css";
 import OurLink from "../../common/OurLink";
 import CommentForm from "../../forms/comment/CommentForm";
 import CommentList from "../../forms/commentList/CommentList";
-
+import OurModal from "../../common/OurModal";
 export default function PostList(props: any) {
+    const [openModal, setOpenModal] = useState(false);
     const [isComment, setIsComment] = useState(false);
     const [comment_body, setCommentBody] = useState("");
     const [gifUrl, setGifUrl] = useState("");
@@ -26,6 +27,14 @@ export default function PostList(props: any) {
             console.log("test");
         }
     });
+    const handleClickOpen = () => {
+        setOpenModal(true);
+    };
+    const handleCloseModal = () => {
+        console.log("testtt");
+        setOpenModal(false);
+    };
+
     const writeComment = (id) => {
         setIsComment(isComment ? "" : id);
     };
@@ -53,6 +62,8 @@ export default function PostList(props: any) {
         setCommentBody("");
     };
     const { posts, currentUser, notification } = props;
+    console.log(currentUser);
+    console.log(posts);
     return posts.length > 0 ? (
         posts.map((post, i) => (
             <Fragment key={i}>
@@ -102,14 +113,25 @@ export default function PostList(props: any) {
                             </Grid>
                             <Grid item={true} sm={2} lg={2} style={{ padding: "0px 15px" }}>
                                 <Typography align="right">
-                                    {post.likedByMe === true ? (
-                                        <span style={{ cursor: "pointer" }} onClick={() => props.dislikePost(post.id)}>
-                                            <FavoriteIcon style={{ color: "red" }} />
-                                        </span>
+                                    {Object.entries(currentUser).length === 0 ? (
+                                        <Fragment>
+                                            <span onClick={handleClickOpen}>
+                                                <FavoriteBorderIcon style={{ color: "red", cursor: "pointer" }} />
+                                            </span>
+                                            {openModal ? <OurModal open={openModal} handleClose={handleCloseModal} /> : null}
+                                        </Fragment>
                                     ) : (
-                                        <span onClick={() => props.likePost(post.id)}>
-                                            <FavoriteBorderIcon style={{ color: "red", cursor: "pointer" }} />
-                                        </span>
+                                        <Fragment>
+                                            {post.likedByMe === true ? (
+                                                <span style={{ cursor: "pointer" }} onClick={() => props.dislikePost(post.id)}>
+                                                    <FavoriteIcon style={{ color: "red" }} />
+                                                </span>
+                                            ) : (
+                                                <span onClick={() => props.likePost(post.id)}>
+                                                    <FavoriteBorderIcon style={{ color: "red", cursor: "pointer" }} />
+                                                </span>
+                                            )}
+                                        </Fragment>
                                     )}
                                 </Typography>
                             </Grid>
@@ -119,9 +141,20 @@ export default function PostList(props: any) {
                             {moment(post.createdAt).calendar()}
                         </Typography>
                         <Grid item={true} sm={12} lg={12} style={{ paddingTop: "40px" }}>
-                            <Button onClick={() => writeComment(post.id)} variant="outlined" component="span" color="primary">
-                                {isComment === post.id ? "Close" : "Write A Comment"}
-                            </Button>
+                            {Object.entries(currentUser).length === 0 ? (
+                                <Fragment>
+                                    <Button onClick={handleClickOpen} variant="outlined" component="span" color="primary">
+                                        {"Write A Comment"}
+                                    </Button>
+                                    {openModal ? <OurModal open={openModal} handleClose={handleCloseModal} /> : null}
+                                </Fragment>
+                            ) : (
+                                <Fragment>
+                                    <Button onClick={() => writeComment(post.id)} variant="outlined" component="span" color="primary">
+                                        {isComment === post.id ? "Close" : "Write A Comment"}
+                                    </Button>
+                                </Fragment>
+                            )}
                             {isComment === post.id ? (
                                 <CommentForm
                                     commentChange={(e: any) => commentChange(e.target.value)}
