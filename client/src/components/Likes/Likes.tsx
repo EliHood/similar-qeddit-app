@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import PostList from "../forms/postList/postList";
 import GridHoc from "../hoc/grid";
+import usePostsHook from "./../common/postsHook";
 export interface IProps {
     match?: any;
     user?: any;
@@ -23,30 +24,27 @@ export interface IProps {
     notificationInit: () => void;
     notification: string;
 }
-class Likes extends Component<IProps, {}> {
-    componentDidMount() {
-        this.props.getPostsInit();
-    }
-    render() {
-        console.log(this.props.posts); // this needs to be passed to container
-        return (
-            <Fragment>
-                <PostList
-                    likePost={this.props.likePost}
-                    deletePost={this.props.deletePostInit}
-                    deleteComment={this.props.deleteComment}
-                    dislikePost={this.props.dislikePost}
-                    posts={this.props.posts}
-                    currentUser={this.props.user}
-                    postComment={this.props.postCommentInit}
-                    isNotified={this.props.isNotified}
-                    getNotifications={this.props.notificationInit}
-                    notification={this.props.notification}
-                />
-            </Fragment>
-        );
-    }
+function Likes(props: IProps) {
+    usePostsHook();
+    console.log(props.posts); // this needs to be passed to container
+    console.log("test");
+    return (
+        <Fragment>
+            <PostList
+                likePost={props.likePost}
+                deletePost={props.deletePostInit}
+                deleteComment={props.deleteComment}
+                dislikePost={props.dislikePost}
+                posts={props.posts}
+                currentUser={props.user}
+                postComment={props.postCommentInit}
+                isNotified={props.isNotified}
+                getNotifications={props.notificationInit}
+                notification={props.notification}
+            />
+        </Fragment>
+    );
 }
 
-export default GridHoc(Likes);
+export default GridHoc(React.memo(Likes));
 export { Likes as LikesComponent };

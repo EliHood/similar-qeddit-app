@@ -8,7 +8,7 @@ import OurListItem from "../../common/OurListItem";
 import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
 import moment from "moment";
 import React, { Fragment, useState } from "react";
-export default function CommentList(props: any) {
+function CommentList(props: any) {
     const [showMore, setShowMore] = useState<Number>(3);
     const [showLessFlag, setShowLessFlag] = useState<Boolean>(false);
     const showComments = (e) => {
@@ -21,6 +21,7 @@ export default function CommentList(props: any) {
         setShowMore(3);
         setShowLessFlag(false);
     };
+
     return (
         <Grid>
             {props.comments.slice(0, showMore).map((comment, i) => (
@@ -71,3 +72,5 @@ export default function CommentList(props: any) {
         </Grid>
     );
 }
+// prevents un-necesary re renders
+export default React.memo(CommentList);

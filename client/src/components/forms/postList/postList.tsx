@@ -1,3 +1,4 @@
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -7,14 +8,13 @@ import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined"
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import moment from "moment";
-import React, { Fragment, useEffect, useRef, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import OurLink from "../../common/OurLink";
 import CommentForm from "../../forms/comment/CommentForm";
 import CommentList from "../../forms/commentList/CommentList";
 import OurModal from "../../common/OurModal";
-export default function PostList(props: any) {
+function PostList(props: any) {
     const [openModal, setOpenModal] = useState(false);
     const [isComment, setIsComment] = useState(false);
     const [comment_body, setCommentBody] = useState("");
@@ -64,6 +64,7 @@ export default function PostList(props: any) {
     const { posts, currentUser, notification } = props;
     console.log(currentUser);
     console.log(posts);
+
     return posts.length > 0 ? (
         posts.map((post, i) => (
             <Fragment key={i}>
@@ -189,3 +190,5 @@ export default function PostList(props: any) {
         </div>
     );
 }
+
+export default React.memo(PostList);
