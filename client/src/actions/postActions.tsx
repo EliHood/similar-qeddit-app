@@ -162,3 +162,18 @@ export const commentUpdatesFailure = (err: object) => ({
     type: types.COMMENT_UPDATES_FAILURE,
     err,
 });
+
+export const editCommentInit = (payload) => ({
+    type: types.EDIT_COMMENT_INIT,
+    payload,
+});
+
+export const editCommentSuccess = (payload: object) => ({
+    type: types.EDIT_COMMENT_SUCCESS,
+    payload,
+});
+
+export const editCommentFailure = (err: object) => ({
+    type: types.EDIT_COMMENT_FAILURE,
+    err,
+});

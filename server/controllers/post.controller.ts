@@ -214,6 +214,46 @@ export default {
     }
 
   },
+  editComment: async(req:any, res: Response) => {
+    let currentUser;
+    let transaction;
+    console.log('testtttt',req.body)
+    if (req.session.passport) {
+      currentUser = req.session.passport.user.id;
+    } else {
+      currentUser = req.session.user.id;
+    } 
+    if(req.body.comment_body && req.body.gifUrl){
+      return res.status(401).send({
+        message: "Can\'t edit both"
+      })
+    }
+
+   try{
+
+      transaction = await models.sequelize.transaction();
+      return models.Comments.update({
+        comment_body:req.body.commentData ? req.body.commentData : "",
+        gifUrl: req.body.gifUrl ? req.body.gifUrl : ""
+      },{
+        where: {
+          id: req.params.commentId,
+        },
+      },
+      { transaction }).then(async(comment) => {
+        console.log("anothfdf", comment);
+        await transaction.commit();
+        return res.status(200).send({
+          message: "Comment Edited Successfully",
+        });
+      })
+   } catch(err){
+     console.log("something went wrong", err);
+     res.status(401).send({
+       message:"Something went wrong"
+     })
+   }  
+  },
   deletePost: async (req:any, res:Response) => {
     let currentUser;
     if (req.session.passport) {

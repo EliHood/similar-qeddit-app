@@ -218,6 +218,45 @@ exports.default = {
             });
         }
     }),
+    editComment: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        let currentUser;
+        let transaction;
+        console.log('testtttt', req.body);
+        if (req.session.passport) {
+            currentUser = req.session.passport.user.id;
+        }
+        else {
+            currentUser = req.session.user.id;
+        }
+        if (req.body.comment_body && req.body.gifUrl) {
+            return res.status(401).send({
+                message: "Can\'t edit both"
+            });
+        }
+        try {
+            transaction = yield models_1.default.sequelize.transaction();
+            return models_1.default.Comments.update({
+                comment_body: req.body.commentData ? req.body.commentData : "",
+                gifUrl: req.body.gifUrl ? req.body.gifUrl : ""
+            }, {
+                where: {
+                    id: req.params.commentId,
+                },
+            }, { transaction }).then((comment) => __awaiter(void 0, void 0, void 0, function* () {
+                console.log("anothfdf", comment);
+                yield transaction.commit();
+                return res.status(200).send({
+                    message: "Comment Edited Successfully",
+                });
+            }));
+        }
+        catch (err) {
+            console.log("something went wrong", err);
+            res.status(401).send({
+                message: "Something went wrong"
+            });
+        }
+    }),
     deletePost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         let currentUser;
         if (req.session.passport) {

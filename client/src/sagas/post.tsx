@@ -91,6 +91,17 @@ export function* createPost(action) {
     }
 }
 
+export function* editComment(action) {
+    try {
+        console.log(action);
+        const data = action.payload;
+        const comment = yield call(api.post.editComment, action.payload.id, { commentData: action.payload.comment_body });
+        yield put(actionTypes.editCommentSuccess({ comment, data }));
+    } catch (err) {
+        yield put(actionTypes.editCommentFailure(err));
+    }
+}
+
 export function* likePost(action) {
     try {
         console.log(action);
@@ -162,6 +173,10 @@ export function* watchFetchPost() {
 //   yield takeEvery(types.INIT_NOTIFICATION, getNotification)
 // }
 
+export function* watchEditComment() {
+    yield takeLatest(types.EDIT_COMMENT_INIT, editComment);
+}
+
 export function* watchDeletePost() {
     yield takeLatest(types.DELETE_POST_INIT, deletePost);
 }
@@ -195,5 +210,6 @@ export default function*() {
     yield fork(watchDeleteComment);
     yield fork(watchCreatePost);
     yield fork(watchLikePost);
+    yield fork(watchEditComment);
     yield fork(watchdisLikePost);
 }

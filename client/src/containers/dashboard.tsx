@@ -8,6 +8,7 @@ import {
     initCommentUpdates,
     deletePostInit,
     dislikePostInit,
+    editCommentInit,
     getPostsInit,
     likePostInit,
     notificationInit,
@@ -25,6 +26,7 @@ const mapDispatchToProps = (dispatch: any) => ({
     postCommentInit: (commentData: object) => dispatch(postCommentInit(commentData)),
     dislikePost: (id: number) => dispatch(dislikePostInit(id)),
     deletePostInit: (id: number, userId: number) => dispatch(deletePostInit(id, userId)),
+    editCommentInit: (commentData) => dispatch(editCommentInit(commentData)),
     deleteComment: (id: number, postId: number, userId: number) => dispatch(deleteCommentInit(id, postId, userId)),
     createPostInit: (postData: object) => dispatch(createPostInit(postData)),
 });

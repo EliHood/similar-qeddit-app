@@ -95,6 +95,16 @@ const postReducer = (state = initialState, action: any): postState =>
                 draft.postContent = action.data;
                 draft.bodyError = validation.validateContent(action.data);
                 return;
+            case types.EDIT_COMMENT_SUCCESS:
+                console.log(action);
+                const postKey = state.posts.findIndex((x) => x.id === action.payload.data.postId);
+                const commentKey = draft.posts[postKey].Comments.findIndex((x) => x.id === action.payload.data.id);
+                draft.posts[postKey].Comments[commentKey].comment_body = action.payload.data.comment_body;
+                return;
+            case types.EDIT_COMMENT_FAILURE:
+                console.log(action);
+                draft.error = action.data;
+                return;
             case types.DELETE_COMMENT_SUCCESS:
                 const newPostKey = state.posts.findIndex((x) => x.id === action.postId);
                 draft.posts[newPostKey].Comments = [...draft.posts[newPostKey].Comments.filter((item) => item.id !== action.id)];

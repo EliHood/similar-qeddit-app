@@ -8,6 +8,7 @@ export interface dashboardProps {
     getPostsInit: () => void;
     getPopPostsInit: () => void;
     deletePostInit: (id: number) => void;
+    editCommentInit: (commentData) => void;
     postCommentInit: (event: object) => void;
     titleError?: boolean;
     bodyError?: boolean;
@@ -49,7 +50,6 @@ function Dashboard(props: dashboardProps) {
         props.createPostInit(postData);
     };
     const isEnabled = props.titleError === true && props.bodyError === true ? false : true;
-
     return (
         <Fragment>
             <PostForm

@@ -2,15 +2,13 @@ import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
 import Typography from "@material-ui/core/Typography";
 import CommentItem from "./../commentItem/CommentItem";
-import OurListItem from "../../common/OurListItem";
-import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
 import moment from "moment";
 import React, { Fragment, useState } from "react";
 function CommentList(props: any) {
     const [showMore, setShowMore] = useState<Number>(3);
+    const [editComment, setEditComment] = useState(false);
     const [showLessFlag, setShowLessFlag] = useState<Boolean>(false);
     const showComments = (e) => {
         e.preventDefault();
@@ -22,7 +20,6 @@ function CommentList(props: any) {
         setShowMore(3);
         setShowLessFlag(false);
     };
-
     return (
         <Grid>
             {props.comments.slice(0, showMore).map((comment, i) => (
@@ -31,17 +28,7 @@ function CommentList(props: any) {
                         <Typography style={{ display: "block", fontWeight: 700, padding: "5px 0px" }} variant="h6" align="left">
                             {comment.author.username}
                         </Typography>
-                        <OurListItem>
-                            <CommentItem comment={comment} />
-                        </OurListItem>
-                        {props.user && props.user.user && comment.userId === props.user.user.id ? (
-                            <Typography style={{ display: "inline-block", float: "right" }} align="right">
-                                <span style={{ cursor: "pointer" }} onClick={() => props.deleteComment(comment.id, props.postId, comment.userId)}>
-                                    <DeleteOutlineOutlinedIcon style={{ margin: "-5px 0px" }} color="primary" /> <span>Delete</span>
-                                </span>
-                            </Typography>
-                        ) : null}
-
+                        <CommentItem comment={comment} user={props.user} postId={props.postId} {...props} />
                         <Typography style={{ fontSize: "12px" }} variant="body1" align="left">
                             {moment(comment.createdAt).calendar()}
                         </Typography>

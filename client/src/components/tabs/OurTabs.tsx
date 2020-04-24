@@ -43,6 +43,7 @@ export default function OurTabs(props) {
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         setValue(newValue);
     };
+    console.log(props);
     return (
         <div className={classes.root}>
             <Tabs className="tabMenu" value={value} onChange={handleChange} aria-label="simple tabs example">
@@ -59,6 +60,7 @@ export default function OurTabs(props) {
                     currentUser={props.user}
                     postComment={props.postCommentInit}
                     isNotified={props.isNotified}
+                    editComment={props.editCommentInit}
                     getNotifications={props.notificationInit}
                     notification={props.notification}
                 />
@@ -69,6 +71,7 @@ export default function OurTabs(props) {
                     dislikePost={props.dislikePost}
                     deleteComment={props.deleteComment}
                     deletePost={props.deletePostInit}
+                    editComment={props.editCommentInit}
                     posts={props.posts}
                     currentUser={props.user}
                     postComment={props.postCommentInit}
