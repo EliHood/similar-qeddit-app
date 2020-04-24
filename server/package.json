@@ -59,7 +59,7 @@
     "pg": "^7.12.1",
     "pusher": "^3.0.0",
     "reflect-metadata": "^0.1.13",
-    "sequelize": "^5.19.6",
+    "sequelize": "^5.21.7",
     "sequelize-cli": "^5.5.1",
     "sequelize-cli-typescript": "^3.2.0-c",
     "sequelize-typescript": "^1.0.0",

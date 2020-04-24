@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Typography from "@material-ui/core/Typography";
+import CommentItem from "./../commentItem/CommentItem";
 import OurListItem from "../../common/OurListItem";
 import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
 import moment from "moment";
@@ -27,15 +28,11 @@ function CommentList(props: any) {
             {props.comments.slice(0, showMore).map((comment, i) => (
                 <div key={i}>
                     <List style={{ paddingBottom: "20px" }}>
+                        <Typography style={{ display: "block", fontWeight: 700, padding: "5px 0px" }} variant="h6" align="left">
+                            {comment.author.username}
+                        </Typography>
                         <OurListItem>
-                            <Typography color="primary" align="left">
-                                {comment.comment_body}
-                            </Typography>
-                            {comment.gifUrl && (
-                                <div style={{ display: "block" }}>
-                                    <img width="100%" height="300px" src={`${comment.gifUrl}`} />
-                                </div>
-                            )}
+                            <CommentItem comment={comment} />
                         </OurListItem>
                         {props.user && props.user.user && comment.userId === props.user.user.id ? (
                             <Typography style={{ display: "inline-block", float: "right" }} align="right">
@@ -44,13 +41,11 @@ function CommentList(props: any) {
                                 </span>
                             </Typography>
                         ) : null}
-                        <Typography style={{ padding: "0px 0px" }} variant="caption" align="left">
-                            {comment.author.username}
-                        </Typography>
+
                         <Typography style={{ fontSize: "12px" }} variant="body1" align="left">
                             {moment(comment.createdAt).calendar()}
                         </Typography>
-                        <Divider variant="fullWidth" component="li" />
+                        <Divider style={{ margin: "20px 0px" }} variant="fullWidth" component="li" />
                     </List>
                 </div>
             ))}
