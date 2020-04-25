@@ -25,7 +25,7 @@ function CommentItem(props) {
         setEditComment(false);
         console.log("test");
     };
-
+    console.log("ssdd", props.user);
     return (
         <Fragment>
             {editComment && props.comment.comment_body ? (
@@ -73,20 +73,25 @@ function CommentItem(props) {
                 </Fragment>
             ) : (
                 <Fragment>
-                    {props.user && props.user.user && props.comment.userId === props.user.user.id ? (
-                        <Typography style={{ display: "inline-block", float: "right" }} align="right">
-                            <span style={{ cursor: "pointer" }} onClick={() => props.deleteComment(props.comment.id, props.postId, props.comment.userId)}>
-                                <DeleteOutlineOutlinedIcon style={{ margin: "-5px 0px" }} color="primary" /> <span>Delete</span>
-                            </span>
-                        </Typography>
-                    ) : null}
-                    {/* hide edit button if gifUrl */}
-                    {!props.comment.gifUrl && props.comment.userId === props.user.user.id ? (
-                        <Typography style={{ display: "inline-block", margin: "0px 20px", float: "right" }} align="left">
-                            <span style={{ cursor: "pointer" }} onClick={() => setEditComment(true)}>
-                                <EditIcon style={{ margin: "-5px 0px" }} color="primary" /> <span>Edit</span>
-                            </span>
-                        </Typography>
+                    {/* if guest is on home page */}
+                    {Object.entries(props.user).length !== 0 ? (
+                        <Fragment>
+                            {props.user && props.user.user && props.comment.userId === props.user.user.id ? (
+                                <Typography style={{ display: "inline-block", float: "right" }} align="right">
+                                    <span style={{ cursor: "pointer" }} onClick={() => props.deleteComment(props.comment.id, props.postId, props.comment.userId)}>
+                                        <DeleteOutlineOutlinedIcon style={{ margin: "-5px 0px" }} color="primary" /> <span>Delete</span>
+                                    </span>
+                                </Typography>
+                            ) : null}
+                            {/* hide edit button if gifUrl */}
+                            {!props.comment.gifUrl && props.comment.userId === props.user.user.id ? (
+                                <Typography style={{ display: "inline-block", margin: "0px 20px", float: "right" }} align="left">
+                                    <span style={{ cursor: "pointer" }} onClick={() => setEditComment(true)}>
+                                        <EditIcon style={{ margin: "-5px 0px" }} color="primary" /> <span>Edit</span>
+                                    </span>
+                                </Typography>
+                            ) : null}
+                        </Fragment>
                     ) : null}
                 </Fragment>
             )}
