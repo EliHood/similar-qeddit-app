@@ -23,6 +23,7 @@ function CommentItem(props) {
         };
         props.editComment(data);
         setEditComment(false);
+        console.log("test");
     };
 
     return (
