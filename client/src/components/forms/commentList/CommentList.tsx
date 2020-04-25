@@ -30,7 +30,7 @@ function CommentList(props: any) {
         setShowMore(3);
         setShowLessFlag(false);
     };
-    console.log("ff");
+
     return (
         <Grid>
             {props.comments.slice(0, showMore).map((comment, i) => (
