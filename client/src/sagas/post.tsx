@@ -5,7 +5,7 @@ import { call, fork, put, take, takeLatest } from "redux-saga/effects";
 import * as actionTypes from "../actions/postActions";
 import * as types from "../actionTypes/postActionTypes";
 import api from "../api/api";
-function createEventChannel(pusher: Pusher.Pusher) {
+function createEventChannel(pusher: Pusher) {
     return eventChannel((emitter) => {
         const channel = pusher.subscribe("notification");
         channel.bind("my-event", (data: string) => {
@@ -18,7 +18,7 @@ function createEventChannel(pusher: Pusher.Pusher) {
     });
 }
 
-function createCommentChannel(pusher: Pusher.Pusher) {
+function createCommentChannel(pusher: Pusher) {
     return eventChannel((emitter) => {
         const channel = pusher.subscribe("post-comments");
         channel.bind("new-comment", (data: string) => {

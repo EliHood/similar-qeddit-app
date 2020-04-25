@@ -1685,10 +1685,10 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
   integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
 
-"@types/pusher-js@^4.2.2":
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/@types/pusher-js/-/pusher-js-4.2.2.tgz#129fae1854255c5883e874137cd045c48d0a422a"
-  integrity sha512-LP9isBRAFlNzQohQtySJxJjzmy4zQCcv5xGZD2G3rsDnTWfpEkFKyLw3x9711pFAXwwUl9ZivxKkcnFr8umSAQ==
+"@types/pusher-js@3.0.24-alpha":
+  version "3.0.24-alpha"
+  resolved "https://registry.yarnpkg.com/@types/pusher-js/-/pusher-js-3.0.24-alpha.tgz#ce6ac61d764b2b93b560775e1dfb78dfc28e0fe8"
+  integrity sha1-zmrGHXZLK5O1YHdeHft438KOD+g=
 
 "@types/q@^1.5.1":
   version "1.5.2"
