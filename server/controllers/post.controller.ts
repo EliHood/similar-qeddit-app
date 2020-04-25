@@ -228,31 +228,37 @@ export default {
         message: "Can\'t edit both"
       })
     }
-
-   try{
-
-      transaction = await models.sequelize.transaction();
-      return models.Comments.update({
-        comment_body:req.body.commentData ? req.body.commentData : "",
-        gifUrl: req.body.gifUrl ? req.body.gifUrl : ""
-      },{
-        where: {
-          id: req.params.commentId,
+    console.log('dfdfdfd',req.params.userId, currentUser)
+    if(req.params.userId != currentUser){
+      return res.status(401).send({
+        message: "Can\'t edit another users post"
+      });
+    } else{
+      try{
+        transaction = await models.sequelize.transaction();
+        return models.Comments.update({
+          comment_body:req.body.commentData ? req.body.commentData : "",
+          gifUrl: req.body.gifUrl ? req.body.gifUrl : ""
+        },{
+          where: {
+            id: req.params.commentId,
+          },
         },
-      },
-      { transaction }).then(async(comment) => {
-        console.log("anothfdf", comment);
-        await transaction.commit();
-        return res.status(200).send({
-          message: "Comment Edited Successfully",
-        });
-      })
-   } catch(err){
-     console.log("something went wrong", err);
-     res.status(401).send({
-       message:"Something went wrong"
-     })
-   }  
+        { transaction }).then(async(comment) => {
+          console.log("anothfdf", comment);
+          await transaction.commit();
+          return res.status(200).send({
+            message: "Comment Edited Successfully",
+          });
+        })
+     } catch(err){
+       console.log("something went wrong", err);
+       res.status(401).send({
+         message:"Something went wrong"
+       })
+     }  
+    }
+   
   },
   deletePost: async (req:any, res:Response) => {
     let currentUser;

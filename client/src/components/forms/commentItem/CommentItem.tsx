@@ -14,14 +14,17 @@ function CommentItem(props) {
     const [isGifSelected, setGifSelected] = useState<Boolean>(false);
     const [editComment, setEditComment] = useState(false);
     const update = (comment) => {
+        console.log(comment);
         const data = {
             comment_body: commentEdit,
             id: comment.id,
             postId: comment.postId,
+            userId: comment.userId,
         };
         props.editComment(data);
         setEditComment(false);
     };
+
     return (
         <Fragment>
             {editComment && props.comment.comment_body ? (
@@ -53,6 +56,7 @@ function CommentItem(props) {
                     )}
                 </Fragment>
             )}
+
             {props.comment.comment_body && editComment ? (
                 <Fragment>
                     <Typography style={{ display: "inline-block", margin: "0px 20px", float: "right" }} align="left">
@@ -76,7 +80,7 @@ function CommentItem(props) {
                         </Typography>
                     ) : null}
                     {/* hide edit button if gifUrl */}
-                    {!props.comment.gifUrl ? (
+                    {!props.comment.gifUrl && props.comment.userId === props.user.user.id ? (
                         <Typography style={{ display: "inline-block", margin: "0px 20px", float: "right" }} align="left">
                             <span style={{ cursor: "pointer" }} onClick={() => setEditComment(true)}>
                                 <EditIcon style={{ margin: "-5px 0px" }} color="primary" /> <span>Edit</span>

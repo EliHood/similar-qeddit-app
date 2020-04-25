@@ -95,7 +95,7 @@ export function* editComment(action) {
     try {
         console.log(action);
         const data = action.payload;
-        const comment = yield call(api.post.editComment, action.payload.id, { commentData: action.payload.comment_body });
+        const comment = yield call(api.post.editComment, action.payload.id, action.payload.userId, { commentData: action.payload.comment_body });
         yield put(actionTypes.editCommentSuccess({ comment, data }));
     } catch (err) {
         yield put(actionTypes.editCommentFailure(err));
