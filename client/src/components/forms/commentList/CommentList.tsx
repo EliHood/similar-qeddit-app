@@ -5,15 +5,25 @@ import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import CommentItem from "./../commentItem/CommentItem";
 import moment from "moment";
+import OurLink from "../../common/OurLink";
 import React, { Fragment, useState } from "react";
+import OurModal from "../../common/OurModal";
 function CommentList(props: any) {
     const [showMore, setShowMore] = useState<Number>(3);
+    const [openModal, setOpenModal] = useState(false);
     const [editComment, setEditComment] = useState(false);
     const [showLessFlag, setShowLessFlag] = useState<Boolean>(false);
     const showComments = (e) => {
         e.preventDefault();
         setShowMore(12);
         setShowLessFlag(true);
+    };
+    const handleClickOpen = () => {
+        setOpenModal(true);
+    };
+    const handleCloseModal = () => {
+        console.log("testtt");
+        setOpenModal(false);
     };
     const showLessComments = (e) => {
         e.preventDefault();
@@ -26,7 +36,21 @@ function CommentList(props: any) {
                 <div key={i}>
                     <List style={{ paddingBottom: "20px" }}>
                         <Typography style={{ display: "block", fontWeight: 700, padding: "5px 0px" }} variant="h6" align="left">
-                            {comment.author.username}
+                            {Object.entries(props.currentUser).length === 0 ? (
+                                <Fragment>
+                                    <span style={{ cursor: "pointer" }} onClick={handleClickOpen}>
+                                        {comment.author.username}
+                                    </span>
+                                    {openModal ? <OurModal open={openModal} handleClose={handleCloseModal} /> : null}
+                                </Fragment>
+                            ) : (
+                                <OurLink
+                                    to={{
+                                        pathname: `/profile/${comment.author.username}`,
+                                    }}
+                                    title={comment.author.username}
+                                />
+                            )}
                         </Typography>
                         <CommentItem comment={comment} user={props.user} postId={props.postId} {...props} />
                         <Typography style={{ fontSize: "12px" }} variant="body1" align="left">
