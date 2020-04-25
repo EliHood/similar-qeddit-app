@@ -9,7 +9,7 @@ function createEventChannel(pusher: Pusher) {
     return eventChannel((emitter) => {
         const channel = pusher.subscribe("notification");
         channel.bind("my-event", (data: string) => {
-            console.log(data);
+            console.log("sdd", data);
             // we need an emitter for notificationSuccess method to work
             emitter(data);
             toast.success(data);
