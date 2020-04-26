@@ -25,7 +25,6 @@ function CommentItem(props) {
         setEditComment(false);
         console.log("test");
     };
-    console.log("ssdd", props.user);
     return (
         <Fragment>
             {editComment && props.comment.comment_body ? (

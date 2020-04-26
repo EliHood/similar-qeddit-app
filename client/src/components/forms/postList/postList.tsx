@@ -62,9 +62,8 @@ function PostList(props: any) {
         setCommentBody("");
     };
     const { posts, currentUser, notification } = props;
-    console.log(currentUser);
-    console.log(posts);
-
+    // console.log(currentUser);
+    // console.log(posts);
     return posts.length > 0 ? (
         posts.map((post, i) => (
             <Fragment key={i}>
