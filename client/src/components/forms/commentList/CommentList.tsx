@@ -15,7 +15,7 @@ function CommentList(props: any) {
     const [showLessFlag, setShowLessFlag] = useState<Boolean>(false);
     const showComments = (e) => {
         e.preventDefault();
-        setShowMore(12);
+        setShowMore(4);
         setShowLessFlag(true);
     };
     const handleClickOpen = () => {
@@ -31,9 +31,12 @@ function CommentList(props: any) {
         setShowLessFlag(false);
     };
 
-    return (
-        <Grid>
-            {props.comments.slice(0, showMore).map((comment, i) => (
+    const showMoreComments = () => {
+        console.log("this got called");
+        return props.comments
+            .slice(0)
+            .sort((a, b) => a.id - b.id)
+            .map((comment, i) => (
                 <div key={i}>
                     <List style={{ paddingBottom: "20px" }}>
                         <Typography style={{ display: "block", fontWeight: 700, padding: "5px 0px" }} variant="h6" align="left">
@@ -60,7 +63,52 @@ function CommentList(props: any) {
                         <Divider style={{ margin: "20px 0px" }} variant="fullWidth" component="li" />
                     </List>
                 </div>
-            ))}
+            ));
+    };
+
+    return (
+        <Grid>
+            {showLessFlag === true ? (
+                // will show most recent comments below
+                showMoreComments()
+            ) : (
+                <Fragment>
+                    {/* filter based on first comment  */}
+                    {props.comments
+                        .filter((item, i) => item)
+                        .sort((a, b) => a.id - b.id)
+                        .slice(0, 3)
+                        .map((comment, i) => (
+                            <div key={i}>
+                                <List style={{ paddingBottom: "20px" }}>
+                                    <Typography style={{ display: "block", fontWeight: 700, padding: "5px 0px" }} variant="h6" align="left">
+                                        {Object.entries(props.currentUser).length === 0 ? (
+                                            <Fragment>
+                                                <span style={{ cursor: "pointer" }} onClick={handleClickOpen}>
+                                                    {comment.author.username}
+                                                </span>
+                                                {openModal ? <OurModal open={openModal} handleClose={handleCloseModal} /> : null}
+                                            </Fragment>
+                                        ) : (
+                                            <OurLink
+                                                to={{
+                                                    pathname: `/profile/${comment.author.username}`,
+                                                }}
+                                                title={comment.author.username}
+                                            />
+                                        )}
+                                    </Typography>
+                                    <CommentItem comment={comment} user={props.user} postId={props.postId} {...props} />
+                                    <Typography style={{ fontSize: "12px" }} variant="body1" align="left">
+                                        {moment(comment.createdAt).calendar()}
+                                    </Typography>
+                                    <Divider style={{ margin: "20px 0px" }} variant="fullWidth" component="li" />
+                                </List>
+                            </div>
+                        ))}
+                </Fragment>
+            )}
+
             <Fragment>
                 {props.comments.length > 3 && showLessFlag === false ? (
                     <Button onClick={(e) => showComments(e)} variant="outlined" component="span" color="primary">
