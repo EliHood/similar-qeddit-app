@@ -51,7 +51,7 @@ function CommentItem(props) {
                     </Typography>
                     {!props.edit && props.comment.gifUrl && (
                         <div style={{ display: "block" }}>
-                            <img width="100%" height="300px" src={`${props.comment.gifUrl}`} />
+                            <img src={`${props.comment.gifUrl}`} />
                         </div>
                     )}
                 </Fragment>

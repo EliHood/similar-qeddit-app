@@ -15,7 +15,7 @@ function CommentList(props: any) {
     const [showLessFlag, setShowLessFlag] = useState<Boolean>(false);
     const showComments = (e) => {
         e.preventDefault();
-        setShowMore(4);
+        setShowMore(12);
         setShowLessFlag(true);
     };
     const handleClickOpen = () => {
