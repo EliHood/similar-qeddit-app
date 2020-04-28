@@ -18,6 +18,8 @@ import Profile from "./containers/profilePage";
 import Register from "./containers/signup";
 import { history } from "./ourHistory";
 import PrivateRoute from "./PrivateRoute";
+import NotFound from "./components/404/404";
+import GridHoc from "./components/hoc/grid";
 function MyRouter(props) {
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const handleClose = () => {
@@ -178,6 +180,7 @@ function MyRouter(props) {
                 <PrivateRoute exact={true} path="/:userId/likes" component={Likes} {...props} />
                 <PrivateRoute exact={true} path="/dashboard" component={Dashboard} {...props} />
                 <PrivateRoute path="/post/:id" component={Post} {...props} />
+                <Route component={NotFound} />
             </Switch>
         </Router>
     );
