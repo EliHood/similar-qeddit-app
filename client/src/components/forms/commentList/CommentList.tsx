@@ -68,6 +68,23 @@ function CommentList(props: any) {
 
     return (
         <Grid>
+            <Fragment>
+                <div style={{ margin: "30px 0px" }}>
+                    {props.comments.length > 3 && showLessFlag === false ? (
+                        <Button onClick={(e) => showComments(e)} variant="outlined" component="span" color="primary">
+                            View older Comments
+                        </Button>
+                    ) : (
+                        <Fragment>
+                            {props.comments.length > 3 && (
+                                <Button onClick={(e) => showLessComments(e)} variant="outlined" component="span" color="primary">
+                                    Show Less Comments
+                                </Button>
+                            )}
+                        </Fragment>
+                    )}
+                </div>
+            </Fragment>
             {showLessFlag === true ? (
                 // will show most recent comments below
                 showMoreComments()
@@ -76,7 +93,7 @@ function CommentList(props: any) {
                     {/* filter based on first comment  */}
                     {props.comments
                         .filter((item, i) => item)
-                        .sort((a, b) => a.id - b.id)
+                        .sort((a, b) => b.id - a.id)
                         .slice(0, 3)
                         .map((comment, i) => (
                             <div key={i}>
@@ -108,22 +125,6 @@ function CommentList(props: any) {
                         ))}
                 </Fragment>
             )}
-
-            <Fragment>
-                {props.comments.length > 3 && showLessFlag === false ? (
-                    <Button onClick={(e) => showComments(e)} variant="outlined" component="span" color="primary">
-                        Show More Comments
-                    </Button>
-                ) : (
-                    <Fragment>
-                        {props.comments.length > 3 && (
-                            <Button onClick={(e) => showLessComments(e)} variant="outlined" component="span" color="primary">
-                                Show Less Comments
-                            </Button>
-                        )}
-                    </Fragment>
-                )}
-            </Fragment>
         </Grid>
     );
 }
