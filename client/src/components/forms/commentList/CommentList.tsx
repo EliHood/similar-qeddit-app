@@ -1,4 +1,3 @@
-import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
@@ -7,6 +6,7 @@ import CommentItem from "./../commentItem/CommentItem";
 import moment from "moment";
 import OurLink from "../../common/OurLink";
 import React, { Fragment, useState } from "react";
+import OurSecondaryButton from "../../common/OurSecondaryButton";
 import OurModal from "../../common/OurModal";
 function CommentList(props: any) {
     const [showMore, setShowMore] = useState<Number>(3);
@@ -71,15 +71,15 @@ function CommentList(props: any) {
             <Fragment>
                 <div style={{ margin: "30px 0px" }}>
                     {props.comments.length > 3 && showLessFlag === false ? (
-                        <Button onClick={(e) => showComments(e)} variant="outlined" component="span" color="primary">
+                        <OurSecondaryButton onClick={(e) => showComments(e)} component="span" color="secondary">
                             View older Comments
-                        </Button>
+                        </OurSecondaryButton>
                     ) : (
                         <Fragment>
                             {props.comments.length > 3 && (
-                                <Button onClick={(e) => showLessComments(e)} variant="outlined" component="span" color="primary">
+                                <OurSecondaryButton onClick={(e) => showLessComments(e)} component="span" color="secondary">
                                     Show Less Comments
-                                </Button>
+                                </OurSecondaryButton>
                             )}
                         </Fragment>
                     )}
@@ -115,6 +115,7 @@ function CommentList(props: any) {
                                             />
                                         )}
                                     </Typography>
+
                                     <CommentItem comment={comment} user={props.user} postId={props.postId} {...props} />
                                     <Typography style={{ fontSize: "12px" }} variant="body1" align="left">
                                         {moment(comment.createdAt).calendar()}
