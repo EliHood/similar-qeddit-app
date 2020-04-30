@@ -9,18 +9,20 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import moment from "moment";
 import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import OurLink from "../../common/OurLink";
 import CommentForm from "../comment/CommentForm";
 import CommentList from "../commentList/CommentList";
 import OurModal from "../../common/OurModal";
+import "react-toastify/dist/ReactToastify.css";
+
 function PostItemContainer(props: any) {
     const [openModal, setOpenModal] = useState(false);
-    const [isComment, setIsComment] = useState(false);
+    const [openForm, setOpenForm] = useState(false);
     const [comment_body, setCommentBody] = useState("");
     const [gifUrl, setGifUrl] = useState("");
-    const writeComment = (id) => {
-        setIsComment(isComment ? "" : id);
+    const writeComment = () => {
+        // this is the same as this.setState({ openForm: !this.state.open })
+        setOpenForm(!openForm);
     };
 
     const commentChange = (comment) => {
@@ -48,8 +50,8 @@ function PostItemContainer(props: any) {
             gifUrl,
         };
         props.postComment(formData);
-        setIsComment(false);
         setCommentBody("");
+        setOpenForm(false);
     };
     const { post, currentUser, notification } = props;
     return (
@@ -137,12 +139,12 @@ function PostItemContainer(props: any) {
                             </Fragment>
                         ) : (
                             <Fragment>
-                                <Button onClick={() => writeComment(post.id)} variant="outlined" component="span" color="primary">
-                                    {isComment === post.id ? "Close" : "Write A Comment"}
+                                <Button onClick={writeComment} variant="outlined" component="span" color="primary">
+                                    {openForm ? "Close" : "Write A Comment"}
                                 </Button>
                             </Fragment>
                         )}
-                        {isComment === post.id ? (
+                        {openForm ? (
                             <CommentForm
                                 commentChange={(e: any) => commentChange(e.target.value)}
                                 comment_body={comment_body}
