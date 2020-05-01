@@ -5,7 +5,8 @@ import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined"
 import EditIcon from "@material-ui/icons/Edit";
 import ClearIcon from "@material-ui/icons/Clear";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-
+import ReactMarkdown from "react-markdown/with-html";
+import "./style.css";
 function CommentItem(props) {
     const [commentEdit, setCommentEdit] = useState("");
     const [isGifSelected, setGifSelected] = useState<Boolean>(false);
@@ -43,9 +44,8 @@ function CommentItem(props) {
                 </Fragment>
             ) : (
                 <Fragment>
-                    <Typography style={{ display: "block" }} color="secondary" align="left">
-                        {props.comment.comment_body}
-                    </Typography>
+                    <ReactMarkdown className="markdownStyle" source={props.comment.comment_body} />
+
                     {!props.edit && props.comment.gifUrl && (
                         <div style={{ display: "block" }}>
                             <img src={`${props.comment.gifUrl}`} />

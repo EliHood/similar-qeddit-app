@@ -12,7 +12,7 @@ const ourStyle = {
     backgroundColor: "#FAFAFA",
     border: "1px solid #f2f2f2",
     borderRadius: "4px",
-    padding: "20px",
+    padding: "15px 20px",
 };
 function CommentList(props: any) {
     const [showMore, setShowMore] = useState<Number>(3);
