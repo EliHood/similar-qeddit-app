@@ -66,8 +66,8 @@ class Login extends Component<loginProps, loginState> {
                     Login
                 </Typography>
                 <LoginForm submit={this.handleSubmit} username={this.state.username} password={this.state.password} loginOnChange={this.handleChange} />
-                <h2>Login With Google</h2>
-                <a href={process.env.REACT_APP_BASE_URL + "api/v1/users/auth/google"}>Login With Google</a>
+                {/* <h2>Login With Google</h2>
+                <a href={process.env.REACT_APP_BASE_URL + "api/v1/users/auth/google"}>Login With Google</a> */}
             </Fragment>
         );
     }
