@@ -12,10 +12,10 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((id, done) => {
   console.log(id);
   models.User.findOne({ id })
-    .then(usr => {
+    .then((usr) => {
       return done(null, usr);
     })
-    .catch(err => {
+    .catch((err) => {
       done(err);
     });
 });
@@ -25,12 +25,12 @@ passport.use(
     {
       clientID: process.env.clientID,
       clientSecret: process.env.clientSecret,
-      callbackURL: process.env.callbackURL
+      callbackURL: process.env.callbackURL,
     },
     async (token, tokenSecret, profile, done) => {
       console.log(profile);
       models.User.findOne({ where: { googleId: profile.id } }).then(
-        async userExist => {
+        async (userExist) => {
           let transaction;
           if (userExist) {
             console.log("hi");
@@ -39,18 +39,21 @@ passport.use(
             try {
               transaction = await models.sequelize.transaction();
 
-              console.log("test", profile.photos[0].value);
+              console.log("test", profile);
+
               await Promise.all([
                 models.User.create(
                   {
                     googleId: profile.id,
-                    username: null,
+                    username: profile.displayName
+                      ? profile.displayName
+                      : profile.emails[0].value,
                     gravatar: profile.photos[0].value,
-                    email: profile.emails[0].value
+                    email: profile.emails[0].value,
                   },
                   { transaction }
-                )
-              ]).then(async user => {
+                ),
+              ]).then(async (user) => {
                 await transaction.commit();
                 return done(null, user);
               });

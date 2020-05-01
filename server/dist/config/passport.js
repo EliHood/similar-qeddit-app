@@ -24,17 +24,17 @@ passport_1.default.serializeUser((user, done) => {
 passport_1.default.deserializeUser((id, done) => {
     console.log(id);
     models_1.default.User.findOne({ id })
-        .then(usr => {
+        .then((usr) => {
         return done(null, usr);
     })
-        .catch(err => {
+        .catch((err) => {
         done(err);
     });
 });
 passport_1.default.use(new GoogleSta({
     clientID: process.env.clientID,
     clientSecret: process.env.clientSecret,
-    callbackURL: process.env.callbackURL
+    callbackURL: process.env.callbackURL,
 }, (token, tokenSecret, profile, done) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(profile);
     models_1.default.User.findOne({ where: { googleId: profile.id } }).then((userExist) => __awaiter(void 0, void 0, void 0, function* () {
@@ -46,14 +46,16 @@ passport_1.default.use(new GoogleSta({
         else {
             try {
                 transaction = yield models_1.default.sequelize.transaction();
-                console.log("test", profile.photos[0].value);
+                console.log("test", profile);
                 yield Promise.all([
                     models_1.default.User.create({
                         googleId: profile.id,
-                        username: null,
+                        username: profile.displayName
+                            ? profile.displayName
+                            : profile.emails[0].value,
                         gravatar: profile.photos[0].value,
-                        email: profile.emails[0].value
-                    }, { transaction })
+                        email: profile.emails[0].value,
+                    }, { transaction }),
                 ]).then((user) => __awaiter(void 0, void 0, void 0, function* () {
                     yield transaction.commit();
                     return done(null, user);
