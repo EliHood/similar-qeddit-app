@@ -1,14 +1,11 @@
 import React, { Fragment, useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
-import GifSection from "../comment/GifSection";
-import TextFieldsIcon from "@material-ui/icons/TextFields";
-import Button from "@material-ui/core/Button";
 import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
 import EditIcon from "@material-ui/icons/Edit";
 import ClearIcon from "@material-ui/icons/Clear";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+
 function CommentItem(props) {
     const [commentEdit, setCommentEdit] = useState("");
     const [isGifSelected, setGifSelected] = useState<Boolean>(false);
@@ -36,7 +33,7 @@ function CommentItem(props) {
                         id="outlined-multiline-static"
                         multiline={true}
                         name="comment_body"
-                        value={commentEdit ? commentEdit : props.comment.comment_body}
+                        defaultValue={commentEdit ? commentEdit : props.comment.comment_body}
                         rows="2"
                         fullWidth={true}
                         margin="normal"
@@ -46,7 +43,7 @@ function CommentItem(props) {
                 </Fragment>
             ) : (
                 <Fragment>
-                    <Typography style={{ display: "block" }} color="primary" align="left">
+                    <Typography style={{ display: "block" }} color="secondary" align="left">
                         {props.comment.comment_body}
                     </Typography>
                     {!props.edit && props.comment.gifUrl && (

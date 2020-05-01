@@ -30,8 +30,6 @@ function PostList(props: any) {
         }
     });
     const { posts, currentUser } = props;
-    // console.log(currentUser);
-    console.log(isComment);
     return posts.length > 0 ? (
         posts.map((post, i) => (
             <Fragment key={i}>

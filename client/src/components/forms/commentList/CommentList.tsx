@@ -8,6 +8,12 @@ import OurLink from "../../common/OurLink";
 import React, { Fragment, useState } from "react";
 import OurSecondaryButton from "../../common/OurSecondaryButton";
 import OurModal from "../../common/OurModal";
+const ourStyle = {
+    backgroundColor: "#FAFAFA",
+    border: "1px solid #f2f2f2",
+    borderRadius: "4px",
+    padding: "20px",
+};
 function CommentList(props: any) {
     const [showMore, setShowMore] = useState<Number>(3);
     const [openModal, setOpenModal] = useState(false);
@@ -30,7 +36,6 @@ function CommentList(props: any) {
         setShowMore(3);
         setShowLessFlag(false);
     };
-
     const showMoreComments = () => {
         console.log("this got called");
         return props.comments
@@ -56,11 +61,12 @@ function CommentList(props: any) {
                                 />
                             )}
                         </Typography>
-                        <CommentItem comment={comment} user={props.user} postId={props.postId} {...props} />
-                        <Typography style={{ fontSize: "12px" }} variant="body1" align="left">
-                            {moment(comment.createdAt).calendar()}
-                        </Typography>
-                        <Divider style={{ margin: "20px 0px" }} variant="fullWidth" component="li" />
+                        <div style={ourStyle}>
+                            <CommentItem comment={comment} user={props.user} postId={props.postId} {...props} />
+                            <Typography style={{ fontSize: "12px" }} variant="body1" align="left">
+                                {moment(comment.createdAt).calendar()}
+                            </Typography>
+                        </div>
                     </List>
                 </div>
             ));
@@ -115,12 +121,12 @@ function CommentList(props: any) {
                                             />
                                         )}
                                     </Typography>
-
-                                    <CommentItem comment={comment} user={props.user} postId={props.postId} {...props} />
-                                    <Typography style={{ fontSize: "12px" }} variant="body1" align="left">
-                                        {moment(comment.createdAt).calendar()}
-                                    </Typography>
-                                    <Divider style={{ margin: "20px 0px" }} variant="fullWidth" component="li" />
+                                    <div style={ourStyle}>
+                                        <CommentItem comment={comment} user={props.user} postId={props.postId} {...props} />
+                                        <Typography style={{ fontSize: "12px" }} variant="body1" align="left">
+                                            {moment(comment.createdAt).calendar()}
+                                        </Typography>
+                                    </div>
                                 </List>
                             </div>
                         ))}
