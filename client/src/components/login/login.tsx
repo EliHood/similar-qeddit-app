@@ -49,25 +49,27 @@ class Login extends Component<loginProps, loginState> {
         console.log(this.props.user.error);
         return (
             <Fragment>
-                {this.props.user.error && (
-                    <div>
-                        <Alert severity="warning">{this.props.user.error}</Alert>
-                    </div>
-                )}
-                {this.props.user.error.includes("Please activate") && (
-                    <div style={{ padding: "20px 0px" }}>
-                        <Typography variant="h6" style={{ cursor: "pointer" }} onClick={() => this.goBackEmailConfirmation()}>
-                            {" "}
-                            Back{" "}
-                        </Typography>
-                    </div>
-                )}
-                <Typography variant="h4" style={{ letterSpacing: "2px" }}>
-                    Login
-                </Typography>
-                <LoginForm submit={this.handleSubmit} username={this.state.username} password={this.state.password} loginOnChange={this.handleChange} />
-                {/* <h2>Login With Google</h2>
+                <div style={{ margin: "90px 0px" }}>
+                    {this.props.user.error && (
+                        <div>
+                            <Alert severity="warning">{this.props.user.error}</Alert>
+                        </div>
+                    )}
+                    {this.props.user.error.includes("Please activate") && (
+                        <div style={{ padding: "20px 0px" }}>
+                            <Typography variant="h6" style={{ cursor: "pointer" }} onClick={() => this.goBackEmailConfirmation()}>
+                                {" "}
+                                Back{" "}
+                            </Typography>
+                        </div>
+                    )}
+                    <Typography variant="h3" style={{ letterSpacing: "2px" }}>
+                        Login
+                    </Typography>
+                    <LoginForm submit={this.handleSubmit} username={this.state.username} password={this.state.password} loginOnChange={this.handleChange} />
+                    {/* <h2>Login With Google</h2>
                 <a href={process.env.REACT_APP_BASE_URL + "api/v1/users/auth/google"}>Login With Google</a> */}
+                </div>
             </Fragment>
         );
     }

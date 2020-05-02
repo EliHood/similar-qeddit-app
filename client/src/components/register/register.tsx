@@ -36,26 +36,28 @@ function Register(registerProps: any) {
     const isEnabled = passwordConfError === true && emailError === true && passwordError === true && usernameError === true ? false : true;
     return (
         <Fragment>
-            <Typography variant="h4" style={{ letterSpacing: "2px" }}>
-                Register
-            </Typography>
-            {registerProps.user.error && <div>{registerProps.user.error}</div>}
-            <SignUpForm
-                submit={handleSubmit}
-                usernameChange={handleInputChange}
-                emailChange={handleInputChange}
-                passwordChange={handleInputChange}
-                passwordConfChange={handleInputChange}
-                username={username}
-                password={password}
-                passwordConf={passwordConf}
-                email={email}
-                usernameError={usernameError}
-                passwordError={passwordError}
-                passwordConfError={passwordConfError}
-                emailError={emailError}
-                disButton={isEnabled}
-            />
+            <div style={{ margin: "90px 0px" }}>
+                <Typography variant="h3" style={{ letterSpacing: "2px" }}>
+                    Register
+                </Typography>
+                {registerProps.user.error && <div>{registerProps.user.error}</div>}
+                <SignUpForm
+                    submit={handleSubmit}
+                    usernameChange={handleInputChange}
+                    emailChange={handleInputChange}
+                    passwordChange={handleInputChange}
+                    passwordConfChange={handleInputChange}
+                    username={username}
+                    password={password}
+                    passwordConf={passwordConf}
+                    email={email}
+                    usernameError={usernameError}
+                    passwordError={passwordError}
+                    passwordConfError={passwordConfError}
+                    emailError={emailError}
+                    disButton={isEnabled}
+                />
+            </div>
         </Fragment>
     );
 }
