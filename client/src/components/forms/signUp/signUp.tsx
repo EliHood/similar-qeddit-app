@@ -3,7 +3,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import TextField from "@material-ui/core/TextField";
 import React from "react";
 const SignUpForm = (props: any) => (
-    <form onSubmit={props.submit}>
+    <form style={{ width: "100%" }} onSubmit={props.submit}>
         <TextField
             label="Username"
             style={{ width: "100%" }}

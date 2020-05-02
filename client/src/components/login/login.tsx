@@ -1,9 +1,16 @@
 import Typography from "@material-ui/core/Typography";
 import Alert from "@material-ui/lab/Alert";
-import React, { Component, Fragment } from "react";
+import React, { Component, useState, Fragment } from "react";
+import Avatar from "@material-ui/core/Avatar";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Grid from "@material-ui/core/Grid";
 import LoginForm from "../forms/login/login";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Paper from "@material-ui/core/Paper";
 import GridHoc from "../hoc/grid";
 import IsAuth from "../hoc/isAuthenticated";
+import { makeStyles } from "@material-ui/core/styles";
+
 export interface loginProps {
     onChange: (event: any) => void;
     loginInit: (event: object, history: object) => void;
@@ -11,68 +18,100 @@ export interface loginProps {
     user?: any;
     history?: any;
 }
-export interface loginState {
-    username: string;
-    password: string;
-}
 
-class Login extends Component<loginProps, loginState> {
-    state: loginState = {
-        username: "",
-        password: "",
+const useStyles = makeStyles((theme) => ({
+    root: {
+        height: "100vh",
+        width: "100%",
+    },
+    image: {
+        backgroundImage: "url(https://source.unsplash.com/random)",
+        backgroundRepeat: "no-repeat",
+        backgroundColor: theme.palette.type === "light" ? theme.palette.grey[50] : theme.palette.grey[900],
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+    },
+    paper: {
+        margin: theme.spacing(8, 4),
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+    },
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+        width: "100%", // Fix IE 11 issue.
+        marginTop: theme.spacing(1),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+    },
+}));
+
+function Login(props: any) {
+    const classes = useStyles();
+    const [username, setUsername] = useState<String>("");
+    const [password, setPassword] = useState<String>("");
+
+    const goBackEmailConfirmation = () => {
+        props.history.goBack();
     };
-    handleChange = (e: any) => {
+    const handleSubmit = (e: any) => {
         e.preventDefault();
-        this.setState({
-            [e.target.name]: e.target.value,
-        } as any);
-    };
-    goBackEmailConfirmation = () => {
-        this.props.history.goBack();
-    };
-    handleSubmit = (e: any) => {
-        e.preventDefault();
-        const { username, password } = this.state;
-        this.setState({
-            username: this.state.username,
-            password: this.state.password,
-        });
         const creds = {
             username,
             password,
         };
         console.log(creds);
 
-        this.props.loginInit(creds, this.props.history);
+        props.loginInit(creds, props.history);
     };
-    render() {
-        console.log(this.props.user.error);
-        return (
-            <Fragment>
-                <div style={{ margin: "90px 0px" }}>
-                    {this.props.user.error && (
-                        <div>
-                            <Alert severity="warning">{this.props.user.error}</Alert>
-                        </div>
-                    )}
-                    {this.props.user.error.includes("Please activate") && (
-                        <div style={{ padding: "20px 0px" }}>
-                            <Typography variant="h6" style={{ cursor: "pointer" }} onClick={() => this.goBackEmailConfirmation()}>
-                                {" "}
-                                Back{" "}
-                            </Typography>
-                        </div>
-                    )}
-                    <Typography variant="h3" style={{ letterSpacing: "2px" }}>
-                        Login
-                    </Typography>
-                    <LoginForm submit={this.handleSubmit} username={this.state.username} password={this.state.password} loginOnChange={this.handleChange} />
-                    {/* <h2>Login With Google</h2>
+
+    console.log(props.user.error);
+    return (
+        <Fragment>
+            <Grid container component="main" className={classes.root}>
+                <CssBaseline />
+                <Grid item xs={false} sm={4} md={7} className={classes.image} />
+                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                    <div className={classes.paper}>
+                        <Avatar className={classes.avatar}>
+                            <LockOutlinedIcon />
+                        </Avatar>
+                        <Typography component="h1" variant="h5">
+                            Log In
+                        </Typography>
+                        {props.user.error && (
+                            <div>
+                                <Alert severity="warning">{props.user.error}</Alert>
+                            </div>
+                        )}
+                        {props.user.error.includes("Please activate") && (
+                            <div style={{ padding: "20px 0px" }}>
+                                <Typography variant="h6" style={{ cursor: "pointer" }} onClick={goBackEmailConfirmation}>
+                                    {" "}
+                                    Back{" "}
+                                </Typography>
+                            </div>
+                        )}
+
+                        <LoginForm
+                            submit={handleSubmit}
+                            username={username}
+                            password={password}
+                            usernameChange={(e) => setUsername(e.target.value)}
+                            passwordChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+                </Grid>
+            </Grid>
+            {/* <h2>Login With Google</h2>
                 <a href={process.env.REACT_APP_BASE_URL + "api/v1/users/auth/google"}>Login With Google</a> */}
-                </div>
-            </Fragment>
-        );
-    }
+            {/* </div> */}
+        </Fragment>
+    );
 }
 
-export default GridHoc(IsAuth(Login));
+export default IsAuth(Login);
