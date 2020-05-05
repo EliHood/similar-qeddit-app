@@ -14,7 +14,7 @@ function EmailConfirmationSuccess(props) {
             console.log("this is component didupdate");
         }
     }, [didMountRef]);
-    console.log("testing email confirmation", props);
+    console.log("testing email confirmatiion", props);
     return (
         <div>
             {props.user.includes("Thank you") ? (
