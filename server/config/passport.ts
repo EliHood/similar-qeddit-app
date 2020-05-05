@@ -38,10 +38,7 @@ passport.use(
             return done(null, userExist);
           } else {
             try {
-              // transaction = await models.sequelize.transaction();
-
               console.log("test", profile);
-
               return models.User.create({
                 googleId: profile.id,
                 username: profile.displayName
@@ -50,9 +47,8 @@ passport.use(
                 gravatar: profile.photos[0].value,
                 email: profile.emails[0].value,
               }).then((user) => {
-                req.user = user;
-                req.session.user = user; // refresh the session value
-                console.log("checking passport", req.session.user);
+                // req.user = user;
+                // req.session.user = user; // refresh the session valu
                 return done(null, user);
               });
             } catch (err) {

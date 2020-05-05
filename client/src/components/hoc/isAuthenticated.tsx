@@ -16,13 +16,14 @@ export default function(WrappedComponent) {
             errors: {},
         };
         componentDidUpdate(prevProps) {
-            if (prevProps.user.isAuthenticated !== this.props.user.isAuthenticated) {
+            if (prevProps.user.isAuthenticated !== this.props.user.isAuthenticated || prevProps.user.googleAccount !== this.props.user.googleAccount) {
                 this.props.history.push("/dashboard");
             }
         }
         componentDidMount() {
             this.props.initLogin();
-            if (this.props.user.isAuthenticated) {
+            console.log("isAuth", this.props.user);
+            if (this.props.user.isAuthenticated || this.props.user.googleAccount) {
                 this.props.history.push("/dashboard");
             }
         }
@@ -30,6 +31,7 @@ export default function(WrappedComponent) {
             return <WrappedComponent {...this.props} />;
         }
     }
+
     const mapStateToProps = (state: any) => ({
         user: state.user,
     });

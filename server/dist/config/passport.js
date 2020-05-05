@@ -46,7 +46,6 @@ passport_1.default.use(new GoogleSta({
         }
         else {
             try {
-                // transaction = await models.sequelize.transaction();
                 console.log("test", profile);
                 return models_1.default.User.create({
                     googleId: profile.id,
@@ -56,9 +55,8 @@ passport_1.default.use(new GoogleSta({
                     gravatar: profile.photos[0].value,
                     email: profile.emails[0].value,
                 }).then((user) => {
-                    req.user = user;
-                    req.session.user = user; // refresh the session value
-                    console.log("checking passport", req.session.user);
+                    // req.user = user;
+                    // req.session.user = user; // refresh the session valu
                     return done(null, user);
                 });
             }
