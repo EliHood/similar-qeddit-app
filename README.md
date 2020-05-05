@@ -16,6 +16,7 @@
 - Sign Up
 - Sign Up Validations
 - Log in
+- Google Oauth login
 - Log Out
 - Like A Post
 - Unlike A Post
