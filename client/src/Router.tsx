@@ -34,6 +34,7 @@ function MyRouter(props) {
     };
 
     const user = props.currentUser.user ? props.currentUser.user : "";
+
     return props.hasError ? (
         <div>Error</div>
     ) : (
@@ -45,7 +46,7 @@ function MyRouter(props) {
                             TypeScript React App
                         </Typography>
                         <Grid item={true}>
-                            {props.user ? (
+                            {props.isAuthenticated === true || props.googleAccount === true ? (
                                 <Fragment>
                                     <Button>
                                         <Link
@@ -175,10 +176,10 @@ function MyRouter(props) {
                 <Route path="/emailConfirmation" component={EmailConfirmation} {...props} />
                 {/* <Route path='/resendEmailConfirmation'></Route> */}
                 <Route path="/emailConfirmationSuccess/:userId/:token" component={EmailConfirmationSuccess} {...props} />
+                <PrivateRoute exact={true} path="/dashboard" component={Dashboard} {...props} />
                 <PrivateRoute exact={true} path="/profile/:username" component={Profile} {...props} />
                 <PrivateRoute exact={true} path="/editProfile" component={EditProfile} {...props} />
                 <PrivateRoute exact={true} path="/:userId/likes" component={Likes} {...props} />
-                <PrivateRoute exact={true} path="/dashboard" component={Dashboard} {...props} />
                 <PrivateRoute path="/post/:id" component={Post} {...props} />
                 <Route component={NotFound} />
             </Switch>

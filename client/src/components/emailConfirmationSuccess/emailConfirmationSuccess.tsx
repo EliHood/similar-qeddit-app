@@ -8,12 +8,13 @@ function EmailConfirmationSuccess(props) {
     useEffect(() => {
         if (!didMountRef.current) {
             // didMountRef.current = true
+            // console.log("email confirmation");
             props.emailConfirmationInit(props.match.params);
         } else {
             console.log("this is component didupdate");
         }
-    });
-    console.log(props);
+    }, [didMountRef]);
+    console.log("testing email confirmation", props);
     return (
         <div>
             {props.user.includes("Thank you") ? (

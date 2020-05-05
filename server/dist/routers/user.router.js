@@ -28,7 +28,7 @@ router.get("/emailConfirmation/:userId/:token", controllers_1.userController.ema
 router.get("/auth/google", passport_1.default.authenticate("google", { scope: ["email"] }));
 router.get("/auth/google/callback", passport_1.default.authenticate("google", {
     failureRedirect: "/login",
-    successRedirect: process.env.ALLOW_ORIGIN
+    successRedirect: process.env.ALLOW_ORIGIN,
 }));
 router.get("/currentUser", controllers_1.userController.currentUser);
 exports.default = router;

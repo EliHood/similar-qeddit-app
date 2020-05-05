@@ -28,6 +28,11 @@ export function* getAutoLoginStatus(action) {
     try {
         const login = yield call(api.user.currentUser);
         const token = login.token;
+        console.log("autologin", login);
+
+        if (login.user.googleId !== null) {
+            localStorage.setItem("googleId", login.user.googleId);
+        }
         setAuthToken(token);
         sessionData.setUserLoggedIn(token);
         yield put(actionTypes.getUserSuccess(login));
@@ -61,6 +66,8 @@ export function* logOut(action) {
         const logout = yield call(api.user.logOut);
         sessionData.setUserLoggdOut();
         localStorage.removeItem("CurrentUserId");
+        localStorage.removeItem("email_verified");
+        localStorage.removeItem("googleId");
         yield put(actionTypes.logOutSuccess(logout));
         history.push("/login");
     } catch (error) {
@@ -71,13 +78,16 @@ export function* logOut(action) {
 export function* login(action) {
     try {
         const login = yield call(api.user.logIn, action.payload);
-        console.log(login);
+        console.log("checking login", login);
         const token = login.meta.token;
         console.log(token);
         sessionData.setUserLoggedIn(token);
         const decoded = jwtDecode(token);
         setAuthToken(token);
-        console.log(login.user);
+        console.log("login saga", login.user.email_verified);
+        if (login.user.email_verified !== null) {
+            localStorage.setItem("email_verified", login.user.email_verified.toString());
+        }
         yield put(actionTypes.loginSuccess(decoded));
     } catch (err) {
         const errMsg = err.response.data.meta.message;
@@ -88,7 +98,9 @@ export function* login(action) {
 export function* emailConfirmation(action) {
     try {
         const emailConfirmation = yield call(api.user.emailConfirmation, action.payload.userId, action.payload.token);
-        console.log(emailConfirmation);
+
+        console.log("email called", emailConfirmation);
+
         yield put(actionTypes.emailConfirmationSuccess(emailConfirmation));
     } catch (err) {
         console.log(err.response.data);
@@ -193,7 +205,7 @@ export function* watchEditProfile() {
     yield takeLatest(types.GET_USER_PROFILE, getUserProfile);
 }
 export function* watchAuthLogin() {
-    yield takeLatest(types.GET_CURRENT_USER, getAutoLoginStatus);
+    yield takeLatest(types.GET_USER, getAutoLoginStatus);
 }
 export function* watchUserRegister() {
     yield takeLatest(types.SIGN_UP_INIT, registerUser);

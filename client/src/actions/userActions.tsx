@@ -1,5 +1,4 @@
 import * as types from "../actionTypes/userActionTypes";
-import { type } from "os";
 
 export const emailConfirmationInit = (payload: object) => ({
     type: types.EMAIL_CONFIRMATION_INIT,
@@ -85,10 +84,6 @@ export const loginInit = (payload: object, history: object) => ({
 export const loginSuccess = (payload: object) => ({
     type: types.LOG_IN_SUCCESS,
     payload,
-});
-
-export const getCurrentUser = () => ({
-    type: types.GET_CURRENT_USER,
 });
 
 export const loginFailure = (error: string) => ({

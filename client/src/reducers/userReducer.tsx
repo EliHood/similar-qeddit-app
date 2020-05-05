@@ -4,6 +4,8 @@ import { sessionData, validation } from "../utils";
 
 export interface userState {
     isAuthenticated: boolean;
+    googleAccount: any;
+    emailVerified: boolean;
     error?: string;
     isLoading: boolean;
     profileData: object;
@@ -23,7 +25,9 @@ export interface userState {
 
 const initialState: userState = {
     isAuthenticated: false,
+    googleAccount: null,
     error: "",
+    emailVerified: false,
     currentUser: {},
     profileData: {},
     profilePage: null,
@@ -44,28 +48,44 @@ const authReducer = (state = initialState, action: any): userState =>
     produce(state, (draft) => {
         switch (action.type) {
             case types.SIGN_UP_SUCCESS:
+                console.log(action.user.user);
                 console.log(action.user.meta.message);
                 // draft.isAuthenticated = sessionData.getLoginStatus();
                 draft.email = "";
                 draft.password = "";
                 draft.username = "";
                 draft.error = "";
+
                 draft.message = action.user.meta.message;
+                draft.isAuthenticated = false;
                 break;
             case types.SIGN_UP_FAILURE:
                 console.log(action);
                 draft.error = action.error;
                 break;
             case types.GET_USER_SUCCESS:
-                draft.isAuthenticated = sessionData.getLoginStatus();
+                console.log(action);
+                const loginStatus = sessionData.getLoginStatus();
+                const emailVerified = sessionData.emailVerifiedStatus();
+                const verified = loginStatus == true && emailVerified == true ? true : false;
+                console.log("email && login", verified);
+                draft.isAuthenticated = verified;
+                draft.googleAccount = sessionData.googleIdStatus();
                 draft.currentUser = action.payload;
                 break;
             case types.LOG_OUT_SUCCESS:
                 draft.isAuthenticated = false;
+                draft.googleAccount = null;
                 break;
             case types.LOG_IN_SUCCESS:
+                console.log("login success got called");
+                // console.log("login reducer", action.payload.login.user.email_verified);
+                const loginStatus2 = sessionData.getLoginStatus();
+                const emailVerified2 = sessionData.emailVerifiedStatus();
+                const verified2 = loginStatus2 == true && emailVerified2 == true ? true : false;
                 draft.error = "";
-                draft.isAuthenticated = sessionData.getLoginStatus();
+                draft.googleAccount = sessionData.googleIdStatus();
+                draft.isAuthenticated = verified2;
                 draft.isLoading = false;
                 break;
             case types.INIT_LOGIN:
@@ -113,9 +133,10 @@ const authReducer = (state = initialState, action: any): userState =>
             case types.EMAIL_CONFIRMATION_FAILURE:
                 console.log(action);
                 draft.error = action.error;
+                draft.emailVerified = false;
                 break;
             case types.EMAIL_CONFIRMATION_SUCCESS:
-                console.log(action);
+                console.log("email_confirmation", action);
                 draft.message = action.payload.message;
                 break;
             case types.RESEND_EMAIL_CONFIRMATION_SUCCESS:

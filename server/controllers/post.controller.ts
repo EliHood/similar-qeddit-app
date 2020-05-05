@@ -108,6 +108,7 @@ export default {
     // console.log(getUser);
     let postData;
 
+    console.log('ssd')
     if (req.user && req.user.id) {
       console.log(req.user.id);
       postData = {

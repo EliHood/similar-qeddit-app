@@ -24,7 +24,7 @@ router.get(
   "/auth/google/callback",
   passport.authenticate("google", {
     failureRedirect: "/login",
-    successRedirect: process.env.ALLOW_ORIGIN
+    successRedirect: process.env.ALLOW_ORIGIN,
   })
 );
 router.get("/currentUser", userController.currentUser);

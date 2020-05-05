@@ -115,6 +115,7 @@ exports.default = {
     createPost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // console.log(getUser);
         let postData;
+        console.log('ssd');
         if (req.user && req.user.id) {
             console.log(req.user.id);
             postData = {

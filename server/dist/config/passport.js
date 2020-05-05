@@ -35,37 +35,35 @@ passport_1.default.use(new GoogleSta({
     clientID: process.env.clientID,
     clientSecret: process.env.clientSecret,
     callbackURL: process.env.callbackURL,
-}, (token, tokenSecret, profile, done) => __awaiter(void 0, void 0, void 0, function* () {
+    passReqToCallback: true,
+}, (req, token, refreshToken, profile, done) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(profile);
     models_1.default.User.findOne({ where: { googleId: profile.id } }).then((userExist) => __awaiter(void 0, void 0, void 0, function* () {
         let transaction;
         if (userExist) {
-            console.log("hi");
+            console.log("passport hi");
             return done(null, userExist);
         }
         else {
             try {
-                transaction = yield models_1.default.sequelize.transaction();
+                // transaction = await models.sequelize.transaction();
                 console.log("test", profile);
-                yield Promise.all([
-                    models_1.default.User.create({
-                        googleId: profile.id,
-                        username: profile.displayName
-                            ? profile.displayName
-                            : profile.emails[0].value,
-                        gravatar: profile.photos[0].value,
-                        email: profile.emails[0].value,
-                    }, { transaction }),
-                ]).then((user) => __awaiter(void 0, void 0, void 0, function* () {
-                    yield transaction.commit();
+                return models_1.default.User.create({
+                    googleId: profile.id,
+                    username: profile.displayName
+                        ? profile.displayName
+                        : profile.emails[0].value,
+                    gravatar: profile.photos[0].value,
+                    email: profile.emails[0].value,
+                }).then((user) => {
+                    req.user = user;
+                    req.session.user = user; // refresh the session value
+                    console.log("checking passport", req.session.user);
                     return done(null, user);
-                }));
+                });
             }
             catch (err) {
-                if (transaction) {
-                    yield transaction.rollback();
-                    return done(null, err);
-                }
+                return done(null, err);
             }
         }
     }));

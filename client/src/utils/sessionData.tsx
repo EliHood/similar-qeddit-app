@@ -9,4 +9,6 @@ export default {
     },
     //   check if a user is signed in and stuff
     getLoginStatus: () => (localStorage.getItem("jwtToken") !== "null" ? true : false),
+    emailVerifiedStatus: () => (localStorage.getItem("email_verified") === "true" ? true : false),
+    googleIdStatus: () => (localStorage.getItem("googleId") !== null ? true : false),
 };

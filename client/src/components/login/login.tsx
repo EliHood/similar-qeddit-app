@@ -10,6 +10,7 @@ import Paper from "@material-ui/core/Paper";
 import GridHoc from "../hoc/grid";
 import IsAuth from "../hoc/isAuthenticated";
 import { makeStyles } from "@material-ui/core/styles";
+import { GoogleLoginButton } from "../common/GoogleButton";
 
 export interface loginProps {
     onChange: (event: any) => void;
@@ -104,11 +105,13 @@ function Login(props: any) {
                             usernameChange={(e) => setUsername(e.target.value)}
                             passwordChange={(e) => setPassword(e.target.value)}
                         />
+                        <div style={{ margin: "60px 0px" }}>
+                            <GoogleLoginButton />
+                        </div>
                     </div>
                 </Grid>
             </Grid>
-            {/* <h2>Login With Google</h2>
-                <a href={process.env.REACT_APP_BASE_URL + "api/v1/users/auth/google"}>Login With Google</a> */}
+
             {/* </div> */}
         </Fragment>
     );
