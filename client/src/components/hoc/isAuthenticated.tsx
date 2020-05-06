@@ -22,7 +22,7 @@ export default function(WrappedComponent) {
         }
         componentDidMount() {
             this.props.initLogin();
-            console.log("isAuth", this.props.user);
+            // console.log("isAuth", this.props.user);
             if (this.props.user.isAuthenticated || this.props.user.googleAccount) {
                 this.props.history.push("/dashboard");
             }

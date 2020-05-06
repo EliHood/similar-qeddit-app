@@ -8,7 +8,13 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     console.log("checking rest", rest, Component);
     // if user signed up and verified account, give user access to all authenticated routes,
     // of if user signed up using google oauth, give user access to all authenticated routes
-    return <Route {...rest} render={(props) => (rest.googleAccount !== null || rest.isAuthenticated !== false ? <Component {...props} /> : <Redirect to={{ pathname: "/login" }} />)} />;
+    if (rest.googleAccount === true) {
+        return <Route {...rest} render={(props) => <Component {...props} />} />;
+    } else if (rest.isAuthenticated !== false) {
+        return <Route {...rest} render={(props) => <Component {...props} />} />;
+    } else {
+        return <Redirect to={{ pathname: "/login" }} />;
+    }
 };
 
 export default PrivateRoute;
