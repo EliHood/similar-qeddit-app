@@ -7,7 +7,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { InputHook } from "./../common/handleHook";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import GroupIcon from "@material-ui/icons/Group";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 export interface registerProps {
@@ -79,7 +79,7 @@ function Register(registerProps: any) {
                 <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                     <div className={classes.paper}>
                         <Avatar className={classes.avatar}>
-                            <LockOutlinedIcon />
+                            <GroupIcon />
                         </Avatar>
                         <Typography component="h1" variant="h5">
                             Register
