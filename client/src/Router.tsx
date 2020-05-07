@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import React, { Fragment } from "react";
-import { Link, Route, Router, Switch } from "react-router-dom";
+import { Link, Route, Router, Redirect, Switch } from "react-router-dom";
 import Notification from "./containers/notificationTooltip";
 import Landing from "./containers/landing";
 import Dashboard from "./containers/dashboard";
@@ -171,8 +171,8 @@ function MyRouter(props) {
             </AppBar>
             <Switch>
                 <Route exact={true} path="/" component={Landing} {...props} />
-                <Route path="/login" component={Login} />
-                <Route path="/register" component={Register} />
+                <Route path="/login" render={() => (props.isAuthenticated === true || props.googleAccount === true ? <Redirect to="/dashboard" /> : <Login />)} />
+                <Route path="/register" render={() => (props.isAuthenticated === true || props.googleAccount === true ? <Redirect to="/dashboard" /> : <Register />)} />
                 <Route path="/emailConfirmation" component={EmailConfirmation} {...props} />
                 {/* <Route path='/resendEmailConfirmation'></Route> */}
                 <Route path="/emailConfirmationSuccess/:userId/:token" component={EmailConfirmationSuccess} {...props} />
