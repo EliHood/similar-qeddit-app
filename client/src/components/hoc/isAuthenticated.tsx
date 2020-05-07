@@ -20,14 +20,8 @@ export default function(WrappedComponent) {
                 this.props.history.push("/dashboard");
             }
         }
-        // its not fast enough so if im logged in, and go to login page, i will see a glimpse of the login page, and then it
-        // redirects to the dashboad
         componentDidMount() {
             this.props.initLogin();
-            // console.log("isAuth", this.props.user);
-            if (this.props.user.isAuthenticated || this.props.user.googleAccount) {
-                this.props.history.push("/dashboard");
-            }
         }
         render() {
             return <WrappedComponent {...this.props} />;

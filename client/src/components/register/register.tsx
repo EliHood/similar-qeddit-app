@@ -10,6 +10,7 @@ import Avatar from "@material-ui/core/Avatar";
 import GroupIcon from "@material-ui/icons/Group";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import { history } from "../../ourHistory";
 export interface registerProps {
     onChange: (event: any) => void;
     signUpInit: (event: object, history: object) => void;
@@ -66,10 +67,9 @@ function Register(registerProps: any) {
             password,
         };
         console.log(creds);
-        registerProps.signUpInit(creds, registerProps.history);
+        registerProps.signUpInit(creds, history);
     };
     const { username, email, password, passwordConf, passwordConfError, usernameError, passwordError, emailError } = registerProps.user;
-
     const isEnabled = passwordConfError === true && emailError === true && passwordError === true && usernameError === true ? false : true;
     return (
         <Fragment>
