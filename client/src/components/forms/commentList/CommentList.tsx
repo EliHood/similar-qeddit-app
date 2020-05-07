@@ -60,6 +60,7 @@ function CommentList(props: any) {
                                     title={comment.author.username}
                                 />
                             )}
+                            <img src={comment.author.gravatar} width="200" height="200" />
                         </Typography>
                         <div style={ourStyle}>
                             <CommentItem comment={comment} user={props.user} postId={props.postId} {...props} />
@@ -104,7 +105,8 @@ function CommentList(props: any) {
                         .map((comment, i) => (
                             <div key={i}>
                                 <List style={{ paddingBottom: "20px" }}>
-                                    <Typography style={{ display: "block", fontWeight: 700, padding: "5px 0px" }} variant="h6" align="left">
+                                    <img style={{ margin: "-5px 10px" }} src={comment.author.gravatar} width="30" height="30" />
+                                    <Typography style={{ display: "inline-block", fontWeight: 700, padding: "5px 0px" }} variant="h6" align="left">
                                         {Object.entries(props.currentUser).length === 0 ? (
                                             <Fragment>
                                                 <span style={{ cursor: "pointer" }} onClick={handleClickOpen}>
@@ -121,6 +123,7 @@ function CommentList(props: any) {
                                             />
                                         )}
                                     </Typography>
+
                                     <div style={ourStyle}>
                                         <CommentItem comment={comment} user={props.user} postId={props.postId} {...props} />
                                         <Typography style={{ fontSize: "12px" }} variant="body1" align="left">
