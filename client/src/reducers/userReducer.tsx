@@ -21,6 +21,7 @@ export interface userState {
     username: string;
     currentUser: object;
     getNotifications: any;
+    notDark: boolean;
 }
 
 const initialState: userState = {
@@ -42,6 +43,7 @@ const initialState: userState = {
     passwordConfError: "",
     getNotifications: [],
     username: "",
+    notDark: true,
 };
 
 const authReducer = (state = initialState, action: any): userState =>
@@ -190,6 +192,10 @@ const authReducer = (state = initialState, action: any): userState =>
             case types.MARK_AS_READ_FAILURE:
                 console.log(action);
                 draft.error = action.error;
+                break;
+            case types.SET_DARK:
+                console.log(action);
+                draft.notDark = !draft.notDark;
                 break;
         }
     });

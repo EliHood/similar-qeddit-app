@@ -10,16 +10,13 @@ export interface authHocProps {
 export interface authState {
     errors: object;
 }
+
+// this just clears out the login messages, redirect logic is in <Router/>
 export default function(WrappedComponent) {
     class IsAuth extends Component<authHocProps, authState> {
         ourState: authState = {
             errors: {},
         };
-        componentDidUpdate(prevProps) {
-            if (prevProps.user.isAuthenticated !== this.props.user.isAuthenticated || prevProps.user.googleAccount !== this.props.user.googleAccount) {
-                this.props.history.push("/dashboard");
-            }
-        }
         componentDidMount() {
             this.props.initLogin();
         }

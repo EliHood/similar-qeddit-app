@@ -117,4 +117,4 @@ function Login(props: any) {
     );
 }
 
-export default Login;
+export default IsAuth(Login);

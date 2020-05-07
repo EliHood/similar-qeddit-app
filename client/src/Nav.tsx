@@ -10,6 +10,7 @@ export interface routerContainerState {
 export interface routerContainerProps {
     getUser: () => void;
     logOutInit: (data) => void;
+    darkTheme: () => void;
     initGetNotifications: (id: number) => void;
     user: {
         isAuthenticated: boolean;
@@ -36,7 +37,16 @@ class Nav extends Component<routerContainerProps, routerContainerState> {
 
     render() {
         const { hasError } = this.state;
-        return <Router notifications={this.props.initGetNotifications} hasError={hasError} logOut={this.ourLogOut} user={this.props.user.isAuthenticated} {...this.props.user} />;
+        return (
+            <Router
+                darkTheme={this.props.darkTheme}
+                notifications={this.props.initGetNotifications}
+                hasError={hasError}
+                logOut={this.ourLogOut}
+                user={this.props.user.isAuthenticated}
+                {...this.props.user}
+            />
+        );
     }
 }
 const dispatchToProps = (dispatch: any) => ({

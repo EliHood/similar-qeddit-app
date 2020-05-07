@@ -5,26 +5,16 @@ import { Provider } from "react-redux";
 import "./index.css";
 import Nav from "./Nav";
 import * as serviceWorker from "./serviceWorker";
-import { store } from "./store";
+import { store, persitor } from "./store";
+import { PersistGate } from "redux-persist/lib/integration/react";
 import { userSession } from "./utils";
-userSession.userSession();
-const theme = createMuiTheme({
-    palette: {
-        primary: {
-            main: "#48A9A6",
-        },
-        secondary: {
-            main: "#000000",
-        },
-    },
-});
-
+import App from "./App";
 const app = (
-    <MuiThemeProvider theme={theme}>
-        <Provider store={store}>
-            <Nav />
-        </Provider>
-    </MuiThemeProvider>
+    <Provider store={store}>
+        <PersistGate persistor={persitor}>
+            <App />
+        </PersistGate>
+    </Provider>
 );
 ReactDOM.render(app, document.getElementById("root"));
 

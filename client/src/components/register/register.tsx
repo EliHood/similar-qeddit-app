@@ -108,4 +108,4 @@ function Register(registerProps: any) {
     );
 }
 
-export default Register;
+export default IsAuth(Register);

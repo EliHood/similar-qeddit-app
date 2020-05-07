@@ -34,7 +34,7 @@ function MyRouter(props) {
     };
 
     const user = props.currentUser.user ? props.currentUser.user : "";
-
+    console.log("change theme", props);
     return props.hasError ? (
         <div>Error</div>
     ) : (
@@ -120,6 +120,9 @@ function MyRouter(props) {
                                         >
                                             Profile
                                         </Link>
+                                    </Button>
+                                    <Button style={{ color: "#fff" }} onClick={props.darkTheme}>
+                                        Change Theme
                                     </Button>
                                     <Button style={{ color: "#fff" }} onClick={props.logOut}>
                                         Logout

@@ -15,6 +15,10 @@ export const emailConfirmationFailure = (error: object) => ({
     error,
 });
 
+export const setDark = () => ({
+    type: types.SET_DARK,
+});
+
 export const resendEmailConfirmationInit = () => ({
     type: types.RESEND_EMAIL_CONFIRMATION_INIT,
 });
