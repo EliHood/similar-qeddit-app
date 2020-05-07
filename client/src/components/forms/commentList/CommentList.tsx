@@ -13,6 +13,7 @@ const ourStyle = {
     border: "1px solid #f2f2f2",
     borderRadius: "4px",
     padding: "15px 20px",
+    margin: "15px",
 };
 function CommentList(props: any) {
     const [showMore, setShowMore] = useState<Number>(3);
