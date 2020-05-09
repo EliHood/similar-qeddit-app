@@ -45,8 +45,8 @@ function CommentList(props: any) {
             .map((comment, i) => (
                 <div key={i}>
                     <List style={{ paddingBottom: "20px" }}>
-                        <img src={comment.author.gravatar} width="30" height="30" />
-                        <Typography style={{ display: "block", fontWeight: 700, padding: "5px 0px" }} variant="h6" align="left">
+                        <img style={{ margin: "-5px 10px" }} src={comment.author.gravatar} width="30" height="30" />
+                        <Typography style={{ display: "inline-block", fontWeight: 700, padding: "5px 0px" }} variant="h6" align="left">
                             {Object.entries(props.currentUser).length === 0 ? (
                                 <Fragment>
                                     <span style={{ cursor: "pointer" }} onClick={handleClickOpen}>
