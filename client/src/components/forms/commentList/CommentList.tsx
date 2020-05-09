@@ -45,6 +45,7 @@ function CommentList(props: any) {
             .map((comment, i) => (
                 <div key={i}>
                     <List style={{ paddingBottom: "20px" }}>
+                        <img src={comment.author.gravatar} width="30" height="30" />
                         <Typography style={{ display: "block", fontWeight: 700, padding: "5px 0px" }} variant="h6" align="left">
                             {Object.entries(props.currentUser).length === 0 ? (
                                 <Fragment>
@@ -61,7 +62,6 @@ function CommentList(props: any) {
                                     title={comment.author.username}
                                 />
                             )}
-                            <img src={comment.author.gravatar} width="200" height="200" />
                         </Typography>
                         <div style={ourStyle}>
                             <CommentItem comment={comment} user={props.user} postId={props.postId} {...props} />
