@@ -12,7 +12,7 @@ const EditProfileForm = (props: any) => (
             <TextField
                 id="outlined-name"
                 style={{
-                    width: 560,
+                    width: "100%",
                 }}
                 name="bio"
                 multiline={true}
@@ -26,7 +26,7 @@ const EditProfileForm = (props: any) => (
             <TextField
                 id="outlined-name"
                 style={{
-                    width: 560,
+                    width: "100%",
                 }}
                 name="gravatar"
                 multiline={true}

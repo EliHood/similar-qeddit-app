@@ -2,6 +2,7 @@ import Typography from "@material-ui/core/Typography";
 import React, { Component, Fragment } from "react";
 import EditProfileForm from "../forms/editProfile/editForm";
 import GridHoc from "../hoc/grid";
+import { Grid } from "@material-ui/core";
 export interface dashboardProps {
     getUserProfile: () => void;
     updateUserProfile: (any) => void;
@@ -68,11 +69,13 @@ class EditProfile extends Component<dashboardProps, dashboardState> {
         const { bio, gravatar } = this.state;
 
         return (
-            <Fragment>
-                {this.props.error && <Typography style={{ color: "red" }}>{this.props.message || this.props.error}</Typography>}
-                {this.props.message && <Typography style={{ color: "green" }}>{this.props.message || this.props.error}</Typography>}
-                <EditProfileForm handleChange={this.handleChange} onSubmit={this.handleSubmit} bio={bio} gravatar={gravatar} />
-            </Fragment>
+            <Grid container={true} justify="center">
+                <Grid item={true} xs={12} sm={12} md={8} lg={8}>
+                    {this.props.error && <Typography style={{ color: "red" }}>{this.props.message || this.props.error}</Typography>}
+                    {this.props.message && <Typography style={{ color: "green" }}>{this.props.message || this.props.error}</Typography>}
+                    <EditProfileForm handleChange={this.handleChange} onSubmit={this.handleSubmit} bio={bio} gravatar={gravatar} />
+                </Grid>
+            </Grid>
         );
     }
 }

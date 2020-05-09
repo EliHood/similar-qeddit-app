@@ -1,11 +1,11 @@
+import React from "react";
+import * as classnames from "classnames";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import React, { Fragment } from "react";
-import { Link, Route, Router, Redirect, Switch } from "react-router-dom";
-import Notification from "./containers/notificationTooltip";
+import { Route, Router, Redirect, Switch } from "react-router-dom";
 import Landing from "./containers/landing";
 import Dashboard from "./containers/dashboard";
 import EmailConfirmation from "./containers/emailConfirmation";
@@ -20,156 +20,84 @@ import { history } from "./ourHistory";
 import PrivateRoute from "./PrivateRoute";
 import NotFound from "./components/404/404";
 import GridHoc from "./components/hoc/grid";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import CollapasedMenu from "./CollapsedMenu";
+import MainNav from "./MainNav";
+const drawerWidth = 240;
+const styles = makeStyles((theme) => ({
+    buttonBar: {
+        [theme.breakpoints.down("md")]: {
+            display: "none",
+        },
+        margin: "10px",
+        paddingLeft: "16px",
+        right: 0,
+        // position: "relative",
+        width: "100%",
+        background: "transparent",
+    },
+    appBar: {
+        transition: theme.transitions.create(["margin", "width"], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
+    },
+    appBarShift: {
+        width: `calc(100% - ${drawerWidth}px)`,
+        marginLeft: drawerWidth,
+        transition: theme.transitions.create(["margin", "width"], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    },
+}));
+
 function MyRouter(props) {
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+    const [appOpen, appSetOpen] = React.useState(false);
     const open = Boolean(anchorEl);
     const id = open ? "simple-popover" : undefined;
     const handleNotificationClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
-        console.log(props);
+        console.log("testing", user);
         props.notifications(user.id);
     };
-
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    const classes = styles();
     const user = props.currentUser.user ? props.currentUser.user : "";
-    console.log("change theme", props);
     return props.hasError ? (
         <div>Error</div>
     ) : (
         <Router history={history}>
-            <AppBar position="static">
+            <AppBar
+                position="static"
+                className={classnames(
+                    (classes.appBar,
+                    {
+                        [classes.appBarShift]: appOpen,
+                    }),
+                )}
+            >
                 <Toolbar>
-                    <Grid justify="space-between" container={true}>
-                        <Typography variant="h6" style={{ color: "#fff" }}>
-                            TypeScript React App
+                    <Grid item={true} style={{ flex: 1 }}>
+                        <Typography style={{ color: "#fff" }} variant="subtitle1" color="secondary">
+                            TypeScript React
                         </Typography>
-                        <Grid item={true}>
-                            {props.isAuthenticated === true || props.googleAccount === true ? (
-                                <Fragment>
-                                    <Button>
-                                        <Link
-                                            style={{
-                                                color: "#fff",
-                                                fontWeight: "500",
-                                                textDecoration: "none",
-                                            }}
-                                            to="/"
-                                        >
-                                            Home
-                                        </Link>
-                                    </Button>
-                                    <Button>
-                                        <Link
-                                            style={{
-                                                color: "#fff",
-                                                textDecoration: "none",
-                                                fontWeight: "500",
-                                            }}
-                                            to="/dashboard"
-                                        >
-                                            Dashboard
-                                        </Link>
-                                    </Button>
-                                    <Button>
-                                        <Link
-                                            style={{
-                                                color: "#fff",
-                                                textDecoration: "none",
-                                                fontWeight: "500",
-                                            }}
-                                            to={{
-                                                pathname: `/${user.id}/likes`,
-                                            }}
-                                        >
-                                            Your Likes
-                                        </Link>
-                                    </Button>
-                                    <Button>
-                                        <Link
-                                            style={{
-                                                color: "#fff",
-                                                fontWeight: "500",
-                                                textDecoration: "none",
-                                            }}
-                                            to="/editProfile"
-                                        >
-                                            Edit Profile
-                                        </Link>
-                                    </Button>
-                                    <Notification
-                                        userId={user.id}
-                                        id={id}
-                                        handleClose={handleClose}
-                                        open={open}
-                                        anchorEl={anchorEl}
-                                        handleNotificationClick={handleNotificationClick}
-                                        title={"Notifications"}
-                                    />
-                                    <Button>
-                                        <Link
-                                            style={{
-                                                color: "#fff",
-                                                fontWeight: "500",
-                                                textDecoration: "none",
-                                            }}
-                                            to={{
-                                                pathname: `/profile/${user.username}`,
-                                            }}
-                                        >
-                                            Profile
-                                        </Link>
-                                    </Button>
-                                    <Button style={{ color: "#fff" }} onClick={props.darkTheme}>
-                                        Change Theme
-                                    </Button>
-                                    <Button style={{ color: "#fff" }} onClick={props.logOut}>
-                                        Logout
-                                    </Button>
-                                </Fragment>
-                            ) : (
-                                <Fragment>
-                                    <Button>
-                                        <Link
-                                            style={{
-                                                color: "#fff",
-                                                fontWeight: "500",
-                                                textDecoration: "none",
-                                            }}
-                                            to="/"
-                                        >
-                                            Home
-                                        </Link>
-                                    </Button>
-                                    <Button>
-                                        <Link
-                                            style={{
-                                                color: "#fff",
-                                                fontWeight: "500",
-                                                textDecoration: "none",
-                                            }}
-                                            to="/register"
-                                        >
-                                            Sign Up
-                                        </Link>
-                                    </Button>
-                                    <Button>
-                                        <Link
-                                            style={{
-                                                color: "#fff",
-                                                fontWeight: "500",
-                                                textDecoration: "none",
-                                            }}
-                                            to="/login"
-                                        >
-                                            Log In
-                                        </Link>
-                                    </Button>
-                                </Fragment>
-                            )}
-                        </Grid>
                     </Grid>
+
+                    <CollapasedMenu setOpen={appSetOpen} appOpen={appOpen} user={user} handleNotificationClick={handleNotificationClick} {...props} />
+                    <MainNav
+                        {...props}
+                        handleClose={handleClose}
+                        user={user}
+                        open={open}
+                        notificationId={id}
+                        anchorEl={anchorEl}
+                        setAnchorEl={setAnchorEl}
+                        handleNotificationClick={handleNotificationClick}
+                    />
                 </Toolbar>
             </AppBar>
             <Switch>

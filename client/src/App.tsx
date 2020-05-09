@@ -3,9 +3,11 @@ import { createMuiTheme, ThemeProvider, MuiThemeProvider } from "@material-ui/co
 import { setDark } from "./actions/userActions";
 import { store } from "./store";
 import Nav from "./Nav";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import { Provider } from "react-redux";
 import { userSession } from "./utils";
 import { connect } from "react-redux";
+
 userSession.userSession();
 
 const theme = createMuiTheme({
@@ -46,7 +48,7 @@ function App(props: any) {
         props.setDark();
         console.log("testing");
     };
-    console.log("checking for dark", props);
+
     return (
         <ThemeProvider theme={props.user.notDark ? defaultTheme : dark}>
             <Nav darkTheme={darkTheme} />

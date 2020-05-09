@@ -15,7 +15,7 @@ function Landing(props) {
     //         console.log("this is component didupdate");
     //     }
     // }, []); // array prevents an infinite loop
-    console.log(props);
+
     return (
         <Fragment>
             <Typography variant="h6" align="left">

@@ -13,7 +13,7 @@ export default {
             const token = localStorage.getItem("jwtToken");
             if (token !== "null") {
                 const decoded = jwt_decode(token);
-                console.log(decoded);
+                // console.log(decoded);
                 // Set user and isAuthenticated
                 store.dispatch(loginSuccess(decoded));
                 // store.dispatch(getCurrentUser());

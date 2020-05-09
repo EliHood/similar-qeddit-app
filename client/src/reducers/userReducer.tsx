@@ -70,7 +70,6 @@ const authReducer = (state = initialState, action: any): userState =>
                 const loginStatus = sessionData.getLoginStatus();
                 const emailVerified = sessionData.emailVerifiedStatus();
                 const verified = loginStatus == true && emailVerified == true ? true : false;
-                console.log("email && login", verified);
                 draft.isAuthenticated = verified;
                 draft.googleAccount = sessionData.googleIdStatus();
                 draft.currentUser = action.payload;
@@ -80,7 +79,6 @@ const authReducer = (state = initialState, action: any): userState =>
                 draft.googleAccount = null;
                 break;
             case types.LOG_IN_SUCCESS:
-                console.log("login success got called");
                 // console.log("login reducer", action.payload.login.user.email_verified);
                 const loginStatus2 = sessionData.getLoginStatus();
                 const emailVerified2 = sessionData.emailVerifiedStatus();

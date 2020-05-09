@@ -36,7 +36,7 @@ export default function Notification(props: any) {
                     horizontal: "center",
                 }}
             >
-                <Typography style={{ padding: "20px" }} variant="h6">
+                <Typography style={{ padding: "20px" }} color="secondary" variant="h6">
                     Notifications:{" "}
                 </Typography>
                 <Divider />

@@ -5,14 +5,14 @@ import Typography from "@material-ui/core/Typography";
 import React from "react";
 const PostForm = (props: any) => (
     <form onSubmit={props.onSubmit}>
-        <Typography className="title" style={{ paddingBottom: "20px" }} variant="h4">
+        <Typography className="title" style={{ paddingBottom: "20px" }} variant="h6">
             New Post
         </Typography>
         <TextField
             id="outlined-name"
             label="Title"
             style={{
-                width: 560,
+                width: "100%",
             }}
             name="title"
             error={props.titleError === true || props.titleError === null ? false : true}
@@ -32,7 +32,7 @@ const PostForm = (props: any) => (
             name="postContent"
             multiline={true}
             style={{
-                width: 560,
+                width: "100%",
             }}
             rows="4"
             error={props.bodyError === true || props.bodyError === null ? false : true}

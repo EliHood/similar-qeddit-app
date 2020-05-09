@@ -11,7 +11,7 @@ describe("userActions", () => {
 
         const expectedAction = {
             type: types.SIGN_UP_INIT,
-            payload: payload,
+            payload,
             history: {},
         };
 
@@ -24,7 +24,7 @@ describe("userActions", () => {
         };
         const expectedAction = {
             type: types.LOG_IN_INIT,
-            payload: payload,
+            payload,
             history: {},
         };
         expect(actionTypes.loginInit(payload, {})).toEqual(expectedAction);

@@ -5,6 +5,7 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Typography from "@material-ui/core/Typography";
+import { Grid } from "@material-ui/core";
 
 import "./style.css";
 interface TabPanelProps {
@@ -43,43 +44,50 @@ export default function OurTabs(props) {
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         setValue(newValue);
     };
-    console.log(props);
     return (
         <div className={classes.root}>
-            <Tabs className="tabMenu" value={value} onChange={handleChange} aria-label="simple tabs example">
-                <Tab label="Trending" {...a11yProps(0)} />
-                <Tab label="Newest" {...a11yProps(1)} />
-            </Tabs>
-            <TabPanel value={value} index={0}>
-                <PostList
-                    likePost={props.likePost}
-                    deletePost={props.deletePostInit}
-                    deleteComment={props.deleteComment}
-                    dislikePost={props.dislikePost}
-                    posts={props.popPosts}
-                    currentUser={props.user}
-                    postComment={props.postCommentInit}
-                    isNotified={props.isNotified}
-                    editComment={props.editCommentInit}
-                    getNotifications={props.notificationInit}
-                    notification={props.notification}
-                />
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-                <PostList
-                    likePost={props.likePost}
-                    dislikePost={props.dislikePost}
-                    deleteComment={props.deleteComment}
-                    deletePost={props.deletePostInit}
-                    editComment={props.editCommentInit}
-                    posts={props.posts}
-                    currentUser={props.user}
-                    postComment={props.postCommentInit}
-                    isNotified={props.isNotified}
-                    getNotifications={props.notificationInit}
-                    notification={props.notification}
-                />
-            </TabPanel>
+            <Grid container={true} justify="center">
+                <Grid item={true} xs={12} sm={12} md={12} lg={9}>
+                    <Tabs variant="fullWidth" className="tabMenu" value={value} onChange={handleChange}>
+                        <Tab label="Trending" {...a11yProps(0)} />
+                        <Tab label="Newest" {...a11yProps(1)} />
+                    </Tabs>
+                </Grid>
+                <Grid item={true} xs={12} sm={12} md={12} lg={9}>
+                    <TabPanel value={value} index={0}>
+                        <PostList
+                            likePost={props.likePost}
+                            deletePost={props.deletePostInit}
+                            deleteComment={props.deleteComment}
+                            dislikePost={props.dislikePost}
+                            posts={props.popPosts}
+                            currentUser={props.user}
+                            postComment={props.postCommentInit}
+                            isNotified={props.isNotified}
+                            editComment={props.editCommentInit}
+                            getNotifications={props.notificationInit}
+                            notification={props.notification}
+                        />
+                    </TabPanel>
+                </Grid>
+                <Grid item={true} xs={12} sm={12} md={12} lg={9}>
+                    <TabPanel value={value} index={1}>
+                        <PostList
+                            likePost={props.likePost}
+                            dislikePost={props.dislikePost}
+                            deleteComment={props.deleteComment}
+                            deletePost={props.deletePostInit}
+                            editComment={props.editCommentInit}
+                            posts={props.posts}
+                            currentUser={props.user}
+                            postComment={props.postCommentInit}
+                            isNotified={props.isNotified}
+                            getNotifications={props.notificationInit}
+                            notification={props.notification}
+                        />
+                    </TabPanel>
+                </Grid>
+            </Grid>
         </div>
     );
 }

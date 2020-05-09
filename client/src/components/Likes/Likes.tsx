@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import PostList from "../forms/postList/postList";
 import GridHoc from "../hoc/grid";
+import Grid from "@material-ui/core/Grid";
 import usePostsHook from "./../common/postsHook";
 export interface IProps {
     match?: any;
@@ -30,6 +31,8 @@ function Likes(props: IProps) {
     console.log("test");
     return (
         <Fragment>
+            {/* <Grid container={true}>
+                <Grid item={true} lg={9} xs={12}> */}
             <PostList
                 likePost={props.likePost}
                 deletePost={props.deletePostInit}
@@ -42,6 +45,8 @@ function Likes(props: IProps) {
                 getNotifications={props.notificationInit}
                 notification={props.notification}
             />
+            {/* </Grid>
+            </Grid> */}
         </Fragment>
     );
 }

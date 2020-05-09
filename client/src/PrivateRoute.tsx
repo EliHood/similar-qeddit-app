@@ -5,7 +5,7 @@ import { getGoogleAccount } from "./selectors/selectors";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
     // const isGoogleAccount = useSelector(getGoogleAccount());
-    console.log("checking rest", rest, Component);
+
     // if user signed up and verified account, give user access to all authenticated routes,
     // of if user signed up using google oauth, give user access to all authenticated routes
     if (rest.googleAccount === true) {

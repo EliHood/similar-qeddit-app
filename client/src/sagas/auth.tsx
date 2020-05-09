@@ -28,7 +28,6 @@ export function* getAutoLoginStatus(action) {
     try {
         const login = yield call(api.user.currentUser);
         const token = login.token;
-        console.log("autologin", login);
 
         if (login.user.googleId !== null) {
             localStorage.setItem("googleId", login.user.googleId);

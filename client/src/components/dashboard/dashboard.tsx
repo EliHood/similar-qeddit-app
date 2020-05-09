@@ -4,6 +4,7 @@ import GridHoc from "../hoc/grid";
 import OurTabs from "../tabs/OurTabs";
 import { InputHook } from "../common/handleHook";
 import usePostsHook from "./../common/postsHook";
+import Grid from "@material-ui/core/Grid";
 export interface dashboardProps {
     getPostsInit: () => void;
     getPopPostsInit: () => void;
@@ -53,16 +54,21 @@ function Dashboard(props: dashboardProps) {
     console.log(props);
     return (
         <Fragment>
-            <PostForm
-                title={props.title}
-                postContent={props.postContent}
-                handleTitleChange={handleInputChange}
-                handleContentChange={handleInputChange}
-                onSubmit={onSubmit}
-                disButton={isEnabled}
-                titleError={props.titleError}
-                bodyError={props.bodyError}
-            />
+            <Grid justify="center" container={true}>
+                <Grid item={true} lg={9} xs={11}>
+                    <PostForm
+                        title={props.title}
+                        postContent={props.postContent}
+                        handleTitleChange={handleInputChange}
+                        handleContentChange={handleInputChange}
+                        onSubmit={onSubmit}
+                        disButton={isEnabled}
+                        titleError={props.titleError}
+                        bodyError={props.bodyError}
+                    />
+                </Grid>
+            </Grid>
+
             <br />
             {/* pass props redux props to tabs */}
             <OurTabs {...props} />

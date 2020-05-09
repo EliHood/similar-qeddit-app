@@ -36,7 +36,7 @@ export default function OurModal(props) {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={props.handleClose} color="primary">
+                    <Button autoFocus={true} onClick={props.handleClose} color="primary">
                         Close
                     </Button>
                 </DialogActions>
