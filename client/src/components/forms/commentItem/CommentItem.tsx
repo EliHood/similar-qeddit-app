@@ -7,6 +7,7 @@ import ClearIcon from "@material-ui/icons/Clear";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import ReactMarkdown from "react-markdown/with-html";
 import "./style.css";
+import { Grid } from "@material-ui/core";
 function CommentItem(props) {
     const [commentEdit, setCommentEdit] = useState("");
     const [isGifSelected, setGifSelected] = useState<Boolean>(false);
@@ -44,13 +45,13 @@ function CommentItem(props) {
                 </Fragment>
             ) : (
                 <Fragment>
-                    <ReactMarkdown className="markdownStyle" source={props.comment.comment_body} />
+                    <Grid container={true}>
+                        <Grid item={true} xs={12} lg={11}>
+                            {props.comment.gifUrl === "" && <ReactMarkdown className="markdownStyle" source={props.comment.comment_body} />}
 
-                    {!props.edit && props.comment.gifUrl && (
-                        <div style={{ display: "block" }}>
-                            <img src={`${props.comment.gifUrl}`} />
-                        </div>
-                    )}
+                            {!props.edit && props.comment.gifUrl && <img style={{ width: "55%" }} src={`${props.comment.gifUrl}`} />}
+                        </Grid>
+                    </Grid>
                 </Fragment>
             )}
 
