@@ -31,6 +31,26 @@ const defaultTheme = createMuiTheme({
         },
     },
 });
+defaultTheme.typography.h6 = {
+    fontSize: "0.9rem",
+    "@media (min-width:600px)": {
+        fontSize: "0.5rem",
+    },
+    [theme.breakpoints.up("lg")]: {
+        fontSize: "1.4rem",
+    },
+    [theme.breakpoints.up("sm")]: {
+        fontSize: "1.4rem",
+    },
+};
+defaultTheme.typography.h5 = {
+    "@media (min-width:600px)": {
+        fontSize: "0.9rem",
+    },
+    [theme.breakpoints.up("md")]: {
+        fontSize: "1.4rem",
+    },
+};
 
 const dark = createMuiTheme({
     palette: {
