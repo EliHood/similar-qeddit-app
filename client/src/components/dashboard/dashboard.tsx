@@ -51,7 +51,7 @@ function Dashboard(props: dashboardProps) {
         props.createPostInit(postData);
     };
     const isEnabled = props.titleError === true && props.bodyError === true ? false : true;
-    console.log(props);
+
     return (
         <Fragment>
             <Grid justify="center" container={true}>

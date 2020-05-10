@@ -1,0 +1,39 @@
+{
+  "menus": [
+    {
+      "link": "",
+      "name": "Home"
+    },
+    {
+      "link": "dashboard",
+      "name": "Dashboard"
+    },
+
+    {
+      "link": "likes",
+      "name": "Your Likes"
+    },
+    {
+      "link": "editProfile",
+      "name": "Edit Profile"
+    },
+    {
+      "link": "profile",
+      "name": "Profile"
+    }
+  ],
+  "guestMenu": [
+    {
+      "link": "",
+      "name": "Home"
+    },
+    {
+      "link": "register",
+      "name": "Register"
+    },
+    {
+      "link": "login",
+      "name": "Login"
+    }
+  ]
+}

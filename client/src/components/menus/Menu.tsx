@@ -1,9 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import { Menu } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
-import HomeIcon from "@material-ui/icons/Home";
-import Hidden from "@material-ui/core/Hidden";
 import Drawer from "@material-ui/core/Drawer";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import MenuIcon from "@material-ui/icons/Menu";

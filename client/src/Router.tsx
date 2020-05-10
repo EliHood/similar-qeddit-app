@@ -21,8 +21,8 @@ import PrivateRoute from "./PrivateRoute";
 import NotFound from "./components/404/404";
 import GridHoc from "./components/hoc/grid";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import CollapasedMenu from "./CollapsedMenu";
-import MainNav from "./MainNav";
+import CollapasedMenu from "./components/menus/CollapsedMenu";
+import MainNav from "./components/menus/MainNav";
 const drawerWidth = 240;
 const styles = makeStyles((theme) => ({
     buttonBar: {
@@ -59,7 +59,6 @@ function MyRouter(props) {
     const id = open ? "simple-popover" : undefined;
     const handleNotificationClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
-        console.log("testing", user);
         props.notifications(user.id);
     };
     const handleClose = () => {
@@ -67,6 +66,7 @@ function MyRouter(props) {
     };
     const classes = styles();
     const user = props.currentUser.user ? props.currentUser.user : "";
+    console.log("balh", anchorEl);
     return props.hasError ? (
         <div>Error</div>
     ) : (
@@ -88,16 +88,7 @@ function MyRouter(props) {
                     </Grid>
 
                     <CollapasedMenu setOpen={appSetOpen} appOpen={appOpen} user={user} handleNotificationClick={handleNotificationClick} {...props} />
-                    <MainNav
-                        {...props}
-                        handleClose={handleClose}
-                        user={user}
-                        open={open}
-                        notificationId={id}
-                        anchorEl={anchorEl}
-                        setAnchorEl={setAnchorEl}
-                        handleNotificationClick={handleNotificationClick}
-                    />
+                    <MainNav {...props} handleClose={handleClose} user={user} open={open} notificationId={id} anchorEl={anchorEl} handleNotificationClick={handleNotificationClick} />
                 </Toolbar>
             </AppBar>
             <Switch>

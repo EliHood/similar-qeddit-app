@@ -18,9 +18,9 @@ export default function Notification(props: any) {
 
     return (
         <Fragment>
-            <Button style={{ color: "#fff" }} aria-describedby={id} onClick={props.handleNotificationClick}>
+            <div style={{ color: "#fff" }} onClick={props.handleNotificationClick}>
                 {props.title}
-            </Button>
+            </div>
 
             <Popover
                 id={props.id}
