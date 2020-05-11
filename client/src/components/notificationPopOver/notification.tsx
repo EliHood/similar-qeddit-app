@@ -3,6 +3,8 @@ import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
+import { useDispatch, useSelector } from "react-redux";
+// import { userStore } from "../../selectors/selectors";
 export default function Notification(props: any) {
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const didMountRef = useRef<Object>();

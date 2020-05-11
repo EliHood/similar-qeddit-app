@@ -53,11 +53,11 @@ function PostItemContainer(props: any) {
         setCommentBody("");
         setOpenForm(false);
     };
-    const { post, currentUser, notification } = props;
+    const { post, currentUser, getNotifications } = props;
 
     return (
         <Fragment>
-            {notification && <ToastContainer autoClose={1000} position={toast.POSITION.BOTTOM_RIGHT} />}
+            {getNotifications && <ToastContainer autoClose={1000} position={toast.POSITION.BOTTOM_RIGHT} />}
             <Grid item={true} sm={12} md={12} style={{ margin: "20px 0px" }}>
                 <Paper style={{ padding: "20px" }}>
                     <Typography variant="h5" align="left">

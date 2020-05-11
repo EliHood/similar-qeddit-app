@@ -11,7 +11,9 @@ import GridHoc from "../hoc/grid";
 import IsAuth from "../hoc/isAuthenticated";
 import { makeStyles } from "@material-ui/core/styles";
 import { GoogleLoginButton } from "../common/GoogleButton";
-
+import { initLogin, loginInit } from "./../../actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
+import { userStore } from "../../selectors/selectors";
 export interface loginProps {
     onChange: (event: any) => void;
     loginInit: (event: object, history: object) => void;
@@ -55,7 +57,9 @@ function Login(props: any) {
     const classes = useStyles();
     const [username, setUsername] = useState<String>("");
     const [password, setPassword] = useState<String>("");
-
+    const dispatch = useDispatch();
+    const login = (userData: object, history: object) => dispatch(loginInit(userData, history));
+    const user = useSelector(userStore());
     const goBackEmailConfirmation = () => {
         props.history.goBack();
     };
@@ -67,10 +71,10 @@ function Login(props: any) {
         };
         console.log(creds);
 
-        props.loginInit(creds, props.history);
+        login(creds, props.history);
     };
 
-    console.log(props.user.error);
+    console.log(user);
     return (
         <Fragment>
             <Grid container={true} component="main" className={classes.root}>
@@ -84,12 +88,12 @@ function Login(props: any) {
                         <Typography component="h1" variant="h5">
                             Log In
                         </Typography>
-                        {props.user.error && (
+                        {user.error && (
                             <div>
-                                <Alert severity="warning">{props.user.error}</Alert>
+                                <Alert severity="warning">{user.error}</Alert>
                             </div>
                         )}
-                        {props.user.error.includes("Please activate") && (
+                        {user.error.includes("Please activate") && (
                             <div style={{ padding: "20px 0px" }}>
                                 <Typography variant="h6" style={{ cursor: "pointer" }} onClick={goBackEmailConfirmation}>
                                     {" "}

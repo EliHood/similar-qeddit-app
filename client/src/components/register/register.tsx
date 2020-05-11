@@ -11,16 +11,9 @@ import GroupIcon from "@material-ui/icons/Group";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { history } from "../../ourHistory";
-export interface registerProps {
-    onChange: (event: any) => void;
-    signUpInit: (event: object, history: object) => void;
-    addUsername: (event: object) => void;
-    addEmail: (event: object) => void;
-    addPassword: (event: object) => void;
-    addPasswordConf: (event: object) => void;
-    user?: any;
-    history?: any;
-}
+import { useSelector, useDispatch } from "react-redux";
+import { userStore } from "../../selectors/selectors";
+import { addEmail, addPassword, addUsername, signUpInit, addPasswordConf } from "../../actions/userActions";
 export interface registerState {
     passwordConf: string;
     passErr: string;
@@ -55,21 +48,30 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(3, 0, 2),
     },
 }));
-function Register(registerProps: any) {
+function Register(props: any) {
     const classes = useStyles();
-    const { handleInputChange } = InputHook(registerProps);
+    const userData = useSelector(userStore());
+    const dispatch = useDispatch();
+    const signup = (userData: object, history: object) => dispatch(signUpInit(userData, history));
+    const inputData = {
+        addEmail: (email: string) => dispatch(addEmail(email)),
+        addPassword: (password: string) => dispatch(addPassword(password)),
+        addUsername: (username: string) => dispatch(addUsername(username)),
+        addPasswordConf: (passwordConf: string) => dispatch(addPasswordConf(passwordConf)),
+    };
+    const { handleInputChange } = InputHook(inputData);
     const handleSubmit = (e: any) => {
         e.preventDefault();
-        const { username, email, password, passwordConf } = registerProps.user;
+        const { username, email, password, passwordConf } = userData;
         const creds = {
             username,
             email,
             password,
         };
         console.log(creds);
-        registerProps.signUpInit(creds, history);
+        signup(creds, history);
     };
-    const { username, email, password, passwordConf, passwordConfError, usernameError, passwordError, emailError } = registerProps.user;
+    const { username, email, password, passwordConf, passwordConfError, usernameError, passwordError, emailError } = userData;
     const isEnabled = passwordConfError === true && emailError === true && passwordError === true && usernameError === true ? false : true;
     return (
         <Fragment>
@@ -84,7 +86,7 @@ function Register(registerProps: any) {
                         <Typography component="h1" variant="h5">
                             Register
                         </Typography>
-                        {registerProps.user.error && <div>{registerProps.user.error}</div>}
+                        {userData.error && <div>{userData.error}</div>}
                         <SignUpForm
                             submit={handleSubmit}
                             usernameChange={handleInputChange}

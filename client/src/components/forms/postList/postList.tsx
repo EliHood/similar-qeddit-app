@@ -22,13 +22,13 @@ function PostList(props: any) {
     const [gifUrl, setGifUrl] = useState("");
 
     const didMountRef = useRef();
-    useEffect(() => {
-        if (!didMountRef.current) {
-            props.getNotifications();
-        } else {
-            console.log("test");
-        }
-    });
+    // useEffect(() => {
+    //     if (!didMountRef.current) {
+    //         props.getNotifications();
+    //     } else {
+    //         console.log("test");
+    //     }
+    // });
     const { posts, currentUser } = props;
     return posts.length > 0 ? (
         posts.map((post, i) => (
