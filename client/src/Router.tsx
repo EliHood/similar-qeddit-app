@@ -9,7 +9,7 @@ import { Route, Router, Redirect, Switch } from "react-router-dom";
 import Landing from "./components/landing/landing";
 import Dashboard from "./containers/dashboard";
 import EmailConfirmation from "./components/emailConfirmation/emailConfirmation";
-import EmailConfirmationSuccess from "./containers/emailConfirmationSuccess";
+import EmailConfirmationSuccess from "./components/emailConfirmationSuccess/emailConfirmationSuccess";
 import Likes from "./containers/Likes";
 import Login from "./components/login/login";
 import Post from "./containers/postPage";
