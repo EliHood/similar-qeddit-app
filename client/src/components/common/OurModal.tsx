@@ -9,17 +9,9 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 import OurLink from "./OurLink";
 export default function OurModal(props) {
-    const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
     return (
         <div>
             <Dialog fullScreen={fullScreen} open={props.open} onClose={props.handleClose} aria-labelledby="responsive-dialog-title">

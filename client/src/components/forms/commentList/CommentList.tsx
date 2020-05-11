@@ -1,4 +1,3 @@
-import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
@@ -18,7 +17,6 @@ const ourStyle = {
 function CommentList(props: any) {
     const [showMore, setShowMore] = useState<Number>(3);
     const [openModal, setOpenModal] = useState(false);
-    const [editComment, setEditComment] = useState(false);
     const [showLessFlag, setShowLessFlag] = useState<Boolean>(false);
     const showComments = (e) => {
         e.preventDefault();
@@ -45,7 +43,7 @@ function CommentList(props: any) {
             .map((comment, i) => (
                 <div key={i}>
                     <List style={{ paddingBottom: "20px" }}>
-                        <img style={{ margin: "-5px 10px" }} src={comment.author.gravatar} width="30" height="30" />
+                        <img alt="gravatar" style={{ margin: "-5px 10px" }} src={comment.author.gravatar} width="30" height="30" />
                         <Typography style={{ display: "inline-block", fontWeight: 700, padding: "5px 0px" }} variant="h6" align="left">
                             {Object.entries(props.currentUser).length === 0 ? (
                                 <Fragment>
@@ -106,7 +104,7 @@ function CommentList(props: any) {
                         .map((comment, i) => (
                             <div key={i}>
                                 <List style={{ paddingBottom: "20px" }}>
-                                    <img style={{ margin: "-5px 10px" }} src={comment.author.gravatar} width="30" height="30" />
+                                    <img alt="gravatar" style={{ margin: "-5px 10px" }} src={comment.author.gravatar} width="30" height="30" />
                                     <Typography style={{ display: "inline-block", fontWeight: 700, padding: "5px 0px" }} variant="h6" align="left">
                                         {Object.entries(props.currentUser).length === 0 ? (
                                             <Fragment>

@@ -1,13 +1,9 @@
 import React, { Fragment } from "react";
 import Grid from "@material-ui/core/Grid";
-import OurMenu from "./Menu";
-import MenuIcon from "@material-ui/icons/Menu";
-import { MenuItem } from "@material-ui/core";
-import { Link, Route, Router, Redirect, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Notification from "../../containers/notificationTooltip";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import * as classnames from "classnames";
+import { makeStyles } from "@material-ui/core/styles";
 import menus from "./menu.json";
 const drawerWidth = 240;
 const styles = makeStyles((theme) => ({
@@ -39,13 +35,9 @@ const styles = makeStyles((theme) => ({
 }));
 
 function MainNav(props: any) {
-    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+    const [, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const classes = styles();
     console.log("checking for props", props);
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-    const user = props.currentUser.user ? props.currentUser.user : "";
     return (
         <Grid item={true}>
             <div className={classes.buttonBar} id="appbar-collapse">

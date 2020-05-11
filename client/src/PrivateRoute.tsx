@@ -1,7 +1,5 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getGoogleAccount } from "./selectors/selectors";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
     // const isGoogleAccount = useSelector(getGoogleAccount());

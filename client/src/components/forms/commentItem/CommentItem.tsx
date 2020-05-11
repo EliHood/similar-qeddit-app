@@ -10,7 +10,6 @@ import "./style.css";
 import { Grid } from "@material-ui/core";
 function CommentItem(props) {
     const [commentEdit, setCommentEdit] = useState("");
-    const [isGifSelected, setGifSelected] = useState<Boolean>(false);
     const [editComment, setEditComment] = useState(false);
     const update = (comment) => {
         console.log(comment);

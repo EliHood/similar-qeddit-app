@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PostList from "../forms/postList/postList";
 import Box from "@material-ui/core/Box";
 import { makeStyles, Theme } from "@material-ui/core/styles";

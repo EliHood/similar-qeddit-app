@@ -1,19 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    addContent,
-    addTitle,
-    createPostInit,
-    deleteCommentInit,
-    initCommentUpdates,
-    deletePostInit,
-    dislikePostInit,
-    getPostsInit,
-    likePostInit,
-    notificationInit,
-    postCommentInit,
-} from "../../actions/postActions";
-import { getBodyError, getIsNotified, getNotification, getPopPosts, getPosts, getTitleError, getUser, postContent, title } from "./../../selectors/selectors";
+import { initCommentUpdates, getPostsInit } from "../../actions/postActions";
+import { getPosts } from "./../../selectors/selectors";
 function usePostsHooks() {
     const dispatch = useDispatch();
     const posts = useSelector(getPosts());

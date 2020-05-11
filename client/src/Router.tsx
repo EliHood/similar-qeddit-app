@@ -1,7 +1,6 @@
 import React from "react";
 import * as classnames from "classnames";
 import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -19,8 +18,7 @@ import Register from "./components/register/register";
 import { history } from "./ourHistory";
 import PrivateRoute from "./PrivateRoute";
 import NotFound from "./components/404/404";
-import GridHoc from "./components/hoc/grid";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import CollapasedMenu from "./components/menus/CollapsedMenu";
 import MainNav from "./components/menus/MainNav";
 const drawerWidth = 240;

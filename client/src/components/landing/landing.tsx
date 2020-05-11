@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, Component } from "react";
+import React, { Fragment } from "react";
 import PostList from "../forms/postList/postList";
 import GridHoc from "../hoc/grid";
 import Typography from "@material-ui/core/Typography";
@@ -7,7 +7,7 @@ import useNotificationHook from "../common/notificationHook";
 import { useDispatch, useSelector } from "react-redux";
 import { likePostInit, dislikePostInit, deletePostInit, deleteCommentInit, editCommentInit, postCommentInit } from "./../../actions/postActions";
 import { getIsNotified, getUser } from "./../../selectors/selectors";
-function Landing(props) {
+function Landing() {
     const dispatch = useDispatch();
     const [posts] = usePostsHook();
     const user = useSelector(getUser());

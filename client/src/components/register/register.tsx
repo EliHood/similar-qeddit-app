@@ -1,7 +1,6 @@
 import Typography from "@material-ui/core/Typography";
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 import SignUpForm from "../forms/signUp/signUp";
-import GridHoc from "../hoc/grid";
 import IsAuth from "../hoc/isAuthenticated";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { InputHook } from "./../common/handleHook";
@@ -48,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(3, 0, 2),
     },
 }));
-function Register(props: any) {
+function Register() {
     const classes = useStyles();
     const userData = useSelector(userStore());
     const dispatch = useDispatch();
@@ -62,7 +61,7 @@ function Register(props: any) {
     const { handleInputChange } = InputHook(inputData);
     const handleSubmit = (e: any) => {
         e.preventDefault();
-        const { username, email, password, passwordConf } = userData;
+        const { username, email, password } = userData;
         const creds = {
             username,
             email,

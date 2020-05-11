@@ -1,10 +1,7 @@
-import React, { useState } from "react";
-import { createMuiTheme, ThemeProvider, MuiThemeProvider } from "@material-ui/core/styles";
+import React from "react";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { setDark } from "./actions/userActions";
-import { store } from "./store";
 import Nav from "./Nav";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { Provider } from "react-redux";
 import { userSession } from "./utils";
 import { connect } from "react-redux";
 

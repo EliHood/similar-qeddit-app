@@ -5,7 +5,6 @@ import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 import { store, persitor } from "./store";
 import { PersistGate } from "redux-persist/lib/integration/react";
-import { userSession } from "./utils";
 import App from "./App";
 const app = (
     <Provider store={store}>

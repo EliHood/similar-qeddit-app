@@ -1,7 +1,6 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 import PostList from "../forms/postList/postList";
 import GridHoc from "../hoc/grid";
-import Grid from "@material-ui/core/Grid";
 import usePostsHook from "./../common/postsHook";
 export interface IProps {
     match?: any;

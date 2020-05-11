@@ -1,19 +1,16 @@
 import React, { Fragment } from "react";
 import Grid from "@material-ui/core/Grid";
 import OurMenu from "./Menu";
-import MenuIcon from "@material-ui/icons/Menu";
 import { MenuItem } from "@material-ui/core";
-import { Link, Route, Router, Redirect, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Notification from "../../containers/notificationTooltip";
 function CollapasedMenu(props: any) {
-    const [appOpen, appSetOpen] = React.useState(false);
+    const [] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const handleClose = () => {
         setAnchorEl(null);
     };
     const user = props.currentUser.user ? props.currentUser.user : "";
-    const open = Boolean(anchorEl);
-    const id = open ? "simple-popover" : undefined;
 
     return (
         <Grid item={true}>

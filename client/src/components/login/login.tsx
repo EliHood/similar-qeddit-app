@@ -1,17 +1,16 @@
 import Typography from "@material-ui/core/Typography";
 import Alert from "@material-ui/lab/Alert";
-import React, { Component, useState, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Grid from "@material-ui/core/Grid";
 import LoginForm from "../forms/login/login";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
-import GridHoc from "../hoc/grid";
 import IsAuth from "../hoc/isAuthenticated";
 import { makeStyles } from "@material-ui/core/styles";
 import { GoogleLoginButton } from "../common/GoogleButton";
-import { initLogin, loginInit } from "./../../actions/userActions";
+import { loginInit } from "./../../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import { userStore } from "../../selectors/selectors";
 export interface loginProps {
