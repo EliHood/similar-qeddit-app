@@ -67,6 +67,7 @@ const authReducer = (state = initialState, action: any): userState =>
                 break;
             case types.GET_USER_SUCCESS:
                 console.log(action);
+                console.log("checking logout");
                 const loginStatus = sessionData.getLoginStatus();
                 const emailVerified = sessionData.emailVerifiedStatus();
                 const verified = loginStatus == true && emailVerified == true ? true : false;
@@ -77,6 +78,7 @@ const authReducer = (state = initialState, action: any): userState =>
             case types.LOG_OUT_SUCCESS:
                 draft.isAuthenticated = false;
                 draft.googleAccount = null;
+                draft.currentUser = {};
                 break;
             case types.LOG_IN_SUCCESS:
                 // console.log("login reducer", action.payload.login.user.email_verified);
