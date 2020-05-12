@@ -3,30 +3,27 @@ import PostForm from "../forms/createPost/createPost";
 import GridHoc from "../hoc/grid";
 import OurTabs from "../tabs/OurTabs";
 import { InputHook } from "../common/handleHook";
-import usePostsHook from "./../common/postsHook";
 import Grid from "@material-ui/core/Grid";
-import { useDispatch, useSelector } from "react-redux";
-import { createPostInit, addTitle, addContent } from "../../actions/postActions";
-import { getBodyError, getTitleError, postContent, title } from "../../selectors/selectors";
+import { useDispatch } from "react-redux";
+import { addTitle, addContent } from "../../actions/postActions";
 
+import storeMethods from "./../common/storeHooks";
 function Dashboard(props: any) {
-    // this hook
-    usePostsHook();
+    const dispatch = useDispatch();
     const inputData = {
         addTitle: (data: string) => dispatch(addTitle(data)),
         addContent: (data: string) => dispatch(addContent(data)),
     };
     const { handleInputChange } = InputHook(inputData);
-    const dispatch = useDispatch();
-    const createPost = (postData: object) => dispatch(createPostInit(postData));
-    const ourTitle = useSelector(title());
-    const titleError = useSelector(getTitleError());
-    const ourBodyError = useSelector(getBodyError());
-    const ourPostContent = useSelector(postContent());
-
+    const ourTitle = storeMethods().ourTitle;
+    const titleError = storeMethods().titleError;
+    const ourBodyError = storeMethods().ourBodyError;
+    const ourPostContent = storeMethods().ourPostContent;
+    const { createPost } = storeMethods();
     const onSubmit = (e: any) => {
         e.preventDefault();
         const postData = { ourTitle, ourPostContent };
+        console.log(postData);
         createPost(postData);
     };
     const isEnabled = titleError === true && ourBodyError === true ? false : true;

@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { likePostInit, dislikePostInit, deletePostInit, deleteCommentInit, editCommentInit, postCommentInit } from "./../../actions/postActions";
 import { getIsNotified, getUser, getPopPosts, getPosts } from "./../../selectors/selectors";
 import "./style.css";
-
+import storeMethods from "./../common/storeHooks";
 interface TabPanelProps {
     children?: React.ReactNode;
     index: any;
@@ -44,24 +44,14 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default function OurTabs(props) {
-    const classes = useStyles();
+    // calls the posts api once, then we use storeMethods().posts to get the posts from store
     usePostsHook();
+    const classes = useStyles();
     const [value, setValue] = React.useState(1);
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         setValue(newValue);
     };
-    const dispatch = useDispatch();
-    const user = useSelector(getUser());
-    const isNotified = useSelector(getIsNotified());
-    const [notifications] = useNotificationHook();
-    const popPosts = useSelector(getPopPosts());
-    const posts = useSelector(getPosts());
-    const likePost = (id: number) => dispatch(likePostInit(id));
-    const dislikePost = (id: number) => dispatch(dislikePostInit(id));
-    const deletePost = (id: number, userId: number) => dispatch(deletePostInit(id, userId));
-    const deleteComment = (id: number, postId: number, userId: number) => dispatch(deleteCommentInit(id, postId, userId));
-    const postComment = (commentData: object) => dispatch(postCommentInit(commentData));
-    const editComment = (commentData) => dispatch(editCommentInit(commentData));
+
     console.log("our props", props);
     return (
         <div className={classes.root}>
@@ -75,32 +65,32 @@ export default function OurTabs(props) {
                 <Grid item={true} xs={12} sm={12} md={12} lg={9}>
                     <TabPanel value={value} index={0}>
                         <PostList
-                            likePost={likePost}
-                            deletePost={deletePost}
-                            deleteComment={deleteComment}
-                            dislikePost={dislikePost}
-                            posts={popPosts}
-                            currentUser={user}
-                            postComment={postComment}
-                            isNotified={isNotified}
-                            getNotifications={notifications}
-                            editComment={editComment}
+                            likePost={storeMethods().likePost}
+                            deletePost={storeMethods().deletePost}
+                            deleteComment={storeMethods().deleteComment}
+                            dislikePost={storeMethods().dislikePost}
+                            posts={storeMethods().popPosts}
+                            currentUser={storeMethods().user}
+                            postComment={storeMethods().postComment}
+                            isNotified={storeMethods().isNotified}
+                            getNotifications={storeMethods().notifications}
+                            editComment={storeMethods().editComment}
                         />
                     </TabPanel>
                 </Grid>
                 <Grid item={true} xs={12} sm={12} md={12} lg={9}>
                     <TabPanel value={value} index={1}>
                         <PostList
-                            likePost={likePost}
-                            deletePost={deletePost}
-                            deleteComment={deleteComment}
-                            dislikePost={dislikePost}
-                            posts={posts}
-                            currentUser={user}
-                            postComment={postComment}
-                            isNotified={isNotified}
-                            getNotifications={notifications}
-                            editComment={editComment}
+                            likePost={storeMethods().likePost}
+                            deletePost={storeMethods().deletePost}
+                            deleteComment={storeMethods().deleteComment}
+                            dislikePost={storeMethods().dislikePost}
+                            posts={storeMethods().posts}
+                            currentUser={storeMethods().user}
+                            postComment={storeMethods().postComment}
+                            isNotified={storeMethods().isNotified}
+                            getNotifications={storeMethods().notifications}
+                            editComment={storeMethods().editComment}
                         />
                     </TabPanel>
                 </Grid>

@@ -7,6 +7,7 @@ function usePostsHooks() {
     const posts = useSelector(getPosts());
     React.useEffect(() => {
         dispatch(getPostsInit());
+        console.log("post hooks got called");
         dispatch(initCommentUpdates());
     }, []);
     return [posts];
