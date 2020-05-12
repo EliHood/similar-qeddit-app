@@ -11,9 +11,9 @@ import EmailConfirmation from "./components/emailConfirmation/emailConfirmation"
 import EmailConfirmationSuccess from "./components/emailConfirmationSuccess/emailConfirmationSuccess";
 import Likes from "./containers/Likes";
 import Login from "./components/login/login";
-import Post from "./containers/postPage";
+import Post from "./components/post/post";
 import EditProfile from "./containers/profile";
-import Profile from "./containers/profilePage";
+import Profile from "./components/profile/profile";
 import Register from "./components/register/register";
 import { history } from "./ourHistory";
 import PrivateRoute from "./PrivateRoute";

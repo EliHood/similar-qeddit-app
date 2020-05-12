@@ -6,6 +6,7 @@ const userSelector = (state: any) => state.user;
 const postSelectorId = (state: any) => state.post;
 
 export const userStore = () => createSelector(userSelector, (state) => state);
+export const profile = () => createSelector(postSelector, (state) => state.postPage);
 
 export const getPosts = () =>
     // this gets all posts

@@ -13,26 +13,24 @@ export default function OurModal(props) {
     const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
     return (
-        <div>
-            <Dialog fullScreen={fullScreen} open={props.open} onClose={props.handleClose} aria-labelledby="responsive-dialog-title">
-                <DialogTitle id="responsive-dialog-title">{"You have to be signed in to do that"}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        <OurLink
-                            style={{ color: "#333" }}
-                            to={{
-                                pathname: `/login`,
-                            }}
-                            title={"Sign In"}
-                        />
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button autoFocus={true} onClick={props.handleClose} color="primary">
-                        Close
-                    </Button>
-                </DialogActions>
-            </Dialog>
-        </div>
+        <Dialog fullScreen={fullScreen} open={props.open} onClose={props.handleClose} aria-labelledby="responsive-dialog-title">
+            <DialogTitle id="responsive-dialog-title">{"You have to be signed in to do that"}</DialogTitle>
+            <DialogContent>
+                <DialogContentText>
+                    <OurLink
+                        style={{ color: "#333" }}
+                        to={{
+                            pathname: `/login`,
+                        }}
+                        title={"Sign In"}
+                    />
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button autoFocus={true} onClick={props.handleClose} color="primary">
+                    Close
+                </Button>
+            </DialogActions>
+        </Dialog>
     );
 }
