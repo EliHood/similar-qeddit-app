@@ -6,7 +6,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { Route, Router, Redirect, Switch } from "react-router-dom";
 import Landing from "./components/landing/landing";
-import Dashboard from "./containers/dashboard";
+import Dashboard from "./components/dashboard/dashboard";
 import EmailConfirmation from "./components/emailConfirmation/emailConfirmation";
 import EmailConfirmationSuccess from "./components/emailConfirmationSuccess/emailConfirmationSuccess";
 import Likes from "./containers/Likes";

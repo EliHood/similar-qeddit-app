@@ -6,13 +6,17 @@ import { InputHook } from "../common/handleHook";
 import usePostsHook from "./../common/postsHook";
 import Grid from "@material-ui/core/Grid";
 import { useDispatch, useSelector } from "react-redux";
-import { createPostInit } from "../../actions/postActions";
+import { createPostInit, addTitle, addContent } from "../../actions/postActions";
 import { getBodyError, getTitleError, postContent, title } from "../../selectors/selectors";
 
 function Dashboard(props: any) {
-    const { handleInputChange } = InputHook(props);
     // this hook
     usePostsHook();
+    const inputData = {
+        addTitle: (data: string) => dispatch(addTitle(data)),
+        addContent: (data: string) => dispatch(addContent(data)),
+    };
+    const { handleInputChange } = InputHook(inputData);
     const dispatch = useDispatch();
     const createPost = (postData: object) => dispatch(createPostInit(postData));
     const ourTitle = useSelector(title());
