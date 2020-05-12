@@ -82,6 +82,7 @@ export function* fetchPost(action) {
     }
 }
 export function* createPost(action) {
+    console.log("saga", action);
     try {
         const post = yield call(api.post.createPost, action.payload);
         yield put(actionTypes.createPostSuccess(post));

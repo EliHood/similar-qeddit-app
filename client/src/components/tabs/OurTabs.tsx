@@ -6,8 +6,13 @@ import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Typography from "@material-ui/core/Typography";
 import { Grid } from "@material-ui/core";
-
+import usePostsHook from "./../common/postsHook";
+import useNotificationHook from "../common/notificationHook";
+import { useDispatch, useSelector } from "react-redux";
+import { likePostInit, dislikePostInit, deletePostInit, deleteCommentInit, editCommentInit, postCommentInit } from "./../../actions/postActions";
+import { getIsNotified, getUser, getPopPosts, getPosts } from "./../../selectors/selectors";
 import "./style.css";
+
 interface TabPanelProps {
     children?: React.ReactNode;
     index: any;
@@ -40,10 +45,24 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default function OurTabs(props) {
     const classes = useStyles();
+    usePostsHook();
     const [value, setValue] = React.useState(1);
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         setValue(newValue);
     };
+    const dispatch = useDispatch();
+    const user = useSelector(getUser());
+    const isNotified = useSelector(getIsNotified());
+    const [notifications] = useNotificationHook();
+    const popPosts = useSelector(getPopPosts());
+    const posts = useSelector(getPosts());
+    const likePost = (id: number) => dispatch(likePostInit(id));
+    const dislikePost = (id: number) => dispatch(dislikePostInit(id));
+    const deletePost = (id: number, userId: number) => dispatch(deletePostInit(id, userId));
+    const deleteComment = (id: number, postId: number, userId: number) => dispatch(deleteCommentInit(id, postId, userId));
+    const postComment = (commentData: object) => dispatch(postCommentInit(commentData));
+    const editComment = (commentData) => dispatch(editCommentInit(commentData));
+    console.log("our props", props);
     return (
         <div className={classes.root}>
             <Grid container={true} justify="center">
@@ -56,34 +75,32 @@ export default function OurTabs(props) {
                 <Grid item={true} xs={12} sm={12} md={12} lg={9}>
                     <TabPanel value={value} index={0}>
                         <PostList
-                            likePost={props.likePost}
-                            deletePost={props.deletePostInit}
-                            deleteComment={props.deleteComment}
-                            dislikePost={props.dislikePost}
-                            posts={props.popPosts}
-                            currentUser={props.user}
-                            postComment={props.postCommentInit}
-                            isNotified={props.isNotified}
-                            editComment={props.editCommentInit}
-                            getNotifications={props.notificationInit}
-                            notification={props.notification}
+                            likePost={likePost}
+                            deletePost={deletePost}
+                            deleteComment={deleteComment}
+                            dislikePost={dislikePost}
+                            posts={popPosts}
+                            currentUser={user}
+                            postComment={postComment}
+                            isNotified={isNotified}
+                            getNotifications={notifications}
+                            editComment={editComment}
                         />
                     </TabPanel>
                 </Grid>
                 <Grid item={true} xs={12} sm={12} md={12} lg={9}>
                     <TabPanel value={value} index={1}>
                         <PostList
-                            likePost={props.likePost}
-                            dislikePost={props.dislikePost}
-                            deleteComment={props.deleteComment}
-                            deletePost={props.deletePostInit}
-                            editComment={props.editCommentInit}
-                            posts={props.posts}
-                            currentUser={props.user}
-                            postComment={props.postCommentInit}
-                            isNotified={props.isNotified}
-                            getNotifications={props.notificationInit}
-                            notification={props.notification}
+                            likePost={likePost}
+                            deletePost={deletePost}
+                            deleteComment={deleteComment}
+                            dislikePost={dislikePost}
+                            posts={posts}
+                            currentUser={user}
+                            postComment={postComment}
+                            isNotified={isNotified}
+                            getNotifications={notifications}
+                            editComment={editComment}
                         />
                     </TabPanel>
                 </Grid>

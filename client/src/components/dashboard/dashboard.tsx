@@ -5,73 +5,48 @@ import OurTabs from "../tabs/OurTabs";
 import { InputHook } from "../common/handleHook";
 import usePostsHook from "./../common/postsHook";
 import Grid from "@material-ui/core/Grid";
-export interface dashboardProps {
-    getPostsInit: () => void;
-    getPopPostsInit: () => void;
-    deletePostInit: (id: number) => void;
-    editCommentInit: (commentData) => void;
-    postCommentInit: (event: object) => void;
-    titleError?: boolean;
-    bodyError?: boolean;
-    posts: any[];
-    error: any[];
-    title: string;
-    postContent: string;
-    addTitle: (data: string) => void;
-    addContent: (data: string) => void;
-    popPosts: any[];
-    createPostInit: (event: object) => void;
-    likePost: (event: number) => void;
-    dislikePost: (event: number) => void;
-    initCommentUpdates: () => void;
-}
+import { useDispatch, useSelector } from "react-redux";
+import { createPostInit } from "../../actions/postActions";
+import { getBodyError, getTitleError, postContent, title } from "../../selectors/selectors";
 
-function Dashboard(props: dashboardProps) {
-    // const [title, setTitle] = useState<string>("");
-    // const [content, setContent] = useState<string>("");
-    // const [value, setValue] = useState<number>(0);
+function Dashboard(props: any) {
     const { handleInputChange } = InputHook(props);
     // this hook
     usePostsHook();
-    // replaces this
-    // React.useEffect(() => {
-    //     if (!didMountRef.current) {
-    //         props.getPostsInit();
-    //         props.initCommentUpdates();
-    //         console.log("test");
-    //     } else {
-    //         console.log("this is component didupdate");
-    //     }
-    // }, []); // array prevents an infinite loop
+    const dispatch = useDispatch();
+    const createPost = (postData: object) => dispatch(createPostInit(postData));
+    const ourTitle = useSelector(title());
+    const titleError = useSelector(getTitleError());
+    const ourBodyError = useSelector(getBodyError());
+    const ourPostContent = useSelector(postContent());
+
     const onSubmit = (e: any) => {
         e.preventDefault();
-        const { title, postContent } = props;
-        const postData = { title, postContent };
-        console.log(postData);
-        props.createPostInit(postData);
+        const postData = { ourTitle, ourPostContent };
+        createPost(postData);
     };
-    const isEnabled = props.titleError === true && props.bodyError === true ? false : true;
-
+    const isEnabled = titleError === true && ourBodyError === true ? false : true;
+    console.log("fffgg", props);
     return (
         <Fragment>
             <Grid justify="center" container={true}>
                 <Grid item={true} lg={9} xs={11}>
                     <PostForm
-                        title={props.title}
-                        postContent={props.postContent}
+                        title={ourTitle}
+                        postContent={ourPostContent}
                         handleTitleChange={handleInputChange}
                         handleContentChange={handleInputChange}
                         onSubmit={onSubmit}
                         disButton={isEnabled}
-                        titleError={props.titleError}
-                        bodyError={props.bodyError}
+                        titleError={titleError}
+                        bodyError={ourBodyError}
                     />
                 </Grid>
             </Grid>
 
             <br />
-            {/* pass props redux props to tabs */}
-            <OurTabs {...props} />
+
+            <OurTabs />
         </Fragment>
     );
 }

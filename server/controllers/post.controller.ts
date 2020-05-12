@@ -112,17 +112,19 @@ export default {
     if (req.user && req.user.id) {
       console.log(req.user.id);
       postData = {
-        title: req.body.title,
-        postContent: req.body.postContent,
+        title: req.body.ourTitle,
+        postContent: req.body.ourPostContent,
         userId: req.session.passport.user.id
       };
     } else {
       postData = {
-        title: req.body.title,
-        postContent: req.body.postContent,
+        title: req.body.ourTitle,
+        postContent: req.body.ourPostContent,
         userId: req.session.user.id
       };
     }
+
+    console.log('dsdsdsdsdsdsdsdsdds',postData)
 
     await models.Post.create(postData)
       .then(post => {
