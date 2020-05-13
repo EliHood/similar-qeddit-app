@@ -11,7 +11,7 @@
     "startdev": "concurrently --kill-others \"npm run client\" \"npm run server\" ",
     "build": "concurrently \"cd client && npm run build\"",
     "postinstall": "yarn postinstall:server && yarn postinstall:client",
-    "postinstall:server": "cd server && yarn install --production=false ",
+    "postinstall:server": "cd server && yarn install --ignore-engines --production=false ",
     "postinstall:client": "cd client && yarn install --production=false && yarn build"
   },
   "author": "",
