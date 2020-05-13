@@ -3,10 +3,10 @@ import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import CommentItem from "./../commentItem/CommentItem";
 import moment from "moment";
-import OurLink from "../../common/OurLink";
+import OurLink from "../../../common/OurLink";
 import React, { Fragment, useState } from "react";
-import OurSecondaryButton from "../../common/OurSecondaryButton";
-import OurModal from "../../common/OurModal";
+import OurSecondaryButton from "../../../common/OurSecondaryButton";
+import OurModal from "../../../common/OurModal";
 const ourStyle = {
     backgroundColor: "#FAFAFA",
     border: "1px solid #f2f2f2",

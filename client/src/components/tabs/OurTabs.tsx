@@ -6,13 +6,13 @@ import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Typography from "@material-ui/core/Typography";
 import { Grid } from "@material-ui/core";
-import usePostsHook from "./../common/postsHook";
-import useNotificationHook from "../common/notificationHook";
+import usePostsHook from "../../common/postsHook";
+import useNotificationHook from "../../common/notificationHook";
 import { useDispatch, useSelector } from "react-redux";
 import { likePostInit, dislikePostInit, deletePostInit, deleteCommentInit, editCommentInit, postCommentInit } from "./../../actions/postActions";
 import { getIsNotified, getUser, getPopPosts, getPosts } from "./../../selectors/selectors";
 import "./style.css";
-import storeMethods from "./../common/storeHooks";
+import storeMethods from "../../common/storeHooks";
 interface TabPanelProps {
     children?: React.ReactNode;
     index: any;

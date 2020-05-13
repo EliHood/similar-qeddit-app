@@ -2,12 +2,12 @@ import React, { Fragment } from "react";
 import PostForm from "../forms/createPost/createPost";
 import GridHoc from "../hoc/grid";
 import OurTabs from "../tabs/OurTabs";
-import { InputHook } from "../common/handleHook";
+import { InputHook } from "../../common/handleHook";
 import Grid from "@material-ui/core/Grid";
 import { useDispatch } from "react-redux";
 import { addTitle, addContent } from "../../actions/postActions";
 
-import storeMethods from "./../common/storeHooks";
+import storeMethods from "../../common/storeHooks";
 function Dashboard(props: any) {
     const dispatch = useDispatch();
     const inputData = {

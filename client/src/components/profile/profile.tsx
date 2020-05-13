@@ -4,7 +4,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import PersonIcon from "@material-ui/icons/Person";
-import OurLink from "../common/OurLink";
+import OurLink from "../../common/OurLink";
 import GridHoc from "../hoc/grid";
 import { useSelector, useDispatch } from "react-redux";
 import { getProfileInit, followUserInit, unfollowUserInit } from "../../actions/userActions";

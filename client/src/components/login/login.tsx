@@ -9,7 +9,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import IsAuth from "../hoc/isAuthenticated";
 import { makeStyles } from "@material-ui/core/styles";
-import { GoogleLoginButton } from "../common/GoogleButton";
+import { GoogleLoginButton } from "../../common/GoogleButton";
 import { loginInit } from "./../../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import { userStore } from "../../selectors/selectors";

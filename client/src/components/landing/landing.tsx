@@ -2,8 +2,8 @@ import React, { Fragment } from "react";
 import PostList from "../forms/postList/postList";
 import GridHoc from "../hoc/grid";
 import Typography from "@material-ui/core/Typography";
-import usePostsHook from "./../common/postsHook";
-import storeMethods from "./../common/storeHooks";
+import usePostsHook from "./../../common/postsHook";
+import storeMethods from "./../../common/storeHooks";
 function Landing() {
     // calls the posts api once, then we use storeMethods().posts to get the posts from store
     usePostsHook();

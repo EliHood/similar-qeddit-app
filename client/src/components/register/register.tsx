@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 import SignUpForm from "../forms/signUp/signUp";
 import IsAuth from "../hoc/isAuthenticated";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { InputHook } from "./../common/handleHook";
+import { InputHook } from "./../../common/handleHook";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import GroupIcon from "@material-ui/icons/Group";

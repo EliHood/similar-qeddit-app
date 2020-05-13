@@ -1,8 +1,8 @@
 import usePostsHook from "./postsHook";
 import useNotificationHook from "./notificationHook";
 import { useDispatch, useSelector } from "react-redux";
-import { likePostInit, dislikePostInit, deletePostInit, createPostInit, addTitle, addContent, deleteCommentInit, editCommentInit, postCommentInit } from "../../actions/postActions";
-import { getIsNotified, getUser, getPosts, getPopPosts, getBodyError, getTitleError, postContent, title } from "../../selectors/selectors";
+import { likePostInit, dislikePostInit, deletePostInit, createPostInit, addTitle, addContent, deleteCommentInit, editCommentInit, postCommentInit } from "../actions/postActions";
+import { getIsNotified, getUser, getPosts, getPopPosts, getBodyError, getTitleError, postContent, title } from "../selectors/selectors";
 function useStoreMethods() {
     const dispatch = useDispatch();
     const [notifications] = useNotificationHook();

@@ -9,10 +9,10 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import moment from "moment";
 import { toast, ToastContainer } from "react-toastify";
-import OurLink from "../../common/OurLink";
+import OurLink from "../../../common/OurLink";
 import CommentForm from "../comment/CommentForm";
 import CommentList from "../commentList/CommentList";
-import OurModal from "../../common/OurModal";
+import OurModal from "../../../common/OurModal";
 import "react-toastify/dist/ReactToastify.css";
 
 function PostItemContainer(props: any) {
