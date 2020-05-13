@@ -4,7 +4,28 @@ import sequelize from "sequelize";
 import models from "../models";
 import { NotificationServ } from '../sockets';
 import pusherConfig from "./../sockets/pusherConfig";
+import { profanity } from '@2toad/profanity';
+
 dotenv.config();
+const filterbadWords = (word:string) => {
+  let arr;
+  let content
+  if(profanity.censor(word)) {
+    arr = []
+    const sentence = word.split(' ')
+    for(let str in sentence){
+      const newWord = sentence[str].split(' ').join('');
+      console.log('newWord', newWord)
+      const filteredWord = profanity.censor(newWord)
+      arr.push(newWord.charAt(0) + filteredWord.substring(1))
+      content =  arr.join(' ')
+    }
+    return content
+  } else{
+    return word
+  }
+
+}
 export default {
   getPosts: async (req: any, res: Response) => {
     // use async/await here
@@ -112,14 +133,14 @@ export default {
     if (req.user && req.user.id) {
       console.log(req.user.id);
       postData = {
-        title: req.body.ourTitle,
-        postContent: req.body.ourPostContent,
+        title: filterbadWords(req.body.ourTitle),
+        postContent: filterbadWords(req.body.ourPostContent),
         userId: req.session.passport.user.id
       };
     } else {
       postData = {
-        title: req.body.ourTitle,
-        postContent: req.body.ourPostContent,
+        title: filterbadWords(req.body.ourTitle),
+        postContent: filterbadWords(req.body.ourPostContent),
         userId: req.session.user.id
       };
     }
@@ -169,6 +190,9 @@ export default {
   },
   postComment: async (req: any, res: Response) => {
     let currentUser;
+    let content;
+    let arr;
+
     if (req.session.passport) {
       currentUser = req.session.passport.user.id;
     } else {
@@ -177,7 +201,7 @@ export default {
 
     try{
       const postData = {
-        comment_body: req.body.comment_body,
+        comment_body: filterbadWords(req.body.comment_body),
         userId: currentUser,
         postId: req.body.id,
         gifUrl: req.body.gifUrl
@@ -240,7 +264,7 @@ export default {
       try{
         transaction = await models.sequelize.transaction();
         return models.Comments.update({
-          comment_body:req.body.commentData ? req.body.commentData : "",
+          comment_body:  filterbadWords(req.body.commentData) ?  filterbadWords(req.body.commentData) : "",
           gifUrl: req.body.gifUrl ? req.body.gifUrl : ""
         },{
           where: {

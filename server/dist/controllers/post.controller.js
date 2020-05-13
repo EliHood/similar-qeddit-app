@@ -16,7 +16,27 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const models_1 = __importDefault(require("../models"));
 const sockets_1 = require("../sockets");
 const pusherConfig_1 = __importDefault(require("./../sockets/pusherConfig"));
+const profanity_1 = require("@2toad/profanity");
 dotenv_1.default.config();
+const filterbadWords = (word) => {
+    let arr;
+    let content;
+    if (profanity_1.profanity.censor(word)) {
+        arr = [];
+        const sentence = word.split(' ');
+        for (let str in sentence) {
+            const newWord = sentence[str].split(' ').join('');
+            console.log('newWord', newWord);
+            const filteredWord = profanity_1.profanity.censor(newWord);
+            arr.push(newWord.charAt(0) + filteredWord.substring(1));
+            content = arr.join(' ');
+        }
+        return content;
+    }
+    else {
+        return word;
+    }
+};
 exports.default = {
     getPosts: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // use async/await here
@@ -119,15 +139,15 @@ exports.default = {
         if (req.user && req.user.id) {
             console.log(req.user.id);
             postData = {
-                title: req.body.ourTitle,
-                postContent: req.body.ourPostContent,
+                title: filterbadWords(req.body.ourTitle),
+                postContent: filterbadWords(req.body.ourPostContent),
                 userId: req.session.passport.user.id
             };
         }
         else {
             postData = {
-                title: req.body.ourTitle,
-                postContent: req.body.ourPostContent,
+                title: filterbadWords(req.body.ourTitle),
+                postContent: filterbadWords(req.body.ourPostContent),
                 userId: req.session.user.id
             };
         }
@@ -173,6 +193,8 @@ exports.default = {
     }),
     postComment: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         let currentUser;
+        let content;
+        let arr;
         if (req.session.passport) {
             currentUser = req.session.passport.user.id;
         }
@@ -181,7 +203,7 @@ exports.default = {
         }
         try {
             const postData = {
-                comment_body: req.body.comment_body,
+                comment_body: filterbadWords(req.body.comment_body),
                 userId: currentUser,
                 postId: req.body.id,
                 gifUrl: req.body.gifUrl
@@ -245,7 +267,7 @@ exports.default = {
             try {
                 transaction = yield models_1.default.sequelize.transaction();
                 return models_1.default.Comments.update({
-                    comment_body: req.body.commentData ? req.body.commentData : "",
+                    comment_body: filterbadWords(req.body.commentData) ? filterbadWords(req.body.commentData) : "",
                     gifUrl: req.body.gifUrl ? req.body.gifUrl : ""
                 }, {
                     where: {
