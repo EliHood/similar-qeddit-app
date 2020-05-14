@@ -12,7 +12,7 @@ import EmailConfirmationSuccess from "./components/emailConfirmationSuccess/emai
 import Likes from "./containers/Likes";
 import Login from "./components/login/login";
 import Post from "./components/post/post";
-import EditProfile from "./containers/profile";
+import EditProfile from "./components/editProfile/editProfile";
 import Profile from "./components/profile/profile";
 import Register from "./components/register/register";
 import { history } from "./ourHistory";
