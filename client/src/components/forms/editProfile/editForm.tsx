@@ -17,8 +17,8 @@ const EditProfileForm = (props: any) => (
                 name="bio"
                 multiline={true}
                 rows="3"
-                value={props.bio}
-                onChange={props.handleChange}
+                defaultValue={props.bio}
+                onChange={props.handleBio}
                 margin="normal"
                 variant="outlined"
             />
@@ -31,8 +31,8 @@ const EditProfileForm = (props: any) => (
                 name="gravatar"
                 multiline={true}
                 rows="3"
-                onChange={props.handleChange}
-                value={props.gravatar}
+                onChange={props.handleGravatar}
+                defaultValue={props.gravatar}
                 margin="normal"
                 variant="outlined"
             />
