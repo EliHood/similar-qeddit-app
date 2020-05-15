@@ -443,12 +443,12 @@ exports.default = {
         let transaction;
         try {
             transaction = yield models_1.default.sequelize.transaction();
-            if (created && post) {
+            if (!created && post) {
                 return res.status(500).send({
                     message: "You already disliked this post"
                 });
             }
-            if (!created && post) {
+            if (created && post) {
                 yield Promise.all([
                     models_1.default.Likes.destroy({
                         where: {
