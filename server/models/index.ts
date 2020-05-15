@@ -24,25 +24,32 @@ if (process.env.NODE_ENV === "production") {
   const sequelize = new Sequelize("elifullstack", "eli", "", {
     host: "127.0.0.1",
 
-    dialect: "postgres"
+    dialect: "postgres",
+    pool: {
+      max: 100,
+      min: 0,
+      idle: 200000,
+      // @note https://github.com/sequelize/sequelize/issues/8133#issuecomment-359993057
+      acquire: 1000000,
+    },
   });
 }
 
 fs.readdirSync(__dirname)
 
-  .filter(file => {
+  .filter((file) => {
     return (
       file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
     );
   })
 
-  .forEach(file => {
+  .forEach((file) => {
     const model = sequelize.import(path.join(__dirname, file));
 
     db[model.name] = model;
   });
 
-Object.keys(db).forEach(modelName => {
+Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }

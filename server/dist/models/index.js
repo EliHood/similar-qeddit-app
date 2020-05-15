@@ -10,11 +10,24 @@ const db = {};
 const dotenv = require("dotenv");
 dotenv.config();
 if (process.env.NODE_ENV === "production") {
-  var sequelize = new Sequelize(process.env.DATABASE_URL, null);
+  var sequelize = new Sequelize(process.env.DATABASE_URL, null, {
+    pool: {
+      max: 100,
+      min: 0,
+      idle: 200000,
+      acquire: 1000000,
+    },
+  });
 } else {
   var sequelize = new Sequelize("elifullstack", "eli", "", {
     host: "127.0.0.1",
     dialect: "postgres",
+    pool: {
+      max: 100,
+      min: 0,
+      idle: 200000,
+      acquire: 1000000,
+    },
   });
 }
 fs.readdirSync(__dirname)
