@@ -10,7 +10,8 @@ const db = {};
 const dotenv = require("dotenv");
 dotenv.config();
 if (process.env.NODE_ENV === "production") {
-  var sequelize = new Sequelize(process.env.DATABASE_URL, null, null, {
+  var sequelize = new Sequelize(process.env.DATABASE_URL, {
+    host: "warm-spire-79752",
     dialect: "postgres",
     pool: {
       max: 100,
