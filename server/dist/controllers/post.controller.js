@@ -448,7 +448,7 @@ exports.default = {
                     message: "You already disliked this post"
                 });
             }
-            if (created && post) {
+            if (!created && post) {
                 yield Promise.all([
                     models_1.default.Likes.destroy({
                         where: {

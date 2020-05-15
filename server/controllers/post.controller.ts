@@ -450,7 +450,7 @@ export default {
           message: "You already disliked this post"
         });
       }
-      if (created && post) {
+      if (!created && post) {
         await Promise.all([
           models.Likes.destroy(
             {
