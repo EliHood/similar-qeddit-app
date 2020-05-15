@@ -360,7 +360,7 @@ exports.default = {
         try {
             transaction = yield models_1.default.sequelize.transaction();
             if (created && post) {
-                return res.status(200).send({
+                return res.status(500).send({
                     message: "You already liked this post"
                 });
             }
