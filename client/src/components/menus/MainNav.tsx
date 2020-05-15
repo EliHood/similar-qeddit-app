@@ -37,7 +37,7 @@ const styles = makeStyles((theme) => ({
 function MainNav(props: any) {
     const [, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const classes = styles();
-    console.log("checking for props", props);
+
     return (
         <Grid item={true}>
             <div className={classes.buttonBar} id="appbar-collapse">

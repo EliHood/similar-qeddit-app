@@ -33,12 +33,11 @@ function Profile(props: profileProps) {
             const username = props.match.params.username;
             dispatch(getProfileInit(username));
         } else {
-            console.log("test");
+            // console.log("test");
         }
     }, []);
 
     const user = userData.profilePage;
-    console.log("dsddsd", user);
     const currentUser = userData.currentUser.user;
     const userFollowerCount = user && user.UserFollowers ? user.UserFollowers.length : "";
     const followerPlural = userFollowerCount.length > 1 ? "Follower" : "Followers";

@@ -7,7 +7,7 @@ import storeMethods from "./../../common/storeHooks";
 function Landing() {
     // calls the posts api once, then we use storeMethods().posts to get the posts from store
     usePostsHook();
-    console.log("fsfsffsfs landing", storeMethods().user);
+
     return (
         <Fragment>
             <Typography variant="h6" align="left">
@@ -28,4 +28,4 @@ function Landing() {
         </Fragment>
     );
 }
-export default GridHoc(Landing);
+export default React.memo(GridHoc(Landing));

@@ -25,7 +25,6 @@ function EditProfile(props: any) {
             bio,
             gravatar,
         };
-        console.log(formData);
         updateProfile(formData);
     };
 

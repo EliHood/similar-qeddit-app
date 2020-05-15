@@ -52,7 +52,6 @@ export default function OurTabs(props) {
         setValue(newValue);
     };
 
-    console.log("our props", props);
     return (
         <div className={classes.root}>
             <Grid container={true} justify="center">

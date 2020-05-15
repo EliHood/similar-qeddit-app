@@ -11,7 +11,7 @@ export default function Notification(props: any) {
         if (!didMountRef.current) {
             didMountRef.current = true;
         } else {
-            console.log("test");
+            // console.log("test");
         }
     }, []);
 

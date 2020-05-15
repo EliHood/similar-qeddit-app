@@ -30,7 +30,6 @@ function PostItemContainer(props: any) {
         setCommentBody(comment);
     };
     const selectGif = (e) => {
-        console.log(e);
         setGifUrl(e.images.downsized_large.url);
         setCommentBody("");
         // you wont be able to add text comment with a gif, it will look weird :(
@@ -39,7 +38,6 @@ function PostItemContainer(props: any) {
         setOpenModal(true);
     };
     const handleCloseModal = () => {
-        console.log("testtt");
         setOpenModal(false);
     };
     const commentSubmit = (e: any, id: number) => {

@@ -26,8 +26,6 @@ export interface IProps {
 }
 function Likes(props: IProps) {
     usePostsHook();
-    console.log(props.posts); // this needs to be passed to container
-    console.log("test");
     return (
         <Fragment>
             {/* <Grid container={true}>

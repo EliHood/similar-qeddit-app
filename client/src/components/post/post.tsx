@@ -23,7 +23,7 @@ function Post(props: any) {
         const id = parseInt(props.match.params.id);
         getPost(id);
     }, []);
-    console.log("fsfs", postPage);
+
     const { title, postContent, author } = postPage;
     return (
         <Fragment>

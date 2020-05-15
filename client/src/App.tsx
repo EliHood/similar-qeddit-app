@@ -63,7 +63,6 @@ const dark = createMuiTheme({
 function App(props: any) {
     const darkTheme = () => {
         props.setDark();
-        console.log("testing");
     };
 
     return (

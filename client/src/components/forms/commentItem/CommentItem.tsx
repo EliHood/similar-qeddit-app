@@ -12,7 +12,6 @@ function CommentItem(props) {
     const [commentEdit, setCommentEdit] = useState("");
     const [editComment, setEditComment] = useState(false);
     const update = (comment) => {
-        console.log(comment);
         const data = {
             comment_body: commentEdit,
             id: comment.id,
@@ -21,7 +20,6 @@ function CommentItem(props) {
         };
         props.editComment(data);
         setEditComment(false);
-        console.log("test");
     };
     return (
         <Fragment>

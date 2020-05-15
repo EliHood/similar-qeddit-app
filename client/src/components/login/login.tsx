@@ -68,12 +68,10 @@ function Login(props: any) {
             username,
             password,
         };
-        console.log(creds);
 
         login(creds, props.history);
     };
 
-    console.log(user);
     return (
         <Fragment>
             <Grid container={true} component="main" className={classes.root}>

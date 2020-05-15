@@ -64,7 +64,6 @@ function MyRouter(props) {
     };
     const classes = styles();
     const user = props.currentUser.user ? props.currentUser.user : "";
-    console.log("balh", anchorEl);
     return props.hasError ? (
         <div>Error</div>
     ) : (
