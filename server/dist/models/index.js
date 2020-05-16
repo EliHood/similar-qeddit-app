@@ -13,13 +13,14 @@ let redisClient;
 
 if (process.env.NODE_ENV !== "development") {
   // inside if statement
-  redisClient = new Redis({
-    host: process.env.REDIS_URL,
-    port: 18419,
-  });
+  redisClient = new Redis(process.env.REDIS_URL);
 } else {
   redisClient = new Redis();
 }
+redisClient.on("error", function(error) {
+  console.log("@@@@@@@@@@");
+  console.dir(error);
+});
 const RedisAdaptor = require("sequelize-transparent-cache-ioredis");
 const redisAdaptor = new RedisAdaptor({
   client: redisClient,
