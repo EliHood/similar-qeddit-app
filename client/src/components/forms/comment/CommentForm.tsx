@@ -6,6 +6,7 @@ import GifIcon from "@material-ui/icons/Gif";
 import TextFieldsIcon from "@material-ui/icons/TextFields";
 import React, { Fragment, useState } from "react";
 import GifSection from "./GifSection";
+import FormHelperText from "@material-ui/core/FormHelperText";
 
 export interface commentProps {
     onSubmit: (e: any) => void;
@@ -33,6 +34,7 @@ export default function CommentForm(props: commentProps) {
                             name="comment_body"
                             value={props.comment_body}
                             rows="3"
+                            error={props.comment_body.length > 200 ? true : false}
                             fullWidth={true}
                             InputProps={{
                                 startAdornment: (
@@ -45,9 +47,15 @@ export default function CommentForm(props: commentProps) {
                             variant="outlined"
                             onChange={props.commentChange}
                         />
+                        {props.comment_body.length > 200 && (
+                            <FormHelperText error={true} id="component-helper-text">
+                                {"Comment must be less than 200 chars"}
+                            </FormHelperText>
+                        )}
                         <br />
                         <br />
-                        <Button disabled={props.comment_body.length > 6 ? false : true} type="submit" variant="outlined" color="primary">
+
+                        <Button disabled={props.comment_body.length > 6 && props.comment_body.length <= 200 ? false : true} type="submit" variant="outlined" color="primary">
                             Post A Comment
                         </Button>
                     </Fragment>
