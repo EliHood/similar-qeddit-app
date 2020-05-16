@@ -367,14 +367,14 @@ exports.default = {
             if (!created && post) {
                 // use Promise.all() for concurrency
                 yield Promise.all([
-                    models_1.default.Likes.create({
+                    models_1.default.Likes.cache().create({
                         userId: currentUser,
                         resourceId: req.params.id
                     }, { transaction }),
                     post.increment("likeCounts", { by: 1, transaction }),
                 ]);
                 // find all likes, and if like === currentUser id, heart will be filled
-                const likes = yield models_1.default.Likes.findAll();
+                const likes = yield models_1.default.Likes.cache('allLikes').findAll();
                 if (likes.length === 0) {
                     console.log('this got called');
                     post.setDataValue("likedByMe", true);
@@ -450,7 +450,7 @@ exports.default = {
             }
             if (created && post) {
                 yield Promise.all([
-                    models_1.default.Likes.destroy({
+                    models_1.default.Likes.cache().destroy({
                         where: {
                             userId: currentUser,
                             resourceId: req.params.id
@@ -458,7 +458,7 @@ exports.default = {
                     }, { transaction }),
                     post.decrement("likeCounts", { by: 1, transaction }),
                 ]);
-                const likes = yield models_1.default.Likes.findAll();
+                const likes = yield models_1.default.Likes.cache('allLikes').findAll();
                 if (likes) {
                     likes.forEach(like => {
                         console.log('dislike', like);
