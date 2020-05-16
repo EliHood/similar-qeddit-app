@@ -13,6 +13,7 @@ const myStyles: React.CSSProperties = {
     flexWrap: "wrap",
     alignContent: "center",
     padding: "15px",
+    zIndex: 99999,
 };
 function OurError() {
     const { errPost } = useStoreMethods();
