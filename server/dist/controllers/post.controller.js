@@ -445,7 +445,7 @@ exports.default = {
             transaction = yield models_1.default.sequelize.transaction();
             if (!created && post) {
                 return res.status(500).send({
-                    message: "You already disliked this post"
+                    message: "Something went wrong, please refresh"
                 });
             }
             if (created && post) {

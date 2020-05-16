@@ -6,7 +6,7 @@ import { InputHook } from "../../common/handleHook";
 import Grid from "@material-ui/core/Grid";
 import { useDispatch } from "react-redux";
 import { addTitle, addContent } from "../../actions/postActions";
-
+import OurError from "../../common/OurError";
 import storeMethods from "../../common/storeHooks";
 function Dashboard(props: any) {
     const dispatch = useDispatch();
@@ -31,6 +31,7 @@ function Dashboard(props: any) {
         <Fragment>
             <Grid justify="center" container={true}>
                 <Grid item={true} lg={9} xs={11}>
+                    {storeMethods().errPost && <OurError />}
                     <PostForm
                         title={ourTitle}
                         postContent={ourPostContent}
