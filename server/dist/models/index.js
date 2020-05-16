@@ -8,18 +8,19 @@ const env = process.env.NODE_ENV || "development";
 const config = require("../config/database.config");
 const db = {};
 const dotenv = require("dotenv");
+const Redis = require("ioredis");
+const redis = new Redis();
+const RedisAdaptor = require("sequelize-transparent-cache-ioredis");
+const redisAdaptor = new RedisAdaptor({
+  client: redis,
+  namespace: "model",
+  lifetime: 60 * 60,
+});
+const sequelizeCache = require("sequelize-transparent-cache");
+const { withCache } = sequelizeCache(redisAdaptor);
 dotenv.config();
 if (process.env.NODE_ENV === "production") {
-  var sequelize = new Sequelize(process.env.DATABASE_URL, {
-    host: "warm-spire-79752",
-    dialect: "postgres",
-    pool: {
-      max: 100,
-      min: 0,
-      idle: 200000,
-      acquire: 1000000,
-    },
-  });
+  var sequelize = new Sequelize(process.env.DATABASE_URL, null);
 } else {
   var sequelize = new Sequelize("elifullstack", "eli", "", {
     host: "127.0.0.1",
@@ -28,6 +29,7 @@ if (process.env.NODE_ENV === "production") {
       max: 100,
       min: 0,
       idle: 200000,
+      // @note https://github.com/sequelize/sequelize/issues/8133#issuecomment-359993057
       acquire: 1000000,
     },
   });
@@ -39,7 +41,7 @@ fs.readdirSync(__dirname)
     );
   })
   .forEach((file) => {
-    const model = sequelize["import"](path.join(__dirname, file));
+    const model = withCache(sequelize["import"](path.join(__dirname, file)));
     db[model.name] = model;
   });
 Object.keys(db).forEach((modelName) => {

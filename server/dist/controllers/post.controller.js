@@ -40,7 +40,7 @@ const filterbadWords = (word) => {
 exports.default = {
     getPosts: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // use async/await here
-        const posts = yield models_1.default.Post.findAll({
+        const posts = yield models_1.default.Post.cache('all-posts').findAll({
             include: [
                 {
                     model: models_1.default.User,

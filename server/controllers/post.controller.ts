@@ -30,7 +30,7 @@ export default {
   getPosts: async (req: any, res: Response) => {
     // use async/await here
     
-    const posts = await models.Post.findAll({
+    const posts = await models.Post.cache('all-posts').findAll({
       include: [
         {
           model: models.User,
@@ -365,7 +365,7 @@ export default {
       if (!created && post) {
         // use Promise.all() for concurrency
         await Promise.all([
-          models.Likes.create(
+          models.Likes.cache().create(
             {
               userId: currentUser,
               resourceId: req.params.id
@@ -376,7 +376,7 @@ export default {
        
         ]);
         // find all likes, and if like === currentUser id, heart will be filled
-        const likes = await models.Likes.findAll() 
+        const likes =  await models.Likes.cache('allLikes').findAll()
         if (likes.length === 0) {
           console.log('this got called')
           post.setDataValue("likedByMe", true);
@@ -452,7 +452,7 @@ export default {
       }
       if (created && post) {
         await Promise.all([
-          models.Likes.destroy(
+          models.Likes.cache().destroy(
             {
               where: {
                 userId: currentUser,
@@ -463,7 +463,7 @@ export default {
           ),
           post.decrement("likeCounts", { by: 1, transaction }),  
         ]);
-        const likes = await models.Likes.findAll()
+        const likes = await models.Likes.cache('allLikes').findAll()
         if(likes){
           likes.forEach(like =>  {
             console.log('dislike',like)
