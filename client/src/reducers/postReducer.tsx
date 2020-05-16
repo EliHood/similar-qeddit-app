@@ -52,7 +52,7 @@ const postReducer = (state = initialState, action: any): postState =>
                 return;
             case types.LIKE_POST_FAILURE:
                 console.log(action);
-                draft.error = action.error;
+                draft.error = action.error.message;
                 return;
             case types.FETCH_POST_SUCCESS:
                 console.log(action);

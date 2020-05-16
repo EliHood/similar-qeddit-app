@@ -112,7 +112,7 @@ export function* likePost(action) {
         yield put(actionTypes.likePostSuccess({ like, id }));
     } catch (error) {
         console.log(error);
-        yield put(actionTypes.likePostFailiure(error.response.data.meta.message));
+        yield put(actionTypes.likePostFailiure(error.response.data));
     }
 }
 export function* dislikePost(action) {
