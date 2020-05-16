@@ -28,6 +28,7 @@ export const getIsNotified = () => createSelector(postSelector, (state) => state
 export const userConfirmation = () => createSelector(userSelector, (state) => state.message);
 export const getGoogleAccount = () => createSelector(userSelector, (state) => state.googleAccount);
 export const userError = () => createSelector(userSelector, (state) => state.error);
+export const postError = () => createSelector(postSelector, (state) => state.error);
 export const userMessage = () => createSelector(userSelector, (state) => state.message);
 
 // will sort through original posts array by highest likeCount in DESC order, showing only 2

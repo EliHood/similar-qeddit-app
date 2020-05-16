@@ -4,6 +4,7 @@ import GridHoc from "../hoc/grid";
 import Typography from "@material-ui/core/Typography";
 import usePostsHook from "./../../common/postsHook";
 import storeMethods from "./../../common/storeHooks";
+import OurError from "../../common/OurError";
 function Landing() {
     // calls the posts api once, then we use storeMethods().posts to get the posts from store
     usePostsHook();
@@ -13,6 +14,7 @@ function Landing() {
             <Typography variant="h6" align="left">
                 Post's from our users
             </Typography>
+            {storeMethods().errPost && <OurError />}
             <PostList
                 likePost={storeMethods().likePost}
                 deletePost={storeMethods().deletePost}

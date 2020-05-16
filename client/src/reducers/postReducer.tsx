@@ -47,6 +47,7 @@ const postReducer = (state = initialState, action: any): postState =>
                 const findKey = state.posts.findIndex((x) => x.id === action.payload.id);
                 draft.posts[findKey].likeCounts = draft.posts[findKey].likeCounts + 1;
                 draft.posts[findKey].likedByMe = true;
+                draft.error = null;
                 // draft.posts[findKey] = [...(draft.posts[findKey].likeCounts + 1)];
                 return;
             case types.LIKE_POST_FAILURE:
@@ -66,6 +67,7 @@ const postReducer = (state = initialState, action: any): postState =>
                 const newfindKey = state.posts.findIndex((x) => x.id === action.payload.id);
                 draft.posts[newfindKey].likeCounts = draft.posts[newfindKey].likeCounts - 1;
                 draft.posts[newfindKey].likedByMe = false;
+                draft.error = null;
                 return;
             case types.DELETE_POST_SUCCESS:
                 console.log(action);
