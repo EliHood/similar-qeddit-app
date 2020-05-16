@@ -9,10 +9,20 @@ const config = require("../config/database.config");
 const db = {};
 const dotenv = require("dotenv");
 const Redis = require("ioredis");
-const redis = new Redis();
+let redisClient;
+
+if (process.env.NODE_ENV !== "development") {
+  // inside if statement
+  redisClient = new Redis({
+    host: process.env.REDIS_URL,
+    port: 18419,
+  });
+} else {
+  redisClient = new Redis();
+}
 const RedisAdaptor = require("sequelize-transparent-cache-ioredis");
 const redisAdaptor = new RedisAdaptor({
-  client: redis,
+  client: redisClient,
   namespace: "model",
   lifetime: 0,
 });
@@ -51,5 +61,6 @@ Object.keys(db).forEach((modelName) => {
 });
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+sequelize.sync();
 exports.default = db;
 //# sourceMappingURL=index.js.map
