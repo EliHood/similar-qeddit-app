@@ -124,7 +124,7 @@ export function* dislikePost(action) {
         yield put(actionTypes.dislikePostSuccess({ dislike, id }));
     } catch (error) {
         console.log("yrsgdgdgd", error.response.data);
-        yield put(actionTypes.dislikePostFailiure(error.response.data.meta.message));
+        yield put(actionTypes.dislikePostFailiure(error.response.data);
     }
 }
 

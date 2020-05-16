@@ -75,6 +75,7 @@ const postReducer = (state = initialState, action: any): postState =>
                 return;
 
             case types.DISLIKE_POST_FAILURE:
+                console.log("test", action);
                 draft.error = action.error;
                 return;
             // Post comment will not be appending comment to the array state, comment update
