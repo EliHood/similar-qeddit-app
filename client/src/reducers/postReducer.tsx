@@ -43,7 +43,7 @@ const postReducer = (state = initialState, action: any): postState =>
                 draft.postContent = "";
                 return;
             case types.LIKE_POST_SUCCESS:
-                console.log(action);
+                console.log("fsfsfssfsf", action);
                 const findKey = state.posts.findIndex((x) => x.id === action.payload.id);
                 draft.posts[findKey].likeCounts = draft.posts[findKey].likeCounts + 1;
                 draft.posts[findKey].likedByMe = true;
