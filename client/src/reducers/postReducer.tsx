@@ -51,7 +51,7 @@ const postReducer = (state = initialState, action: any): postState =>
                 // draft.posts[findKey] = [...(draft.posts[findKey].likeCounts + 1)];
                 return;
             case types.LIKE_POST_FAILURE:
-                console.log(action);
+                console.log("testing", action);
                 draft.error = action.error.message;
                 return;
             case types.FETCH_POST_SUCCESS:
