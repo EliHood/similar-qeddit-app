@@ -14,11 +14,10 @@ let redisClient;
 if (process.env.NODE_ENV !== "development") {
   // inside if statement
   redisClient = new Redis({
-    host: "ec2-54-90-230-191.compute-1.amazonaws.com",
-    password:
+    host: process.env.REDIS_URL,
+    no_ready_check: true,
+    auth_pass:
       "pc14b7dfc49a5dd44f574c224444a419f4b1202808dde44a971117b7400fd4ac0",
-    password: "18419",
-    user: "h",
   });
 } else {
   redisClient = new Redis();
