@@ -32,7 +32,7 @@ function CommentItem(props) {
                         id="outlined-multiline-static"
                         multiline={true}
                         name="comment_body"
-                        defaultValue={commentEdit ? commentEdit : props.comment.comment_body}
+                        defaultValue={props.comment.comment_body}
                         rows="2"
                         fullWidth={true}
                         margin="normal"
