@@ -325,30 +325,56 @@ exports.default = {
         else {
             currentUser = req.session.user.id;
         }
-        const [created, post] = yield Promise.all([
-            models_1.default.Likes.findOne({
-                where: {
-                    userId: currentUser,
-                    resourceId: req.params.id
-                }
-            }),
-            models_1.default.Post.findOne({
-                where: {
-                    id: req.params.id
+        const created = yield models_1.default.Likes.findOne({
+            where: {
+                userId: currentUser,
+                resourceId: req.params.id
+            }
+        });
+        const post = yield models_1.default.Post.findOne({
+            where: {
+                id: req.params.id
+            },
+            include: [
+                {
+                    model: models_1.default.User,
+                    as: "author",
+                    attributes: ["username", "gravatar", "bio"]
                 },
-                include: [
-                    {
-                        model: models_1.default.User,
-                        as: "author",
-                        attributes: ["username", "gravatar", "bio"]
-                    },
-                    // limit the likes based on the logged in user
-                    {
-                        model: models_1.default.Likes
-                    }
-                ],
-            }).then((newPost) => newPost)
-        ]);
+                // limit the likes based on the logged in user
+                {
+                    model: models_1.default.Likes
+                }
+            ],
+        }).then((newPost) => newPost).catch((err) => res.status(500).send({
+            message: err,
+        }));
+        // const [created, post] = await Promise.all([
+        //   models.Likes.findOne({
+        //     where: {
+        //       userId: currentUser,
+        //       resourceId: req.params.id
+        //     }
+        //   }),
+        //   models.Post.findOne({
+        //     where: {
+        //       id: req.params.id
+        //     },
+        //     include: [
+        //       {
+        //         model: models.User,
+        //         as: "author",
+        //         attributes: ["username", "gravatar", "bio"]
+        //       },
+        //       // limit the likes based on the logged in user
+        //       {
+        //         model: models.Likes
+        //       }
+        //     ],
+        //   }).then((newPost) => newPost).catch( (err) => res.status(500).send({
+        //     message:err,
+        //   }))
+        // ]);
         // no post, no updates
         if (!post) {
             return res.status(200).send({
@@ -366,13 +392,11 @@ exports.default = {
             }
             if (!created && post) {
                 // use Promise.all() for concurrency
-                yield Promise.all([
-                    models_1.default.Likes.create({
-                        userId: currentUser,
-                        resourceId: req.params.id
-                    }, { transaction }),
-                    post.increment("likeCounts", { by: 1, transaction }),
-                ]);
+                yield models_1.default.Likes.create({
+                    userId: currentUser,
+                    resourceId: req.params.id
+                }, { transaction });
+                post.increment("likeCounts", { by: 1, transaction });
                 // find all likes, and if like === currentUser id, heart will be filled
                 const likes = yield models_1.default.Likes.findAll();
                 if (likes.length === 0) {
@@ -410,30 +434,52 @@ exports.default = {
         else {
             currentUser = req.session.user.id;
         }
-        const [created, post] = yield Promise.all([
-            models_1.default.Likes.findOne({
-                where: {
-                    userId: currentUser,
-                    resourceId: req.params.id
-                }
-            }),
-            models_1.default.Post.findOne({
-                where: {
-                    id: req.params.id
+        const created = yield models_1.default.Likes.findOne({
+            where: {
+                userId: currentUser,
+                resourceId: req.params.id
+            }
+        });
+        const post = yield models_1.default.Post.findOne({
+            where: {
+                id: req.params.id
+            },
+            include: [
+                {
+                    model: models_1.default.User,
+                    as: "author",
+                    attributes: ["username", "gravatar", "bio"]
                 },
-                include: [
-                    {
-                        model: models_1.default.User,
-                        as: "author",
-                        attributes: ["username", "gravatar", "bio"]
-                    },
-                    // limit the likes based on the logged in user
-                    {
-                        model: models_1.default.Likes
-                    }
-                ],
-            })
-        ]);
+                // limit the likes based on the logged in user
+                {
+                    model: models_1.default.Likes
+                }
+            ],
+        });
+        // const [created, post] = await Promise.all([
+        //   models.Likes.findOne({
+        //     where: {
+        //       userId: currentUser,
+        //       resourceId: req.params.id
+        //     }
+        //   }),
+        //   models.Post.findOne({
+        //     where: {
+        //       id: req.params.id
+        //     },
+        //     include: [
+        //       {
+        //         model: models.User,
+        //         as: "author",
+        //         attributes: ["username", "gravatar", "bio"]
+        //       },
+        //       // limit the likes based on the logged in user
+        //       {
+        //         model: models.Likes
+        //       }
+        //     ],
+        //   })
+        // ]);
         // no post, no updates
         if (!post) {
             return res.status(401).json({
@@ -449,15 +495,13 @@ exports.default = {
                 });
             }
             if (created && post) {
-                yield Promise.all([
-                    models_1.default.Likes.destroy({
-                        where: {
-                            userId: currentUser,
-                            resourceId: req.params.id
-                        }
-                    }, { transaction }),
-                    post.decrement("likeCounts", { by: 1, transaction }),
-                ]);
+                yield models_1.default.Likes.destroy({
+                    where: {
+                        userId: currentUser,
+                        resourceId: req.params.id
+                    }
+                }, { transaction });
+                post.decrement("likeCounts", { by: 1, transaction });
                 const likes = yield models_1.default.Likes.findAll();
                 if (likes) {
                     likes.forEach(like => {
