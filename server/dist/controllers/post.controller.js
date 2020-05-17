@@ -40,7 +40,7 @@ const filterbadWords = (word) => {
 exports.default = {
     getPosts: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // use async/await here
-        const posts = yield models_1.default.Post.cache('all-posts').findAll({
+        const posts = yield models_1.default.Post.findAll({
             include: [
                 {
                     model: models_1.default.User,
@@ -367,14 +367,14 @@ exports.default = {
             if (!created && post) {
                 // use Promise.all() for concurrency
                 yield Promise.all([
-                    models_1.default.Likes.cache().create({
+                    models_1.default.Likes.create({
                         userId: currentUser,
                         resourceId: req.params.id
                     }, { transaction }),
                     post.increment("likeCounts", { by: 1, transaction }),
                 ]);
                 // find all likes, and if like === currentUser id, heart will be filled
-                const likes = yield models_1.default.Likes.cache('allLikes').findAll();
+                const likes = yield models_1.default.Likes.findAll();
                 if (likes.length === 0) {
                     console.log('this got called');
                     post.setDataValue("likedByMe", true);
@@ -450,7 +450,7 @@ exports.default = {
             }
             if (created && post) {
                 yield Promise.all([
-                    models_1.default.Likes.cache().destroy({
+                    models_1.default.Likes.destroy({
                         where: {
                             userId: currentUser,
                             resourceId: req.params.id
@@ -458,7 +458,7 @@ exports.default = {
                     }, { transaction }),
                     post.decrement("likeCounts", { by: 1, transaction }),
                 ]);
-                const likes = yield models_1.default.Likes.cache('allLikes').findAll();
+                const likes = yield models_1.default.Likes.findAll();
                 if (likes) {
                     likes.forEach(like => {
                         console.log('dislike', like);
