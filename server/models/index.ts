@@ -16,25 +16,12 @@ const db = {};
 
 const dotenv = require("dotenv");
 
-const Redis = require("ioredis");
-const redis = new Redis();
-
-const RedisAdaptor = require("sequelize-transparent-cache-ioredis");
-const redisAdaptor = new RedisAdaptor({
-  client: redis,
-  namespace: "model",
-  lifetime: 60 * 60,
-});
-
-const sequelizeCache = require("sequelize-transparent-cache");
-const { withCache } = sequelizeCache(redisAdaptor);
-
 dotenv.config();
 
 if (process.env.NODE_ENV === "production") {
-  const sequelize = new Sequelize(process.env.DATABASE_URL, null);
+  var sequelize = new Sequelize(process.env.DATABASE_URL);
 } else {
-  const sequelize = new Sequelize("elifullstack", "eli", "", {
+  var sequelize = new Sequelize("elifullstack", "eli", "", {
     host: "127.0.0.1",
 
     dialect: "postgres",
@@ -57,7 +44,7 @@ fs.readdirSync(__dirname)
   })
 
   .forEach((file) => {
-    const model = withCache(sequelize.import(path.join(__dirname, file)));
+    const model = sequelize["import"](path.join(__dirname, file));
 
     db[model.name] = model;
   });

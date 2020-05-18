@@ -7,7 +7,7 @@ dotenv.config();
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
 let sequelize;
-let redisClient;
+
 if (process.env.NODE_ENV === "development") {
   sequelize = new Sequelize(
     process.env.PSQL_NAME,
@@ -25,19 +25,8 @@ if (process.env.NODE_ENV === "development") {
   });
 }
 
-if (process.env.NODE_ENV !== "development") {
-  // inside if statement
-  var rtg = require("url").parse(process.env.REDIS_URL);
-  redisClient = require("redis").createClient(rtg.port, rtg.hostname);
-
-  redisClient.auth(rtg.auth.split(":")[1]);
-} else {
-  redisClient = redis.createClient();
-}
-let RedisStore = require("connect-redis")(session);
-
-const myStore = new RedisStore({
-  client: redisClient,
+const myStore = new SequelizeStore({
+  db: sequelize,
 });
 
 export interface sessionInterface {
