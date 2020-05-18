@@ -16,7 +16,6 @@ function Landing() {
                 Post's from our users
             </Typography>
             {storeMethods().errPost && <OurError />}
-            <OurLoader />
             <PostList
                 likePost={storeMethods().likePost}
                 deletePost={storeMethods().deletePost}

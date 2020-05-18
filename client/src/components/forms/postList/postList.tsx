@@ -3,6 +3,8 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import "react-toastify/dist/ReactToastify.css";
 import PostItemContainer from "../PostItemContainer/PostItemContainer";
+import storeHooks from "../../../common/storeHooks";
+import OurLoader from "../../../common/OurLoader";
 function PostList(props: any) {
     // useEffect(() => {
     //     if (!didMountRef.current) {
@@ -12,18 +14,24 @@ function PostList(props: any) {
     //     }
     // });
     const { posts, currentUser } = props;
-    return posts.length > 0 ? (
-        posts.map((post, i) => (
-            <Fragment key={i}>
-                <PostItemContainer post={post} currentUser={currentUser} {...props} />
-            </Fragment>
-        ))
+    return storeHooks().loading ? (
+        <OurLoader />
     ) : (
-        <div>
-            <Grid item={true} md={8}>
-                <Typography>No Posts yet</Typography>
-            </Grid>
-        </div>
+        <Fragment>
+            {posts.length > 0 ? (
+                posts.map((post, i) => (
+                    <Fragment key={i}>
+                        <PostItemContainer post={post} currentUser={currentUser} {...props} />
+                    </Fragment>
+                ))
+            ) : (
+                <div>
+                    <Grid item={true} md={8}>
+                        <Typography>No Posts yet</Typography>
+                    </Grid>
+                </div>
+            )}
+        </Fragment>
     );
 }
 

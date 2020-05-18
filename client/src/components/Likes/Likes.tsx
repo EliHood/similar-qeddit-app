@@ -31,7 +31,7 @@ function Likes(props: IProps) {
         <Fragment>
             {/* <Grid container={true}>
                 <Grid item={true} lg={9} xs={12}> */}
-            <OurLoader />
+
             <PostList
                 likePost={props.likePost}
                 deletePost={props.deletePostInit}

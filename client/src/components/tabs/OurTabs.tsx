@@ -65,7 +65,6 @@ export default function OurTabs(props) {
 
                 <Grid item={true} xs={12} sm={12} md={12} lg={9}>
                     <TabPanel value={value} index={0}>
-                        <OurLoader />
                         <PostList
                             likePost={storeMethods().likePost}
                             deletePost={storeMethods().deletePost}
@@ -82,7 +81,6 @@ export default function OurTabs(props) {
                 </Grid>
                 <Grid item={true} xs={12} sm={12} md={12} lg={9}>
                     <TabPanel value={value} index={1}>
-                        <OurLoader />
                         <PostList
                             likePost={storeMethods().likePost}
                             deletePost={storeMethods().deletePost}
