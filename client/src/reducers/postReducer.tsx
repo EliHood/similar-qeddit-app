@@ -11,11 +11,13 @@ export interface postState {
     postContent: string;
     isNotified: boolean;
     notification: string;
+    isLoading: Boolean;
 }
 
 const initialState: postState = {
     posts: [],
     postPage: {},
+    isLoading: false,
     titleError: null,
     bodyError: null,
     title: "",
@@ -28,12 +30,17 @@ const initialState: postState = {
 const postReducer = (state = initialState, action: any): postState =>
     produce(state, (draft) => {
         switch (action.type) {
+            case types.GET_POSTS_INIT:
+                draft.isLoading = true;
+                return;
             case types.GET_POSTS_SUCCESS:
                 console.log(action);
+                draft.isLoading = false;
                 draft.posts = action.payload;
                 return;
             case types.GET_POSTS_FAILURE:
                 console.log(action);
+                draft.isLoading = false;
                 draft.error = action.error;
                 return;
             case types.CREATE_POST_SUCCESS:

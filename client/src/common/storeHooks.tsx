@@ -3,7 +3,7 @@ import useNotificationHook from "./notificationHook";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserProfile, updateUserProfile } from "../actions/userActions";
 import { likePostInit, dislikePostInit, deletePostInit, createPostInit, addTitle, addContent, deleteCommentInit, editCommentInit, postCommentInit } from "../actions/postActions";
-import { getIsNotified, getUser, getPosts, getPopPosts, postError, userError, getBodyError, userMessage, getTitleError, postContent, getProfileData, title } from "../selectors/selectors";
+import { getIsNotified, getUser, getPosts, getPopPosts, isLoading, postError, userError, getBodyError, userMessage, getTitleError, postContent, getProfileData, title } from "../selectors/selectors";
 function useStoreMethods() {
     const dispatch = useDispatch();
     const [notifications] = useNotificationHook();
@@ -28,10 +28,12 @@ function useStoreMethods() {
     const userErr = useSelector(userError());
     const message = useSelector(userMessage());
     const errPost = useSelector(postError());
+    const loading = useSelector(isLoading());
     return {
         posts,
         notifications,
         user,
+        loading,
         errPost,
         message,
         userErr,

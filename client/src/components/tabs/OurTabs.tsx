@@ -13,6 +13,7 @@ import { likePostInit, dislikePostInit, deletePostInit, deleteCommentInit, editC
 import { getIsNotified, getUser, getPopPosts, getPosts } from "./../../selectors/selectors";
 import "./style.css";
 import storeMethods from "../../common/storeHooks";
+import OurLoader from "../../common/OurLoader";
 interface TabPanelProps {
     children?: React.ReactNode;
     index: any;
@@ -61,8 +62,10 @@ export default function OurTabs(props) {
                         <Tab label="Newest" {...a11yProps(1)} />
                     </Tabs>
                 </Grid>
+
                 <Grid item={true} xs={12} sm={12} md={12} lg={9}>
                     <TabPanel value={value} index={0}>
+                        <OurLoader />
                         <PostList
                             likePost={storeMethods().likePost}
                             deletePost={storeMethods().deletePost}
@@ -79,6 +82,7 @@ export default function OurTabs(props) {
                 </Grid>
                 <Grid item={true} xs={12} sm={12} md={12} lg={9}>
                     <TabPanel value={value} index={1}>
+                        <OurLoader />
                         <PostList
                             likePost={storeMethods().likePost}
                             deletePost={storeMethods().deletePost}
