@@ -2,7 +2,7 @@
   "development": {
     "username": "eli",
     "password": "",
-    "database": "elitypescript",
+    "database": "elifullstack",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
