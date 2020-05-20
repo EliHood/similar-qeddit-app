@@ -75,6 +75,13 @@ const authReducer = (state = initialState, action: any): userState =>
                 draft.googleAccount = sessionData.googleIdStatus();
                 draft.currentUser = action.payload;
                 break;
+            case types.GET_USER_FAILURE:
+                console.log(action);
+                // console.log(sessionData.getLoginStatus());
+                draft.isAuthenticated = false;
+                draft.googleAccount = null;
+                draft.currentUser = {};
+                break;
             case types.LOG_OUT_SUCCESS:
                 draft.isAuthenticated = false;
                 draft.googleAccount = null;

@@ -479,10 +479,18 @@ export default {
       token = jwt.sign({ id: req.session.user.id }, process.env.JWT_SECRET);
     }
 
-    return res.status(200).send({
-      user: curUser,
-      token: token ? token : null,
-    });
+    console.log("checking", req.session);
+
+    if (curUser) {
+      return res.status(200).send({
+        user: curUser,
+        token: token ? token : null,
+      });
+    } else {
+      return res.status(500).send({
+        message: "User is not authenticated",
+      });
+    }
   },
   resendEmailConfirmation: async (req: any, res: Response) => {
     try {

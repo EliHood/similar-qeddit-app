@@ -52,7 +52,7 @@ app.use(cors_1.default({
     credentials: true,
     allowedHeaders: "X-Requested-With, Content-Type, Authorization",
     methods: "GET, POST, PATCH, PUT, POST, DELETE, OPTIONS",
-    exposedHeaders: ["Content-Length", "X-Foo", "X-Bar"]
+    exposedHeaders: ["Content-Length", "X-Foo", "X-Bar"],
 }));
 app.use(express_1.default.static(path_1.default.join(__dirname, "../../client", "build")));
 app.use("/api/v1", routers_1.default);

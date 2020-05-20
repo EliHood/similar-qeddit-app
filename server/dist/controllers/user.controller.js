@@ -1,4 +1,23 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,13 +26,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
-};
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
 };
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -33,9 +45,8 @@ const comparePassword = (credentialsPassword, userPassword) => __awaiter(void 0,
 const auth = {
     auth: {
         api_user: `${process.env.SENDGRID_NAME}`,
-        api_key: `${process.env.SENDGRID_PASSWORD}`
-    }
-    // proxy: 'http://user:pass@localhost:3000' // optional proxy, default is false
+        api_key: `${process.env.SENDGRID_PASSWORD}`,
+    },
 };
 const nodemailerMailgun = nodemailer_1.default.createTransport(nodemailer_sendgrid_transport_1.default(auth));
 exports.default = {
@@ -49,9 +60,9 @@ exports.default = {
                         {
                             model: models_1.default.User,
                             as: "followerDetails",
-                            attributes: ["username"]
-                        }
-                    ]
+                            attributes: ["username"],
+                        },
+                    ],
                 },
                 {
                     model: models_1.default.Following,
@@ -60,14 +71,14 @@ exports.default = {
                         {
                             model: models_1.default.User,
                             as: "followingDetails",
-                            attributes: ["username"]
-                        }
-                    ]
-                }
-            ]
+                            attributes: ["username"],
+                        },
+                    ],
+                },
+            ],
         });
-        users.forEach(user => {
-            console.log("testtt", user.UserFollowers);
+        users.forEach((user) => {
+            console.log("testt", user.UserFollowers);
             if (user.UserFollowings.length && user.UserFollowers.length === 0) {
                 user.setDataValue("isFollowing", false);
                 console.log("fsfsfsfsfsfs");
@@ -77,12 +88,12 @@ exports.default = {
                 console.log("fsfsfsfsfsfs");
             }
             else {
-                user.UserFollowings.forEach(myUser => {
+                user.UserFollowings.forEach((myUser) => {
                     if (myUser.following === req.session.user.id) {
                         user.setDataValue("isFollowing", true);
                     }
                 });
-                user.UserFollowers.forEach(myUser => {
+                user.UserFollowers.forEach((myUser) => {
                     if (myUser.followerId === req.session.user.id) {
                         user.setDataValue("isFollowing", true);
                     }
@@ -103,7 +114,7 @@ exports.default = {
             const username = req.params.username;
             const findUser = yield models_1.default.User.findOne({
                 where: {
-                    username
+                    username,
                 },
                 include: [
                     {
@@ -113,19 +124,19 @@ exports.default = {
                             {
                                 model: models_1.default.User,
                                 as: "followerDetails",
-                                attributes: ["username"]
-                            }
-                        ]
+                                attributes: ["username"],
+                            },
+                        ],
                     },
                     {
                         model: models_1.default.Following,
-                        as: "UserFollowings"
-                    }
-                ]
+                        as: "UserFollowings",
+                    },
+                ],
             });
             // findUser.setDataValue("isFollowing", false)
             if (findUser) {
-                findUser.UserFollowers.forEach(item => {
+                findUser.UserFollowers.forEach((item) => {
                     if (item.followerId === curUser) {
                         findUser.setDataValue("isFollowing", true);
                     }
@@ -137,14 +148,14 @@ exports.default = {
             }
             else {
                 return res.status(500).send({
-                    message: "User not found"
+                    message: "User not found",
                 });
             }
         }
         catch (err) {
             return res.status(500).send({
                 message: "Something went wrong",
-                err
+                err,
             });
         }
     }),
@@ -158,13 +169,13 @@ exports.default = {
         }
         const user = yield models_1.default.User.findOne({
             where: {
-                id: curUser
+                id: curUser,
             },
-            attributes: { exclude: ["password"], include: ["bio", "gravatar"] }
+            attributes: { exclude: ["password"], include: ["bio", "gravatar"] },
         });
         if (!user) {
             return res.status(401).send({
-                message: "Profile err"
+                message: "Profile err",
             });
         }
         return res.json(user);
@@ -183,24 +194,24 @@ exports.default = {
             transaction = yield models_1.default.sequelize.transaction();
             return models_1.default.User.update({
                 bio: userData.bio,
-                gravatar: userData.gravatar
+                gravatar: userData.gravatar,
             }, {
                 where: {
-                    id: curUser
-                }
+                    id: curUser,
+                },
             }, { transaction }).then((user) => __awaiter(void 0, void 0, void 0, function* () {
                 console.log("sfsff", user);
                 models_1.default.User.findOne({
                     where: {
-                        id: curUser
+                        id: curUser,
                     },
-                    attributes: ["gravatar", "bio"]
+                    attributes: ["gravatar", "bio"],
                 }).then((newBio) => __awaiter(void 0, void 0, void 0, function* () {
                     console.log("anothfdf", newBio);
                     yield transaction.commit();
                     return res.status(200).send({
                         message: "Profile Updated Successfully",
-                        user: newBio
+                        user: newBio,
                     });
                 }));
             }));
@@ -209,7 +220,7 @@ exports.default = {
             yield transaction.rollback();
             return res.status(500).send({
                 message: "Something went wrong",
-                error: err
+                error: err,
             });
         }
     }),
@@ -218,9 +229,9 @@ exports.default = {
             const credentials = req.body;
             const user = yield models_1.default.User.findOne({
                 where: {
-                    username: credentials.username
+                    username: credentials.username,
                 },
-                raw: true
+                raw: true,
             });
             /* user not registered */
             if (!user) {
@@ -228,8 +239,8 @@ exports.default = {
                     meta: {
                         type: "error",
                         status: 403,
-                        message: `this account ${credentials.username} is not yet registered`
-                    }
+                        message: `this account ${credentials.username} is not yet registered`,
+                    },
                 });
             }
             if (user.email_verified === false) {
@@ -237,8 +248,8 @@ exports.default = {
                     meta: {
                         type: "error",
                         status: 403,
-                        message: `Please activate your account to login`
-                    }
+                        message: `Please activate your account to login`,
+                    },
                 });
             }
             const isPasswordValid = yield comparePassword(credentials.password, user.password);
@@ -248,8 +259,8 @@ exports.default = {
                     meta: {
                         type: "error",
                         status: 403,
-                        message: "invalid password"
-                    }
+                        message: "invalid password",
+                    },
                 });
             }
             /* save session */
@@ -265,9 +276,9 @@ exports.default = {
                     type: "success",
                     status: 200,
                     message: "Sucessfully Authenticated",
-                    token
+                    token,
                 },
-                user
+                user,
             });
         }
         catch (error) {
@@ -276,8 +287,8 @@ exports.default = {
                 meta: {
                     type: "error",
                     status: 500,
-                    message: "server error"
-                }
+                    message: "server error",
+                },
             });
         }
     }),
@@ -289,8 +300,8 @@ exports.default = {
                 meta: {
                     type: "success",
                     status: 200,
-                    message: ""
-                }
+                    message: "",
+                },
             });
         }
         catch (err) {
@@ -299,8 +310,8 @@ exports.default = {
                 meta: {
                     type: "error",
                     status: 500,
-                    message: "server error"
-                }
+                    message: "server error",
+                },
             });
         }
     }),
@@ -316,36 +327,36 @@ exports.default = {
         if (curUser) {
             try {
                 const userToFollow = yield models_1.default.User.findOne({
-                    where: { username }
+                    where: { username },
                 });
                 if (userToFollow.id === curUser) {
                     return res.status(500).send({
-                        message: "You can't follow yourself"
+                        message: "You can't follow yourself",
                     });
                 }
                 const alreadyFollowed = yield models_1.default.Followers.findOne({
                     where: {
-                        followerId: curUser
-                    }
+                        followerId: curUser,
+                    },
                 });
                 if (alreadyFollowed) {
                     return res.status(500).send({
-                        message: "You're already following this user"
+                        message: "You're already following this user",
                     });
                 }
                 console.log("dsdsdd", userToFollow.id);
                 yield models_1.default.Following.create({
                     following: userToFollow.id,
-                    userId: curUser
+                    userId: curUser,
                 });
                 yield models_1.default.Followers.create({
                     followerId: curUser,
-                    userId: userToFollow.id
-                }).then(user => {
+                    userId: userToFollow.id,
+                }).then((user) => {
                     console.log("dsdsd", user);
                     models_1.default.User.findOne({
                         where: {
-                            id: userToFollow.id
+                            id: userToFollow.id,
                         },
                         include: [
                             {
@@ -355,20 +366,20 @@ exports.default = {
                                     {
                                         model: models_1.default.User,
                                         as: "followerDetails",
-                                        attributes: ["username"]
-                                    }
-                                ]
+                                        attributes: ["username"],
+                                    },
+                                ],
                             },
                             {
                                 model: models_1.default.Following,
-                                as: "UserFollowings"
-                            }
-                        ]
-                    }).then(follow => {
+                                as: "UserFollowings",
+                            },
+                        ],
+                    }).then((follow) => {
                         follow.setDataValue("isFollowing", true);
                         return res.status(200).send({
                             message: `You are now following ${userToFollow.username}`,
-                            follow
+                            follow,
                         });
                     });
                 });
@@ -376,13 +387,13 @@ exports.default = {
             catch (err) {
                 return res.status(500).send({
                     message: "Something went wrong ",
-                    err
+                    err,
                 });
             }
         }
         else {
             return res.status(500).send({
-                message: "You must be logged in to follow a user"
+                message: "You must be logged in to follow a user",
             });
         }
     }),
@@ -398,15 +409,15 @@ exports.default = {
         if (curUser) {
             try {
                 const userToFollow = yield models_1.default.User.findOne({
-                    where: { username }
+                    where: { username },
                 });
                 if (userToFollow.id === curUser) {
                     return res.status(500).send({
-                        message: "You can't unfollow yourself"
+                        message: "You can't unfollow yourself",
                     });
                 }
                 const isFollowed = yield models_1.default.Following.findOne({
-                    where: { following: userToFollow.id }
+                    where: { following: userToFollow.id },
                 });
                 // if(isFollowed){
                 //   return res.status(200).send({
@@ -416,19 +427,19 @@ exports.default = {
                 yield models_1.default.Following.destroy({
                     where: {
                         following: userToFollow.id,
-                        userId: curUser
-                    }
+                        userId: curUser,
+                    },
                 });
                 yield models_1.default.Followers.destroy({
                     where: {
                         followerId: curUser,
-                        userId: userToFollow.id
-                    }
-                }).then(user => {
+                        userId: userToFollow.id,
+                    },
+                }).then((user) => {
                     console.log("dsdsd", user);
                     models_1.default.User.findOne({
                         where: {
-                            id: curUser
+                            id: curUser,
                         },
                         include: [
                             {
@@ -438,21 +449,21 @@ exports.default = {
                                     {
                                         model: models_1.default.User,
                                         as: "followerDetails",
-                                        attributes: ["username"]
-                                    }
-                                ]
+                                        attributes: ["username"],
+                                    },
+                                ],
                             },
                             {
                                 model: models_1.default.Following,
-                                as: "UserFollowings"
-                            }
-                        ]
-                    }).then(follow => {
+                                as: "UserFollowings",
+                            },
+                        ],
+                    }).then((follow) => {
                         follow.setDataValue("isFollowing", false);
                         console.log("fsfsfsfs", follow);
                         return res.status(200).send({
                             message: `You are unfollowing ${userToFollow.username}`,
-                            follow
+                            follow,
                         });
                     });
                 });
@@ -460,13 +471,13 @@ exports.default = {
             catch (err) {
                 return res.status(500).send({
                     message: "Something went wrong ",
-                    err
+                    err,
                 });
             }
         }
         else {
             return res.status(500).send({
-                message: "You must be logged in to unfollow a user"
+                message: "You must be logged in to unfollow a user",
             });
         }
     }),
@@ -487,23 +498,31 @@ exports.default = {
         else if (req.session && req.session.user) {
             token = jsonwebtoken_1.default.sign({ id: req.session.user.id }, process.env.JWT_SECRET);
         }
-        return res.status(200).send({
-            user: curUser,
-            token: token ? token : null
-        });
+        console.log("checking", req.session);
+        if (curUser) {
+            return res.status(200).send({
+                user: curUser,
+                token: token ? token : null,
+            });
+        }
+        else {
+            return res.status(500).send({
+                message: "User is not authenticated",
+            });
+        }
     },
     resendEmailConfirmation: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             console.log("sdsfsffsf", req.session.user.email);
             const user = req.session.user;
             const token = jsonwebtoken_1.default.sign({ id: user.id }, process.env.JWT_SECRET, {
-                expiresIn: "1h"
+                expiresIn: "1h",
             });
             const msg = {
                 from: "typescriptappexample@example.com",
                 to: user.email,
                 subject: "Welcome to React TypeScript App",
-                html: `<p>Click this to active your account <a href='${process.env.ALLOW_ORIGIN}/emailConfirmationSuccess/${user.id}/${token}'>${process.env.ALLOW_ORIGIN}/emailConfirmationSuccess/${user.id}/${token}</a></p>` // html body
+                html: `<p>Click this to active your account <a href='${process.env.ALLOW_ORIGIN}/emailConfirmationSuccess/${user.id}/${token}'>${process.env.ALLOW_ORIGIN}/emailConfirmationSuccess/${user.id}/${token}</a></p>`,
             };
             console.log("sending mail");
             nodemailerMailgun.sendMail(msg, (err, response) => {
@@ -519,9 +538,9 @@ exports.default = {
                     type: "success",
                     status: 200,
                     message: `Email has been re-sent to ${user.email}, please activate your account`,
-                    token
+                    token,
                 },
-                user
+                user,
             });
         }
         catch (err) {
@@ -530,8 +549,8 @@ exports.default = {
                     type: "err",
                     status: 500,
                     err,
-                    message: "There has been an error resending confirmation email"
-                }
+                    message: "There has been an error resending confirmation email",
+                },
             });
         }
     }),
@@ -540,17 +559,17 @@ exports.default = {
         console.log("testing", req.params);
         const user = yield models_1.default.User.findOne({
             where: {
-                id: req.params.userId
+                id: req.params.userId,
             },
-            raw: true
+            raw: true,
         });
         if (user.email_verified === true) {
             return res.status(500).send({
                 meta: {
                     type: "error",
                     status: 500,
-                    message: "You already activated your account"
-                }
+                    message: "You already activated your account",
+                },
             });
         }
         else {
@@ -563,19 +582,19 @@ exports.default = {
                                 type: "error",
                                 err,
                                 status: 500,
-                                message: "Invalid Token"
-                            }
+                                message: "Invalid Token",
+                            },
                         });
                     }
                     else {
                         models_1.default.User.findOne({
                             where: {
-                                id: req.params.userId
-                            }
+                                id: req.params.userId,
+                            },
                         })
-                            .then(user => {
+                            .then((user) => {
                             user.update({
-                                email_verified: true
+                                email_verified: true,
                             });
                         })
                             .then(() => {
@@ -585,15 +604,15 @@ exports.default = {
                                 user: {
                                     token: decoded,
                                     id: req.params.id,
-                                    result
+                                    result,
                                 },
-                                decoded
+                                decoded,
                             });
                         })
-                            .catch(err => {
+                            .catch((err) => {
                             return res.status(500).send({
                                 message: "Something went wrong",
-                                err
+                                err,
                             });
                         });
                     }
@@ -613,21 +632,21 @@ exports.default = {
                     meta: {
                         type: "error",
                         status: 403,
-                        message: "username and email are required"
-                    }
+                        message: "username and email are required",
+                    },
                 });
             }
             const registeredEmail = yield models_1.default.User.findOne({
                 where: {
-                    email: credentials.email
+                    email: credentials.email,
                 },
-                raw: true
+                raw: true,
             });
             const registeredUserName = yield models_1.default.User.findOne({
                 where: {
-                    username: credentials.username
+                    username: credentials.username,
                 },
-                raw: true
+                raw: true,
             });
             /* email already registered */
             if (registeredEmail) {
@@ -636,8 +655,8 @@ exports.default = {
                         type: "error",
                         status: 403,
                         message: `email: ${credentials.email ||
-                            credentials.username} is already registered`
-                    }
+                            credentials.username} is already registered`,
+                    },
                 });
             }
             if (registeredUserName) {
@@ -645,12 +664,12 @@ exports.default = {
                     meta: {
                         type: "error",
                         status: 403,
-                        message: `username: ${credentials.username} is already registered`
-                    }
+                        message: `username: ${credentials.username} is already registered`,
+                    },
                 });
             }
             return models_1.default.sequelize
-                .transaction(t => {
+                .transaction((t) => {
                 // chain all your queries here. make sure you return them.
                 return bcrypt
                     .hash(req.body.password, 12)
@@ -658,22 +677,22 @@ exports.default = {
                     return models_1.default.User.create({
                         username: req.body.username,
                         password: hashedPassword,
-                        email: req.body.email
+                        email: req.body.email,
                     }, { transaction: t });
                 });
             })
-                .then(user => {
+                .then((user) => {
                 req.session.user = user;
                 req.session.save(() => { });
                 console.log(user);
                 const token = jsonwebtoken_1.default.sign({ id: user.id }, process.env.JWT_SECRET, {
-                    expiresIn: "1h"
+                    expiresIn: "1h",
                 });
                 const msg = {
                     from: "typescriptappexample@example.com",
                     to: req.body.email,
                     subject: "Welcome to React TypeScript App",
-                    html: `<p>Click this to active your account <a href='${process.env.ALLOW_ORIGIN}/emailConfirmationSuccess/${user.id}/${token}'>${process.env.ALLOW_ORIGIN}/emailConfirmationSuccess/${user.id}/${token}</a></p>` // html body
+                    html: `<p>Click this to active your account <a href='${process.env.ALLOW_ORIGIN}/emailConfirmationSuccess/${user.id}/${token}'>${process.env.ALLOW_ORIGIN}/emailConfirmationSuccess/${user.id}/${token}</a></p>`,
                 };
                 console.log("sending mail");
                 nodemailerMailgun.sendMail(msg, (err, response) => {
@@ -690,19 +709,19 @@ exports.default = {
                         type: "success",
                         status: 200,
                         message: `Email has been sent to ${req.body.email}, please activate your account`,
-                        token
+                        token,
                     },
-                    user
+                    user,
                 });
             })
-                .catch(err => {
+                .catch((err) => {
                 console.log(err);
                 res.status(500).send({
                     meta: {
                         type: "error",
                         status: 500,
-                        message: err.message.slice(18)
-                    }
+                        message: err.message.slice(18),
+                    },
                 });
             });
         }
@@ -710,6 +729,6 @@ exports.default = {
             console.log(err);
             return err;
         }
-    })
+    }),
 };
 //# sourceMappingURL=user.controller.js.map

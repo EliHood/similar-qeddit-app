@@ -51,7 +51,7 @@ app.use(
     credentials: true,
     allowedHeaders: "X-Requested-With, Content-Type, Authorization",
     methods: "GET, POST, PATCH, PUT, POST, DELETE, OPTIONS",
-    exposedHeaders: ["Content-Length", "X-Foo", "X-Bar"]
+    exposedHeaders: ["Content-Length", "X-Foo", "X-Bar"],
   })
 );
 app.use(express.static(path.join(__dirname, "../../client", "build")));
@@ -65,7 +65,6 @@ app.get("/", (req, res) => {
 // io.on("connection", function(socket: any) {
 //   console.log("a user connected");
 // });
-
 
 /**
  * middlewares

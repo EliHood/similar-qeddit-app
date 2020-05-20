@@ -15,19 +15,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = __importDefault(require("../models"));
 exports.default = () => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(req.session);
+    console.log("tesiing authPolicy");
     if (req.session && req.session.user) {
         const user = yield models_1.default.User.findOne({
             where: {
-                id: req.session.user.id
+                id: req.session.user.id,
             },
-            raw: true
+            raw: true,
         });
-        if (user) {
-            req.user = user;
-            delete req.user.password; // delete the password from the session
-            req.session.user = user; // refresh the session value
-            res.locals.user = user;
+        console.log(user, "fdffdff");
+        if (user === null) {
+            req.session.destroy(() => { });
+            req.logout();
         }
+        // if (user) {
+        //   req.user = user;
+        //   delete req.user.password; // delete the password from the session
+        //   req.session.user = user; // refresh the session value
+        //   res.locals.user = user;
+        // }
         // finishing processing the middleware and run the route
         next();
     }

@@ -36,7 +36,8 @@ export function* getAutoLoginStatus(action) {
         sessionData.setUserLoggedIn(token);
         yield put(actionTypes.getUserSuccess(login));
     } catch (error) {
-        yield put(actionTypes.getUserFailure(error));
+        localStorage.clear();
+        yield put(actionTypes.getUserFailure(error.response.data.message));
     }
 }
 

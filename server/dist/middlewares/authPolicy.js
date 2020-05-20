@@ -6,8 +6,8 @@ exports.default = (req, res, next) => {
             meta: {
                 type: "error",
                 code: 403,
-                message: "session authentication failed"
-            }
+                message: "session authentication failed",
+            },
         });
     }
     else {

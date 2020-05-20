@@ -2,7 +2,8 @@ import React from "react";
 import { Redirect, Route } from "react-router-dom";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-    // const isGoogleAccount = useSelector(getGoogleAccount());
+    // const isGoogleAccount = useSelector(getGoogleAccount())
+    console.log("privateRoute", rest);
 
     // if user signed up and verified account, give user access to all authenticated routes,
     // of if user signed up using google oauth, give user access to all authenticated routes
