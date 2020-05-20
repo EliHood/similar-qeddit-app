@@ -9,7 +9,7 @@ function usePostsHooks() {
         dispatch(getPostsInit());
         dispatch(initCommentUpdates());
     }, []);
-    return [posts];
+    return { posts };
 }
 
 export default usePostsHooks;

@@ -32,3 +32,5 @@ function Landing() {
     );
 }
 export default React.memo(GridHoc(Landing));
+
+export { Landing as LandingComponent };

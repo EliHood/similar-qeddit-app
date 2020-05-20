@@ -1,9 +1,12 @@
-import { renderHook } from "@testing-library/react-hooks";
+import React from "react";
+import { renderHook, act } from "@testing-library/react-hooks";
 import usePostsHook from "./postsHook";
 import { initCommentUpdates, getPostsInit } from "../actions/postActions";
 import { getPosts } from "../selectors/selectors";
 import { useSelector, useDispatch } from "react-redux";
 import * as ReactRedux from "react-redux";
+import { Provider } from "react-redux";
+import { store } from "../store";
 
 describe("usePostsHook hook", () => {
     // this mock will be the dispatch function that redux returns on useDispatch()
@@ -25,10 +28,5 @@ describe("usePostsHook hook", () => {
         renderHook(() => usePostsHook());
         expect(mockDispatch).toHaveBeenCalledWith(getPostsInit());
         expect(mockDispatch).toHaveBeenCalledWith(initCommentUpdates());
-    });
-    it("should test selector", () => {
-        const posts = renderHook(() => usePostsHook());
-
-        console.log(posts);
     });
 });

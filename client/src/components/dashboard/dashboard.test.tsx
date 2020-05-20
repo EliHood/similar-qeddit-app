@@ -1,83 +1,62 @@
-// import React from "react";
-// import { DashboardComponent as Dashboard } from "./dashboard";
-// import { shallow, mount, render } from "enzyme";
-// import PostForm from "../../components/forms/createPost/createPost";
-// describe("<Dashboard/>", () => {
-//     let wrapper;
-//     let useEffect;
-//     const mockUseEffect = () => {
-//         useEffect.mockImplementationOnce((f) => f());
-//     };
-//     const props = {
-//         getPostsInit: jest.fn(),
-//         getPopPostsInit: jest.fn(),
-//         deletePostInit: jest.fn(),
-//         postCommentInit: jest.fn(),
-//         titleError: Boolean,
-//         bodyError: Boolean,
-//         posts: [],
-//         error: [],
-//         title: "Test",
-//         postContent: "Another test",
-//         addTitle: jest.fn(),
-//         addContent: jest.fn(),
-//         popPosts: [],
-//         createPostInit: jest.fn(),
-//         likePost: jest.fn(),
-//         dislikePost: jest.fn(),
-//         initCommentUpdates: jest.fn(),
-//     };
-//     beforeEach(() => {
-//         useEffect = jest.spyOn(React, "useEffect");
-//         mockUseEffect();
-//         wrapper = shallow(<Dashboard {...props} />);
-//     });
+import React from "react";
+import { DashboardComponent as Dashboard } from "./dashboard";
+import { renderHook, act } from "@testing-library/react-hooks";
+import { shallow, mount, render } from "enzyme";
+import PostForm from "../../components/forms/createPost/createPost";
+import { Provider } from "react-redux";
+import { store } from "../../store";
+import storeHooks from "../../common/storeHooks";
+import * as ReactRedux from "react-redux";
+import { Action } from "redux";
+describe("Should test <Dashboard/> component", () => {
+    let wrapper;
+    // let useEffect;
+    // const mockUseEffect = () => {
+    //     useEffect.mockImplementationOnce((f) => f());
+    // };
+    const mockDispatch = jest.fn();
+    const mockSelector = jest.fn();
+    beforeEach(() => {
+        // useEffect = jest.spyOn(React, "useEffect");
+        // mockUseEffect();
+        ReactRedux.useDispatch = jest.fn().mockImplementation(() => mockDispatch);
+        ReactRedux.useSelector = jest.fn().mockImplementation(() => []);
+        wrapper = mount(
+            <Provider store={store}>
+                <Dashboard />
+            </Provider>,
+        );
+    });
 
-//     it("Should render dashboard component", () => {
-//         expect(wrapper).toHaveLength(1);
-//     });
+    beforeEach(() => {
+        // clear the mocks to refresh their calls info
+        ReactRedux.useDispatch.mockClear();
+        mockDispatch.mockClear();
+    });
 
-//     it("Should execute getPostsInit", () => {
-//         expect(props.getPostsInit).toHaveBeenCalled();
-//     });
+    it("Should render dashboard component", () => {
+        expect(wrapper).toHaveLength(1);
+    });
 
-//     it("Should test handleTitleChange", () => {
-//         wrapper
-//             .find(PostForm)
-//             .props()
-//             .handleTitleChange({
-//                 preventDefault() {},
-//                 target: {
-//                     value: props.title,
-//                 },
-//             });
-//         expect(props.addTitle).toHaveBeenCalled();
-//     });
+    it("Should test onSubmit function", () => {
+        wrapper
+            .find(PostForm)
+            .props()
+            .onSubmit({
+                preventDefault() {},
+            });
+        const { result } = renderHook(() => storeHooks().createPost);
 
-//     it("Should test handleContentChange", () => {
-//         wrapper
-//             .find(PostForm)
-//             .props()
-//             .handleContentChange({
-//                 preventDefault() {},
-//                 target: {
-//                     value: props.postContent,
-//                 },
-//             });
-//         expect(props.addContent).toHaveBeenCalled();
-//     });
+        const data = {
+            title: "owls are cool",
+            content: "im a goat and a fish",
+        };
+        console.log(data);
+        expect(wrapper.find("PostForm").simulate("submit", { preventDefault() {} }));
+        expect(mockDispatch).toHaveBeenCalled(result.current(data)); // this issues is caused by this line
+    });
 
-//     it("Should test onSubmit function", () => {
-//         wrapper
-//             .find(PostForm)
-//             .props()
-//             .onSubmit({
-//                 preventDefault() {},
-//             });
-//         expect(props.createPostInit).toHaveBeenCalled();
-//     });
-
-//     it("should render <PostForm/> child component ", () => {
-//         expect(wrapper.find(PostForm)).toHaveLength(1);
-//     });
-// });
+    it("should render <PostForm/> child component ", () => {
+        expect(wrapper.find(PostForm)).toHaveLength(1);
+    });
+});
