@@ -24,6 +24,7 @@ const styles = (theme) => ({
         [theme.breakpoints.up("lg")]: {
             position: "absolute" as "absolute",
         },
+        padding: "20px",
     },
     // appBar: {
     //     // position: "absolute",
@@ -55,7 +56,7 @@ function OurMenu(props: any) {
                 }}
             >
                 <IconButton style={{ marginLeft: 200 }} onClick={() => props.setOpen(!props.appOpen)}>
-                    {theme.direction === "ltr" ? <ChevronLeftIcon color={"primary"} style={{ fontSize: "30px" }} /> : <MenuIcon />}
+                    {/* {theme.direction === "ltr" ?  : <MenuIcon />} */}
                 </IconButton>
                 {props.children}
             </Drawer>

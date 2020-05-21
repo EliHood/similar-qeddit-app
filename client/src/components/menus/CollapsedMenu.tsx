@@ -1,9 +1,10 @@
 import React, { Fragment } from "react";
 import Grid from "@material-ui/core/Grid";
 import OurMenu from "./Menu";
-import { MenuItem } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import Notification from "../../containers/notificationTooltip";
+import OurMenuItem from "../../common/OurMenuItem";
 function CollapasedMenu(props: any) {
     const [] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
@@ -17,7 +18,7 @@ function CollapasedMenu(props: any) {
             <OurMenu appOpen={props.appOpen} setOpen={props.setOpen}>
                 {props.isAuthenticated || props.googleAccount === true ? (
                     <Fragment>
-                        <MenuItem>
+                        <OurMenuItem>
                             <Link
                                 style={{
                                     fontWeight: "500",
@@ -28,9 +29,9 @@ function CollapasedMenu(props: any) {
                             >
                                 Home
                             </Link>
-                        </MenuItem>
+                        </OurMenuItem>
 
-                        <MenuItem>
+                        <OurMenuItem>
                             <Link
                                 style={{
                                     textDecoration: "none",
@@ -40,22 +41,22 @@ function CollapasedMenu(props: any) {
                             >
                                 Dashboard
                             </Link>
-                        </MenuItem>
+                        </OurMenuItem>
 
-                        <MenuItem>
+                        <OurMenuItem>
                             <Link
                                 style={{
                                     textDecoration: "none",
                                     fontWeight: "500",
                                 }}
                                 to={{
-                                    pathname: `/${props.currentUser.id}/likes`,
+                                    pathname: `/${user.id}/likes`,
                                 }}
                             >
                                 Your Likes
                             </Link>
-                        </MenuItem>
-                        <MenuItem>
+                        </OurMenuItem>
+                        <OurMenuItem>
                             <Link
                                 style={{
                                     fontWeight: "500",
@@ -65,38 +66,44 @@ function CollapasedMenu(props: any) {
                             >
                                 Edit Profile
                             </Link>
-                        </MenuItem>
+                        </OurMenuItem>
+                        <OurMenuItem>
+                            <Notification
+                                userId={user.id}
+                                id={props.notificationId}
+                                handleClose={handleClose}
+                                open={props.open}
+                                anchorEl={props.anchorEl}
+                                handleNotificationClick={props.handleNotificationClick}
+                                title={"Notifications"}
+                            />
+                        </OurMenuItem>
 
-                        <Notification
-                            userId={user.id}
-                            id={props.notificationId}
-                            handleClose={handleClose}
-                            open={props.open}
-                            anchorEl={props.anchorEl}
-                            handleNotificationClick={props.handleNotificationClick}
-                            title={"Notifications"}
-                        />
-
-                        <MenuItem>
+                        <OurMenuItem>
                             <Link
                                 style={{
                                     fontWeight: "500",
                                     textDecoration: "none",
                                 }}
                                 to={{
-                                    pathname: `/profile/${props.currentUser.username}`,
+                                    pathname: `/profile/${user.username}`,
                                 }}
                             >
                                 Profile
                             </Link>
-                        </MenuItem>
+                        </OurMenuItem>
 
-                        <MenuItem onClick={props.darkTheme}>Change Theme</MenuItem>
-                        <MenuItem onClick={props.logOut}>Logout</MenuItem>
+                        <OurMenuItem>
+                            <span onClick={props.darkTheme}>Change Theme</span>
+                        </OurMenuItem>
+
+                        <OurMenuItem>
+                            <span onClick={props.logOut}>Log Out</span>
+                        </OurMenuItem>
                     </Fragment>
                 ) : (
                     <Fragment>
-                        <MenuItem>
+                        <OurMenuItem style={{ margin: "20px" }}>
                             <Link
                                 style={{
                                     color: "#333",
@@ -107,8 +114,8 @@ function CollapasedMenu(props: any) {
                             >
                                 Home
                             </Link>
-                        </MenuItem>
-                        <MenuItem>
+                        </OurMenuItem>
+                        <OurMenuItem style={{ margin: "20px" }}>
                             <Link
                                 style={{
                                     color: "#333",
@@ -119,8 +126,8 @@ function CollapasedMenu(props: any) {
                             >
                                 Login
                             </Link>
-                        </MenuItem>
-                        <MenuItem>
+                        </OurMenuItem>
+                        <OurMenuItem style={{ margin: "20px" }}>
                             <Link
                                 style={{
                                     color: "#333",
@@ -131,7 +138,7 @@ function CollapasedMenu(props: any) {
                             >
                                 Register
                             </Link>
-                        </MenuItem>
+                        </OurMenuItem>
                     </Fragment>
                 )}
             </OurMenu>
