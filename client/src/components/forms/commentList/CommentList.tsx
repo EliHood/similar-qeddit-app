@@ -34,6 +34,9 @@ function CommentList(props: any) {
         setShowMore(3);
         setShowLessFlag(false);
     };
+    const isBold = (comment) => {
+        return comment.userId === props.userId ? 800 : 400;
+    };
     const showMoreComments = () => {
         return props.comments
             .slice(0)
@@ -45,15 +48,16 @@ function CommentList(props: any) {
                         <Typography style={{ display: "inline-block", fontWeight: 700, padding: "5px 0px" }} variant="h6" align="left">
                             {Object.entries(props.currentUser).length === 0 ? (
                                 <Fragment>
-                                    <span style={{ cursor: "pointer" }} onClick={handleClickOpen}>
+                                    <span style={{ cursor: "pointer", fontSize: "12px", fontWeight: isBold(comment) }} onClick={handleClickOpen}>
                                         {comment.author.username}
                                     </span>
+                                    {comment.userId === props.userId && <span style={{ fontSize: "12px" }}> (OP)</span>}
                                     {openModal ? <OurModal open={openModal} handleClose={handleCloseModal} /> : null}
                                 </Fragment>
                             ) : (
                                 <Fragment>
                                     <OurLink
-                                        style={{ fontSize: "12px", fontWeight: `${comment.userId === props.userId ? 800 : 400}` }}
+                                        style={{ fontSize: "12px", fontWeight: isBold(comment) }}
                                         to={{
                                             pathname: `/profile/${comment.author.username}`,
                                         }}
@@ -110,15 +114,17 @@ function CommentList(props: any) {
                                     <Typography style={{ display: "inline-block", fontWeight: 700, padding: "5px 0px" }} variant="h6" align="left">
                                         {Object.entries(props.currentUser).length === 0 ? (
                                             <Fragment>
-                                                <span style={{ cursor: "pointer" }} onClick={handleClickOpen}>
+                                                <span style={{ fontSize: "12px", cursor: "pointer", fontWeight: isBold(comment) }} onClick={handleClickOpen}>
                                                     {comment.author.username}
+                                                    {comment.userId === props.userId && <span style={{ fontSize: "12px" }}> (OP)</span>}
                                                 </span>
+
                                                 {openModal ? <OurModal open={openModal} handleClose={handleCloseModal} /> : null}
                                             </Fragment>
                                         ) : (
                                             <Fragment>
                                                 <OurLink
-                                                    style={{ fontSize: "12px", fontWeight: `${comment.userId === props.userId ? 800 : 400}` }}
+                                                    style={{ fontSize: "12px", fontWeight: isBold(comment) }}
                                                     to={{
                                                         pathname: `/profile/${comment.author.username}`,
                                                     }}
