@@ -41,7 +41,7 @@ function CommentList(props: any) {
             .map((comment, i) => (
                 <div key={i}>
                     <List style={{ paddingBottom: "20px" }}>
-                        <img alt="gravatar" style={{ margin: "-5px 10px" }} src={comment.author.gravatar} width="30" height="30" />
+                        <img alt="gravatar" style={{ margin: "-10px 15px" }} src={comment.author.gravatar} width="30" height="30" />
                         <Typography style={{ display: "inline-block", fontWeight: 700, padding: "5px 0px" }} variant="h6" align="left">
                             {Object.entries(props.currentUser).length === 0 ? (
                                 <Fragment>
@@ -51,12 +51,16 @@ function CommentList(props: any) {
                                     {openModal ? <OurModal open={openModal} handleClose={handleCloseModal} /> : null}
                                 </Fragment>
                             ) : (
-                                <OurLink
-                                    to={{
-                                        pathname: `/profile/${comment.author.username}`,
-                                    }}
-                                    title={comment.author.username}
-                                />
+                                <Fragment>
+                                    <OurLink
+                                        style={{ fontSize: "12px", fontWeight: `${comment.userId === props.userId ? 800 : 400}` }}
+                                        to={{
+                                            pathname: `/profile/${comment.author.username}`,
+                                        }}
+                                        title={comment.author.username}
+                                    />
+                                    {comment.userId === props.userId && <span style={{ fontSize: "12px" }}> (OP)</span>}
+                                </Fragment>
                             )}
                         </Typography>
                         <div style={ourStyle}>
@@ -69,6 +73,8 @@ function CommentList(props: any) {
                 </div>
             ));
     };
+
+    console.log("checking comments", props);
 
     return (
         <Grid>
@@ -98,11 +104,11 @@ function CommentList(props: any) {
                     {props.comments
                         .filter((item, i) => item)
                         .sort((a, b) => b.id - a.id)
-                        .slice(0, 3)
+                        .slice(0, 2)
                         .map((comment, i) => (
                             <div key={i}>
                                 <List style={{ paddingBottom: "20px" }}>
-                                    <img alt="gravatar" style={{ margin: "-5px 10px" }} src={comment.author.gravatar} width="30" height="30" />
+                                    <img alt="gravatar" style={{ margin: "-10px 15px" }} src={comment.author.gravatar} width="30" height="30" />
                                     <Typography style={{ display: "inline-block", fontWeight: 700, padding: "5px 0px" }} variant="h6" align="left">
                                         {Object.entries(props.currentUser).length === 0 ? (
                                             <Fragment>
@@ -112,12 +118,16 @@ function CommentList(props: any) {
                                                 {openModal ? <OurModal open={openModal} handleClose={handleCloseModal} /> : null}
                                             </Fragment>
                                         ) : (
-                                            <OurLink
-                                                to={{
-                                                    pathname: `/profile/${comment.author.username}`,
-                                                }}
-                                                title={comment.author.username}
-                                            />
+                                            <Fragment>
+                                                <OurLink
+                                                    style={{ fontSize: "12px", fontWeight: `${comment.userId === props.userId ? 800 : 400}` }}
+                                                    to={{
+                                                        pathname: `/profile/${comment.author.username}`,
+                                                    }}
+                                                    title={comment.author.username}
+                                                />
+                                                {comment.userId === props.userId && <span style={{ fontSize: "12px" }}> (OP)</span>}
+                                            </Fragment>
                                         )}
                                     </Typography>
 

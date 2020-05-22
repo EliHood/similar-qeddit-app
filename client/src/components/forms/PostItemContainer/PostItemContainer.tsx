@@ -60,6 +60,7 @@ function PostItemContainer(props: any) {
                 <Paper style={{ padding: "20px" }}>
                     <Typography variant="h5" align="left">
                         <OurLink
+                            style={{ fontSize: "16px" }}
                             to={{
                                 pathname: `/post/${post.id}`,
                                 state: { post },
