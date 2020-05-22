@@ -74,8 +74,6 @@ function CommentList(props: any) {
             ));
     };
 
-    console.log("checking comments", props);
-
     return (
         <Grid>
             <Fragment>
