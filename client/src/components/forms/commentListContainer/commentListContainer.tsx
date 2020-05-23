@@ -7,6 +7,7 @@ import moment from "moment";
 import OurLink from "../../../common/OurLink";
 import OurSecondaryButton from "../../../common/OurSecondaryButton";
 import OurModal from "../../../common/OurModal";
+import CommentAuthorData from "../commentAuthorData/commentAuthorData";
 const ourStyle = {
     backgroundColor: "#FAFAFA",
     border: "1px solid #f2f2f2",
@@ -18,30 +19,7 @@ const CommentListContainer = (props) => {
     const { comment, openModal, handleClickOpen, handleCloseModal, isBold } = props;
     return (
         <List style={{ paddingBottom: "20px" }}>
-            <img alt="gravatar" style={{ margin: "-10px 15px" }} src={comment.author.gravatar} width="30" height="30" />
-            <Typography style={{ display: "inline-block", fontWeight: 700, padding: "5px 0px" }} variant="h6" align="left">
-                {Object.entries(props.currentUser).length === 0 ? (
-                    <Fragment>
-                        <span style={{ fontSize: "12px", cursor: "pointer", fontWeight: isBold(comment) }} onClick={handleClickOpen}>
-                            {comment.author.username}
-                            {comment.userId === props.userId && <span style={{ fontSize: "12px" }}> (OP)</span>}
-                        </span>
-
-                        {openModal ? <OurModal open={openModal} handleClose={handleCloseModal} /> : null}
-                    </Fragment>
-                ) : (
-                    <Fragment>
-                        <OurLink
-                            style={{ fontSize: "12px", fontWeight: isBold(comment) }}
-                            to={{
-                                pathname: `/profile/${comment.author.username}`,
-                            }}
-                            title={comment.author.username}
-                        />
-                        {comment.userId === props.userId && <span style={{ fontSize: "12px" }}> (OP)</span>}
-                    </Fragment>
-                )}
-            </Typography>
+            <CommentAuthorData {...props} comment={comment} openModal={openModal} handleClickOpen={handleClickOpen} handleCloseModal={handleCloseModal} isBold={isBold} />
 
             <div style={ourStyle}>
                 <CommentItem comment={comment} user={props.user} postId={props.postId} {...props} />
