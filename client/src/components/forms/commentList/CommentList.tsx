@@ -93,14 +93,24 @@ function CommentList(props: any) {
             ));
     };
 
+    console.log("dsfsfsf", Math.min(2, the_comments - inc));
+
     return (
         <Grid>
             <Fragment>
                 <div style={{ margin: "30px 0px" }}>
-                    {Math.min(2, the_comments - inc) !== 0 ? (
-                        <OurSecondaryButton onClick={(e) => showComments(e)} component="span" color="secondary">
-                            View {Math.min(2, the_comments - inc)} More Comments
-                        </OurSecondaryButton>
+                    {Math.min(2, the_comments - inc) !== -1 ? (
+                        <Fragment>
+                            {Math.min(2, the_comments - inc) !== 0 ? (
+                                <OurSecondaryButton onClick={(e) => showComments(e)} component="span" color="secondary">
+                                    View {Math.min(2, the_comments - inc) !== -1 ? Math.min(2, the_comments - inc) : 0} More Comments
+                                </OurSecondaryButton>
+                            ) : (
+                                <OurSecondaryButton onClick={(e) => showLessComments(e)} component="span" color="secondary">
+                                    Show Less Comments
+                                </OurSecondaryButton>
+                            )}
+                        </Fragment>
                     ) : (
                         <OurSecondaryButton onClick={(e) => showLessComments(e)} component="span" color="secondary">
                             Show Less Comments
@@ -117,7 +127,7 @@ function CommentList(props: any) {
                     {props.comments
                         .filter((item, i) => item)
                         .slice(0, 2)
-                        .sort((a, b) => a.id - b.id)
+                        .sort((a, b) => b.id - a.id)
                         .map((comment, i) => (
                             <div key={i}>
                                 <List style={{ paddingBottom: "20px" }}>
