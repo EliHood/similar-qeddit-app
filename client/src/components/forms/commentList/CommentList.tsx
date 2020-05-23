@@ -20,6 +20,7 @@ function CommentList(props: any) {
     const [showLessFlag, setShowLessFlag] = useState<Boolean>(false);
     const the_comments = props.comments.length;
     const inc = showMore as any;
+    const min = Math.min(2, the_comments - inc);
     const showComments = (e) => {
         e.preventDefault();
         // if (inc + (1 % 2) === 0) {
@@ -53,7 +54,6 @@ function CommentList(props: any) {
     };
     const showMoreComments = () => {
         return props.comments
-            .filter((item, i) => item)
             .slice(0, showMore)
             .sort((a, b) => a.id - b.id)
             .map((comment, i) => (
@@ -93,29 +93,33 @@ function CommentList(props: any) {
             ));
     };
 
-    console.log("dsfsfsf", Math.min(2, the_comments - inc));
+    console.log("dsfsfsf", min);
 
     return (
         <Grid>
             <Fragment>
                 <div style={{ margin: "30px 0px" }}>
-                    {Math.min(2, the_comments - inc) !== -1 ? (
+                    {props.comments.length > 2 ? (
                         <Fragment>
-                            {Math.min(2, the_comments - inc) !== 0 ? (
-                                <OurSecondaryButton onClick={(e) => showComments(e)} component="span" color="secondary">
-                                    View {Math.min(2, the_comments - inc) !== -1 ? Math.min(2, the_comments - inc) : 0} More Comments
-                                </OurSecondaryButton>
+                            {min !== -1 ? (
+                                <Fragment>
+                                    {min !== 0 ? (
+                                        <OurSecondaryButton onClick={(e) => showComments(e)} component="span" color="secondary">
+                                            View {min !== -1 ? min : 0} More Comments
+                                        </OurSecondaryButton>
+                                    ) : (
+                                        <OurSecondaryButton onClick={(e) => showLessComments(e)} component="span" color="secondary">
+                                            Show Less Comments
+                                        </OurSecondaryButton>
+                                    )}
+                                </Fragment>
                             ) : (
                                 <OurSecondaryButton onClick={(e) => showLessComments(e)} component="span" color="secondary">
                                     Show Less Comments
                                 </OurSecondaryButton>
                             )}
                         </Fragment>
-                    ) : (
-                        <OurSecondaryButton onClick={(e) => showLessComments(e)} component="span" color="secondary">
-                            Show Less Comments
-                        </OurSecondaryButton>
-                    )}
+                    ) : null}
                 </div>
             </Fragment>
             {showLessFlag === true ? (
@@ -126,8 +130,8 @@ function CommentList(props: any) {
                     {/* filter based on first comment  */}
                     {props.comments
                         .filter((item, i) => item)
-                        .slice(0, 2)
                         .sort((a, b) => b.id - a.id)
+                        .slice(0, 2)
                         .map((comment, i) => (
                             <div key={i}>
                                 <List style={{ paddingBottom: "20px" }}>
