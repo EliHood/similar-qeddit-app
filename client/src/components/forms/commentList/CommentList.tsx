@@ -23,14 +23,7 @@ function CommentList(props: any) {
     const min = Math.min(2, the_comments - inc);
     const showComments = (e) => {
         e.preventDefault();
-        // if (inc + (1 % 2) === 0) {
-        // }
-        const oper = inc + 2;
-        if (inc + 1 && inc <= the_comments) {
-            setShowMore(inc + 1);
-            setShowLessFlag(true);
-        }
-        if (oper % 2 === 0 && inc <= the_comments) {
+        if (inc + 2 && inc <= the_comments) {
             setShowMore(inc + 2);
             setShowLessFlag(true);
         } else {
@@ -92,8 +85,6 @@ function CommentList(props: any) {
                 </div>
             ));
     };
-
-    console.log("dsfsfsf", min);
 
     return (
         <Grid>
