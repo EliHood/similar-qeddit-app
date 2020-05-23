@@ -16,14 +16,20 @@ const ourStyle = {
 };
 function CommentList(props: any) {
     const [showMore, setShowMore] = useState<Number>(2);
-    const [whatisLeft, setWhatisLeft] = useState<Number>(0);
     const [openModal, setOpenModal] = useState(false);
     const [showLessFlag, setShowLessFlag] = useState<Boolean>(false);
     const the_comments = props.comments.length;
     const inc = showMore as any;
     const showComments = (e) => {
         e.preventDefault();
-        if (inc + 2 <= the_comments) {
+        // if (inc + (1 % 2) === 0) {
+        // }
+        const oper = inc + 2;
+        if (inc + 1 && inc <= the_comments) {
+            setShowMore(inc + 1);
+            setShowLessFlag(true);
+        }
+        if (oper % 2 === 0 && inc <= the_comments) {
             setShowMore(inc + 2);
             setShowLessFlag(true);
         } else {
@@ -47,6 +53,7 @@ function CommentList(props: any) {
     };
     const showMoreComments = () => {
         return props.comments
+            .filter((item, i) => item)
             .slice(0, showMore)
             .sort((a, b) => a.id - b.id)
             .map((comment, i) => (
@@ -109,8 +116,8 @@ function CommentList(props: any) {
                     {/* filter based on first comment  */}
                     {props.comments
                         .filter((item, i) => item)
-                        .sort((a, b) => b.id - a.id)
-                        .slice(0, showMore)
+                        .slice(0, 2)
+                        .sort((a, b) => a.id - b.id)
                         .map((comment, i) => (
                             <div key={i}>
                                 <List style={{ paddingBottom: "20px" }}>
