@@ -9,10 +9,6 @@ import OurSecondaryButton from "../../../common/OurSecondaryButton";
 import OurModal from "../../../common/OurModal";
 import CommentAuthorData from "../commentAuthorData/commentAuthorData";
 const ourStyle = {
-    backgroundColor: "#FAFAFA",
-    border: "1px solid #f2f2f2",
-    borderRadius: "4px",
-    padding: "15px 20px",
     margin: "15px",
 };
 const CommentListContainer = (props) => {
