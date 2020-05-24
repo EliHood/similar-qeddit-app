@@ -50,9 +50,6 @@ function CommentList(props: any) {
         ));
     };
 
-    console.log(props.comments);
-
-    console.log(filterComments);
     return (
         <Grid>
             <Fragment>
