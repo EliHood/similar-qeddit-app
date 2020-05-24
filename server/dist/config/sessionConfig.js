@@ -36,6 +36,6 @@ const sessionConfig = {
         maxAge: 30 * 24 * 60 * 60 * 1000,
     },
 };
-// myStore.sync();
+myStore.sync();
 exports.default = sessionConfig;
 //# sourceMappingURL=sessionConfig.js.map

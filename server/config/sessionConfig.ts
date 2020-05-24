@@ -50,5 +50,5 @@ const sessionConfig: sessionInterface = {
   },
 };
 
-// myStore.sync();
+myStore.sync();
 export default sessionConfig;
