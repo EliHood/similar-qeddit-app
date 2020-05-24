@@ -16,7 +16,7 @@
   "production": {
     "username": "root",
     "password": null,
-    "database": "postgres://ioteamxpujujwc:5a15ba464293dac39884bbb11378bba5eb9051dbb0cea1cb2cd4aed9e290aa7b@ec2-174-129-255-39.compute-1.amazonaws.com:5432/d1o70k57t0j4vo",
+    "database": "postgres://zzjzaopwltbuaj:ab21764595dc0a6d1605904addd5adef5b39c82ccde64662b8a2fe67cf173e8d@ec2-35-169-254-43.compute-1.amazonaws.com:5432/dclu6tass2c05g",
     "host": "127.0.0.1",
     "dialect": "postgres",
     "use_env_variable": "DATABASE_URL"
