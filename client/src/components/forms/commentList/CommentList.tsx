@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import OurSecondaryButton from "../../../common/OurSecondaryButton";
 import CommentListContainer from "../commentListContainer/commentListContainer";
+import storeHooks from "../../../common/storeHooks";
 
 function CommentList(props: any) {
     const [showMore, setShowMore] = useState<Number>(2);
@@ -34,17 +35,24 @@ function CommentList(props: any) {
     const isBold = (comment) => {
         return comment.userId === props.userId ? 800 : 400;
     };
+
+    const filterComments = props.comments.slice(0, showMore).sort((a, b) => {
+        const date1 = new Date(a.createdAt) as any;
+        const date2 = new Date(b.createdAt) as any;
+        return date1 - date2;
+    });
+
     const showMoreComments = () => {
-        return props.comments
-            .slice(0, showMore)
-            .sort((a, b) => a.id - b.id)
-            .map((comment, i) => (
-                <div key={i}>
-                    <CommentListContainer comment={comment} openModal={openModal} handleCloseModal={handleCloseModal} isBold={isBold} handleClickOpen={handleClickOpen} {...props} />
-                </div>
-            ));
+        return filterComments.map((comment, i) => (
+            <div key={i}>
+                <CommentListContainer comment={comment} openModal={openModal} handleCloseModal={handleCloseModal} isBold={isBold} handleClickOpen={handleClickOpen} {...props} />
+            </div>
+        ));
     };
 
+    console.log(props.comments);
+
+    console.log(filterComments);
     return (
         <Grid>
             <Fragment>
@@ -78,15 +86,11 @@ function CommentList(props: any) {
             ) : (
                 <Fragment>
                     {/* filter based on first comment  */}
-                    {props.comments
-                        .filter((item) => item)
-                        .sort((a, b) => b.id - a.id)
-                        .slice(0, 2)
-                        .map((comment, i) => (
-                            <div key={i}>
-                                <CommentListContainer comment={comment} openModal={openModal} handleCloseModal={handleCloseModal} isBold={isBold} handleClickOpen={handleClickOpen} {...props} />
-                            </div>
-                        ))}
+                    {filterComments.map((comment, i) => (
+                        <div key={i}>
+                            <CommentListContainer comment={comment} openModal={openModal} handleCloseModal={handleCloseModal} isBold={isBold} handleClickOpen={handleClickOpen} {...props} />
+                        </div>
+                    ))}
                 </Fragment>
             )}
         </Grid>

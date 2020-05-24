@@ -135,7 +135,15 @@ const postReducer = (state = initialState, action: any): postState =>
                 console.log(action);
                 const findCommentKey2 = state.posts.findIndex((x) => x.id === action.payload.comment.postId);
                 console.log(findCommentKey2);
-                draft.posts[findCommentKey2].Comments = [...draft.posts[findCommentKey2].Comments, action.payload.comment];
+                draft.posts[findCommentKey2].Comments = [
+                    action.payload.comment,
+                    // add comment first, then sort it out by the most recent comment
+                    ...draft.posts[findCommentKey2].Comments.sort((a, b) => {
+                        const date1 = new Date(a.createdAt) as any;
+                        const date2 = new Date(b.createdAt) as any;
+                        return date2 - date1;
+                    }),
+                ];
                 return;
             case types.COMMENT_UPDATES_FAILURE:
                 console.log(action);
