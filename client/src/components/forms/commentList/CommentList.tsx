@@ -35,12 +35,16 @@ function CommentList(props: any) {
     const isBold = (comment) => {
         return comment.userId === props.userId ? 800 : 400;
     };
-
-    const filterComments = props.comments.slice(0, showMore).sort((a, b) => {
-        const date1 = new Date(a.createdAt) as any;
-        const date2 = new Date(b.createdAt) as any;
-        return date1 - date2;
-    });
+    // show comments by recent, and have the latest comment at the bottom, with the previous one just before it.
+    const filterComments = props.comments
+        .slice(0)
+        .sort((a, b) => {
+            const date1 = new Date(a.createdAt) as any;
+            const date2 = new Date(b.createdAt) as any;
+            return date2 - date1;
+        })
+        .slice(0, inc)
+        .reverse();
 
     const showMoreComments = () => {
         return filterComments.map((comment, i) => (
@@ -56,11 +60,11 @@ function CommentList(props: any) {
                 <div style={{ margin: "30px 0px" }}>
                     {props.comments.length > 2 ? (
                         <Fragment>
-                            {min !== -1 ? (
+                            {min !== -1 && min !== -2 ? (
                                 <Fragment>
                                     {min !== 0 ? (
                                         <OurSecondaryButton onClick={(e) => showComments(e)} component="span" color="secondary">
-                                            View {min !== -1 ? min : 0} More Comments
+                                            View {min !== -1 && min !== -2 ? min : 0} More Comments
                                         </OurSecondaryButton>
                                     ) : (
                                         <OurSecondaryButton onClick={(e) => showLessComments(e)} component="span" color="secondary">

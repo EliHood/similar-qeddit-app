@@ -110,6 +110,14 @@ const postReducer = (state = initialState, action: any): postState =>
                 const postKey = state.posts.findIndex((x) => x.id === action.payload.data.postId);
                 const commentKey = draft.posts[postKey].Comments.findIndex((x) => x.id === action.payload.data.id);
                 draft.posts[postKey].Comments[commentKey].comment_body = action.payload.data.comment_body;
+                draft.posts[postKey].Comments = [
+                    // add comment first, then sort it out by the most recent comment
+                    ...draft.posts[postKey].Comments.sort((a, b) => {
+                        const date1 = new Date(a.createdAt) as any;
+                        const date2 = new Date(b.createdAt) as any;
+                        return date1 - date2;
+                    }),
+                ];
                 return;
             case types.EDIT_COMMENT_FAILURE:
                 console.log(action);
