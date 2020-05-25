@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useRef } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -20,6 +20,7 @@ function PostItemContainer(props: any) {
     const [openForm, setOpenForm] = useState(false);
     const [comment_body, setCommentBody] = useState("");
     const [gifUrl, setGifUrl] = useState("");
+    const divRef = React.useRef<any>();
     const writeComment = () => {
         // this is the same as this.setState({ openForm: !this.state.open })
         setOpenForm(!openForm);
@@ -50,6 +51,8 @@ function PostItemContainer(props: any) {
         props.postComment(formData);
         setCommentBody("");
         setOpenForm(false);
+        console.log(divRef);
+        window.scrollTo(0, divRef.current.offsetTop);
     };
     const { post, currentUser, getNotifications } = props;
 
@@ -158,6 +161,7 @@ function PostItemContainer(props: any) {
                             <Fragment>
                                 <Typography style={{ padding: "10px 0px", margin: "20px 0px" }}>Commments</Typography>
                                 <CommentList user={currentUser} deleteComment={props.deleteComment} userId={post.userId} postId={post.id} comments={post.Comments} {...props} />
+
                                 {/*  if show more hide show more button and show show less comments button */}
                             </Fragment>
                         ) : (
@@ -165,6 +169,7 @@ function PostItemContainer(props: any) {
                                 <Typography>No Commments Yet</Typography>
                             </Grid>
                         )}
+                        <div ref={divRef}></div>
                     </Grid>
                 </Paper>
             </Grid>
