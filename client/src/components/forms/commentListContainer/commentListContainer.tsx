@@ -1,12 +1,8 @@
-import React, { Fragment, useState } from "react";
-import Grid from "@material-ui/core/Grid";
+import React from "react";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import CommentItem from "./../commentItem/CommentItem";
 import moment from "moment";
-import OurLink from "../../../common/OurLink";
-import OurSecondaryButton from "../../../common/OurSecondaryButton";
-import OurModal from "../../../common/OurModal";
 import CommentAuthorData from "../commentAuthorData/commentAuthorData";
 const ourStyle = {
     margin: "15px",

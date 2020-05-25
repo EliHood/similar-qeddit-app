@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import PostList from "../forms/postList/postList";
 import GridHoc from "../hoc/grid";
 import usePostsHook from "./../../common/postsHook";
-import OurLoader from "../../common/OurLoader";
 export interface IProps {
     match?: any;
     user?: any;

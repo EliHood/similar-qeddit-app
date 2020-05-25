@@ -2,7 +2,6 @@ import React, { Fragment, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import OurSecondaryButton from "../../../common/OurSecondaryButton";
 import CommentListContainer from "../commentListContainer/commentListContainer";
-import storeHooks from "../../../common/storeHooks";
 
 function CommentList(props: any) {
     const [showMore, setShowMore] = useState<Number>(2);
