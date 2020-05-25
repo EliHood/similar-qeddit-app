@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useRef } from "react";
+import React, { Fragment, useState, useCallback, useRef } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -21,6 +21,23 @@ function PostItemContainer(props: any) {
     const [comment_body, setCommentBody] = useState("");
     const [gifUrl, setGifUrl] = useState("");
     const divRef = React.useRef<any>();
+    useCallback(
+        (node) => {
+            if (divRef.current) {
+                // Make sure to cleanup any events/references added to the last instance
+            }
+
+            if (node) {
+                // Check if a node is actually passed. Otherwise node would be null.
+                // You can now do what you need to, addEventListeners, measure, etc.
+            }
+
+            // Save a reference to the node
+            divRef.current = node;
+        },
+        [divRef],
+    );
+
     const writeComment = () => {
         // this is the same as this.setState({ openForm: !this.state.open })
         setOpenForm(!openForm);
@@ -52,10 +69,10 @@ function PostItemContainer(props: any) {
         setCommentBody("");
         setOpenForm(false);
         console.log(divRef);
-        window.scrollTo(0, divRef.current.offsetTop);
+        divRef.current.scrollIntoView({ behavior: "smooth" });
     };
     const { post, currentUser, getNotifications } = props;
-
+    console.log(divRef);
     return (
         <Fragment>
             {getNotifications && <ToastContainer autoClose={1000} position={toast.POSITION.BOTTOM_RIGHT} />}
@@ -160,7 +177,7 @@ function PostItemContainer(props: any) {
                         {post.Comments.length > 0 ? (
                             <Fragment>
                                 <Typography style={{ padding: "10px 0px", margin: "20px 0px" }}>Commments</Typography>
-                                <CommentList user={currentUser} deleteComment={props.deleteComment} userId={post.userId} postId={post.id} comments={post.Comments} {...props} />
+                                <CommentList ref={divRef} user={currentUser} deleteComment={props.deleteComment} userId={post.userId} postId={post.id} comments={post.Comments} {...props} />
 
                                 {/*  if show more hide show more button and show show less comments button */}
                             </Fragment>
