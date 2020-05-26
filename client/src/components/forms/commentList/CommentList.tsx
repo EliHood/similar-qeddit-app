@@ -1,9 +1,9 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, Ref } from "react";
 import Grid from "@material-ui/core/Grid";
 import OurSecondaryButton from "../../../common/OurSecondaryButton";
 import CommentListContainer from "../commentListContainer/commentListContainer";
 
-function CommentList(props: any) {
+function CommentList(props: any, ref: Ref<HTMLDivElement>) {
     const [showMore, setShowMore] = useState<Number>(2);
     const [openModal, setOpenModal] = useState(false);
     const [showLessFlag, setShowLessFlag] = useState<Boolean>(false);
@@ -48,11 +48,11 @@ function CommentList(props: any) {
     const showMoreComments = () => {
         return filterComments.map((comment, i) => (
             <div key={i}>
-                <CommentListContainer comment={comment} openModal={openModal} handleCloseModal={handleCloseModal} isBold={isBold} handleClickOpen={handleClickOpen} {...props} />
+                <CommentListContainer ref={ref} comment={comment} openModal={openModal} handleCloseModal={handleCloseModal} isBold={isBold} handleClickOpen={handleClickOpen} {...props} />
             </div>
         ));
     };
-
+    console.log(ref);
     return (
         <Grid>
             <Fragment>
@@ -88,7 +88,7 @@ function CommentList(props: any) {
                     {/* filter based on first comment  */}
                     {filterComments.map((comment, i) => (
                         <div key={i}>
-                            <CommentListContainer comment={comment} openModal={openModal} handleCloseModal={handleCloseModal} isBold={isBold} handleClickOpen={handleClickOpen} {...props} />
+                            <CommentListContainer ref={ref} comment={comment} openModal={openModal} handleCloseModal={handleCloseModal} isBold={isBold} handleClickOpen={handleClickOpen} {...props} />
                         </div>
                     ))}
                 </Fragment>
@@ -97,4 +97,6 @@ function CommentList(props: any) {
     );
 }
 // prevents un-necesary re renders
-export default React.memo(CommentList);
+// export default React.memo(CommentList);
+
+export default React.forwardRef(CommentList) as React.RefForwardingComponent<HTMLDivElement, any>;

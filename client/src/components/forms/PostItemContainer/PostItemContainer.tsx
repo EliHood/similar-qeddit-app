@@ -21,23 +21,7 @@ function PostItemContainer(props: any) {
     const [comment_body, setCommentBody] = useState("");
     const [gifUrl, setGifUrl] = useState("");
     const divRef = React.useRef<any>();
-    useCallback(
-        (node) => {
-            if (divRef.current) {
-                // Make sure to cleanup any events/references added to the last instance
-            }
-
-            if (node) {
-                // Check if a node is actually passed. Otherwise node would be null.
-                // You can now do what you need to, addEventListeners, measure, etc.
-            }
-
-            // Save a reference to the node
-            divRef.current = node;
-        },
-        [divRef],
-    );
-
+    const initialRef = React.useRef<any>();
     const writeComment = () => {
         // this is the same as this.setState({ openForm: !this.state.open })
         setOpenForm(!openForm);
@@ -70,6 +54,10 @@ function PostItemContainer(props: any) {
         setOpenForm(false);
         console.log(divRef);
         divRef.current.scrollIntoView({ behavior: "smooth" });
+        // my attempt to scroll to the lastest comment.
+        setTimeout(() => {
+            window.scrollBy(0, -10);
+        }, 500);
     };
     const { post, currentUser, getNotifications } = props;
     console.log(divRef);
@@ -186,7 +174,7 @@ function PostItemContainer(props: any) {
                                 <Typography>No Commments Yet</Typography>
                             </Grid>
                         )}
-                        <div ref={divRef}></div>
+                        {post.Comments.length < 2 ? <div ref={divRef}></div> : null}
                     </Grid>
                 </Paper>
             </Grid>
