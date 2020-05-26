@@ -53,11 +53,11 @@ function PostItemContainer(props: any) {
         setCommentBody("");
         setOpenForm(false);
         console.log(divRef);
-        divRef.current.scrollIntoView({ behavior: "smooth" });
+        // divRef.current.scrollIntoView({ behavior: "smooth" });
         // my attempt to scroll to the lastest comment.
         setTimeout(() => {
-            window.scrollBy(0, -10);
-        }, 500);
+            divRef.current.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+        }, 1500);
     };
     const { post, currentUser, getNotifications } = props;
     console.log(divRef);
@@ -161,7 +161,7 @@ function PostItemContainer(props: any) {
                                 isGif={gifUrl}
                             />
                         ) : null}
-
+                        {post.Comments.length === 0 ? <div ref={divRef}></div> : null}
                         {post.Comments.length > 0 ? (
                             <Fragment>
                                 <Typography style={{ padding: "10px 0px", margin: "20px 0px" }}>Commments</Typography>
@@ -174,7 +174,6 @@ function PostItemContainer(props: any) {
                                 <Typography>No Commments Yet</Typography>
                             </Grid>
                         )}
-                        {post.Comments.length < 2 ? <div ref={divRef}></div> : null}
                     </Grid>
                 </Paper>
             </Grid>
