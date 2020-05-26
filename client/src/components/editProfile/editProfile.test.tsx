@@ -5,9 +5,13 @@ import EditProfileForm from "../forms/editProfile/editForm";
 import { createShallow } from "@material-ui/core/test-utils";
 import { Provider } from "react-redux";
 import { store } from "../../store";
+import { act } from "react-dom/test-utils";
 
 describe("Should render <EditProfile/>", () => {
     let wrapper;
+    const setState = jest.fn();
+    const useStateSpy = jest.spyOn(React, "useState");
+
     beforeAll(() => {
         wrapper = mount(
             <Provider store={store}>
@@ -22,5 +26,31 @@ describe("Should render <EditProfile/>", () => {
 
     it("Should check if EditProfile renders child component", () => {
         expect(wrapper.find("EditProfileForm")).toHaveLength(1);
+    });
+
+    it("should test bio state", () => {
+        const editForm = wrapper.find("EditProfileForm");
+        act(() => {
+            expect(
+                editForm.props().handleBio({
+                    target: {
+                        value: "Im a bio",
+                    },
+                }),
+            );
+        });
+    });
+
+    it("should test gravatar state", () => {
+        const editForm = wrapper.find("EditProfileForm");
+        act(() => {
+            expect(
+                editForm.props().handleGravatar({
+                    target: {
+                        value: "https://i.pravatar.cc/150?img=3",
+                    },
+                }),
+            );
+        });
     });
 });

@@ -21,7 +21,6 @@ function PostItemContainer(props: any) {
     const [comment_body, setCommentBody] = useState("");
     const [gifUrl, setGifUrl] = useState("");
     const divRef = React.useRef<any>();
-    const initialRef = React.useRef<any>();
     const writeComment = () => {
         // this is the same as this.setState({ openForm: !this.state.open })
         setOpenForm(!openForm);
@@ -57,7 +56,7 @@ function PostItemContainer(props: any) {
         // my attempt to scroll to the lastest comment.
         setTimeout(() => {
             divRef.current.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
-        }, 1500);
+        }, 1700);
     };
     const { post, currentUser, getNotifications } = props;
     console.log(divRef);

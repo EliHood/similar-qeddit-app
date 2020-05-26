@@ -25,7 +25,8 @@ describe("usePostsHook hook", () => {
         mockDispatch.mockClear();
     });
     it("should test postsHook", () => {
-        renderHook(() => usePostsHook());
+        const { result } = renderHook(() => usePostsHook());
+        expect(result.current.posts).toEqual([]);
         expect(mockDispatch).toHaveBeenCalledWith(getPostsInit());
         expect(mockDispatch).toHaveBeenCalledWith(initCommentUpdates());
     });
