@@ -9,9 +9,6 @@ import { act } from "react-dom/test-utils";
 
 describe("Should render <EditProfile/>", () => {
     let wrapper;
-    const setState = jest.fn();
-    const useStateSpy = jest.spyOn(React, "useState");
-
     beforeAll(() => {
         wrapper = mount(
             <Provider store={store}>
