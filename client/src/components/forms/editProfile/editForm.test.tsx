@@ -16,14 +16,10 @@ const props = {
 const render = () => testRender(<EditProfileForm {...props} />);
 
 describe("<EditProfileForm/>", () => {
-    let wrapper;
-    let mount;
-    // beforeEach(() => {
-    //     mount = createMount();
-    //     wrapper = mount(<EditProfileForm {...props} />);
-    // });
-
-    // must be called first
+    it("should render <EditProfileComponent/>", () => {
+        const editProfile = render(<EditProfileForm {...props} />);
+        expect(editProfile).toBeTruthy();
+    });
     it("calls handleBio on bio TextField change", () => {
         render();
         const input = screen.getByTestId("bio");
