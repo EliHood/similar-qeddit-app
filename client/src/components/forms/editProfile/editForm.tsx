@@ -5,16 +5,23 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
 const EditProfileForm = (props: any) => (
-    <form onSubmit={props.onSubmit}>
+    <form onSubmit={props.onSubmit} data-testid="edit-form">
         <Typography variant="h5">Edit Profile</Typography>
         <FormGroup style={{ padding: "30px 0px" }}>
-            <FormLabel style={{ display: "block" }}>Bio</FormLabel>
+            <FormLabel data-testid="form-bio-label" style={{ display: "block" }}>
+                Bio
+            </FormLabel>
             <TextField
                 id="outlined-name"
+                className="bio-test"
+                data-testid="bio-test"
                 style={{
                     width: "100%",
                 }}
                 name="bio"
+                inputProps={{
+                    "data-testid": "bio",
+                }}
                 multiline={true}
                 rows="3"
                 defaultValue={props.bio}
@@ -22,11 +29,17 @@ const EditProfileForm = (props: any) => (
                 margin="normal"
                 variant="outlined"
             />
-            <FormLabel style={{ display: "block" }}>Gravatar</FormLabel>
+            <FormLabel data-testid="form-gravatar-label" style={{ display: "block" }}>
+                Gravatar
+            </FormLabel>
             <TextField
                 id="outlined-name"
+                data-testid="gravatar-test"
                 style={{
                     width: "100%",
+                }}
+                inputProps={{
+                    "data-testid": "gravatar",
                 }}
                 name="gravatar"
                 multiline={true}
@@ -37,7 +50,7 @@ const EditProfileForm = (props: any) => (
                 variant="outlined"
             />
         </FormGroup>
-        <Button className="subBtn" variant="outlined" color="primary" type="submit">
+        <Button data-testid="button-test" className="subBtn" variant="outlined" color="primary" type="submit">
             Submit
         </Button>
     </form>
