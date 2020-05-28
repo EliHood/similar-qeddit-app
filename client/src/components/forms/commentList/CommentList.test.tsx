@@ -54,8 +54,11 @@ describe("Should render <CommentList/>", () => {
     });
 
     it("should check comments", () => {
-        const { getByTestId } = render(<CommentList {...props} />);
-        const commentList = getByTestId("comment-list-div");
-        expect(commentList).toBeInTheDocument();
+        const rtl = render(<CommentList {...props} />);
+
+        expect(rtl.getByTestId("comment-list-div")).toBeTruthy();
+        expect(rtl.getByTestId("comment-list-div")).toBeTruthy();
+
+        expect(rtl.getByTestId("comment-list-div").querySelectorAll(".comment").length).toEqual(2);
     });
 });

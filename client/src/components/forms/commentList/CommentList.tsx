@@ -52,7 +52,7 @@ function CommentList(props: any, ref: Ref<HTMLDivElement>) {
             </div>
         ));
     };
-    console.log(ref);
+
     return (
         <Grid data-testid="comment-list-div">
             <Fragment>
@@ -87,7 +87,7 @@ function CommentList(props: any, ref: Ref<HTMLDivElement>) {
                 <Fragment>
                     {/* filter based on first comment  */}
                     {filterComments.map((comment, i) => (
-                        <div key={i}>
+                        <div key={i} className="comment">
                             <CommentListContainer ref={ref} comment={comment} openModal={openModal} handleCloseModal={handleCloseModal} isBold={isBold} handleClickOpen={handleClickOpen} {...props} />
                         </div>
                     ))}
