@@ -54,7 +54,7 @@ function CommentList(props: any, ref: Ref<HTMLDivElement>) {
     };
     console.log(ref);
     return (
-        <Grid>
+        <Grid data-testid="comment-list-div">
             <Fragment>
                 <div style={{ margin: "30px 0px" }}>
                     {props.comments.length > 2 ? (
@@ -96,7 +96,5 @@ function CommentList(props: any, ref: Ref<HTMLDivElement>) {
         </Grid>
     );
 }
-// prevents un-necesary re renders
-// export default React.memo(CommentList);
 
 export default React.forwardRef(CommentList) as React.RefForwardingComponent<HTMLDivElement, any>;
