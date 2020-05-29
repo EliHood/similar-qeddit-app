@@ -5,7 +5,7 @@ const buttonStyle = {
     fontSize: "11px",
 };
 const OurSecondaryButton = (props) => (
-    <Button {...props} variant="contained" style={buttonStyle}>
+    <Button {...props} data-testid={props.test} variant="contained" style={buttonStyle}>
         {props.children}
     </Button>
 );

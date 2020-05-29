@@ -9,7 +9,6 @@ const ourStyle = {
 };
 const CommentListContainer: RefForwardingComponent<HTMLDivElement, any> = (props, ref) => {
     const { comment, openModal, handleClickOpen, handleCloseModal, isBold } = props;
-    console.log("fdfdgd", ref);
     return (
         <List innerRef={ref} style={{ paddingBottom: "20px" }} data-testid="comment-list-container">
             <CommentAuthorData {...props} comment={comment} openModal={openModal} handleClickOpen={handleClickOpen} handleCloseModal={handleCloseModal} isBold={isBold} />

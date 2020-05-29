@@ -56,23 +56,23 @@ function CommentList(props: any, ref: Ref<HTMLDivElement>) {
     return (
         <Grid data-testid="comment-list-div">
             <Fragment>
-                <div style={{ margin: "30px 0px" }}>
+                <div style={{ margin: "30px 0px" }} data-testid="show_more_less">
                     {props.comments.length > 2 ? (
                         <Fragment>
                             {min !== -1 && min !== -2 ? (
                                 <Fragment>
                                     {min !== 0 ? (
-                                        <OurSecondaryButton onClick={(e) => showComments(e)} component="span" color="secondary">
+                                        <OurSecondaryButton test={"show_more_button"} onClick={(e) => showComments(e)} component="span" color="secondary">
                                             View {min !== -1 && min !== -2 ? min : 0} More Comments
                                         </OurSecondaryButton>
                                     ) : (
-                                        <OurSecondaryButton onClick={(e) => showLessComments(e)} component="span" color="secondary">
+                                        <OurSecondaryButton test={"show_less_button"} onClick={(e) => showLessComments(e)} component="span" color="secondary">
                                             Show Less Comments
                                         </OurSecondaryButton>
                                     )}
                                 </Fragment>
                             ) : (
-                                <OurSecondaryButton onClick={(e) => showLessComments(e)} component="span" color="secondary">
+                                <OurSecondaryButton test={"show_less_button"} onClick={(e) => showLessComments(e)} component="span" color="secondary">
                                     Show Less Comments
                                 </OurSecondaryButton>
                             )}

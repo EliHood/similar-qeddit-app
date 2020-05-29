@@ -59,7 +59,6 @@ function PostItemContainer(props: any) {
         }, 1700);
     };
     const { post, currentUser, getNotifications } = props;
-    console.log(divRef);
     return (
         <Fragment>
             {getNotifications && <ToastContainer autoClose={1000} position={toast.POSITION.BOTTOM_RIGHT} />}
