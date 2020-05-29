@@ -87,7 +87,7 @@ function CommentList(props: any, ref: Ref<HTMLDivElement>) {
                 <Fragment>
                     {/* filter based on first comment  */}
                     {filterComments.map((comment, i) => (
-                        <div key={i} className="comment">
+                        <div key={i} ref={ref} className="comment">
                             <CommentListContainer ref={ref} comment={comment} openModal={openModal} handleCloseModal={handleCloseModal} isBold={isBold} handleClickOpen={handleClickOpen} {...props} />
                         </div>
                     ))}

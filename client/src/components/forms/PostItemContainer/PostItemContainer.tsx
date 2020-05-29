@@ -56,9 +56,10 @@ function PostItemContainer(props: any) {
         // my attempt to scroll to the lastest comment.
         setTimeout(() => {
             divRef.current.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
-        }, 1700);
+        }, 1200);
     };
     const { post, currentUser, getNotifications } = props;
+    console.log(divRef);
     return (
         <Fragment>
             {getNotifications && <ToastContainer autoClose={1000} position={toast.POSITION.BOTTOM_RIGHT} />}
