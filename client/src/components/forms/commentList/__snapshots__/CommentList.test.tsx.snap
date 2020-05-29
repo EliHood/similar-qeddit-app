@@ -1,0 +1,340 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render <CommentList/> should match snapshot 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="MuiGrid-root"
+        data-testid="comment-list-div"
+      >
+        <div
+          data-testid="show_more_less"
+          style="margin: 30px 0px;"
+        >
+          <span
+            aria-disabled="false"
+            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary"
+            data-testid="show_more_button"
+            role="button"
+            style="color: rgb(255, 255, 255); font-size: 11px;"
+            tabindex="0"
+            test="show_more_button"
+          >
+            <span
+              class="MuiButton-label"
+            >
+              View 
+              1
+               More Comments
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </span>
+        </div>
+        <div
+          class="comment"
+        >
+          <ul
+            class="MuiList-root MuiList-padding"
+            data-testid="comment-list-container"
+            style="padding-bottom: 20px;"
+          >
+            <img
+              alt="gravatar"
+              height="30"
+              src="https://api.adorable.io/avatars/400/bf1eed82fbe37add91cb4192e4d14de6.png"
+              style="margin: -10px 15px;"
+              width="30"
+            />
+            <h6
+              class="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft"
+              style="display: inline-block; font-weight: 700; padding: 5px 0px;"
+            >
+              <span
+                style="font-size: 12px; cursor: pointer; font-weight: 400;"
+              >
+                barnowl
+              </span>
+            </h6>
+            <div
+              data-testid="commentitem-wrapper"
+              style="margin: 15px;"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-container"
+              >
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-lg-11"
+                >
+                  <div
+                    class="markdownStyle"
+                  >
+                    <p>
+                      fsfsfsfsfs
+                    </p>
+                  </div>
+                  
+                </div>
+              </div>
+              <p
+                class="MuiTypography-root MuiTypography-body1 MuiTypography-alignLeft"
+                style="font-size: 12px;"
+              >
+                Last Wednesday at 10:32 AM
+              </p>
+            </div>
+          </ul>
+        </div>
+        <div
+          class="comment"
+        >
+          <ul
+            class="MuiList-root MuiList-padding"
+            data-testid="comment-list-container"
+            style="padding-bottom: 20px;"
+          >
+            <img
+              alt="gravatar"
+              height="30"
+              src="https://api.adorable.io/avatars/400/bf1eed82fbe37add91cb4192e4d14de6.png"
+              style="margin: -10px 15px;"
+              width="30"
+            />
+            <h6
+              class="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft"
+              style="display: inline-block; font-weight: 700; padding: 5px 0px;"
+            >
+              <span
+                style="font-size: 12px; cursor: pointer; font-weight: 400;"
+              >
+                barnowl
+              </span>
+            </h6>
+            <div
+              data-testid="commentitem-wrapper"
+              style="margin: 15px;"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-container"
+              >
+                <div
+                  class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-lg-11"
+                >
+                  <div
+                    class="markdownStyle"
+                  >
+                    <p>
+                      fsfsfsfsfs
+                    </p>
+                  </div>
+                  
+                </div>
+              </div>
+              <p
+                class="MuiTypography-root MuiTypography-body1 MuiTypography-alignLeft"
+                style="font-size: 12px;"
+              >
+                Last Wednesday at 10:32 AM
+              </p>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="MuiGrid-root"
+      data-testid="comment-list-div"
+    >
+      <div
+        data-testid="show_more_less"
+        style="margin: 30px 0px;"
+      >
+        <span
+          aria-disabled="false"
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary"
+          data-testid="show_more_button"
+          role="button"
+          style="color: rgb(255, 255, 255); font-size: 11px;"
+          tabindex="0"
+          test="show_more_button"
+        >
+          <span
+            class="MuiButton-label"
+          >
+            View 
+            1
+             More Comments
+          </span>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </span>
+      </div>
+      <div
+        class="comment"
+      >
+        <ul
+          class="MuiList-root MuiList-padding"
+          data-testid="comment-list-container"
+          style="padding-bottom: 20px;"
+        >
+          <img
+            alt="gravatar"
+            height="30"
+            src="https://api.adorable.io/avatars/400/bf1eed82fbe37add91cb4192e4d14de6.png"
+            style="margin: -10px 15px;"
+            width="30"
+          />
+          <h6
+            class="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft"
+            style="display: inline-block; font-weight: 700; padding: 5px 0px;"
+          >
+            <span
+              style="font-size: 12px; cursor: pointer; font-weight: 400;"
+            >
+              barnowl
+            </span>
+          </h6>
+          <div
+            data-testid="commentitem-wrapper"
+            style="margin: 15px;"
+          >
+            <div
+              class="MuiGrid-root MuiGrid-container"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-lg-11"
+              >
+                <div
+                  class="markdownStyle"
+                >
+                  <p>
+                    fsfsfsfsfs
+                  </p>
+                </div>
+                
+              </div>
+            </div>
+            <p
+              class="MuiTypography-root MuiTypography-body1 MuiTypography-alignLeft"
+              style="font-size: 12px;"
+            >
+              Last Wednesday at 10:32 AM
+            </p>
+          </div>
+        </ul>
+      </div>
+      <div
+        class="comment"
+      >
+        <ul
+          class="MuiList-root MuiList-padding"
+          data-testid="comment-list-container"
+          style="padding-bottom: 20px;"
+        >
+          <img
+            alt="gravatar"
+            height="30"
+            src="https://api.adorable.io/avatars/400/bf1eed82fbe37add91cb4192e4d14de6.png"
+            style="margin: -10px 15px;"
+            width="30"
+          />
+          <h6
+            class="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft"
+            style="display: inline-block; font-weight: 700; padding: 5px 0px;"
+          >
+            <span
+              style="font-size: 12px; cursor: pointer; font-weight: 400;"
+            >
+              barnowl
+            </span>
+          </h6>
+          <div
+            data-testid="commentitem-wrapper"
+            style="margin: 15px;"
+          >
+            <div
+              class="MuiGrid-root MuiGrid-container"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-lg-11"
+              >
+                <div
+                  class="markdownStyle"
+                >
+                  <p>
+                    fsfsfsfsfs
+                  </p>
+                </div>
+                
+              </div>
+            </div>
+            <p
+              class="MuiTypography-root MuiTypography-body1 MuiTypography-alignLeft"
+              style="font-size: 12px;"
+            >
+              Last Wednesday at 10:32 AM
+            </p>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

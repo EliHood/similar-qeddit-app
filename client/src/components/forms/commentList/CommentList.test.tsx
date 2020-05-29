@@ -4,6 +4,7 @@ import CommentList from "./CommentList";
 import { render, getByText, queryByText, getAllByTestId, fireEvent } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { store } from "../../../store";
+import { cleanup } from "@testing-library/react";
 
 const props = {
     user: {},
@@ -47,7 +48,11 @@ const props = {
     ],
     deleteComment: jest.fn(),
 };
+
 describe("Should render <CommentList/>", () => {
+    afterEach(cleanup);
+    // your test
+
     it("should render <CommentList/>", () => {
         const commentList = render(<CommentList {...props} />);
         expect(commentList).toBeTruthy();
@@ -73,10 +78,10 @@ describe("Should render <CommentList/>", () => {
 
         expect(rtl.getByTestId("comment-list-div").querySelectorAll(".comment").length).toEqual(2);
     });
-    // it("should match snapshot", () => {
-    //     const rtl = render(<CommentList {...props} />);
-    //     expect(rtl).toMatchSnapshot();
-    // });
+    it("should match snapshot", () => {
+        const rtl = render(<CommentList {...props} />);
+        expect(rtl).toMatchSnapshot();
+    });
 
     it("should check more comments", () => {
         const { queryByTestId } = render(<CommentList {...props} />);
@@ -88,6 +93,6 @@ describe("Should render <CommentList/>", () => {
         const { getByTestId, getAllByTestId } = render(<CommentList {...props} />);
         const showMore = getByTestId("show_more_button");
         fireEvent.click(showMore);
-        expect(getAllByTestId("comment-show-more")).toBeTruthy();
+        expect(getAllByTestId(/comment-show-more/i).length).toEqual(3);
     });
 });
