@@ -63,7 +63,7 @@ function PostItemContainer(props: any) {
     return (
         <Fragment>
             {getNotifications && <ToastContainer autoClose={1000} position={toast.POSITION.BOTTOM_RIGHT} />}
-            <Grid item={true} sm={12} md={12} style={{ margin: "20px 0px" }}>
+            <Grid data-testid="post-item-container" item={true} sm={12} md={12} style={{ margin: "20px 0px" }}>
                 <Paper style={{ padding: "20px" }}>
                     <Typography variant="h5" align="left">
                         <OurLink
@@ -76,7 +76,9 @@ function PostItemContainer(props: any) {
                         />
                     </Typography>
                     <Grid item={true} sm={12} md={12} style={{ padding: "30px 0px" }}>
-                        <Typography align="left">{post.postContent.slice(0, 50)}</Typography>
+                        <Typography data-testid="post-content-testid" align="left">
+                            {post.postContent.slice(0, 50)}
+                        </Typography>
                     </Grid>
                     <Avatar
                         style={{
