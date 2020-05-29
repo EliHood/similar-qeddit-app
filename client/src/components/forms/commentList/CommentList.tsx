@@ -47,7 +47,7 @@ function CommentList(props: any, ref: Ref<HTMLDivElement>) {
 
     const showMoreComments = () => {
         return filterComments.map((comment, i) => (
-            <div key={i}>
+            <div data-testid="comment-show-more" key={i}>
                 <CommentListContainer ref={ref} comment={comment} openModal={openModal} handleCloseModal={handleCloseModal} isBold={isBold} handleClickOpen={handleClickOpen} {...props} />
             </div>
         ));

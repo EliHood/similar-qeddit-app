@@ -61,4 +61,14 @@ describe("Should render <CommentList/>", () => {
 
         expect(rtl.getByTestId("comment-list-div").querySelectorAll(".comment").length).toEqual(2);
     });
+    // it("should match snapshot", () => {
+    //     const rtl = render(<CommentList {...props} />);
+    //     expect(rtl).toMatchSnapshot();
+    // });
+
+    // it("should check more comments", () => {
+    //     const { getByTestId } = render(<CommentList {...props} />);
+    //     const commentList = getByTestId("comment-show-more");
+    //     expect(commentList).toBeUndefined();
+    // });
 });

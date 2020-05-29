@@ -11,11 +11,11 @@ const CommentListContainer: RefForwardingComponent<HTMLDivElement, any> = (props
     const { comment, openModal, handleClickOpen, handleCloseModal, isBold } = props;
     console.log("fdfdgd", ref);
     return (
-        <List innerRef={ref} style={{ paddingBottom: "20px" }}>
+        <List innerRef={ref} style={{ paddingBottom: "20px" }} data-testid="comment-list-container">
             <CommentAuthorData {...props} comment={comment} openModal={openModal} handleClickOpen={handleClickOpen} handleCloseModal={handleCloseModal} isBold={isBold} />
 
             {/* here you pass your ref */}
-            <div style={ourStyle}>
+            <div style={ourStyle} data-testid="commentitem-wrapper">
                 <CommentItem comment={comment} user={props.user} postId={props.postId} {...props} />
                 <Typography style={{ fontSize: "12px" }} variant="body1" align="left">
                     {moment(comment.createdAt).calendar()}
