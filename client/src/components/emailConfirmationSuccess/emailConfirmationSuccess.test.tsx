@@ -4,6 +4,7 @@ import EmailConfirmationSuccess from "./emailConfirmationSuccess";
 import { render, getByText, queryByText, getAllByTestId, fireEvent } from "@testing-library/react";
 import { Provider, useSelector } from "react-redux";
 import { store } from "../../store";
+import { mount } from "enzyme";
 import { userConfirmation, userError } from "../../selectors/selectors";
 import { renderHook } from "@testing-library/react-hooks";
 const props = {
@@ -33,13 +34,14 @@ describe("Should render email confirmation success", () => {
     });
 
     it("should render success message", () => {
-        const { getByTestId } = render(
+        const wrapper = mount(
             <Provider store={store}>
                 <EmailConfirmationSuccess {...props} />
             </Provider>,
         );
-        const { result } = renderHook(() => useSelector(userConfirmation()));
-        console.log(result.current);
+
+        // const { result } = renderHook(() => useSelector(userConfirmation()));
+        // console.log(result.current);
         // expect(getByTestId("success-message")).toBeInTheDocument();
         // expect(getByTestId("success-message")).toBeTruthy();
     });

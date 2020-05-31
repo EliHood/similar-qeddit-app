@@ -142,8 +142,9 @@ function PostItemContainer(props: any) {
                         {post.Comments.length === 0 ? <div ref={divRef}></div> : null}
                         {post.Comments.length > 0 ? (
                             <Fragment>
-                                <Typography style={{ fontWeight: 800 }} color="primary" variant="caption">
-                                    ({post.Comments.length}) Comments
+                                <span style={{ margin: "15px 0px", fontSize: "14px" }}> ({post.Comments.length}) </span>
+                                <Typography style={{ fontWeight: 500, margin: "10px 0px", fontSize: "12px" }} variant="caption">
+                                    Comments
                                 </Typography>
                                 <CommentList ref={divRef} user={currentUser} deleteComment={props.deleteComment} userId={post.userId} postId={post.id} comments={post.Comments} {...props} />
 
