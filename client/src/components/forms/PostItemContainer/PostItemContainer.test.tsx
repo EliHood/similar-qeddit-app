@@ -54,7 +54,7 @@ describe("Should test <PostItemContainer/>", () => {
         expect(getByTestId("post-item-container")).toBeInTheDocument();
     });
 
-    it("should check for post content", () => {
+    it("should check for post contcent", () => {
         const { getByTestId } = render(
             <Provider store={store}>
                 <Router>

@@ -63,13 +63,12 @@ export function* getNotification() {
     }
 }
 
-export function* getPosts(action) {
+export function* getPosts() {
     try {
-        const posts = yield call(api.post.getPosts);
+        const posts = yield call(api.post.getPosts); // call api from axios express back end
         yield put(actionTypes.getPostsSuccess(posts));
     } catch (error) {
-        console.log(error);
-        yield put(actionTypes.getPostsFailure(error.response.data.meta.message));
+        yield put(actionTypes.getPostsFailure(error));
     }
 }
 
