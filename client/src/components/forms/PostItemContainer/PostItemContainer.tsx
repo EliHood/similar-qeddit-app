@@ -139,6 +139,21 @@ function PostItemContainer(props: any) {
                         {moment(post.createdAt).calendar()}
                     </Typography>
                     <Grid item={true} sm={12} lg={12} style={{ paddingTop: "40px" }}>
+                        {post.Comments.length === 0 ? <div ref={divRef}></div> : null}
+                        {post.Comments.length > 0 ? (
+                            <Fragment>
+                                <Typography style={{ fontWeight: 800 }} color="primary" variant="caption">
+                                    ({post.Comments.length}) Comments
+                                </Typography>
+                                <CommentList ref={divRef} user={currentUser} deleteComment={props.deleteComment} userId={post.userId} postId={post.id} comments={post.Comments} {...props} />
+
+                                {/*  if show more hide show more button and show show less comments button */}
+                            </Fragment>
+                        ) : (
+                            <Grid item={true} sm={12} lg={12} style={{ padding: "30px 0px" }}>
+                                <Typography>No Commments Yet</Typography>
+                            </Grid>
+                        )}
                         {Object.entries(currentUser).length === 0 ? (
                             <Fragment>
                                 <Button onClick={handleClickOpen} variant="outlined" component="span" color="primary">
@@ -162,19 +177,6 @@ function PostItemContainer(props: any) {
                                 isGif={gifUrl}
                             />
                         ) : null}
-                        {post.Comments.length === 0 ? <div ref={divRef}></div> : null}
-                        {post.Comments.length > 0 ? (
-                            <Fragment>
-                                <Typography style={{ padding: "10px 0px", margin: "20px 0px" }}>Commments</Typography>
-                                <CommentList ref={divRef} user={currentUser} deleteComment={props.deleteComment} userId={post.userId} postId={post.id} comments={post.Comments} {...props} />
-
-                                {/*  if show more hide show more button and show show less comments button */}
-                            </Fragment>
-                        ) : (
-                            <Grid item={true} sm={12} lg={12} style={{ padding: "30px 0px" }}>
-                                <Typography>No Commments Yet</Typography>
-                            </Grid>
-                        )}
                     </Grid>
                 </Paper>
             </Grid>

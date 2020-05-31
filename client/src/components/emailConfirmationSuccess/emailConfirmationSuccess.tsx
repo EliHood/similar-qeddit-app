@@ -23,17 +23,21 @@ function EmailConfirmationSuccess(props) {
     }, [didMountRef]);
 
     return (
-        <div>
+        <div data-testid="message">
             {user.includes("Thank you") ? (
-                <Alert severity="success">
-                    <AlertTitle>Success</AlertTitle>
-                    {user} <a href="/login">Login</a>
-                </Alert>
+                <div data-testid="success-message">
+                    <Alert severity="success">
+                        <AlertTitle>Success</AlertTitle>
+                        {user} <a href="/login">Login</a>
+                    </Alert>
+                </div>
             ) : (
-                <Alert severity="warning">
-                    <AlertTitle>Error</AlertTitle>
-                    {error}
-                </Alert>
+                <div data-testid="error-message">
+                    <Alert severity="warning">
+                        <AlertTitle>Error</AlertTitle>
+                        {error}
+                    </Alert>
+                </div>
             )}
         </div>
     );
