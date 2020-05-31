@@ -31,14 +31,15 @@ export default function CommentForm(props: commentProps) {
                             id="outlined-multiline-static"
                             label="Write A Comment"
                             multiline={true}
+                            size={"medium"}
                             name="comment_body"
                             value={props.comment_body}
-                            rows="3"
+                            rows={props.comment_body.length > 35 ? 3 : 1}
                             error={props.comment_body.length > 200 ? true : false}
                             fullWidth={true}
                             InputProps={{
                                 startAdornment: (
-                                    <InputAdornment style={{ cursor: "pointer" }} position="start">
+                                    <InputAdornment style={{ cursor: "pointer", alignItems: "center" }} position="start">
                                         <GifIcon onClick={() => setGifSelected(true)} />
                                     </InputAdornment>
                                 ),
