@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import React from "react";
 const EditProfileForm = (props: any) => (
     <form onSubmit={props.onSubmit} data-testid="edit-form">
-        <Typography variant="h5">Edit Profile</Typography>
+        <Typography variant="subtitle1">Edit Profile</Typography>
         <FormGroup style={{ padding: "30px 0px" }}>
             <FormLabel data-testid="form-bio-label" style={{ display: "block" }}>
                 Bio

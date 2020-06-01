@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import PostList from "../forms/postList/postList";
 import GridHoc from "../hoc/grid";
 import usePostsHook from "./../../common/postsHook";
+import * as classnames from "classnames";
 export interface IProps {
     match?: any;
     user?: any;
@@ -23,6 +24,9 @@ export interface IProps {
     isNotified?: boolean;
     notificationInit: () => void;
     notification: string;
+    appBar: any;
+    appBarShift: any;
+    appOpen: Boolean;
 }
 function Likes(props: IProps) {
     usePostsHook();
@@ -30,21 +34,29 @@ function Likes(props: IProps) {
         <Fragment>
             {/* <Grid container={true}>
                 <Grid item={true} lg={9} xs={12}> */}
-
-            <PostList
-                likePost={props.likePost}
-                deletePost={props.deletePostInit}
-                deleteComment={props.deleteComment}
-                dislikePost={props.dislikePost}
-                posts={props.posts}
-                currentUser={props.user}
-                postComment={props.postCommentInit}
-                isNotified={props.isNotified}
-                getNotifications={props.notificationInit}
-                notification={props.notification}
-            />
-            {/* </Grid>
+            <div
+                className={classnames(
+                    (props.appBar,
+                    {
+                        [props.appBarShift]: props.appOpen,
+                    }),
+                )}
+            >
+                <PostList
+                    likePost={props.likePost}
+                    deletePost={props.deletePostInit}
+                    deleteComment={props.deleteComment}
+                    dislikePost={props.dislikePost}
+                    posts={props.posts}
+                    currentUser={props.user}
+                    postComment={props.postCommentInit}
+                    isNotified={props.isNotified}
+                    getNotifications={props.notificationInit}
+                    notification={props.notification}
+                />
+                {/* </Grid>
             </Grid> */}
+            </div>
         </Fragment>
     );
 }

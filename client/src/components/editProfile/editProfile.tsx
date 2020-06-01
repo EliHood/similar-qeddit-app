@@ -4,7 +4,7 @@ import EditProfileForm from "../forms/editProfile/editForm";
 import GridHoc from "../hoc/grid";
 import { Grid } from "@material-ui/core";
 import storeMethods from "../../common/storeHooks";
-
+import * as classnames from "classnames";
 function EditProfile(props: any) {
     const [bio, setBio] = useState("");
     const [gravatar, setGravatar] = useState("");
@@ -29,13 +29,22 @@ function EditProfile(props: any) {
     };
 
     return (
-        <Grid container={true} justify="center">
-            <Grid item={true} xs={12} sm={12} md={8} lg={8}>
-                {userErr && <Typography style={{ color: "red" }}>{message || userErr}</Typography>}
-                {message && <Typography style={{ color: "green" }}>{message || userErr}</Typography>}
-                <EditProfileForm handleBio={(e) => setBio(e.target.value)} handleGravatar={(e) => setGravatar(e.target.value)} onSubmit={handleSubmit} bio={bio} gravatar={gravatar} />
+        <div
+            className={classnames(
+                (props.appBar,
+                {
+                    [props.appBarShift]: props.appOpen,
+                }),
+            )}
+        >
+            <Grid container={true} justify="center">
+                <Grid item={true} xs={12} sm={12} md={8} lg={8}>
+                    {userErr && <Typography style={{ color: "red" }}>{message || userErr}</Typography>}
+                    {message && <Typography style={{ color: "green" }}>{message || userErr}</Typography>}
+                    <EditProfileForm handleBio={(e) => setBio(e.target.value)} handleGravatar={(e) => setGravatar(e.target.value)} onSubmit={handleSubmit} bio={bio} gravatar={gravatar} />
+                </Grid>
             </Grid>
-        </Grid>
+        </div>
     );
 }
 

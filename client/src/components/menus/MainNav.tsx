@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import Notification from "../../containers/notificationTooltip";
 import { makeStyles } from "@material-ui/core/styles";
 import menus from "./menu.json";
-const drawerWidth = 240;
+const drawerWidth = 210;
 const styles = makeStyles((theme) => ({
     buttonBar: {
         [theme.breakpoints.down("md")]: {

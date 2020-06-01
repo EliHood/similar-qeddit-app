@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { addTitle, addContent } from "../../actions/postActions";
 import OurError from "../../common/OurError";
 import storeMethods from "../../common/storeHooks";
+import * as classnames from "classnames";
 function Dashboard(props: any) {
     const dispatch = useDispatch();
     const inputData = {
@@ -27,27 +28,37 @@ function Dashboard(props: any) {
         createPost(postData);
     };
     const isEnabled = titleError === true && ourBodyError === true ? false : true;
+    console.log(props);
     return (
         <Fragment>
-            <Grid justify="center" container={true}>
-                <Grid item={true} lg={9} xs={11}>
-                    {storeMethods().errPost && <OurError />}
-                    <PostForm
-                        title={ourTitle}
-                        postContent={ourPostContent}
-                        handleTitleChange={handleInputChange}
-                        handleContentChange={handleInputChange}
-                        onSubmit={onSubmit}
-                        disButton={isEnabled}
-                        titleError={titleError}
-                        bodyError={ourBodyError}
-                    />
+            <div
+                className={classnames(
+                    (props.appBar,
+                    {
+                        [props.appBarShift]: props.appOpen,
+                    }),
+                )}
+            >
+                <Grid justify="center" container={true}>
+                    <Grid item={true} lg={9} xs={11}>
+                        {storeMethods().errPost && <OurError />}
+                        <PostForm
+                            title={ourTitle}
+                            postContent={ourPostContent}
+                            handleTitleChange={handleInputChange}
+                            handleContentChange={handleInputChange}
+                            onSubmit={onSubmit}
+                            disButton={isEnabled}
+                            titleError={titleError}
+                            bodyError={ourBodyError}
+                        />
+                    </Grid>
                 </Grid>
-            </Grid>
 
-            <br />
+                <br />
 
-            <OurTabs />
+                <OurTabs />
+            </div>
         </Fragment>
     );
 }

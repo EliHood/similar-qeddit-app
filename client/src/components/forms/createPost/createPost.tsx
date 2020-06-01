@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import React from "react";
 const PostForm = (props: any) => (
     <form onSubmit={props.onSubmit}>
-        <Typography className="title" style={{ paddingBottom: "20px" }} variant="h6">
+        <Typography className="title" style={{ paddingBottom: "20px" }} variant="subtitle1">
             New Post
         </Typography>
         <TextField

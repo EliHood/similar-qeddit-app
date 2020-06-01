@@ -48,6 +48,17 @@ const styles = makeStyles((theme) => ({
             duration: theme.transitions.duration.enteringScreen,
         }),
     },
+    drawerClose: {
+        transition: theme.transitions.create("width", {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
+        overflowX: "hidden",
+        // width: theme.spacing.unit * 7 + 1,
+        // [theme.breakpoints.up("sm")]: {
+        //     width: theme.spacing.unit * 9 + 1,
+        // },
+    },
 }));
 
 function MyRouter(props) {
@@ -63,6 +74,9 @@ function MyRouter(props) {
         setAnchorEl(null);
     };
     const classes = styles();
+    const globalStyles = {
+        ourClass: classes,
+    };
     const user = props.currentUser.user ? props.currentUser.user : "";
     return props.hasError ? (
         <div>Error</div>
@@ -89,17 +103,17 @@ function MyRouter(props) {
                 </Toolbar>
             </AppBar>
             <Switch>
-                <Route exact={true} path="/" component={Landing} {...props} />
+                <Route exact={true} path="/" render={() => <Landing {...props} {...classes} appOpen={appOpen} />} />
                 <Route path="/login" render={() => (props.isAuthenticated === true || props.googleAccount === true ? <Redirect to="/dashboard" /> : <Login />)} />
                 <Route path="/register" render={() => (props.isAuthenticated === true || props.googleAccount === true ? <Redirect to="/dashboard" /> : <Register />)} />
                 <Route path="/emailConfirmation" component={EmailConfirmation} {...props} />
                 {/* <Route path='/resendEmailConfirmation'></Route> */}
                 <Route path="/emailConfirmationSuccess/:userId/:token" component={EmailConfirmationSuccess} {...props} />
-                <PrivateRoute exact={true} path="/dashboard" component={Dashboard} {...props} />
-                <PrivateRoute exact={true} path="/profile/:username" component={Profile} {...props} />
-                <PrivateRoute exact={true} path="/editProfile" component={EditProfile} {...props} />
-                <PrivateRoute exact={true} path="/:userId/likes" component={Likes} {...props} />
-                <PrivateRoute path="/post/:id" component={Post} {...props} />
+                <PrivateRoute exact={true} path="/dashboard" component={Dashboard} {...props} {...classes} appOpen={appOpen} />
+                <PrivateRoute exact={true} path="/profile/:username" component={Profile} {...props} {...classes} appOpen={appOpen} />
+                <PrivateRoute exact={true} path="/editProfile" component={EditProfile} {...props} {...classes} appOpen={appOpen} />
+                <PrivateRoute exact={true} path="/:userId/likes" component={Likes} {...props} {...classes} appOpen={appOpen} />
+                <PrivateRoute path="/post/:id" component={Post} {...props} {...classes} appOpen={appOpen} />
                 <Route component={NotFound} />
             </Switch>
         </Router>

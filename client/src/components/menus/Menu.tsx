@@ -4,7 +4,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Drawer from "@material-ui/core/Drawer";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import MenuIcon from "@material-ui/icons/Menu";
-const drawerWidth = 240;
+const drawerWidth = 210;
 const styles = (theme) => ({
     buttonCollapse: {
         [theme.breakpoints.up("lg")]: {
@@ -26,13 +26,13 @@ const styles = (theme) => ({
         },
         padding: "20px",
     },
-    // appBar: {
-    //     // position: "absolute",
-    //     marginLeft: drawerWidth,
-    //     [theme.breakpoints.up("sm")]: {
-    //         width: `calc(100% - ${drawerWidth}px)`,
-    //     },
-    // },
+    appBar: {
+        // position: "absolute",
+        marginLeft: drawerWidth,
+        [theme.breakpoints.up("sm")]: {
+            width: `calc(100% - ${drawerWidth}px)`,
+        },
+    },
 });
 
 function OurMenu(props: any) {

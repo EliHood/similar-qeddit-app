@@ -9,6 +9,7 @@ import GridHoc from "../hoc/grid";
 import { useSelector, useDispatch } from "react-redux";
 import { getProfileInit, followUserInit, unfollowUserInit } from "../../actions/userActions";
 import { userStore } from "../../selectors/selectors";
+import * as classnames from "classnames";
 export interface profileProps {
     getProfileInit: (username: string) => void;
     unfollowUserInit: (username: string, id: number) => void;
@@ -21,6 +22,9 @@ export interface profileProps {
             id: number;
         };
     };
+    appBar: any;
+    appBarShift: any;
+    appOpen: Boolean;
 }
 function Profile(props: profileProps) {
     const didMountRef = useRef<Object>();
@@ -44,57 +48,66 @@ function Profile(props: profileProps) {
     return (
         <Fragment>
             {/* <Typography variant="h6" style={{ margin: "20px 0px" }}>Your Profile</Typography> */}
-            {currentUser && user && (
-                <Fragment>
-                    <Avatar src={user.gravatar} />
-                    <Grid item={true} sm={12} md={12} style={{ margin: "20px 0px" }}>
-                        <Typography variant="h5">{user.username}</Typography>
-                        <Typography variant="body1" style={{ margin: "20px 0px", letterSpacing: "1px" }}>
-                            <PersonIcon style={{ margin: "-5px 0px" }} /> {user.bio}
-                        </Typography>
-                        <Grid item={true} sm={2} lg={2} style={{ margin: "20px 0px" }}>
-                            {currentUser.id !== user.id ? (
-                                <Typography align="left">
-                                    {user.isFollowing !== true ? (
-                                        <Button variant="outlined" color="primary" onClick={() => followUser(user.username, currentUser.id)}>
-                                            Follow
-                                        </Button>
-                                    ) : (
-                                        <Button style={{ color: "#fff" }} variant="contained" color="primary" onClick={() => unfollowUser(user.username, currentUser.id)}>
-                                            Following
-                                        </Button>
-                                    )}
-                                </Typography>
-                            ) : null}
-                        </Grid>
-                        <Grid item={true} sm={12} md={12}>
-                            <Typography variant="h6" style={{ margin: "10px 0px" }}>
-                                {" "}
-                                {userFollowerCount} {followerPlural}{" "}
+            <div
+                className={classnames(
+                    (props.appBar,
+                    {
+                        [props.appBarShift]: props.appOpen,
+                    }),
+                )}
+            >
+                {currentUser && user && (
+                    <Fragment>
+                        <Avatar src={user.gravatar} />
+                        <Grid item={true} sm={12} md={12} style={{ margin: "20px 0px" }}>
+                            <Typography variant="subtitle1">{user.username}</Typography>
+                            <Typography variant="body1" style={{ margin: "20px 0px", letterSpacing: "1px" }}>
+                                <PersonIcon style={{ margin: "-5px 0px" }} /> {user.bio}
                             </Typography>
-                            {user && userFollowerCount ? (
-                                <Fragment>
-                                    {user.UserFollowers.map((followUser, i) => (
-                                        <Fragment key={i}>
-                                            <Paper style={{ margin: "30px 0px", padding: "20px 0px" }}>
-                                                <Typography style={{ padding: "0px 20px" }} variant="caption">
-                                                    <OurLink
-                                                        to={{
-                                                            pathname: `/profile/${user && followUser && followUser.followerDetails ? followUser.followerDetails.username : ""}`,
-                                                            state: { followUser },
-                                                        }}
-                                                        title={user && followUser && followUser.followerDetails ? followUser.followerDetails.username : ""}
-                                                    />
-                                                </Typography>
-                                            </Paper>
-                                        </Fragment>
-                                    ))}
-                                </Fragment>
-                            ) : null}
+                            <Grid item={true} sm={2} lg={2} style={{ margin: "20px 0px" }}>
+                                {currentUser.id !== user.id ? (
+                                    <Typography align="left">
+                                        {user.isFollowing !== true ? (
+                                            <Button variant="outlined" color="primary" onClick={() => followUser(user.username, currentUser.id)}>
+                                                Follow
+                                            </Button>
+                                        ) : (
+                                            <Button style={{ color: "#fff" }} variant="contained" color="primary" onClick={() => unfollowUser(user.username, currentUser.id)}>
+                                                Following
+                                            </Button>
+                                        )}
+                                    </Typography>
+                                ) : null}
+                            </Grid>
+                            <Grid item={true} sm={12} md={12}>
+                                <Typography variant="subtitle1" style={{ margin: "10px 0px" }}>
+                                    {" "}
+                                    {userFollowerCount} {followerPlural}{" "}
+                                </Typography>
+                                {user && userFollowerCount ? (
+                                    <Fragment>
+                                        {user.UserFollowers.map((followUser, i) => (
+                                            <Fragment key={i}>
+                                                <Paper style={{ margin: "30px 0px", padding: "20px 0px" }}>
+                                                    <Typography style={{ padding: "0px 20px" }} variant="caption">
+                                                        <OurLink
+                                                            to={{
+                                                                pathname: `/profile/${user && followUser && followUser.followerDetails ? followUser.followerDetails.username : ""}`,
+                                                                state: { followUser },
+                                                            }}
+                                                            title={user && followUser && followUser.followerDetails ? followUser.followerDetails.username : ""}
+                                                        />
+                                                    </Typography>
+                                                </Paper>
+                                            </Fragment>
+                                        ))}
+                                    </Fragment>
+                                ) : null}
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Fragment>
-            )}
+                    </Fragment>
+                )}
+            </div>
         </Fragment>
     );
 }

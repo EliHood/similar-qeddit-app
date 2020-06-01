@@ -135,7 +135,7 @@ function PostItemContainer(props: any) {
                         </Grid>
                     </Grid>
 
-                    <Typography variant="h6" align="left">
+                    <Typography variant="subtitle1" align="left">
                         {moment(post.createdAt).calendar()}
                     </Typography>
                     <Grid item={true} sm={12} lg={12} style={{ paddingTop: "40px" }}>
