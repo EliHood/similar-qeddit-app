@@ -9,7 +9,7 @@ import GridHoc from "../hoc/grid";
 import { useSelector, useDispatch } from "react-redux";
 import { getProfileInit, followUserInit, unfollowUserInit } from "../../actions/userActions";
 import { userStore } from "../../selectors/selectors";
-import * as classnames from "classnames";
+import OurWrapper from "../../common/OurWrapper";
 export interface profileProps {
     getProfileInit: (username: string) => void;
     unfollowUserInit: (username: string, id: number) => void;
@@ -48,14 +48,7 @@ function Profile(props: profileProps) {
     return (
         <Fragment>
             {/* <Typography variant="h6" style={{ margin: "20px 0px" }}>Your Profile</Typography> */}
-            <div
-                className={classnames(
-                    (props.appBar,
-                    {
-                        [props.appBarShift]: props.appOpen,
-                    }),
-                )}
-            >
+            <OurWrapper appBar={props.appBar} appOpen={props.appOpen} appBarShift={props.appBarShift}>
                 {currentUser && user && (
                     <Fragment>
                         <Avatar src={user.gravatar} />
@@ -107,7 +100,7 @@ function Profile(props: profileProps) {
                         </Grid>
                     </Fragment>
                 )}
-            </div>
+            </OurWrapper>
         </Fragment>
     );
 }

@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import Notification from "../../containers/notificationTooltip";
 import OurMenuItem from "../../common/OurMenuItem";
 function CollapasedMenu(props: any) {
-    const [] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const handleClose = () => {
         setAnchorEl(null);

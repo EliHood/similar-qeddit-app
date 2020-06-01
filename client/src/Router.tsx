@@ -18,52 +18,12 @@ import Register from "./components/register/register";
 import { history } from "./ourHistory";
 import PrivateRoute from "./PrivateRoute";
 import NotFound from "./components/404/404";
-import { makeStyles } from "@material-ui/core/styles";
 import CollapasedMenu from "./components/menus/CollapsedMenu";
 import MainNav from "./components/menus/MainNav";
-const drawerWidth = 240;
-const styles = makeStyles((theme) => ({
-    buttonBar: {
-        [theme.breakpoints.down("md")]: {
-            display: "none",
-        },
-        margin: "10px",
-        paddingLeft: "16px",
-        right: 0,
-        // position: "relative",
-        width: "100%",
-        background: "transparent",
-    },
-    appBar: {
-        transition: theme.transitions.create(["margin", "width"], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    appBarShift: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-        transition: theme.transitions.create(["margin", "width"], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    drawerClose: {
-        transition: theme.transitions.create("width", {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        overflowX: "hidden",
-        // width: theme.spacing.unit * 7 + 1,
-        // [theme.breakpoints.up("sm")]: {
-        //     width: theme.spacing.unit * 9 + 1,
-        // },
-    },
-}));
-
+import useWrapperSlide from "./common/useWrapperSlide";
 function MyRouter(props) {
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-    const [appOpen, appSetOpen] = React.useState(false);
+    const { classes, appOpen, appSetOpen } = useWrapperSlide();
     const open = Boolean(anchorEl);
     const id = open ? "simple-popover" : undefined;
     const handleNotificationClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -72,10 +32,6 @@ function MyRouter(props) {
     };
     const handleClose = () => {
         setAnchorEl(null);
-    };
-    const classes = styles();
-    const globalStyles = {
-        ourClass: classes,
     };
     const user = props.currentUser.user ? props.currentUser.user : "";
     return props.hasError ? (

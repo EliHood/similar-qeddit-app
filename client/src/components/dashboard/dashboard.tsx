@@ -9,6 +9,7 @@ import { addTitle, addContent } from "../../actions/postActions";
 import OurError from "../../common/OurError";
 import storeMethods from "../../common/storeHooks";
 import * as classnames from "classnames";
+import OurWrapper from "../../common/OurWrapper";
 function Dashboard(props: any) {
     const dispatch = useDispatch();
     const inputData = {
@@ -30,14 +31,7 @@ function Dashboard(props: any) {
     const isEnabled = titleError === true && ourBodyError === true ? false : true;
     return (
         <Fragment>
-            <div
-                className={classnames(
-                    (props.appBar,
-                    {
-                        [props.appBarShift]: props.appOpen,
-                    }),
-                )}
-            >
+            <OurWrapper appBar={props.appBar} appOpen={props.appOpen} appBarShift={props.appBarShift}>
                 <Grid justify="center" container={true}>
                     <Grid item={true} lg={9} xs={11}>
                         {storeMethods().errPost && <OurError />}
@@ -57,7 +51,7 @@ function Dashboard(props: any) {
                 <br />
 
                 <OurTabs />
-            </div>
+            </OurWrapper>
         </Fragment>
     );
 }

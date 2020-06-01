@@ -1,10 +1,10 @@
-import React, { useEffect, Component, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import EditProfileForm from "../forms/editProfile/editForm";
 import GridHoc from "../hoc/grid";
 import { Grid } from "@material-ui/core";
 import storeMethods from "../../common/storeHooks";
-import * as classnames from "classnames";
+import OurWrapper from "../../common/OurWrapper";
 function EditProfile(props: any) {
     const [bio, setBio] = useState("");
     const [gravatar, setGravatar] = useState("");
@@ -29,14 +29,7 @@ function EditProfile(props: any) {
     };
 
     return (
-        <div
-            className={classnames(
-                (props.appBar,
-                {
-                    [props.appBarShift]: props.appOpen,
-                }),
-            )}
-        >
+        <OurWrapper appBar={props.appBar} appOpen={props.appOpen} appBarShift={props.appBarShift}>
             <Grid container={true} justify="center">
                 <Grid item={true} xs={12} sm={12} md={8} lg={8}>
                     {userErr && <Typography style={{ color: "red" }}>{message || userErr}</Typography>}
@@ -44,7 +37,7 @@ function EditProfile(props: any) {
                     <EditProfileForm handleBio={(e) => setBio(e.target.value)} handleGravatar={(e) => setGravatar(e.target.value)} onSubmit={handleSubmit} bio={bio} gravatar={gravatar} />
                 </Grid>
             </Grid>
-        </div>
+        </OurWrapper>
     );
 }
 

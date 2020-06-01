@@ -5,10 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import usePostsHook from "./../../common/postsHook";
 import storeMethods from "./../../common/storeHooks";
 import OurError from "../../common/OurError";
-import OurLoader from "../../common/OurLoader";
-import * as classnames from "classnames";
-import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
+import OurWrapper from "../../common/OurWrapper";
 
 function Landing(props: any) {
     // calls the posts api once, then we use storeMethods().posts to get the posts from store
@@ -16,14 +13,7 @@ function Landing(props: any) {
     // const classes = styles();
     return (
         <Fragment>
-            <div
-                className={classnames(
-                    (props.appBar,
-                    {
-                        [props.appBarShift]: props.appOpen,
-                    }),
-                )}
-            >
+            <OurWrapper appBar={props.appBar} appOpen={props.appOpen} appBarShift={props.appBarShift}>
                 <Typography variant="subtitle1" align="left">
                     Post's from our users
                 </Typography>
@@ -40,7 +30,7 @@ function Landing(props: any) {
                     getNotifications={storeMethods().notifications}
                     editComment={storeMethods().editComment}
                 />
-            </div>
+            </OurWrapper>
         </Fragment>
     );
 }

@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import PostList from "../forms/postList/postList";
 import GridHoc from "../hoc/grid";
 import usePostsHook from "./../../common/postsHook";
-import * as classnames from "classnames";
+import OurWrapper from "../../common/OurWrapper";
 export interface IProps {
     match?: any;
     user?: any;
@@ -34,14 +34,7 @@ function Likes(props: IProps) {
         <Fragment>
             {/* <Grid container={true}>
                 <Grid item={true} lg={9} xs={12}> */}
-            <div
-                className={classnames(
-                    (props.appBar,
-                    {
-                        [props.appBarShift]: props.appOpen,
-                    }),
-                )}
-            >
+            <OurWrapper appBar={props.appBar} appOpen={props.appOpen} appBarShift={props.appBarShift}>
                 <PostList
                     likePost={props.likePost}
                     deletePost={props.deletePostInit}
@@ -56,7 +49,7 @@ function Likes(props: IProps) {
                 />
                 {/* </Grid>
             </Grid> */}
-            </div>
+            </OurWrapper>
         </Fragment>
     );
 }

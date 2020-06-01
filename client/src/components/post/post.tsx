@@ -1,7 +1,6 @@
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import React, { Component, Fragment } from "react";
-import { userConfirmation } from "../../selectors/selectors";
+import React, { Fragment } from "react";
 import { fetchPostInit } from "../../actions/postActions";
 import { useDispatch, useSelector } from "react-redux";
 import { profile } from "../../selectors/selectors";
