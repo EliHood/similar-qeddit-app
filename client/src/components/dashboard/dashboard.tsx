@@ -28,7 +28,6 @@ function Dashboard(props: any) {
         createPost(postData);
     };
     const isEnabled = titleError === true && ourBodyError === true ? false : true;
-    console.log(props);
     return (
         <Fragment>
             <div

@@ -14,7 +14,6 @@ function Landing(props: any) {
     // calls the posts api once, then we use storeMethods().posts to get the posts from store
     usePostsHook();
     // const classes = styles();
-    console.log("landing", props);
     return (
         <Fragment>
             <div
