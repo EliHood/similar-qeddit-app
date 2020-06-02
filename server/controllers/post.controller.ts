@@ -26,6 +26,18 @@ const filterbadWords = (word:string) => {
   }
 
 }
+
+const isUser = (req: any): String => {
+  var curUser: String;
+  if (req.session && req.session.user) {
+    return (curUser = req.session.user.id);
+  } else {
+    return (curUser = req.session.passport
+      ? req.session.passport.user.id
+      : null);
+  }
+};
+
 export default {
   getPosts: async (req: any, res: Response) => {
     // use async/await here
@@ -101,12 +113,7 @@ export default {
     return res.json(postPage);
   },
   deleteComment: async (req: any, res: Response) => {
-    let currentUser;
-    if (req.session.passport) {
-      currentUser = req.session.passport.user.id;
-    } else {
-      currentUser = req.session.user.id;
-    }
+   const currentUser = isUser(req)
     if(req.params.userId == currentUser){
       try{
         await models.Comments.destroy({
@@ -189,16 +196,7 @@ export default {
     console.log(req.body);
   },
   postComment: async (req: any, res: Response) => {
-    let currentUser;
-    let content;
-    let arr;
-
-    if (req.session.passport) {
-      currentUser = req.session.passport.user.id;
-    } else {
-      currentUser = req.session.user.id;
-    }
-
+    const currentUser = isUser(req)
     try{
       const postData = {
         comment_body: filterbadWords(req.body.comment_body),
@@ -242,14 +240,9 @@ export default {
 
   },
   editComment: async(req:any, res: Response) => {
-    let currentUser;
     let transaction;
     console.log('testtttt',req.body)
-    if (req.session.passport) {
-      currentUser = req.session.passport.user.id;
-    } else {
-      currentUser = req.session.user.id;
-    } 
+    const currentUser = isUser(req)
     if(req.body.comment_body && req.body.gifUrl){
       return res.status(401).send({
         message: "Can\'t edit both"
@@ -288,12 +281,7 @@ export default {
    
   },
   deletePost: async (req:any, res:Response) => {
-    let currentUser;
-    if (req.session.passport) {
-      currentUser = req.session.passport.user.id;
-    } else {
-      currentUser = req.session.user.id;
-    }
+    const currentUser = isUser(req)
     console.log(req.params)
     if(req.params.userId == currentUser){ 
       try{
@@ -315,13 +303,7 @@ export default {
   },
   likePost: async (req: any, res: Response) => {
     // fetch created and post at the same time
-    let currentUser;
-    if (req.session.passport) {
-      currentUser = req.session.passport.user.id;
-    } else {
-      currentUser = req.session.user.id;
-    }
-
+    const currentUser = isUser(req)
     const created = await models.Likes.findOne({
       where: {
         userId: currentUser,
@@ -433,12 +415,7 @@ export default {
   },
 
   disLikePost: async (req: any, res: Response) => {
-    let currentUser;
-    if (req.session.passport) {
-      currentUser = req.session.passport.user.id;
-    } else {
-      currentUser = req.session.user.id;
-    }
+    const currentUser = isUser(req)
     const created = await models.Likes.findOne({
       where: {
         userId: currentUser,

@@ -5,6 +5,8 @@ import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import sgTransport from "nodemailer-sendgrid-transport";
 import models from "../models";
+import User from "./interfaces";
+
 dotenv.config();
 const comparePassword = async (
   credentialsPassword: string,
@@ -17,12 +19,55 @@ const comparePassword = async (
   return isPasswordMatch;
 };
 
+const isUser = (req: any): String => {
+  var curUser: String;
+  if (req.session && req.session.user) {
+    return (curUser = req.session.user.id);
+  } else {
+    return (curUser = req.session.passport
+      ? req.session.passport.user.id
+      : null);
+  }
+};
+
 const auth = {
   auth: {
     api_user: `${process.env.SENDGRID_NAME}`,
     api_key: `${process.env.SENDGRID_PASSWORD}`,
   },
   // proxy: 'http://user:pass@localhost:3000' // optional proxy, default is false
+};
+
+const findUserByUsername = async (username: string): Promise<Object> => {
+  const user = await models.User.findOne({
+    where: {
+      username: username,
+    },
+    raw: true,
+  });
+  console.log("fdfdfdfdf", user);
+  return user;
+};
+
+const findUserByEmail = async (email: string): Promise<Object> => {
+  const user = await models.User.findOne({
+    where: {
+      email: email,
+    },
+    raw: true,
+  });
+  return user;
+};
+
+const findUserById = async (id: number): Promise<Object> => {
+  const user = await models.User.findOne({
+    where: {
+      id: id,
+    },
+    raw: true,
+  });
+
+  return user;
 };
 
 const nodemailerMailgun = nodemailer.createTransport(sgTransport(auth));
@@ -81,12 +126,7 @@ export default {
     return res.json(users);
   },
   profile: async (req: Request, res: Response) => {
-    let curUser;
-    if (req.session && req.session.user) {
-      curUser = req.session.user.id;
-    } else if (req.session) {
-      curUser = req.session.passport ? req.session.passport.user.id : null;
-    }
+    // console.log("sfsfsfs", isUser(req));
     try {
       const username = req.params.username;
       const findUser = await models.User.findOne({
@@ -115,9 +155,9 @@ export default {
 
       if (findUser) {
         findUser.UserFollowers.forEach((item) => {
-          if (item.followerId === curUser) {
+          if (item.followerId === isUser(req)) {
             findUser.setDataValue("isFollowing", true);
-          } else if (item.followerId === curUser) {
+          } else if (item.followerId === isUser(req)) {
             findUser.setDataValue("isFollowing", false);
           }
         });
@@ -135,15 +175,9 @@ export default {
     }
   },
   editProfile: async (req: Request, res: Response) => {
-    let curUser;
-    if (req.session && req.session.user) {
-      curUser = req.session.user.id;
-    } else if (req.session) {
-      curUser = req.session.passport ? req.session.passport.user.id : null;
-    }
     const user = await models.User.findOne({
       where: {
-        id: curUser,
+        id: isUser(req),
       },
       attributes: { exclude: ["password"], include: ["bio", "gravatar"] },
     });
@@ -158,12 +192,7 @@ export default {
   updateProfile: async (req: Request, res: Response) => {
     const userData = req.body;
     let transaction;
-    let curUser;
-    if (req.session && req.session.user) {
-      curUser = req.session.user.id;
-    } else if (req.session) {
-      curUser = req.session.passport ? req.session.passport.user.id : null;
-    }
+
     try {
       transaction = await models.sequelize.transaction();
       return models.User.update(
@@ -173,7 +202,7 @@ export default {
         },
         {
           where: {
-            id: curUser,
+            id: isUser(req),
           },
         },
         { transaction }
@@ -181,7 +210,7 @@ export default {
         console.log("sfsff", user);
         models.User.findOne({
           where: {
-            id: curUser,
+            id: isUser(req),
           },
           attributes: ["gravatar", "bio"],
         }).then(async (newBio) => {
@@ -202,15 +231,9 @@ export default {
     }
   },
   signInUser: async (req: Request, res: Response) => {
+    const credentials = req.body;
     try {
-      const credentials = req.body;
-      const user = await models.User.findOne({
-        where: {
-          username: credentials.username,
-        },
-        raw: true,
-      });
-
+      const user = await findUserByUsername(credentials.username);
       /* user not registered */
       if (!user) {
         return res.status(403).send({
@@ -297,12 +320,7 @@ export default {
     }
   },
   followUser: async (req: any, res: Response) => {
-    let curUser;
-    if (req.session && req.session.user) {
-      curUser = req.session.user.id;
-    } else if (req.session) {
-      curUser = req.session.passport ? req.session.passport.user.id : null;
-    }
+    const curUser = isUser(req);
     const { username } = req.params;
     if (curUser) {
       try {
@@ -376,12 +394,7 @@ export default {
     }
   },
   unFollowUser: async (req: any, res: Response) => {
-    let curUser;
-    if (req.session && req.session.user) {
-      curUser = req.session.user.id;
-    } else if (req.session) {
-      curUser = req.session.passport ? req.session.passport.user.id : null;
-    }
+    const curUser = isUser(req);
     const { username } = req.params;
     if (curUser) {
       try {
@@ -537,12 +550,7 @@ export default {
   emailConfirmationToken: async (req: any, res: Response) => {
     const token = req.params.token;
     console.log("testing", req.params);
-    const user = await models.User.findOne({
-      where: {
-        id: req.params.userId,
-      },
-      raw: true,
-    });
+    const user = await findUserById(req.params.userId);
     if (user.email_verified === true) {
       return res.status(500).send({
         meta: {
@@ -614,20 +622,8 @@ export default {
         });
       }
 
-      const registeredEmail = await models.User.findOne({
-        where: {
-          email: credentials.email,
-        },
-        raw: true,
-      });
-
-      const registeredUserName = await models.User.findOne({
-        where: {
-          username: credentials.username,
-        },
-        raw: true,
-      });
-
+      const registeredEmail = await findUserByEmail(credentials.email);
+      const registeredUserName = await findUserByUsername(credentials.username);
       /* email already registered */
       if (registeredEmail) {
         return res.status(403).send({

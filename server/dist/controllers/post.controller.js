@@ -37,6 +37,17 @@ const filterbadWords = (word) => {
         return word;
     }
 };
+const isUser = (req) => {
+    var curUser;
+    if (req.session && req.session.user) {
+        return (curUser = req.session.user.id);
+    }
+    else {
+        return (curUser = req.session.passport
+            ? req.session.passport.user.id
+            : null);
+    }
+};
 exports.default = {
     getPosts: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // use async/await here
@@ -107,13 +118,7 @@ exports.default = {
         return res.json(postPage);
     }),
     deleteComment: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        let currentUser;
-        if (req.session.passport) {
-            currentUser = req.session.passport.user.id;
-        }
-        else {
-            currentUser = req.session.user.id;
-        }
+        const currentUser = isUser(req);
         if (req.params.userId == currentUser) {
             try {
                 yield models_1.default.Comments.destroy({
@@ -192,15 +197,7 @@ exports.default = {
         console.log(req.body);
     }),
     postComment: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        let currentUser;
-        let content;
-        let arr;
-        if (req.session.passport) {
-            currentUser = req.session.passport.user.id;
-        }
-        else {
-            currentUser = req.session.user.id;
-        }
+        const currentUser = isUser(req);
         try {
             const postData = {
                 comment_body: filterbadWords(req.body.comment_body),
@@ -243,15 +240,9 @@ exports.default = {
         }
     }),
     editComment: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        let currentUser;
         let transaction;
         console.log('testtttt', req.body);
-        if (req.session.passport) {
-            currentUser = req.session.passport.user.id;
-        }
-        else {
-            currentUser = req.session.user.id;
-        }
+        const currentUser = isUser(req);
         if (req.body.comment_body && req.body.gifUrl) {
             return res.status(401).send({
                 message: "Can\'t edit both"
@@ -290,13 +281,7 @@ exports.default = {
         }
     }),
     deletePost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        let currentUser;
-        if (req.session.passport) {
-            currentUser = req.session.passport.user.id;
-        }
-        else {
-            currentUser = req.session.user.id;
-        }
+        const currentUser = isUser(req);
         console.log(req.params);
         if (req.params.userId == currentUser) {
             try {
@@ -318,13 +303,7 @@ exports.default = {
     }),
     likePost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // fetch created and post at the same time
-        let currentUser;
-        if (req.session.passport) {
-            currentUser = req.session.passport.user.id;
-        }
-        else {
-            currentUser = req.session.user.id;
-        }
+        const currentUser = isUser(req);
         const created = yield models_1.default.Likes.findOne({
             where: {
                 userId: currentUser,
@@ -427,13 +406,7 @@ exports.default = {
         }
     }),
     disLikePost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        let currentUser;
-        if (req.session.passport) {
-            currentUser = req.session.passport.user.id;
-        }
-        else {
-            currentUser = req.session.user.id;
-        }
+        const currentUser = isUser(req);
         const created = yield models_1.default.Likes.findOne({
             where: {
                 userId: currentUser,

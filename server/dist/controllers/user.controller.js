@@ -42,12 +42,51 @@ const comparePassword = (credentialsPassword, userPassword) => __awaiter(void 0,
     const isPasswordMatch = yield bcrypt.compare(credentialsPassword, userPassword);
     return isPasswordMatch;
 });
+const isUser = (req) => {
+    var curUser;
+    if (req.session && req.session.user) {
+        return (curUser = req.session.user.id);
+    }
+    else {
+        return (curUser = req.session.passport
+            ? req.session.passport.user.id
+            : null);
+    }
+};
 const auth = {
     auth: {
         api_user: `${process.env.SENDGRID_NAME}`,
         api_key: `${process.env.SENDGRID_PASSWORD}`,
     },
 };
+const findUserByUsername = (username) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield models_1.default.User.findOne({
+        where: {
+            username: username,
+        },
+        raw: true,
+    });
+    console.log("fdfdfdfdf", user);
+    return user;
+});
+const findUserByEmail = (email) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield models_1.default.User.findOne({
+        where: {
+            email: email,
+        },
+        raw: true,
+    });
+    return user;
+});
+const findUserById = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield models_1.default.User.findOne({
+        where: {
+            id: id,
+        },
+        raw: true,
+    });
+    return user;
+});
 const nodemailerMailgun = nodemailer_1.default.createTransport(nodemailer_sendgrid_transport_1.default(auth));
 exports.default = {
     getUsers: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -103,13 +142,7 @@ exports.default = {
         return res.json(users);
     }),
     profile: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        let curUser;
-        if (req.session && req.session.user) {
-            curUser = req.session.user.id;
-        }
-        else if (req.session) {
-            curUser = req.session.passport ? req.session.passport.user.id : null;
-        }
+        // console.log("sfsfsfs", isUser(req));
         try {
             const username = req.params.username;
             const findUser = yield models_1.default.User.findOne({
@@ -137,10 +170,10 @@ exports.default = {
             // findUser.setDataValue("isFollowing", false)
             if (findUser) {
                 findUser.UserFollowers.forEach((item) => {
-                    if (item.followerId === curUser) {
+                    if (item.followerId === isUser(req)) {
                         findUser.setDataValue("isFollowing", true);
                     }
-                    else if (item.followerId === curUser) {
+                    else if (item.followerId === isUser(req)) {
                         findUser.setDataValue("isFollowing", false);
                     }
                 });
@@ -160,16 +193,9 @@ exports.default = {
         }
     }),
     editProfile: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        let curUser;
-        if (req.session && req.session.user) {
-            curUser = req.session.user.id;
-        }
-        else if (req.session) {
-            curUser = req.session.passport ? req.session.passport.user.id : null;
-        }
         const user = yield models_1.default.User.findOne({
             where: {
-                id: curUser,
+                id: isUser(req),
             },
             attributes: { exclude: ["password"], include: ["bio", "gravatar"] },
         });
@@ -183,13 +209,6 @@ exports.default = {
     updateProfile: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const userData = req.body;
         let transaction;
-        let curUser;
-        if (req.session && req.session.user) {
-            curUser = req.session.user.id;
-        }
-        else if (req.session) {
-            curUser = req.session.passport ? req.session.passport.user.id : null;
-        }
         try {
             transaction = yield models_1.default.sequelize.transaction();
             return models_1.default.User.update({
@@ -197,13 +216,13 @@ exports.default = {
                 gravatar: userData.gravatar,
             }, {
                 where: {
-                    id: curUser,
+                    id: isUser(req),
                 },
             }, { transaction }).then((user) => __awaiter(void 0, void 0, void 0, function* () {
                 console.log("sfsff", user);
                 models_1.default.User.findOne({
                     where: {
-                        id: curUser,
+                        id: isUser(req),
                     },
                     attributes: ["gravatar", "bio"],
                 }).then((newBio) => __awaiter(void 0, void 0, void 0, function* () {
@@ -225,14 +244,9 @@ exports.default = {
         }
     }),
     signInUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        const credentials = req.body;
         try {
-            const credentials = req.body;
-            const user = yield models_1.default.User.findOne({
-                where: {
-                    username: credentials.username,
-                },
-                raw: true,
-            });
+            const user = yield findUserByUsername(credentials.username);
             /* user not registered */
             if (!user) {
                 return res.status(403).send({
@@ -316,13 +330,7 @@ exports.default = {
         }
     }),
     followUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        let curUser;
-        if (req.session && req.session.user) {
-            curUser = req.session.user.id;
-        }
-        else if (req.session) {
-            curUser = req.session.passport ? req.session.passport.user.id : null;
-        }
+        const curUser = isUser(req);
         const { username } = req.params;
         if (curUser) {
             try {
@@ -398,13 +406,7 @@ exports.default = {
         }
     }),
     unFollowUser: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-        let curUser;
-        if (req.session && req.session.user) {
-            curUser = req.session.user.id;
-        }
-        else if (req.session) {
-            curUser = req.session.passport ? req.session.passport.user.id : null;
-        }
+        const curUser = isUser(req);
         const { username } = req.params;
         if (curUser) {
             try {
@@ -557,12 +559,7 @@ exports.default = {
     emailConfirmationToken: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const token = req.params.token;
         console.log("testing", req.params);
-        const user = yield models_1.default.User.findOne({
-            where: {
-                id: req.params.userId,
-            },
-            raw: true,
-        });
+        const user = yield findUserById(req.params.userId);
         if (user.email_verified === true) {
             return res.status(500).send({
                 meta: {
@@ -636,18 +633,8 @@ exports.default = {
                     },
                 });
             }
-            const registeredEmail = yield models_1.default.User.findOne({
-                where: {
-                    email: credentials.email,
-                },
-                raw: true,
-            });
-            const registeredUserName = yield models_1.default.User.findOne({
-                where: {
-                    username: credentials.username,
-                },
-                raw: true,
-            });
+            const registeredEmail = yield findUserByEmail(credentials.email);
+            const registeredUserName = yield findUserByUsername(credentials.username);
             /* email already registered */
             if (registeredEmail) {
                 return res.status(403).send({
