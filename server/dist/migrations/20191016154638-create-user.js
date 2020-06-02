@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.down = exports.up = void 0;
 exports.up = (queryInterface, Sequelize) => {
     return queryInterface.createTable("Users", {
         id: {

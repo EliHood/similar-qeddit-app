@@ -87,6 +87,31 @@ const findUserById = (id) => __awaiter(void 0, void 0, void 0, function* () {
     });
     return user;
 });
+const findUserProfile = (username) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield models_1.default.User.findOne({
+        where: {
+            username,
+        },
+        include: [
+            {
+                model: models_1.default.Followers,
+                as: "UserFollowers",
+                include: [
+                    {
+                        model: models_1.default.User,
+                        as: "followerDetails",
+                        attributes: ["username"],
+                    },
+                ],
+            },
+            {
+                model: models_1.default.Following,
+                as: "UserFollowings",
+            },
+        ],
+    });
+    return user;
+});
 const nodemailerMailgun = nodemailer_1.default.createTransport(nodemailer_sendgrid_transport_1.default(auth));
 exports.default = {
     getUsers: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -145,28 +170,7 @@ exports.default = {
         // console.log("sfsfsfs", isUser(req));
         try {
             const username = req.params.username;
-            const findUser = yield models_1.default.User.findOne({
-                where: {
-                    username,
-                },
-                include: [
-                    {
-                        model: models_1.default.Followers,
-                        as: "UserFollowers",
-                        include: [
-                            {
-                                model: models_1.default.User,
-                                as: "followerDetails",
-                                attributes: ["username"],
-                            },
-                        ],
-                    },
-                    {
-                        model: models_1.default.Following,
-                        as: "UserFollowings",
-                    },
-                ],
-            });
+            const findUser = yield findUserProfile(username);
             // findUser.setDataValue("isFollowing", false)
             if (findUser) {
                 findUser.UserFollowers.forEach((item) => {

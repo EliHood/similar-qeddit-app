@@ -70,6 +70,32 @@ const findUserById = async (id: number): Promise<Object> => {
   return user;
 };
 
+const findUserProfile = async (username: string): Promise<any> => {
+  const user = await models.User.findOne({
+    where: {
+      username,
+    },
+    include: [
+      {
+        model: models.Followers,
+        as: "UserFollowers",
+        include: [
+          {
+            model: models.User,
+            as: "followerDetails",
+            attributes: ["username"],
+          },
+        ],
+      },
+      {
+        model: models.Following,
+        as: "UserFollowings",
+      },
+    ],
+  });
+  return user;
+};
+
 const nodemailerMailgun = nodemailer.createTransport(sgTransport(auth));
 
 export default {
@@ -129,28 +155,7 @@ export default {
     // console.log("sfsfsfs", isUser(req));
     try {
       const username = req.params.username;
-      const findUser = await models.User.findOne({
-        where: {
-          username,
-        },
-        include: [
-          {
-            model: models.Followers,
-            as: "UserFollowers",
-            include: [
-              {
-                model: models.User,
-                as: "followerDetails",
-                attributes: ["username"],
-              },
-            ],
-          },
-          {
-            model: models.Following,
-            as: "UserFollowings",
-          },
-        ],
-      });
+      const findUser = await findUserProfile(username);
       // findUser.setDataValue("isFollowing", false)
 
       if (findUser) {
