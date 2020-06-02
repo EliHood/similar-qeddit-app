@@ -13,6 +13,7 @@ import { GoogleLoginButton } from "../../common/GoogleButton";
 import { loginInit } from "./../../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import { userStore } from "../../selectors/selectors";
+import OurWrapper from "../../common/OurWrapper";
 export interface loginProps {
     onChange: (event: any) => void;
     loginInit: (event: object, history: object) => void;
@@ -73,48 +74,50 @@ function Login(props: any) {
     };
 
     return (
-        <Fragment>
-            <Grid container={true} component="main" className={classes.root}>
-                <CssBaseline />
-                <Grid item={true} xs={false} sm={4} md={7} className={classes.image} />
-                <Grid item={true} xs={12} sm={8} md={5} component={Paper} elevation={6} square={true}>
-                    <div className={classes.paper}>
-                        <Avatar className={classes.avatar}>
-                            <LockOutlinedIcon />
-                        </Avatar>
-                        <Typography component="h1" variant="h5">
-                            Log In
-                        </Typography>
-                        {user.error && (
-                            <div>
-                                <Alert severity="warning">{user.error}</Alert>
-                            </div>
-                        )}
-                        {user.error.includes("Please activate") && (
-                            <div style={{ padding: "20px 0px" }}>
-                                <Typography variant="h6" style={{ cursor: "pointer" }} onClick={goBackEmailConfirmation}>
-                                    {" "}
-                                    Back{" "}
-                                </Typography>
-                            </div>
-                        )}
+        <OurWrapper appBar={props.appBar} appOpen={props.appOpen} appBarShift={props.appBarShift}>
+            <Fragment>
+                <Grid container={true} component="main" className={classes.root}>
+                    <CssBaseline />
+                    <Grid item={true} xs={false} sm={4} md={7} className={classes.image} />
+                    <Grid item={true} xs={12} sm={8} md={5} component={Paper} elevation={6} square={true}>
+                        <div className={classes.paper}>
+                            <Avatar className={classes.avatar}>
+                                <LockOutlinedIcon />
+                            </Avatar>
+                            <Typography component="h1" variant="h5">
+                                Log In
+                            </Typography>
+                            {user.error && (
+                                <div>
+                                    <Alert severity="warning">{user.error}</Alert>
+                                </div>
+                            )}
+                            {user.error.includes("Please activate") && (
+                                <div style={{ padding: "20px 0px" }}>
+                                    <Typography variant="h6" style={{ cursor: "pointer" }} onClick={goBackEmailConfirmation}>
+                                        {" "}
+                                        Back{" "}
+                                    </Typography>
+                                </div>
+                            )}
 
-                        <LoginForm
-                            submit={handleSubmit}
-                            username={username}
-                            password={password}
-                            usernameChange={(e) => setUsername(e.target.value)}
-                            passwordChange={(e) => setPassword(e.target.value)}
-                        />
-                        <div style={{ margin: "60px 0px" }}>
-                            <GoogleLoginButton />
+                            <LoginForm
+                                submit={handleSubmit}
+                                username={username}
+                                password={password}
+                                usernameChange={(e) => setUsername(e.target.value)}
+                                passwordChange={(e) => setPassword(e.target.value)}
+                            />
+                            <div style={{ margin: "60px 0px" }}>
+                                <GoogleLoginButton />
+                            </div>
                         </div>
-                    </div>
+                    </Grid>
                 </Grid>
-            </Grid>
 
-            {/* </div> */}
-        </Fragment>
+                {/* </div> */}
+            </Fragment>
+        </OurWrapper>
     );
 }
 

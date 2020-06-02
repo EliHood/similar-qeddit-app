@@ -60,8 +60,14 @@ function MyRouter(props) {
             </AppBar>
             <Switch>
                 <Route exact={true} path="/" render={() => <Landing {...props} {...classes} appOpen={appOpen} />} />
-                <Route path="/login" render={() => (props.isAuthenticated === true || props.googleAccount === true ? <Redirect to="/dashboard" /> : <Login />)} />
-                <Route path="/register" render={() => (props.isAuthenticated === true || props.googleAccount === true ? <Redirect to="/dashboard" /> : <Register />)} />
+                <Route
+                    path="/login"
+                    render={() => (props.isAuthenticated === true || props.googleAccount === true ? <Redirect to="/dashboard" /> : <Login {...props} {...classes} appOpen={appOpen} />)}
+                />
+                <Route
+                    path="/register"
+                    render={() => (props.isAuthenticated === true || props.googleAccount === true ? <Redirect to="/dashboard" /> : <Register {...props} {...classes} appOpen={appOpen} />)}
+                />
                 <Route path="/emailConfirmation" component={EmailConfirmation} {...props} />
                 {/* <Route path='/resendEmailConfirmation'></Route> */}
                 <Route path="/emailConfirmationSuccess/:userId/:token" component={EmailConfirmationSuccess} {...props} />

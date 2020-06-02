@@ -13,6 +13,7 @@ import { history } from "../../ourHistory";
 import { useSelector, useDispatch } from "react-redux";
 import { userStore } from "../../selectors/selectors";
 import { addEmail, addPassword, addUsername, signUpInit, addPasswordConf } from "../../actions/userActions";
+import OurWrapper from "../../common/OurWrapper";
 export interface registerState {
     passwordConf: string;
     passErr: string;
@@ -47,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(3, 0, 2),
     },
 }));
-function Register() {
+function Register(props: any) {
     const classes = useStyles();
     const userData = useSelector(userStore());
     const dispatch = useDispatch();
@@ -73,39 +74,42 @@ function Register() {
     const { username, email, password, passwordConf, passwordConfError, usernameError, passwordError, emailError } = userData;
     const isEnabled = passwordConfError === true && emailError === true && passwordError === true && usernameError === true ? false : true;
     return (
-        <Fragment>
-            <Grid container={true} component="main" className={classes.root}>
-                <CssBaseline />
-                <Grid item={true} xs={false} sm={4} md={7} className={classes.image} />
-                <Grid item={true} xs={12} sm={8} md={5} component={Paper} elevation={6} square={true}>
-                    <div className={classes.paper}>
-                        <Avatar className={classes.avatar}>
-                            <GroupIcon />
-                        </Avatar>
-                        <Typography component="h1" variant="h5">
-                            Register
-                        </Typography>
-                        {userData.error && <div>{userData.error}</div>}
-                        <SignUpForm
-                            submit={handleSubmit}
-                            usernameChange={handleInputChange}
-                            emailChange={handleInputChange}
-                            passwordChange={handleInputChange}
-                            passwordConfChange={handleInputChange}
-                            username={username}
-                            password={password}
-                            passwordConf={passwordConf}
-                            email={email}
-                            usernameError={usernameError}
-                            passwordError={passwordError}
-                            passwordConfError={passwordConfError}
-                            emailError={emailError}
-                            disButton={isEnabled}
-                        />
-                    </div>
+        <OurWrapper appBar={props.appBar} appOpen={props.appOpen} appBarShift={props.appBarShift}>
+            <Fragment>
+                <Grid container={true} component="main" className={classes.root}>
+                    <CssBaseline />
+                    <Grid item={true} xs={false} sm={4} md={7} className={classes.image} />
+                    <Grid item={true} xs={12} sm={8} md={5} component={Paper} elevation={6} square={true}>
+                        <div className={classes.paper}>
+                            <Avatar className={classes.avatar}>
+                                <GroupIcon />
+                            </Avatar>
+                            <Typography component="h1" variant="h5">
+                                Register
+                            </Typography>
+                            {userData.error && <div>{userData.error}</div>}
+
+                            <SignUpForm
+                                submit={handleSubmit}
+                                usernameChange={handleInputChange}
+                                emailChange={handleInputChange}
+                                passwordChange={handleInputChange}
+                                passwordConfChange={handleInputChange}
+                                username={username}
+                                password={password}
+                                passwordConf={passwordConf}
+                                email={email}
+                                usernameError={usernameError}
+                                passwordError={passwordError}
+                                passwordConfError={passwordConfError}
+                                emailError={emailError}
+                                disButton={isEnabled}
+                            />
+                        </div>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </Fragment>
+            </Fragment>
+        </OurWrapper>
     );
 }
 

@@ -2,7 +2,7 @@ import React from "react";
 import { MenuItem } from "@material-ui/core";
 import styled from "styled-components";
 const OurStyledMenuItem = styled(MenuItem)`
-    padding: 15px;
+    padding: 10px;
     a {
         color: #000;
     }

@@ -24,7 +24,7 @@ const styles = (theme) => ({
         [theme.breakpoints.up("lg")]: {
             position: "absolute" as "absolute",
         },
-        padding: "20px",
+        padding: "0px",
     },
     appBar: {
         // position: "absolute",
