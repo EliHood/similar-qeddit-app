@@ -14,8 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = __importDefault(require("../models"));
 exports.default = () => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.session);
-    console.log("tesiing authPolicy");
+    // console.log(req.session);
+    // console.log("tesiing authPolicy");
     if (req.session && req.session.user) {
         const user = yield models_1.default.User.findOne({
             where: {
@@ -23,7 +23,7 @@ exports.default = () => (req, res, next) => __awaiter(void 0, void 0, void 0, fu
             },
             raw: true,
         });
-        console.log(user, "fdffdff");
+        // console.log(user, "fdffdff");
         if (user === null) {
             req.session.destroy(() => { });
             req.logout();

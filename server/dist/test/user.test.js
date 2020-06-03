@@ -27,13 +27,22 @@ const chai_1 = require("chai");
 const chai_http_1 = __importDefault(require("chai-http"));
 const app_1 = __importDefault(require("../app"));
 chai.use(chai_http_1.default);
-describe("Should test index page", () => {
-    it("should test index page", (done) => {
+describe("Should test index", () => {
+    it("should test 200 index page", (done) => {
         chai
             .request(app_1.default)
             .get("/")
             .end((err, res) => {
             chai_1.expect(res).to.have.status(200);
+            done();
+        });
+    });
+    it("should test currentUser if not authenticated", (done) => {
+        chai
+            .request(app_1.default)
+            .get("/api/v1/users/currentUser")
+            .end((err, res) => {
+            chai_1.expect(res).to.have.status(500);
             done();
         });
     });

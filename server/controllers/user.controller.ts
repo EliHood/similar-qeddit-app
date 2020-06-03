@@ -497,8 +497,6 @@ export default {
       token = jwt.sign({ id: req.session.user.id }, process.env.JWT_SECRET);
     }
 
-    console.log("checking", req.session);
-
     if (curUser) {
       return res.status(200).send({
         user: curUser,

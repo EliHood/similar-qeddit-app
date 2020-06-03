@@ -2,8 +2,8 @@ import { NextFunction, Response } from "express";
 import models from "../models";
 
 export default () => async (req: any, res: Response, next: NextFunction) => {
-  console.log(req.session);
-  console.log("tesiing authPolicy");
+  // console.log(req.session);
+  // console.log("tesiing authPolicy");
   if (req.session && req.session.user) {
     const user = await models.User.findOne({
       where: {
@@ -11,7 +11,7 @@ export default () => async (req: any, res: Response, next: NextFunction) => {
       },
       raw: true,
     });
-    console.log(user, "fdffdff");
+    // console.log(user, "fdffdff");
     if (user === null) {
       req.session.destroy(() => {});
       req.logout();
