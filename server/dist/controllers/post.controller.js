@@ -23,13 +23,13 @@ const filterbadWords = (word) => {
     let content;
     if (profanity_1.profanity.censor(word)) {
         arr = [];
-        const sentence = word.split(' ');
+        const sentence = word.split(" ");
         for (let str in sentence) {
-            const newWord = sentence[str].split(' ').join('');
-            console.log('newWord', newWord);
+            const newWord = sentence[str].split(" ").join("");
+            console.log("newWord", newWord);
             const filteredWord = profanity_1.profanity.censor(newWord);
             arr.push(newWord.charAt(0) + filteredWord.substring(1));
-            content = arr.join(' ');
+            content = arr.join(" ");
         }
         return content;
     }
@@ -56,7 +56,7 @@ exports.default = {
                 {
                     model: models_1.default.User,
                     as: "author",
-                    attributes: ["username", "gravatar", "bio"]
+                    attributes: ["username", "gravatar", "bio"],
                 },
                 {
                     model: models_1.default.Likes,
@@ -67,21 +67,21 @@ exports.default = {
                         {
                             model: models_1.default.User,
                             as: "author",
-                            attributes: ["username", "gravatar", "bio"]
-                        }
+                            attributes: ["username", "gravatar", "bio"],
+                        },
                     ],
-                }
+                },
             ],
             order: [["createdAt", "DESC"]],
-            limit: 6
+            limit: 6,
         });
         let currentUser;
         currentUser = req.session && req.session.user ? req.session.user.id : 0;
-        posts.forEach(post => {
+        posts.forEach((post) => {
             if (post.Likes.length === 0) {
                 post.setDataValue("likedByMe", false);
             }
-            post.Likes.forEach(like => {
+            post.Likes.forEach((like) => {
                 // console.log(like.userId);
                 if (req.user) {
                     if (like.userId === req.session.passport.user.id) {
@@ -101,13 +101,13 @@ exports.default = {
     postPage: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const postPage = yield models_1.default.Post.findOne({
             where: {
-                id: req.params.id
+                id: req.params.id,
             },
             include: [
                 {
                     model: models_1.default.User,
                     as: "author",
-                    attributes: ["username", "gravatar", "bio"]
+                    attributes: ["username", "gravatar", "bio"],
                 },
                 // limit the likes based on the logged in user
                 {
@@ -123,10 +123,10 @@ exports.default = {
             try {
                 yield models_1.default.Comments.destroy({
                     where: {
-                        id: req.params.id
-                    }
+                        id: req.params.id,
+                    },
                 });
-                return res.status(200).send('Comment has been deleted!');
+                return res.status(200).send("Comment has been deleted!");
             }
             catch (error) {
                 console.log("There was an error", error);
@@ -140,34 +140,34 @@ exports.default = {
     createPost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // console.log(getUser);
         let postData;
-        console.log('ssd');
+        console.log("ssd");
         if (req.user && req.user.id) {
             console.log(req.user.id);
             postData = {
                 title: filterbadWords(req.body.ourTitle),
                 postContent: filterbadWords(req.body.ourPostContent),
-                userId: req.session.passport.user.id
+                userId: req.session.passport.user.id,
             };
         }
         else {
             postData = {
                 title: filterbadWords(req.body.ourTitle),
                 postContent: filterbadWords(req.body.ourPostContent),
-                userId: req.session.user.id
+                userId: req.session.user.id,
             };
         }
-        console.log('dsdsdsdsdsdsdsdsdds', postData);
+        console.log("dsdsdsdsdsdsdsdsdds", postData);
         yield models_1.default.Post.create(postData)
-            .then(post => {
+            .then((post) => {
             models_1.default.Post.findOne({
                 where: {
-                    id: post.id
+                    id: post.id,
                 },
                 include: [
                     {
                         model: models_1.default.User,
                         as: "author",
-                        attributes: ["username", "gravatar"]
+                        attributes: ["username", "gravatar"],
                     },
                     {
                         model: models_1.default.Comments,
@@ -175,23 +175,23 @@ exports.default = {
                             {
                                 model: models_1.default.User,
                                 as: "author",
-                                attributes: ["username", "gravatar", "bio"]
-                            }
-                        ]
-                    }
+                                attributes: ["username", "gravatar", "bio"],
+                            },
+                        ],
+                    },
                 ],
-            }).then(newPost => {
+            }).then((newPost) => {
                 newPost.setDataValue("likedByMe", false);
                 return res.status(200).send({
                     message: "post created",
-                    post: newPost
+                    post: newPost,
                 });
             });
         })
-            .catch(err => {
+            .catch((err) => {
             return res.status(401).send({
                 message: `Something went wrong`,
-                error: err
+                error: err,
             });
         });
         console.log(req.body);
@@ -203,30 +203,31 @@ exports.default = {
                 comment_body: filterbadWords(req.body.comment_body),
                 userId: currentUser,
                 postId: req.body.id,
-                gifUrl: req.body.gifUrl
+                gifUrl: req.body.gifUrl,
             };
-            console.log('dfffcheck', postData);
-            yield models_1.default.Comments.create(postData)
-                .then((comment) => {
-                console.log('this is the comment', comment);
+            console.log("dfffcheck", postData);
+            yield models_1.default.Comments.create(postData).then((comment) => {
+                console.log("this is the comment", comment);
                 models_1.default.Comments.findOne({
                     where: {
-                        id: comment.id
+                        id: comment.id,
                     },
                     include: [
                         {
                             model: models_1.default.User,
                             as: "author",
-                            attributes: ["username", "gravatar"]
-                        }
-                    ]
+                            attributes: ["username", "gravatar"],
+                        },
+                    ],
                 }).then((newComment) => __awaiter(void 0, void 0, void 0, function* () {
-                    console.log('dsdsdssdsd', newComment.postId, newComment.userId); // con
+                    console.log("dsdsdssdsd", newComment.postId, newComment.userId); // con
                     sockets_1.NotificationServ.newCommentNotification(newComment.postId, newComment.userId);
-                    pusherConfig_1.default.trigger('post-comments', 'new-comment', { comment: newComment });
+                    pusherConfig_1.default.trigger("post-comments", "new-comment", {
+                        comment: newComment,
+                    });
                     return res.status(200).send({
                         message: "comment created",
-                        comment: newComment
+                        comment: newComment,
                     });
                 }));
             });
@@ -235,31 +236,33 @@ exports.default = {
             console.log("There was an error", error);
             return res.status(500).send({
                 message: "Failed to write a comment",
-                error
+                error,
             });
         }
     }),
     editComment: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         let transaction;
-        console.log('testtttt', req.body);
+        console.log("testtttt", req.body);
         const currentUser = isUser(req);
         if (req.body.comment_body && req.body.gifUrl) {
             return res.status(401).send({
-                message: "Can\'t edit both"
+                message: "Can't edit both",
             });
         }
-        console.log('dfdfdfd', req.params.userId, currentUser);
+        console.log("dfdfdfd", req.params.userId, currentUser);
         if (req.params.userId != currentUser) {
             return res.status(401).send({
-                message: "Can\'t edit another users post"
+                message: "Can't edit another users post",
             });
         }
         else {
             try {
                 transaction = yield models_1.default.sequelize.transaction();
                 return models_1.default.Comments.update({
-                    comment_body: filterbadWords(req.body.commentData) ? filterbadWords(req.body.commentData) : "",
-                    gifUrl: req.body.gifUrl ? req.body.gifUrl : ""
+                    comment_body: filterbadWords(req.body.commentData)
+                        ? filterbadWords(req.body.commentData)
+                        : "",
+                    gifUrl: req.body.gifUrl ? req.body.gifUrl : "",
                 }, {
                     where: {
                         id: req.params.commentId,
@@ -275,7 +278,7 @@ exports.default = {
             catch (err) {
                 console.log("something went wrong", err);
                 res.status(401).send({
-                    message: "Something went wrong"
+                    message: "Something went wrong",
                 });
             }
         }
@@ -287,10 +290,10 @@ exports.default = {
             try {
                 yield models_1.default.Post.destroy({
                     where: {
-                        id: req.params.id
-                    }
+                        id: req.params.id,
+                    },
                 });
-                return res.status(200).send('Post has been deleted!');
+                return res.status(200).send("Post has been deleted!");
             }
             catch (error) {
                 console.log("There was an error", error);
@@ -307,25 +310,27 @@ exports.default = {
         const created = yield models_1.default.Likes.findOne({
             where: {
                 userId: currentUser,
-                resourceId: req.params.id
-            }
+                resourceId: req.params.id,
+            },
         });
         const post = yield models_1.default.Post.findOne({
             where: {
-                id: req.params.id
+                id: req.params.id,
             },
             include: [
                 {
                     model: models_1.default.User,
                     as: "author",
-                    attributes: ["username", "gravatar", "bio"]
+                    attributes: ["username", "gravatar", "bio"],
                 },
                 // limit the likes based on the logged in user
                 {
-                    model: models_1.default.Likes
-                }
+                    model: models_1.default.Likes,
+                },
             ],
-        }).then((newPost) => newPost).catch((err) => res.status(500).send({
+        })
+            .then((newPost) => newPost)
+            .catch((err) => res.status(500).send({
             message: err,
         }));
         // const [created, post] = await Promise.all([
@@ -357,7 +362,7 @@ exports.default = {
         // no post, no updates
         if (!post) {
             return res.status(200).send({
-                message: "there is no post to be liked"
+                message: "there is no post to be liked",
             });
         }
         // we are going to make updates, so use a transaction, you will need to reference sequelize
@@ -366,26 +371,26 @@ exports.default = {
             transaction = yield models_1.default.sequelize.transaction();
             if (created && post) {
                 return res.status(500).send({
-                    message: "Something went wrong, please refresh"
+                    message: "Something went wrong, please refresh",
                 });
             }
             if (!created && post) {
                 // use Promise.all() for concurrency
                 yield models_1.default.Likes.create({
                     userId: currentUser,
-                    resourceId: req.params.id
+                    resourceId: req.params.id,
                 }, { transaction });
                 post.increment("likeCounts", { by: 1, transaction });
                 // find all likes, and if like === currentUser id, heart will be filled
                 const likes = yield models_1.default.Likes.findAll();
                 if (likes.length === 0) {
-                    console.log('this got called');
+                    console.log("this got called");
                     post.setDataValue("likedByMe", true);
                 }
                 if (likes) {
-                    likes.forEach(like => {
+                    likes.forEach((like) => {
                         if (like.userId === currentUser) {
-                            console.log('wwdff', like);
+                            console.log("wwdff", like);
                             post.setDataValue("likedByMe", true);
                         }
                     });
@@ -393,7 +398,7 @@ exports.default = {
                 yield transaction.commit();
                 return res.status(200).json({
                     message: "You liked this post",
-                    post
+                    post,
                 });
             }
         }
@@ -410,23 +415,23 @@ exports.default = {
         const created = yield models_1.default.Likes.findOne({
             where: {
                 userId: currentUser,
-                resourceId: req.params.id
-            }
+                resourceId: req.params.id,
+            },
         });
         const post = yield models_1.default.Post.findOne({
             where: {
-                id: req.params.id
+                id: req.params.id,
             },
             include: [
                 {
                     model: models_1.default.User,
                     as: "author",
-                    attributes: ["username", "gravatar", "bio"]
+                    attributes: ["username", "gravatar", "bio"],
                 },
                 // limit the likes based on the logged in user
                 {
-                    model: models_1.default.Likes
-                }
+                    model: models_1.default.Likes,
+                },
             ],
         });
         // const [created, post] = await Promise.all([
@@ -456,7 +461,7 @@ exports.default = {
         // no post, no updates
         if (!post) {
             return res.status(401).json({
-                message: "there is no post to be unliked"
+                message: "there is no post to be unliked",
             });
         }
         let transaction;
@@ -464,21 +469,21 @@ exports.default = {
             transaction = yield models_1.default.sequelize.transaction();
             if (!created && post) {
                 return res.status(500).send({
-                    message: "Something went wrong, please refresh"
+                    message: "Something went wrong, please refresh",
                 });
             }
             if (created && post) {
                 yield models_1.default.Likes.destroy({
                     where: {
                         userId: currentUser,
-                        resourceId: req.params.id
-                    }
+                        resourceId: req.params.id,
+                    },
                 }, { transaction });
                 post.decrement("likeCounts", { by: 1, transaction });
                 const likes = yield models_1.default.Likes.findAll();
                 if (likes) {
-                    likes.forEach(like => {
-                        console.log('dislike', like);
+                    likes.forEach((like) => {
+                        console.log("dislike", like);
                         if (like.userId === currentUser) {
                             post.setDataValue("likedByMe", false);
                         }
@@ -487,7 +492,7 @@ exports.default = {
                 yield transaction.commit();
                 return res.status(200).json({
                     message: "You unliked this post",
-                    post
+                    post,
                 });
             }
         }

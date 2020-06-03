@@ -13,6 +13,7 @@ import { checkSession, useSession } from "./middlewares";
 import models from "./models/";
 import apiRouter from "./routers";
 dotenv.config();
+
 const PORT = process.env.PORT || 5000;
 const app: express.Application = express();
 const httpServer = http.createServer(app);

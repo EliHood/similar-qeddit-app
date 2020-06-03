@@ -6,7 +6,12 @@ const Sequelize = require("sequelize");
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
 const config = require("../config/database.config");
-const db = {};
+interface Db {
+  sequelize: object;
+  Sequelize: object;
+}
+
+const db = {} as Db;
 const dotenv = require("dotenv");
 dotenv.config();
 if (process.env.NODE_ENV === "production") {
@@ -40,6 +45,7 @@ Object.keys(db).forEach((modelName) => {
     db[modelName].associate(db);
   }
 });
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
