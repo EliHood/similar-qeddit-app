@@ -4,7 +4,15 @@ import FormLabel from "@material-ui/core/FormLabel";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
-const EditProfileForm = (props: any) => (
+interface EditProfileForm {
+    bio: string;
+    gravatar: string;
+    onSubmit: (e) => void;
+    handleBio: (e) => void;
+    handleGravatar: (e) => void;
+}
+
+const EditProfileForm = (props: EditProfileForm) => (
     <form onSubmit={props.onSubmit} data-testid="edit-form">
         <Typography variant="subtitle1">Edit Profile</Typography>
         <FormGroup style={{ padding: "30px 0px" }}>

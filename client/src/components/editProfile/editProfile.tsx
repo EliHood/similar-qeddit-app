@@ -5,9 +5,10 @@ import GridHoc from "../hoc/grid";
 import { Grid } from "@material-ui/core";
 import storeMethods from "../../common/storeHooks";
 import OurWrapper from "../../common/OurWrapper";
+
 function EditProfile(props: any) {
-    const [bio, setBio] = useState("");
-    const [gravatar, setGravatar] = useState("");
+    const [bio, setBio] = useState<string>("");
+    const [gravatar, setGravatar] = useState<string>("");
     const mounted = useRef<Object>();
     const { getProfile, profileData, userErr, message, updateProfile } = storeMethods();
     useEffect(() => {
