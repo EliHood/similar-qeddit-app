@@ -8,7 +8,27 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import ReactMarkdown from "react-markdown/with-html";
 import "./style.css";
 import { Grid } from "@material-ui/core";
-function CommentItem(props) {
+
+export interface CommentItemInterface {
+    editComment: (comment) => void;
+    comment: {
+        comment_body: string;
+        gifUrl: string;
+        userId: number;
+        id: number;
+    };
+    postId: number;
+    deleteComment: (commentId, postId, userId) => void;
+    edit: () => void;
+    user: {
+        user: {
+            id: number;
+        };
+        id: number;
+    };
+}
+
+function CommentItem(props: CommentItemInterface) {
     const [commentEdit, setCommentEdit] = useState("");
     const [editComment, setEditComment] = useState(false);
     const update = (comment) => {

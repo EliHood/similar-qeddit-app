@@ -2,7 +2,22 @@ import React, { Fragment } from "react";
 import Typography from "@material-ui/core/Typography";
 import OurLink from "../../../common/OurLink";
 import OurModal from "../../../common/OurModal";
-const CommentAuthorData = (props: any) => {
+interface CommentAuthorDataInterface {
+    comment: {
+        author: {
+            username: string;
+            gravatar: string;
+        };
+        userId: number;
+    };
+    userId: number;
+    isBold: any;
+    openModal: () => void;
+    handleCloseModal: () => void;
+    handleClickOpen: () => void;
+    currentUser: Object;
+}
+const CommentAuthorData = (props: CommentAuthorDataInterface) => {
     const { comment, isBold, openModal, handleCloseModal, handleClickOpen } = props;
     return (
         <Fragment>

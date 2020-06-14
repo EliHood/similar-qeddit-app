@@ -3,7 +3,17 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
-const PostForm = (props: any) => (
+interface PostFormInterface {
+    onSubmit: (event) => void;
+    title: string;
+    titleError: boolean;
+    bodyError: boolean;
+    handleTitleChange: (event) => void;
+    postContent: string;
+    handleContentChange: (event) => void;
+    disButton: boolean;
+}
+const PostForm = (props: PostFormInterface) => (
     <form onSubmit={props.onSubmit}>
         <Typography className="title" style={{ paddingBottom: "20px" }} variant="subtitle1">
             New Post

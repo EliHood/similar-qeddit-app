@@ -2,7 +2,25 @@ import Button from "@material-ui/core/Button";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import TextField from "@material-ui/core/TextField";
 import React from "react";
-const SignUpForm = (props: any) => (
+
+interface SignUpFormInterface {
+    submit: (e) => void;
+    usernameChange: (e) => void;
+    emailChange: (e) => void;
+    passwordChange: (e) => void;
+    passwordConfChange: (e) => void;
+    passwordConf: string;
+    username: string;
+    password: string;
+    email: string;
+    usernameError: any;
+    passwordError: any;
+    emailError: any;
+    passwordConfError: any;
+    disButton: boolean;
+}
+
+const SignUpForm = (props: SignUpFormInterface) => (
     <form style={{ width: "100%" }} onSubmit={props.submit}>
         <TextField
             label="Username"

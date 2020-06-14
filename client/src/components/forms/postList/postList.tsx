@@ -5,14 +5,8 @@ import "react-toastify/dist/ReactToastify.css";
 import PostItemContainer from "../PostItemContainer/PostItemContainer";
 import storeHooks from "../../../common/storeHooks";
 import OurLoader from "../../../common/OurLoader";
+
 function PostList(props: any) {
-    // useEffect(() => {
-    //     if (!didMountRef.current) {
-    //         props.getNotifications();
-    //     } else {
-    //         console.log("test");
-    //     }
-    // });
     const { posts, currentUser } = props;
     return storeHooks().loading ? (
         <OurLoader />
