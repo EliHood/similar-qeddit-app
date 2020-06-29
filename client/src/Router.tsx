@@ -21,6 +21,7 @@ import NotFound from "./components/404/404";
 import CollapasedMenu from "./components/menus/CollapsedMenu";
 import MainNav from "./components/menus/MainNav";
 import useWrapperSlide from "./common/useWrapperSlide";
+import UserPosts from "./containers/UserPosts";
 function MyRouter(props) {
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const { classes, appOpen, appSetOpen } = useWrapperSlide();
@@ -75,6 +76,7 @@ function MyRouter(props) {
                 <PrivateRoute exact={true} path="/profile/:username" component={Profile} {...props} {...classes} appOpen={appOpen} />
                 <PrivateRoute exact={true} path="/editProfile" component={EditProfile} {...props} {...classes} appOpen={appOpen} />
                 <PrivateRoute exact={true} path="/:userId/likes" component={Likes} {...props} {...classes} appOpen={appOpen} />
+                <PrivateRoute exact={true} path="/:userId/posts" component={UserPosts} {...props} {...classes} appOpen={appOpen} />
                 <PrivateRoute path="/post/:id" component={Post} {...props} {...classes} appOpen={appOpen} />
                 <Route component={NotFound} />
             </Switch>

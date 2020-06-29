@@ -12,11 +12,17 @@ export const getPosts = () =>
     // this gets all posts
     createSelector(postSelector, (state) => state.posts);
 
-export const getUserPosts = (params) => {
+export const getUserLikedPosts = (params) => {
     return createSelector(postSelector, (state) => {
         return state.posts.filter((post) => {
             return post.Likes.find((like) => like.userId == params.userId);
         });
+    });
+};
+
+export const getUserPosts = (params) => {
+    return createSelector(postSelector, (state) => {
+        return state.posts.filter((post) => post.userId == params.userId);
     });
 };
 

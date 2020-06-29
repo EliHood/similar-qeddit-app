@@ -58,6 +58,19 @@ function CollapasedMenu(props: any) {
                         <OurMenuItem>
                             <Link
                                 style={{
+                                    textDecoration: "none",
+                                    fontWeight: "500",
+                                }}
+                                to={{
+                                    pathname: `/${user.id}/posts`,
+                                }}
+                            >
+                                Your Posts
+                            </Link>
+                        </OurMenuItem>
+                        <OurMenuItem>
+                            <Link
+                                style={{
                                     fontWeight: "500",
                                     textDecoration: "none",
                                 }}

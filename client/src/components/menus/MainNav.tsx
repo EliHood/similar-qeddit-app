@@ -37,7 +37,6 @@ const styles = makeStyles((theme) => ({
 function MainNav(props: any) {
     const [, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const classes = styles();
-
     return (
         <Grid item={true}>
             <div className={classes.buttonBar} id="appbar-collapse">
@@ -46,7 +45,7 @@ function MainNav(props: any) {
                         <Fragment>
                             {menus.menus.map((item, i) => (
                                 <Fragment key={i}>
-                                    {item.link !== "likes" && item.link !== "profile" && item.link !== "logout" && (
+                                    {item.link !== "likes" && item.link !== "posts" && item.link !== "profile" && item.link !== "logout" && (
                                         <Button>
                                             <Link
                                                 style={{
@@ -86,6 +85,22 @@ function MainNav(props: any) {
                                                 }}
                                                 to={{
                                                     pathname: `/${item.link}/${props.user.username}`,
+                                                }}
+                                            >
+                                                {item.name}
+                                            </Link>
+                                        </Button>
+                                    )}
+                                    {item.link === "posts" && (
+                                        <Button>
+                                            <Link
+                                                style={{
+                                                    color: "#fff",
+                                                    textDecoration: "none",
+                                                    fontWeight: "500",
+                                                }}
+                                                to={{
+                                                    pathname: `/${props.user.id}/${item.link}`,
                                                 }}
                                             >
                                                 {item.name}
