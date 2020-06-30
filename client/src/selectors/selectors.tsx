@@ -22,7 +22,7 @@ export const getUserLikedPosts = (params) => {
 
 export const getUserPosts = (params) => {
     return createSelector(postSelector, (state) => {
-        return state.posts.filter((post) => post.userId == params.userId);
+        return state.posts.filter((post) => post.userId == params.userId || post.RepostedByMe == true);
     });
 };
 

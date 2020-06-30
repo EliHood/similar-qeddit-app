@@ -30,6 +30,12 @@ module.exports = (sequelize, DataTypes) => {
             targetKey: "id",
             onDelete: "CASCADE"
         });
+        Post.hasMany(models.RePosts, {
+            foreignKey: "postId",
+            timestamps: false,
+            targetKey: "id",
+            onDelete: "CASCADE"
+        });
         Post.hasMany(models.Comments, {
             foreignKey: "postId",
             timestamps: false,

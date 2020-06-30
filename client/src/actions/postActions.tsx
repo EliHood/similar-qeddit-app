@@ -177,3 +177,35 @@ export const editCommentFailure = (err: object) => ({
     type: types.EDIT_COMMENT_FAILURE,
     err,
 });
+
+export const repostPostInit = (payload: number, id: number) => ({
+    type: types.REPOST_POST_INIT,
+    payload,
+    id,
+});
+
+export const repostPostSuccess = (payload: object) => ({
+    type: types.REPOST_POST_SUCCESS,
+    payload,
+});
+
+export const repostPostFailure = (error: object) => ({
+    type: types.REPOST_POST_FAILURE,
+    error,
+});
+
+export const unrepostPostInit = (payload: number, id: number) => ({
+    type: types.UNREPOST_POST_INIT,
+    payload,
+    id,
+});
+
+export const unrepostPostSuccess = (payload: object) => ({
+    type: types.UNREPOST_POST_SUCCESS,
+    payload,
+});
+
+export const unrepostPostFailure = (error: object) => ({
+    type: types.UNREPOST_POST_FAILURE,
+    error,
+});

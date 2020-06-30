@@ -156,6 +156,18 @@ const postReducer = (state = initialState, action: any): postState =>
             case types.COMMENT_UPDATES_FAILURE:
                 console.log(action);
                 return;
+            case types.REPOST_POST_SUCCESS:
+                console.log(action);
+                return;
+            case types.REPOST_POST_FAILURE:
+                console.log(action);
+                return;
+            case types.UNREPOST_POST_SUCCESS:
+                console.log(action);
+                return;
+            case types.UNREPOST_POST_FAILURE:
+                console.log(action);
+                return;
         }
     });
 

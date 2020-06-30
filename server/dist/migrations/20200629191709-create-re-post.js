@@ -1,32 +1,18 @@
 "use strict";
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable("Posts", {
+        return queryInterface.createTable("RePosts", {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER,
             },
-            likedByMe: {
-                allowNull: false,
-                type: Sequelize.BOOLEAN,
-                defaultValue: false,
-            },
-            title: {
-                type: Sequelize.STRING,
-            },
-            postContent: {
-                type: Sequelize.TEXT,
-            },
-            likeCounts: {
-                allowNull: false,
-                type: Sequelize.INTEGER,
-                defaultValue: 0,
-            },
             userId: {
                 type: Sequelize.INTEGER,
-                primaryKey: true,
+            },
+            postId: {
+                type: Sequelize.INTEGER,
             },
             createdAt: {
                 allowNull: false,
@@ -39,7 +25,7 @@ module.exports = {
         });
     },
     down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable("Posts");
+        return queryInterface.dropTable("RePosts");
     },
 };
-//# sourceMappingURL=20191024152346-create-post.js.map
+//# sourceMappingURL=20200629191709-create-re-post.js.map

@@ -165,6 +165,28 @@ export function* deleteComment(action) {
     }
 }
 
+export function* repostPost(action) {
+    try {
+        console.log(action);
+        const userId = action.payload;
+        const postId = action.id;
+        const repost = yield call(api.post.repost, userId, postId);
+        yield put(actionTypes.repostPostSuccess(repost));
+    } catch (err) {
+        yield put(actionTypes.repostPostFailure(err));
+    }
+}
+export function* unRepostPost(action) {
+    try {
+        console.log(action);
+        const userId = action.payload;
+        const postId = action.id;
+        const repost = yield call(api.post.unrepost, userId, postId);
+        yield put(actionTypes.unrepostPostSuccess(repost));
+    } catch (err) {
+        yield put(actionTypes.unrepostPostFailure(err));
+    }
+}
 export function* watchFetchPost() {
     yield takeLatest(types.FETCH_POST_INIT, fetchPost);
 }
@@ -172,7 +194,12 @@ export function* watchFetchPost() {
 // export function* watchNotifications() {
 //   yield takeEvery(types.INIT_NOTIFICATION, getNotification)
 // }
-
+export function* watchRepostPost() {
+    yield takeLatest(types.REPOST_POST_INIT, repostPost);
+}
+export function* watchUnRepostPost() {
+    yield takeLatest(types.UNREPOST_POST_INIT, unRepostPost);
+}
 export function* watchEditComment() {
     yield takeLatest(types.EDIT_COMMENT_INIT, editComment);
 }
@@ -203,7 +230,9 @@ export function* watchCreatePost() {
 export default function*() {
     yield fork(watchPosts);
     yield fork(commentUpdates);
+    yield fork(watchRepostPost);
     yield fork(getNotification);
+    yield fork(watchUnRepostPost);
     yield fork(watchPostComment);
     yield fork(watchDeletePost);
     yield fork(watchFetchPost);

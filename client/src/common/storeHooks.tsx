@@ -2,7 +2,19 @@ import usePostsHook from "./postsHook";
 import useNotificationHook from "./notificationHook";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserProfile, updateUserProfile } from "../actions/userActions";
-import { likePostInit, dislikePostInit, deletePostInit, createPostInit, addTitle, addContent, deleteCommentInit, editCommentInit, postCommentInit } from "../actions/postActions";
+import {
+    likePostInit,
+    dislikePostInit,
+    deletePostInit,
+    repostPostInit,
+    unrepostPostInit,
+    createPostInit,
+    addTitle,
+    addContent,
+    deleteCommentInit,
+    editCommentInit,
+    postCommentInit,
+} from "../actions/postActions";
 import { getIsNotified, getUser, getPosts, getPopPosts, isLoading, postError, userError, getBodyError, userMessage, getTitleError, postContent, getProfileData, title } from "../selectors/selectors";
 function useStoreMethods() {
     const dispatch = useDispatch();
@@ -16,6 +28,8 @@ function useStoreMethods() {
     const postComment = (commentData: object) => dispatch(postCommentInit(commentData));
     const editComment = (commentData) => dispatch(editCommentInit(commentData));
     const createPost = (postData: object) => dispatch(createPostInit(postData));
+    const rePost = (id: number, userId: number) => dispatch(repostPostInit(id, userId));
+    const unRepost = (id: number, userId: number) => dispatch(unrepostPostInit(id, userId));
     const getProfile = () => dispatch(getUserProfile());
     const updateProfile = (userData) => dispatch(updateUserProfile(userData));
     const ourTitle = useSelector(title());
@@ -48,6 +62,8 @@ function useStoreMethods() {
         postComment,
         editComment,
         createPost,
+        rePost,
+        unRepost,
         ourTitle,
         titleError,
         popPosts,

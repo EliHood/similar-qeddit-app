@@ -11,4 +11,6 @@ router.put("/editComment/:userId/:commentId", postController.editComment);
 router.post("/createPost", postController.createPost);
 router.post("/likePost/:id", postController.likePost);
 router.post("/dislikePost/:id", postController.disLikePost);
+router.post("/repost/:userId/:postId", postController.rePost);
+router.delete("/unRepost/:userId/:postId", postController.unRePost);
 export default router;

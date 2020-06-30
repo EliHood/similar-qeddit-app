@@ -7,40 +7,41 @@ export = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       likedByMe: {
         allowNull: false,
         type: Sequelize.BOOLEAN,
-        defaultValue: false
+        defaultValue: false,
       },
+
       title: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       postContent: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
       likeCounts: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        defaultValue: 0
+        defaultValue: 0,
       },
       userId: {
         type: Sequelize.INTEGER,
-        primaryKey: true
+        primaryKey: true,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
 
   down: (queryInterface: QueryInterface, Sequelize: any) => {
     return queryInterface.dropTable("Posts");
-  }
+  },
 };

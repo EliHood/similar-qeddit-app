@@ -13,8 +13,10 @@ import OurLink from "../../../common/OurLink";
 import CommentForm from "../comment/CommentForm";
 import CommentList from "../commentList/CommentList";
 import OurModal from "../../../common/OurModal";
+import LoopIcon from "@material-ui/icons/Loop";
+import RepeatIcon from "@material-ui/icons/Repeat";
 import "react-toastify/dist/ReactToastify.css";
-
+import storeHooks from "../../../common/storeHooks";
 function PostItemContainer(props: any) {
     const [openModal, setOpenModal] = useState(false);
     const [openForm, setOpenForm] = useState(false);
@@ -59,12 +61,28 @@ function PostItemContainer(props: any) {
         }, 1200);
     };
     const { post, currentUser, getNotifications } = props;
-
+    const { rePost, unRepost } = storeHooks();
+    console.log(window.location);
+    // check if user is on user posts,
+    const ifOnPosts = window.location.href.indexOf("posts") != -1;
+    console.log(ifOnPosts);
     return (
         <Fragment>
             {getNotifications && <ToastContainer autoClose={1000} position={toast.POSITION.BOTTOM_RIGHT} />}
             <Grid data-testid="post-item-container" item={true} sm={12} md={12} style={{ margin: "20px 0px" }}>
                 <Paper style={{ padding: "20px" }}>
+                    {ifOnPosts ? (
+                        <Fragment>
+                            {post.RepostedByMe && currentUser && currentUser.user && post.userId !== currentUser.user.id ? (
+                                <Fragment>
+                                    <Typography>
+                                        <RepeatIcon style={{ margin: "-5px 0px", color: "green" }} /> Repost from {post.author.username}
+                                    </Typography>
+                                </Fragment>
+                            ) : null}
+                        </Fragment>
+                    ) : null}
+
                     <Typography variant="h5" align="left">
                         <OurLink
                             style={{ fontSize: "16px" }}
@@ -106,6 +124,25 @@ function PostItemContainer(props: any) {
                                     <span style={{ cursor: "pointer" }} onClick={() => props.deletePost(post.id, post.userId)}>
                                         <DeleteOutlineOutlinedIcon style={{ margin: "-5px 0px" }} color="primary" /> <span>Delete</span>
                                     </span>
+                                ) : null}
+                            </Typography>
+                            <Typography align="left">
+                                {currentUser && currentUser.user && post.userId !== currentUser.user.id ? (
+                                    <Fragment>
+                                        {post.RepostedByMe ? (
+                                            <Fragment>
+                                                <span style={{ cursor: "pointer" }} onClick={() => unRepost(post.id, currentUser.user.id)}>
+                                                    <RepeatIcon style={{ margin: "-5px 0px", color: "green" }} /> <span>Un-Repost</span>
+                                                </span>
+                                            </Fragment>
+                                        ) : (
+                                            <Fragment>
+                                                <span style={{ cursor: "pointer" }} onClick={() => rePost(post.id, currentUser.user.id)}>
+                                                    <RepeatIcon style={{ margin: "-5px 0px" }} color="primary" /> <span>Repost</span>
+                                                </span>
+                                            </Fragment>
+                                        )}
+                                    </Fragment>
                                 ) : null}
                             </Typography>
                         </Grid>

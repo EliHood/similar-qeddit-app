@@ -5,6 +5,7 @@ import models from "../models";
 import { NotificationServ } from "../sockets";
 import pusherConfig from "./../sockets/pusherConfig";
 import { profanity } from "@2toad/profanity";
+import post from "../models/post";
 
 dotenv.config();
 const filterbadWords = (word: string) => {
@@ -61,16 +62,51 @@ export default {
             },
           ],
         },
+        {
+          model: models.RePosts,
+          include: [
+            {
+              model: models.User,
+              as: "author",
+              attributes: ["username", "gravatar", "bio"],
+            },
+          ],
+        },
       ],
       order: [["createdAt", "DESC"]],
       limit: 6,
     });
     let currentUser;
     currentUser = req.session && req.session.user ? req.session.user.id : 0;
+
     posts.forEach((post) => {
       if (post.Likes.length === 0) {
         post.setDataValue("likedByMe", false);
       }
+      if (post.RePosts.length === 0) {
+        post.setDataValue("RepostedByMe", false);
+      }
+      post.RePosts.forEach((repost) => {
+        const googleLogin = req.session.passport;
+        if (typeof googleLogin === "object") {
+          if (repost.userId === googleLogin.user.id) {
+            post.setDataValue("RepostedByMe", true);
+          }
+        }
+
+        if (typeof req.session.user === "undefined") {
+          if (
+            typeof googleLogin === "undefined" &&
+            typeof req.session.user === "undefined"
+          ) {
+            post.setDataValue("RepostedByMe", false);
+          }
+        } else if (typeof req.session.user === "object") {
+          if (repost.userId === req.session.user.id) {
+            post.setDataValue("RepostedByMe", true);
+          }
+        }
+      });
       post.Likes.forEach((like) => {
         // console.log(like.userId);
         if (req.user) {
@@ -107,6 +143,70 @@ export default {
       ],
     });
     return res.json(postPage);
+  },
+  rePost: async (req: any, res: Response) => {
+    console.log("post", req.params.postId, req.params.userId);
+    try {
+      const postId = req.params.postId;
+      const created = await models.RePosts.findOne({
+        where: {
+          userId: req.params.userId,
+          postId: postId,
+        },
+      });
+
+      if (!created) {
+        return models.RePosts.create({
+          userId: req.params.userId,
+          postId: postId,
+        }).then((post) => {
+          res.status(200).send({
+            message: "Post Reposted",
+            post: post,
+          });
+        });
+      } else {
+        return res.status(401).send({
+          message: "Already Reposted",
+        });
+      }
+    } catch (err) {
+      res.status(500).send({
+        message: "Failed to repost",
+      });
+    }
+  },
+  unRePost: async (req: any, res: Response) => {
+    try {
+      const postId = req.params.postId;
+      const created = await models.RePosts.findOne({
+        where: {
+          userId: req.params.userId,
+          postId: postId,
+        },
+      });
+      if (created) {
+        return models.RePosts.destroy({
+          where: {
+            userId: req.params.userId,
+            postId: postId,
+          },
+        }).then((repost) => {
+          res.status(200).send({
+            message: "Post got unposted",
+            repost: repost,
+          });
+        });
+      } else {
+        res.status(401).send({
+          message: "Already got UnReposted",
+        });
+      }
+    } catch (err) {
+      res.status(500).send({
+        message: "Failed to un-repost",
+      });
+    }
   },
   deleteComment: async (req: any, res: Response) => {
     const currentUser = isUser(req);

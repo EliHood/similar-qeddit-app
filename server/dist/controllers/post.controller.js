@@ -71,6 +71,16 @@ exports.default = {
                         },
                     ],
                 },
+                {
+                    model: models_1.default.RePosts,
+                    include: [
+                        {
+                            model: models_1.default.User,
+                            as: "author",
+                            attributes: ["username", "gravatar", "bio"],
+                        },
+                    ],
+                },
             ],
             order: [["createdAt", "DESC"]],
             limit: 6,
@@ -81,6 +91,28 @@ exports.default = {
             if (post.Likes.length === 0) {
                 post.setDataValue("likedByMe", false);
             }
+            if (post.RePosts.length === 0) {
+                post.setDataValue("RepostedByMe", false);
+            }
+            post.RePosts.forEach((repost) => {
+                const googleLogin = req.session.passport;
+                if (typeof googleLogin === "object") {
+                    if (repost.userId === googleLogin.user.id) {
+                        post.setDataValue("RepostedByMe", true);
+                    }
+                }
+                if (typeof req.session.user === "undefined") {
+                    if (typeof googleLogin === "undefined" &&
+                        typeof req.session.user === "undefined") {
+                        post.setDataValue("RepostedByMe", false);
+                    }
+                }
+                else if (typeof req.session.user === "object") {
+                    if (repost.userId === req.session.user.id) {
+                        post.setDataValue("RepostedByMe", true);
+                    }
+                }
+            });
             post.Likes.forEach((like) => {
                 // console.log(like.userId);
                 if (req.user) {
@@ -116,6 +148,73 @@ exports.default = {
             ],
         });
         return res.json(postPage);
+    }),
+    rePost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        console.log("post", req.params.postId, req.params.userId);
+        try {
+            const postId = req.params.postId;
+            const created = yield models_1.default.RePosts.findOne({
+                where: {
+                    userId: req.params.userId,
+                    postId: postId,
+                },
+            });
+            if (!created) {
+                return models_1.default.RePosts.create({
+                    userId: req.params.userId,
+                    postId: postId,
+                }).then((post) => {
+                    res.status(200).send({
+                        message: "Post Reposted",
+                        post: post,
+                    });
+                });
+            }
+            else {
+                return res.status(401).send({
+                    message: "Already Reposted",
+                });
+            }
+        }
+        catch (err) {
+            res.status(500).send({
+                message: "Failed to repost",
+            });
+        }
+    }),
+    unRePost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const postId = req.params.postId;
+            const created = yield models_1.default.RePosts.findOne({
+                where: {
+                    userId: req.params.userId,
+                    postId: postId,
+                },
+            });
+            if (created) {
+                return models_1.default.RePosts.destroy({
+                    where: {
+                        userId: req.params.userId,
+                        postId: postId,
+                    },
+                }).then((repost) => {
+                    res.status(200).send({
+                        message: "Post got unposted",
+                        repost: repost,
+                    });
+                });
+            }
+            else {
+                res.status(401).send({
+                    message: "Already got UnReposted",
+                });
+            }
+        }
+        catch (err) {
+            res.status(500).send({
+                message: "Failed to un-repost",
+            });
+        }
     }),
     deleteComment: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const currentUser = isUser(req);

@@ -19,6 +19,8 @@ export default {
     },
     post: {
         createPost: (postData: any) => Axios.post("/api/v1/posts/createPost", postData).then((res) => res.data),
+        repost: (id: number, userId: number) => Axios.post(`/api/v1/posts/repost/${userId}/${id}`).then((res) => res.data),
+        unrepost: (id: number, userId: number) => Axios.delete(`/api/v1/posts/unRepost/${userId}/${id}`).then((res) => res.data),
         getPosts: () => Axios.get("/api/v1/posts/getPosts").then((res) => res.data),
         likePost: (id: number) => Axios.post(`/api/v1/posts/likePost/${id}`).then((res) => res.data),
         deletePost: (id: number, userId: number) => Axios.delete(`/api/v1/posts/deletePost/${userId}/${id}`).then((res) => res.data),
