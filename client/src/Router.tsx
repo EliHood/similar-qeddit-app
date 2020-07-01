@@ -48,7 +48,7 @@ function MyRouter(props) {
                     }),
                 )}
             >
-                <Toolbar>
+                <Toolbar style={{ height: "1px" }}>
                     <Grid item={true} style={{ flex: 1 }}>
                         <Typography style={{ color: "#fff" }} variant="subtitle1" color="secondary">
                             TypeScript React

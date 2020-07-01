@@ -5,6 +5,8 @@ import Button from "@material-ui/core/Button";
 import Notification from "../../containers/notificationTooltip";
 import { makeStyles } from "@material-ui/core/styles";
 import menus from "./menu.json";
+import NavLink from "../../common/NavLink";
+import NavButton from "../../common/NavButton";
 const drawerWidth = 210;
 const styles = makeStyles((theme) => ({
     buttonBar: {
@@ -43,107 +45,70 @@ function MainNav(props: any) {
                 <Fragment>
                     {props.isAuthenticated || props.googleAccount === true ? (
                         <Fragment>
-                            {menus.menus.map((item, i) => (
-                                <Fragment key={i}>
-                                    {item.link !== "likes" && item.link !== "posts" && item.link !== "profile" && item.link !== "logout" && (
-                                        <Button>
-                                            <Link
-                                                style={{
-                                                    color: "#fff",
-                                                    fontWeight: "500",
-                                                    textDecoration: "none",
-                                                }}
-                                                to={`/${item.link}`}
-                                            >
-                                                {item.name}
-                                            </Link>
-                                        </Button>
-                                    )}
-                                    {item.link === "likes" && (
-                                        <Button>
-                                            <Link
-                                                style={{
-                                                    color: "#fff",
-                                                    textDecoration: "none",
-                                                    fontWeight: "500",
-                                                }}
+                            <ul style={{ display: "flex", flexDirection: "row", flexWrap: "wrap-reverse", paddingRight: "20px", justifyContent: "flex-end", listStyleType: "none" }}>
+                                {menus.menus.map((item, i) => (
+                                    <li key={i} style={{ padding: "0.8rem" }}>
+                                        {item.link !== "likes" && item.link !== "posts" && item.link !== "profile" && item.link !== "logout" && <NavLink to={`/${item.link}`}>{item.name}</NavLink>}
+                                        {item.link === "likes" && (
+                                            <NavLink
                                                 to={{
                                                     pathname: `/${props.user.id}/${item.link}`,
                                                 }}
                                             >
                                                 {item.name}
-                                            </Link>
-                                        </Button>
-                                    )}
-                                    {item.link === "profile" && (
-                                        <Button>
-                                            <Link
-                                                style={{
-                                                    color: "#fff",
-                                                    fontWeight: "500",
-                                                    textDecoration: "none",
-                                                }}
+                                            </NavLink>
+                                        )}
+                                        {item.link === "profile" && (
+                                            <NavLink
                                                 to={{
                                                     pathname: `/${item.link}/${props.user.username}`,
                                                 }}
                                             >
                                                 {item.name}
-                                            </Link>
-                                        </Button>
-                                    )}
-                                    {item.link === "posts" && (
-                                        <Button>
-                                            <Link
-                                                style={{
-                                                    color: "#fff",
-                                                    textDecoration: "none",
-                                                    fontWeight: "500",
-                                                }}
+                                            </NavLink>
+                                        )}
+                                        {item.link === "posts" && (
+                                            <NavLink
                                                 to={{
                                                     pathname: `/${props.user.id}/${item.link}`,
                                                 }}
                                             >
                                                 {item.name}
-                                            </Link>
-                                        </Button>
-                                    )}
-                                </Fragment>
-                            ))}
-                            <Button>
-                                <Notification
-                                    userId={props.currentUser.id}
-                                    id={props.notificationId}
-                                    handleClose={props.handleClose}
-                                    open={props.open}
-                                    anchorEl={props.anchorEl}
-                                    handleNotificationClick={props.handleNotificationClick}
-                                    title={"Notifications"}
-                                />
-                            </Button>
+                                            </NavLink>
+                                        )}
+                                    </li>
+                                ))}
+                                <li style={{ padding: "0.8rem" }}>
+                                    <NavButton>
+                                        <Notification
+                                            userId={props.currentUser.id}
+                                            id={props.notificationId}
+                                            handleClose={props.handleClose}
+                                            open={props.open}
+                                            anchorEl={props.anchorEl}
+                                            handleNotificationClick={props.handleNotificationClick}
+                                            title={"Notifications"}
+                                        />
+                                    </NavButton>
+                                </li>
 
-                            <Button style={{ color: "#fff" }} onClick={props.darkTheme}>
-                                Change Theme
-                            </Button>
-                            <Button style={{ color: "#fff" }} onClick={props.logOut}>
-                                Logout
-                            </Button>
+                                <li style={{ padding: "0.8rem" }}>
+                                    <NavButton onClick={props.darkTheme}>Change Theme</NavButton>
+                                </li>
+                                <li style={{ padding: "0.8rem" }}>
+                                    <NavButton onClick={props.logOut}>Logout</NavButton>
+                                </li>
+                            </ul>
                         </Fragment>
                     ) : (
                         <Fragment>
-                            {menus.guestMenu.map((item, i) => (
-                                <Button key={i}>
-                                    <Link
-                                        style={{
-                                            color: "#fff",
-                                            fontWeight: "500",
-                                            textDecoration: "none",
-                                        }}
-                                        to={`/${item.link}`}
-                                    >
-                                        {item.name}
-                                    </Link>
-                                </Button>
-                            ))}
+                            <ul style={{ display: "flex", flexDirection: "row", flexWrap: "wrap-reverse", paddingRight: "20px", justifyContent: "flex-end", listStyleType: "none" }}>
+                                {menus.guestMenu.map((item, i) => (
+                                    <li style={{ padding: "0.8rem" }}>
+                                        <NavLink to={`/${item.link}`}>{item.name}</NavLink>
+                                    </li>
+                                ))}
+                            </ul>
                         </Fragment>
                     )}
                 </Fragment>

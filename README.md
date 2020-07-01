@@ -14,6 +14,7 @@
 #### Functionalies
 
 - Sign Up
+- Repost
 - Sign Up Validations
 - Log in
 - Google Oauth login
