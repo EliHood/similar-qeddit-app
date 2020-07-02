@@ -47,7 +47,7 @@ function MainNav(props: any) {
                         <Fragment>
                             <ul style={{ display: "flex", flexDirection: "row", flexWrap: "wrap-reverse", paddingRight: "20px", justifyContent: "flex-end", listStyleType: "none" }}>
                                 {menus.menus.map((item, i) => (
-                                    <li key={i} style={{ padding: "0.8rem" }}>
+                                    <li key={i} style={{ padding: "0.5rem" }}>
                                         {item.link !== "likes" && item.link !== "posts" && item.link !== "profile" && item.link !== "logout" && <NavLink to={`/${item.link}`}>{item.name}</NavLink>}
                                         {item.link === "likes" && (
                                             <NavLink
@@ -78,33 +78,29 @@ function MainNav(props: any) {
                                         )}
                                     </li>
                                 ))}
-                                <li style={{ padding: "0.8rem" }}>
-                                    <NavButton>
-                                        <Notification
-                                            userId={props.currentUser.id}
-                                            id={props.notificationId}
-                                            handleClose={props.handleClose}
-                                            open={props.open}
-                                            anchorEl={props.anchorEl}
-                                            handleNotificationClick={props.handleNotificationClick}
-                                            title={"Notifications"}
-                                        />
-                                    </NavButton>
-                                </li>
 
-                                <li style={{ padding: "0.8rem" }}>
-                                    <NavButton onClick={props.darkTheme}>Change Theme</NavButton>
-                                </li>
-                                <li style={{ padding: "0.8rem" }}>
-                                    <NavButton onClick={props.logOut}>Logout</NavButton>
-                                </li>
+                                <NavButton>
+                                    <Notification
+                                        userId={props.currentUser.id}
+                                        id={props.notificationId}
+                                        handleClose={props.handleClose}
+                                        open={props.open}
+                                        anchorEl={props.anchorEl}
+                                        handleNotificationClick={props.handleNotificationClick}
+                                        title={"Notifications"}
+                                    />
+                                </NavButton>
+
+                                <NavButton onClick={props.darkTheme}>Change Theme</NavButton>
+
+                                <NavButton onClick={props.logOut}>Logout</NavButton>
                             </ul>
                         </Fragment>
                     ) : (
                         <Fragment>
                             <ul style={{ display: "flex", flexDirection: "row", flexWrap: "wrap-reverse", paddingRight: "20px", justifyContent: "flex-end", listStyleType: "none" }}>
                                 {menus.guestMenu.map((item, i) => (
-                                    <li style={{ padding: "0.8rem" }}>
+                                    <li style={{ padding: "0.5rem" }}>
                                         <NavLink to={`/${item.link}`}>{item.name}</NavLink>
                                     </li>
                                 ))}
