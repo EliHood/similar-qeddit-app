@@ -3,6 +3,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
+
 interface PostFormInterface {
     onSubmit: (event) => void;
     title: string;
@@ -19,7 +20,6 @@ const PostForm = (props: PostFormInterface) => (
             New Post
         </Typography>
         <TextField
-            id="outlined-name"
             label="Title"
             style={{
                 width: "100%",
@@ -30,7 +30,6 @@ const PostForm = (props: PostFormInterface) => (
             value={props.title}
             onChange={props.handleTitleChange}
             margin="none"
-            variant="outlined"
         />
         <FormHelperText error={true} id="component-helper-text">
             {props.titleError}
@@ -43,13 +42,13 @@ const PostForm = (props: PostFormInterface) => (
             multiline={true}
             style={{
                 width: "100%",
+                paddingTop: "20px",
             }}
-            rows="4"
+            rows={props.postContent.length > 50 ? "4" : "1"}
             error={props.bodyError === true || props.bodyError === null ? false : true}
             value={props.postContent}
             onChange={props.handleContentChange}
             margin="normal"
-            variant="outlined"
         />
         <FormHelperText error={true} id="component-helper-text">
             {props.bodyError}
