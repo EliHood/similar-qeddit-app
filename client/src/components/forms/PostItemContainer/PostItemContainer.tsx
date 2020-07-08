@@ -53,7 +53,7 @@ function PostItemContainer(props: any) {
         props.postComment(formData);
         setCommentBody("");
         setOpenForm(false);
-        console.log(divRef);
+
         // divRef.current.scrollIntoView({ behavior: "smooth" });
         // my attempt to scroll to the lastest comment.
         setTimeout(() => {
@@ -62,10 +62,10 @@ function PostItemContainer(props: any) {
     };
     const { post, currentUser, getNotifications } = props;
     const { rePost, unRepost } = storeHooks();
-    console.log(window.location);
+
     // check if user is on user posts,
     const ifOnPosts = window.location.href.indexOf("posts") != -1;
-    console.log(ifOnPosts);
+
     return (
         <Fragment>
             {getNotifications && <ToastContainer autoClose={1000} position={toast.POSITION.BOTTOM_RIGHT} />}

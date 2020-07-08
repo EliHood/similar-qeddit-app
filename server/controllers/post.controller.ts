@@ -195,6 +195,7 @@ export default {
           res.status(200).send({
             message: "Post got unposted",
             repost: repost,
+            postId: parseInt(postId),
           });
         });
       } else {

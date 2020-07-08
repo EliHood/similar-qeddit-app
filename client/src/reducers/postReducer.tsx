@@ -1,6 +1,7 @@
 import produce from "immer";
 import * as types from "../actionTypes/postActionTypes";
 import { validation } from "../utils";
+import { unRepostPost } from "../sagas/post";
 export interface postState {
     posts: any[];
     postPage: any;
@@ -158,12 +159,20 @@ const postReducer = (state = initialState, action: any): postState =>
                 return;
             case types.REPOST_POST_SUCCESS:
                 console.log(action);
+                const postId = action.payload.post.postId;
+                const repostPostKey = state.posts.findIndex((x) => x.id === postId);
+                console.log("checking repost post Key", repostPostKey);
+                draft.posts[repostPostKey].RepostedByMe = true;
                 return;
             case types.REPOST_POST_FAILURE:
                 console.log(action);
                 return;
             case types.UNREPOST_POST_SUCCESS:
                 console.log(action);
+                const unRepostId = action.payload.postId;
+                const unrepostPostKey = state.posts.findIndex((x) => x.id === unRepostId);
+                console.log("checking repost post Key", unrepostPostKey);
+                draft.posts[unrepostPostKey].RepostedByMe = false;
                 return;
             case types.UNREPOST_POST_FAILURE:
                 console.log(action);

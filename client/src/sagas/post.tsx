@@ -182,6 +182,7 @@ export function* unRepostPost(action) {
         const userId = action.payload;
         const postId = action.id;
         const repost = yield call(api.post.unrepost, userId, postId);
+
         yield put(actionTypes.unrepostPostSuccess(repost));
     } catch (err) {
         yield put(actionTypes.unrepostPostFailure(err));
