@@ -9,10 +9,10 @@ import GifSection from "./GifSection";
 import FormHelperText from "@material-ui/core/FormHelperText";
 
 export interface commentProps {
-    onSubmit: (e: any) => void;
+    onSubmit: any;
     comment_body: string;
     commentChange: (e: any) => void;
-    gifUrl: (e: any) => void;
+    gifUrl: any;
     isGif: string;
 }
 

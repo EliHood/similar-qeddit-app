@@ -188,8 +188,25 @@ export function* unRepostPost(action) {
         yield put(actionTypes.unrepostPostFailure(err));
     }
 }
+
+export function* replyComment(action) {
+    try {
+        console.log("checking ", action);
+        const postId = action.payload.postId;
+        const commentId = action.payload.commentId;
+        const replyBody = action.payload.replyBody;
+        const replyComment = yield call(api.post.replyComment, postId, commentId, { replyBody: replyBody });
+        yield put(actionTypes.commentReplySuccess(replyComment));
+    } catch (err) {
+        yield put(actionTypes.commentReplyFailure(err));
+    }
+}
+
 export function* watchFetchPost() {
     yield takeLatest(types.FETCH_POST_INIT, fetchPost);
+}
+export function* watchReplyComment() {
+    yield takeLatest(types.COMMENT_REPLY_INIT, replyComment);
 }
 // dont use a watcher for notifications, it will keep calling itself
 // export function* watchNotifications() {
@@ -230,6 +247,7 @@ export function* watchCreatePost() {
 // export function*
 export default function*() {
     yield fork(watchPosts);
+    yield fork(watchReplyComment);
     yield fork(commentUpdates);
     yield fork(watchRepostPost);
     yield fork(getNotification);

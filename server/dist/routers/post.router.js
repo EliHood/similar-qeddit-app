@@ -33,5 +33,6 @@ router.post("/likePost/:id", controllers_1.postController.likePost);
 router.post("/dislikePost/:id", controllers_1.postController.disLikePost);
 router.post("/repost/:userId/:postId", controllers_1.postController.rePost);
 router.delete("/unRepost/:userId/:postId", controllers_1.postController.unRePost);
+router.post("/replyComment/:postId/:commentId", controllers_1.postController.replyComment);
 exports.default = router;
 //# sourceMappingURL=post.router.js.map

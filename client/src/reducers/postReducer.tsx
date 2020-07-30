@@ -2,6 +2,7 @@ import produce from "immer";
 import * as types from "../actionTypes/postActionTypes";
 import { validation } from "../utils";
 import { unRepostPost } from "../sagas/post";
+import { dark } from "@material-ui/core/styles/createPalette";
 export interface postState {
     posts: any[];
     postPage: any;
@@ -166,6 +167,19 @@ const postReducer = (state = initialState, action: any): postState =>
                 return;
             case types.REPOST_POST_FAILURE:
                 console.log(action);
+                return;
+            case types.COMMENT_REPLY_SUCCESS:
+                console.log(action);
+                const replyPostId = action.payload.reply.postId;
+                const replyCommentId = action.payload.reply.commentId;
+                const postReplyIndex = state.posts.findIndex((x) => x.id === replyPostId);
+                const commentIndex = state.posts[postReplyIndex].Comments.findIndex((x) => x.id === replyCommentId);
+                console.log(commentIndex);
+                console.log("dsdsf", postReplyIndex, commentIndex);
+                draft.posts[postReplyIndex].Comments[commentIndex].commentReplies = [action.payload.reply, ...draft.posts[postReplyIndex].Comments[commentIndex].commentReplies];
+                return;
+            case types.COMMENT_REPLY_FAILURE:
+                console.log(action.error);
                 return;
             case types.UNREPOST_POST_SUCCESS:
                 console.log(action);

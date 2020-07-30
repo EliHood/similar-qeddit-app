@@ -19,6 +19,7 @@
 - Log in
 - Google Oauth login
 - Log Out
+- Comment Replies
 - Like A Post
 - Unlike A Post
 - Add Comment to a Post

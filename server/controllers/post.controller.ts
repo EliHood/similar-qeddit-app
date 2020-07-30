@@ -56,6 +56,17 @@ export default {
           model: models.Comments,
           include: [
             {
+              model: models.CommentReplies,
+              as: "commentReplies",
+              include: [
+                {
+                  model: models.User,
+                  as: "author",
+                  attributes: ["username", "gravatar", "bio"],
+                },
+              ],
+            },
+            {
               model: models.User,
               as: "author",
               attributes: ["username", "gravatar", "bio"],
@@ -310,6 +321,17 @@ export default {
               as: "author",
               attributes: ["username", "gravatar"],
             },
+            {
+              model: models.CommentReplies,
+              as: "commentReplies",
+              include: [
+                {
+                  model: models.User,
+                  as: "author",
+                  attributes: ["username", "gravatar", "bio"],
+                },
+              ],
+            },
           ],
         }).then(async (newComment) => {
           console.log("dsdsdssdsd", newComment.postId, newComment.userId); // con
@@ -377,6 +399,38 @@ export default {
           message: "Something went wrong",
         });
       }
+    }
+  },
+  replyComment: async (req: any, res: Response) => {
+    const currentUser = isUser(req);
+    console.log("dsfsfsf checking for reqboyd", req.body);
+    try {
+      await models.CommentReplies.create({
+        postId: req.params.postId,
+        commentId: req.params.commentId,
+        userId: currentUser,
+        replyBody: req.body.replyBody,
+      }).then((reply) => {
+        models.CommentReplies.findOne({
+          where: {
+            id: reply.id,
+          },
+          include: [
+            {
+              model: models.User,
+              as: "author",
+              attributes: ["username", "gravatar"],
+            },
+          ],
+        }).then((newReply) => {
+          return res.status(200).send({
+            reply: newReply,
+            message: "Reply added successfully",
+          });
+        });
+      });
+    } catch (err) {
+      res.status(401).send("Failed to delete reply");
     }
   },
   deletePost: async (req: any, res: Response) => {

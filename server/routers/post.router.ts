@@ -13,4 +13,5 @@ router.post("/likePost/:id", postController.likePost);
 router.post("/dislikePost/:id", postController.disLikePost);
 router.post("/repost/:userId/:postId", postController.rePost);
 router.delete("/unRepost/:userId/:postId", postController.unRePost);
+router.post("/replyComment/:postId/:commentId", postController.replyComment);
 export default router;

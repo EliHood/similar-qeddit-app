@@ -19,27 +19,34 @@ export = (sequelize: Sequelize, DataTypes: DataTypes) => {
   const Comment = sequelize.define("Comments", {
     comment_body: {
       allowNull: true,
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     gifUrl: {
       allowNull: true,
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
     userId: DataTypes.INTEGER,
-    postId: DataTypes.INTEGER
+    postId: DataTypes.INTEGER,
   });
 
   Comment.associate = function(models) {
     Comment.belongsTo(models.User, {
       as: "author",
       foreignKey: "userId",
-      onDelete: "CASCADE"
+      onDelete: "CASCADE",
     });
     Comment.belongsTo(models.Post, {
       foreignKey: "postId",
       timestamps: false,
       onDelete: "CASCADE",
-      targetKey: "id"
+      targetKey: "id",
+    });
+    Comment.hasMany(models.CommentReplies, {
+      as: "commentReplies",
+      foreignKey: "commentId",
+      timestamps: false,
+      targetKey: "id",
+      onDelete: "CASCADE",
     });
   };
 

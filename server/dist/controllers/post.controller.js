@@ -65,6 +65,17 @@ exports.default = {
                     model: models_1.default.Comments,
                     include: [
                         {
+                            model: models_1.default.CommentReplies,
+                            as: "commentReplies",
+                            include: [
+                                {
+                                    model: models_1.default.User,
+                                    as: "author",
+                                    attributes: ["username", "gravatar", "bio"],
+                                },
+                            ],
+                        },
+                        {
                             model: models_1.default.User,
                             as: "author",
                             attributes: ["username", "gravatar", "bio"],
@@ -318,6 +329,17 @@ exports.default = {
                             as: "author",
                             attributes: ["username", "gravatar"],
                         },
+                        {
+                            model: models_1.default.CommentReplies,
+                            as: "commentReplies",
+                            include: [
+                                {
+                                    model: models_1.default.User,
+                                    as: "author",
+                                    attributes: ["username", "gravatar", "bio"],
+                                },
+                            ],
+                        },
                     ],
                 }).then((newComment) => __awaiter(void 0, void 0, void 0, function* () {
                     console.log("dsdsdssdsd", newComment.postId, newComment.userId); // con
@@ -381,6 +403,39 @@ exports.default = {
                     message: "Something went wrong",
                 });
             }
+        }
+    }),
+    replyComment: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        const currentUser = isUser(req);
+        console.log("dsfsfsf checking for reqboyd", req.body);
+        try {
+            yield models_1.default.CommentReplies.create({
+                postId: req.params.postId,
+                commentId: req.params.commentId,
+                userId: currentUser,
+                replyBody: req.body.replyBody,
+            }).then((reply) => {
+                models_1.default.CommentReplies.findOne({
+                    where: {
+                        id: reply.id,
+                    },
+                    include: [
+                        {
+                            model: models_1.default.User,
+                            as: "author",
+                            attributes: ["username", "gravatar"],
+                        },
+                    ],
+                }).then((newReply) => {
+                    return res.status(200).send({
+                        reply: newReply,
+                        message: "Reply added successfully",
+                    });
+                });
+            });
+        }
+        catch (err) {
+            res.status(401).send("Failed to delete reply");
         }
     }),
     deletePost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {

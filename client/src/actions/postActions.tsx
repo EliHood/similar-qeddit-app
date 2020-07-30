@@ -209,3 +209,18 @@ export const unrepostPostFailure = (error: object) => ({
     type: types.UNREPOST_POST_FAILURE,
     error,
 });
+
+export const commentReplyInit = (payload: object) => ({
+    type: types.COMMENT_REPLY_INIT,
+    payload,
+});
+
+export const commentReplySuccess = (payload: object) => ({
+    type: types.COMMENT_REPLY_SUCCESS,
+    payload,
+});
+
+export const commentReplyFailure = (error: object) => ({
+    type: types.COMMENT_REPLY_FAILURE,
+    error,
+});
