@@ -9,6 +9,7 @@ import {
     repostPostInit,
     unrepostPostInit,
     commentReplyInit,
+    deleteReplyInit,
     createPostInit,
     addTitle,
     addContent,
@@ -34,6 +35,7 @@ function useStoreMethods() {
     const getProfile = () => dispatch(getUserProfile());
     const updateProfile = (userData) => dispatch(updateUserProfile(userData));
     const replyComm = (data: object) => dispatch(commentReplyInit(data));
+    const deleteRep = (data: object) => dispatch(deleteReplyInit(data));
     const ourTitle = useSelector(title());
     const titleError = useSelector(getTitleError());
     const ourBodyError = useSelector(getBodyError());
@@ -55,6 +57,7 @@ function useStoreMethods() {
         userErr,
         isNotified,
         getProfile,
+        deleteRep,
         profileData,
         updateProfile,
         replyComm,

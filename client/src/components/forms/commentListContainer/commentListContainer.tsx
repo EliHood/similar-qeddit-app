@@ -34,17 +34,20 @@ const CommentListContainer: RefForwardingComponent<HTMLDivElement, any> = (props
             {/* here you pass your ref */}
             <div style={ourStyle} data-testid="commentitem-wrapper">
                 <CommentItem type="comment" comment={comment} user={props.user} postId={props.postId} {...props} />
-                <Typography style={{ display: "inline-block", margin: "0px 0px", float: "right" }} align="left">
-                    <span style={{ cursor: "pointer" }} onClick={() => setReplyComment(!replyComment)}>
-                        <ReplyIcon style={{ margin: "-7px 0px" }} color="primary" /> <span>Reply</span>
-                    </span>
-                </Typography>
+
+                {Object.entries(props.user).length !== 0 ? (
+                    <Typography style={{ display: "inline-block", margin: "-1px 10px", float: "right" }} align="left">
+                        <span style={{ cursor: "pointer" }} onClick={() => setReplyComment(!replyComment)}>
+                            <ReplyIcon style={{ margin: "-7px 0px" }} color="primary" /> <span>Reply</span>
+                        </span>
+                    </Typography>
+                ) : null}
 
                 {comment.commentReplies.length !== 0 ? (
                     <div style={{ marginLeft: "30px", padding: "20px" }}>
                         {comment.commentReplies.map((reply, i) => (
-                            <Fragment>
-                                <div key={i} style={{ padding: "5px" }}>
+                            <Fragment key={i}>
+                                <div style={{ padding: "5px" }}>
                                     <CommentAuthorData {...props} comment={reply} openModal={openModal} handleClickOpen={handleClickOpen} handleCloseModal={handleCloseModal} isBold={isBold} />
                                     <CommentItem type="reply" reply={reply} user={props.user} postId={props.postId} {...props} />
                                 </div>

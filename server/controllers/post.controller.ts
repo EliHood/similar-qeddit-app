@@ -401,6 +401,22 @@ export default {
       }
     }
   },
+  deleteReply: async (req: any, res: Response) => {
+    try {
+      await models.CommentReplies.destroy({
+        where: {
+          id: req.params.id,
+          postId: req.params.postId,
+        },
+      });
+      return res.status(200).send({
+        message: "Reply has been deleted",
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(401).send("Failed to delete reply");
+    }
+  },
   replyComment: async (req: any, res: Response) => {
     const currentUser = isUser(req);
     console.log("dsfsfsf checking for reqboyd", req.body);
@@ -430,7 +446,7 @@ export default {
         });
       });
     } catch (err) {
-      res.status(401).send("Failed to delete reply");
+      res.status(401).send("Failed to add reply");
     }
   },
   deletePost: async (req: any, res: Response) => {

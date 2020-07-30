@@ -12,8 +12,6 @@ export interface replyProps {
 }
 
 export default function ReplyForm(props: replyProps) {
-    const [isGifSelected, setGifSelected] = useState<Boolean>(false);
-    console.log("checking for reply component");
     return (
         <Fragment>
             <form onSubmit={props.onSubmit}>

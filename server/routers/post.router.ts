@@ -6,6 +6,7 @@ router.get("/getPosts", postController.getPosts);
 router.get("/post/:id", postController.postPage);
 router.post("/postComment", postController.postComment);
 router.delete("/deletePost/:userId/:id", postController.deletePost);
+router.delete("/deleteReply/:postId/:userId/:id", postController.deleteReply);
 router.delete("/deleteComment/:userId/:id", postController.deleteComment);
 router.put("/editComment/:userId/:commentId", postController.editComment);
 router.post("/createPost", postController.createPost);

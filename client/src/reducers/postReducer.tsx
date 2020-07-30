@@ -3,6 +3,7 @@ import * as types from "../actionTypes/postActionTypes";
 import { validation } from "../utils";
 import { unRepostPost } from "../sagas/post";
 import { dark } from "@material-ui/core/styles/createPalette";
+import { deleteReplyInit } from "../actions/postActions";
 export interface postState {
     posts: any[];
     postPage: any;
@@ -169,17 +170,23 @@ const postReducer = (state = initialState, action: any): postState =>
                 console.log(action);
                 return;
             case types.COMMENT_REPLY_SUCCESS:
-                console.log(action);
                 const replyPostId = action.payload.reply.postId;
                 const replyCommentId = action.payload.reply.commentId;
                 const postReplyIndex = state.posts.findIndex((x) => x.id === replyPostId);
                 const commentIndex = state.posts[postReplyIndex].Comments.findIndex((x) => x.id === replyCommentId);
-                console.log(commentIndex);
-                console.log("dsdsf", postReplyIndex, commentIndex);
                 draft.posts[postReplyIndex].Comments[commentIndex].commentReplies = [action.payload.reply, ...draft.posts[postReplyIndex].Comments[commentIndex].commentReplies];
                 return;
             case types.COMMENT_REPLY_FAILURE:
                 console.log(action.error);
+                return;
+            case types.REPLY_DELETE_SUCCESS:
+                console.log(action);
+                const deleteReplyPostId = action.payload.action.payload.postId;
+                const deleteReplyCommentId = action.payload.action.payload.commentId;
+                const replyId = action.payload.action.payload.replyId;
+                const deleteReplyIdx = state.posts.findIndex((x) => x.id === deleteReplyPostId);
+                const commentIdx = state.posts[deleteReplyIdx].Comments.findIndex((x) => x.id === deleteReplyCommentId);
+                draft.posts[deleteReplyIdx].Comments[commentIdx].commentReplies = [...draft.posts[deleteReplyIdx].Comments[commentIdx].commentReplies.filter((item) => item.id !== replyId)];
                 return;
             case types.UNREPOST_POST_SUCCESS:
                 console.log(action);

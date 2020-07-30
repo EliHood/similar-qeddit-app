@@ -26,6 +26,7 @@ router.get("/getPosts", controllers_1.postController.getPosts);
 router.get("/post/:id", controllers_1.postController.postPage);
 router.post("/postComment", controllers_1.postController.postComment);
 router.delete("/deletePost/:userId/:id", controllers_1.postController.deletePost);
+router.delete("/deleteReply/:postId/:userId/:id", controllers_1.postController.deleteReply);
 router.delete("/deleteComment/:userId/:id", controllers_1.postController.deleteComment);
 router.put("/editComment/:userId/:commentId", controllers_1.postController.editComment);
 router.post("/createPost", controllers_1.postController.createPost);

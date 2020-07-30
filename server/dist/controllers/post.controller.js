@@ -405,6 +405,23 @@ exports.default = {
             }
         }
     }),
+    deleteReply: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            yield models_1.default.CommentReplies.destroy({
+                where: {
+                    id: req.params.id,
+                    postId: req.params.postId,
+                },
+            });
+            return res.status(200).send({
+                message: "Reply has been deleted",
+            });
+        }
+        catch (err) {
+            console.log(err);
+            res.status(401).send("Failed to delete reply");
+        }
+    }),
     replyComment: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const currentUser = isUser(req);
         console.log("dsfsfsf checking for reqboyd", req.body);
@@ -435,7 +452,7 @@ exports.default = {
             });
         }
         catch (err) {
-            res.status(401).send("Failed to delete reply");
+            res.status(401).send("Failed to add reply");
         }
     }),
     deletePost: (req, res) => __awaiter(void 0, void 0, void 0, function* () {

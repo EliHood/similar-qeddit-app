@@ -191,7 +191,6 @@ export function* unRepostPost(action) {
 
 export function* replyComment(action) {
     try {
-        console.log("checking ", action);
         const postId = action.payload.postId;
         const commentId = action.payload.commentId;
         const replyBody = action.payload.replyBody;
@@ -200,6 +199,26 @@ export function* replyComment(action) {
     } catch (err) {
         yield put(actionTypes.commentReplyFailure(err));
     }
+}
+
+export function* deleteReply(action) {
+    try {
+        const postId = action.payload.postId;
+        const replyId = action.payload.replyId;
+        const userId = action.payload.userId;
+        const deleteReply = yield call(api.post.deleteReply, postId, replyId, userId);
+        const data = {
+            deleteReply,
+            action,
+        };
+        yield put(actionTypes.deleteReplySuccess(data));
+    } catch (err) {
+        yield put(actionTypes.deleteReplyFailure(err));
+    }
+}
+
+export function* watchDeleteReply() {
+    yield takeLatest(types.REPLY_DELETE_INIT, deleteReply);
 }
 
 export function* watchFetchPost() {
@@ -248,6 +267,7 @@ export function* watchCreatePost() {
 export default function*() {
     yield fork(watchPosts);
     yield fork(watchReplyComment);
+    yield fork(watchDeleteReply);
     yield fork(commentUpdates);
     yield fork(watchRepostPost);
     yield fork(getNotification);

@@ -12,6 +12,7 @@ import ReplyForm from "../reply/ReplyForm";
 import "./style.css";
 import moment from "moment";
 import { Grid } from "@material-ui/core";
+import storeHooks from "../../../common/storeHooks";
 
 export interface CommentItemInterface {
     editComment: (comment) => void;
@@ -43,6 +44,7 @@ export interface CommentItemInterface {
 function CommentItem(props: CommentItemInterface) {
     const [commentEdit, setCommentEdit] = useState("");
     const [editComment, setEditComment] = useState(false);
+    const { deleteRep } = storeHooks();
 
     const update = (comment) => {
         const data = {
@@ -53,6 +55,15 @@ function CommentItem(props: CommentItemInterface) {
         };
         props.editComment(data);
         setEditComment(false);
+    };
+    const deleteReply = (replyId, postId, userId, commentId) => {
+        const data = {
+            replyId: replyId,
+            postId: postId,
+            userId: userId,
+            commentId: commentId,
+        };
+        deleteRep(data);
     };
 
     const { type } = props;
@@ -143,6 +154,15 @@ function CommentItem(props: CommentItemInterface) {
                         <Grid container={true}>
                             <Grid item={true} xs={12} lg={11}>
                                 <ReactMarkdown className="markdownStyle" source={props.reply.replyBody} />
+                                {Object.entries(props.user).length !== 0 ? (
+                                    props.user && props.user.user && props.reply.userId === props.user.user.id ? (
+                                        <Typography style={{ display: "inline-block", float: "right" }} align="right">
+                                            <span style={{ cursor: "pointer" }} onClick={() => deleteReply(props.reply.id, props.postId, props.reply.userId, props.comment.id)}>
+                                                <DeleteOutlineOutlinedIcon style={{ margin: "-5px 0px" }} color="primary" /> <span>Delete</span>
+                                            </span>
+                                        </Typography>
+                                    ) : null
+                                ) : null}
                                 <Typography style={{ fontSize: "12px" }} variant="body1" align="left">
                                     {moment(props.reply.createdAt).calendar()}
                                 </Typography>

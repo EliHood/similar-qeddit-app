@@ -224,3 +224,18 @@ export const commentReplyFailure = (error: object) => ({
     type: types.COMMENT_REPLY_FAILURE,
     error,
 });
+
+export const deleteReplyInit = (payload: object) => ({
+    type: types.REPLY_DELETE_INIT,
+    payload,
+});
+
+export const deleteReplySuccess = (payload: object) => ({
+    type: types.REPLY_DELETE_SUCCESS,
+    payload,
+});
+
+export const deleteReplyFailure = (payload: object) => ({
+    type: types.REPLY_DELETE_FAILURE,
+    payload,
+});
