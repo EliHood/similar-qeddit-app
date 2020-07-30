@@ -24,7 +24,7 @@ const CommentListContainer: RefForwardingComponent<HTMLDivElement, any> = (props
         };
 
         replyComm(data);
-        // setReplyComment(false);
+        setReplyComment(false);
         setReply("");
     };
     return (
