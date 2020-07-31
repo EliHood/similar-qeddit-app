@@ -1,13 +1,12 @@
 import React, { RefForwardingComponent, useState, Fragment } from "react";
 import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
-import ReplyIcon from "@material-ui/icons/Reply";
+
 import CommentItem from "./../commentItem/CommentItem";
 import ReplyForm from "../reply/ReplyForm";
 import storeHooks from "../../../common/storeHooks";
 import CommentAuthorData from "../commentAuthorData/commentAuthorData";
 const ourStyle = {
-    margin: "15px",
+    margin: "15px ",
 };
 const CommentListContainer: RefForwardingComponent<HTMLDivElement, any> = (props, ref) => {
     const { comment, openModal, handleClickOpen, handleCloseModal, isBold } = props;
@@ -75,7 +74,7 @@ const CommentListContainer: RefForwardingComponent<HTMLDivElement, any> = (props
                         {replyComment && <ReplyForm onSubmit={(e) => replySubmit(e)} replyBody={addReply} replyChange={(e) => setReply(e.target.value)} />}
                     </div>
                 ) : (
-                    <div style={{ marginLeft: "30px", padding: "30px" }}>
+                    <div style={{ marginLeft: "30px", padding: "0px" }}>
                         {replyComment && <ReplyForm onSubmit={(e) => replySubmit(e)} replyBody={addReply} replyChange={(e) => setReply(e.target.value)} />}
                     </div>
                 )}

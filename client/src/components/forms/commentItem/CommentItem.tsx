@@ -6,6 +6,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import ClearIcon from "@material-ui/icons/Clear";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import ReactMarkdown from "react-markdown/with-html";
+import ButtonFunction from "../../../common/ButtonFunction";
 import ReplyIcon from "@material-ui/icons/Reply";
 import "./style.css";
 import moment from "moment";
@@ -69,110 +70,96 @@ const CommentItem: React.FC<CommentItemProps> = (props) => {
 
     return (
         <Fragment>
-            {type === "comment" && (
-                <Fragment>
-                    {editComment && comment.comment_body ? (
+            <Grid container={true}>
+                <Grid item={true} xs={12} lg={11}>
+                    {type === "comment" && (
                         <Fragment>
-                            <TextField
-                                className="commentInput"
-                                type="text"
-                                style={{ borderRadius: "50%" }}
-                                id="outlined-multiline-static"
-                                multiline={true}
-                                name="comment_body"
-                                defaultValue={comment.comment_body}
-                                rows="2"
-                                fullWidth={true}
-                                margin="normal"
-                                variant="outlined"
-                                onChange={(e) => setCommentEdit(e.target.value)}
-                            />
-                        </Fragment>
-                    ) : (
-                        <Fragment>
-                            <Grid container={true}>
-                                <Grid item={true} xs={12} lg={11}>
+                            {editComment && comment.comment_body ? (
+                                <Fragment>
+                                    <TextField
+                                        className="commentInput"
+                                        type="text"
+                                        style={{ borderRadius: "50%" }}
+                                        id="outlined-multiline-static"
+                                        multiline={true}
+                                        name="comment_body"
+                                        defaultValue={comment.comment_body}
+                                        rows="2"
+                                        fullWidth={true}
+                                        margin="normal"
+                                        variant="outlined"
+                                        onChange={(e) => setCommentEdit(e.target.value)}
+                                    />
+                                </Fragment>
+                            ) : (
+                                <Fragment>
                                     {comment.gifUrl === "" && <ReactMarkdown className="markdownStyle" source={comment.comment_body} />}
-
-                                    {!props.edit && comment.gifUrl && <img style={{ width: "55%" }} src={`${comment.gifUrl}`} />}
-                                    <Typography style={{ fontSize: "12px" }} variant="body1" align="left">
+                                    {!props.edit && comment.gifUrl && <img style={{ width: "55%", clear: "both", display: "block" }} src={`${comment.gifUrl}`} />}
+                                    <Typography style={{ fontSize: "12px" }} variant="caption" align="left">
                                         {moment(comment.createdAt).calendar()}
                                     </Typography>
-                                </Grid>
-                            </Grid>
-                        </Fragment>
-                    )}
+                                </Fragment>
+                            )}
 
-                    {comment.comment_body && editComment ? (
-                        <Fragment>
-                            <Typography style={{ display: "inline-block", margin: "0px 20px", float: "right" }} align="left">
-                                <span style={{ cursor: "pointer" }} onClick={() => setEditComment(false)}>
-                                    <ClearIcon style={{ margin: "-7px 0px" }} color="primary" /> <span>Cancel</span>
-                                </span>
-                            </Typography>
-                            <Typography style={{ display: "inline-block", margin: "0px 20px", float: "right" }} align="left">
-                                <span style={{ cursor: "pointer" }} onClick={() => update(comment)}>
-                                    <AddCircleOutlineIcon style={{ margin: "-7px 0px" }} color="primary" /> <span>Update</span>
-                                </span>
-                            </Typography>
-
-                            {/* add reply feature here */}
-                        </Fragment>
-                    ) : (
-                        <Fragment>
-                            {/* if guest is on home page */}
-                            {Object.entries(props.user).length !== 0 ? (
+                            {comment.comment_body && editComment ? (
                                 <Fragment>
-                                    {props.user && props.user.user && comment.userId === props.user.user.id ? (
-                                        <Typography style={{ display: "inline-block", float: "right" }} align="right">
-                                            <span style={{ cursor: "pointer", paddingRight: "20px" }} onClick={() => props.onReply()}>
-                                                <ReplyIcon color="primary" style={{ margin: "-5px 0px" }} /> <span>Reply</span>
-                                            </span>
-                                            <span style={{ cursor: "pointer" }} onClick={() => props.deleteComment(comment.id, props.postId, comment.userId)}>
-                                                <DeleteOutlineOutlinedIcon style={{ margin: "-5px 0px" }} color="primary" /> <span>Delete</span>
-                                            </span>
-                                        </Typography>
-                                    ) : null}
-                                    {/* hide edit button if gifUrl */}
-                                    {!comment.gifUrl && comment.userId === props.user.user.id ? (
+                                    <ButtonFunction type="cancel" setEditComment={setEditComment} />
+                                    <ButtonFunction type="update" update={update} comment={comment} />
+                                </Fragment>
+                            ) : (
+                                <Fragment>
+                                    {/* if guest is on home page */}
+                                    {Object.entries(props.user).length !== 0 ? (
                                         <Fragment>
-                                            <Typography style={{ display: "inline-block", margin: "0px 20px", float: "right" }} align="left">
-                                                <span style={{ cursor: "pointer" }} onClick={() => setEditComment(true)}>
-                                                    <EditIcon style={{ margin: "-5px 0px" }} color="primary" /> <span>Edit</span>
-                                                </span>
-                                            </Typography>
+                                            {props.user && props.user.user && comment.userId === props.user.user.id ? (
+                                                <Typography style={{ display: "inline-block", float: "right" }} align="right">
+                                                    <ButtonFunction type="reply" onReply={props.onReply} />
+                                                    <ButtonFunction type="delete" comment={comment} userId={comment.userId} postId={props.postId} commentId={comment.id} />
+                                                </Typography>
+                                            ) : null}
+                                            {/* hide edit button if gifUrl */}
+                                            {!comment.gifUrl && comment.userId === props.user.user.id ? (
+                                                <Fragment>
+                                                    <Typography style={{ display: "inline-block", margin: "0px 20px", float: "right" }} align="left">
+                                                        <ButtonFunction type="edit" setEditComment={setEditComment} />
+                                                    </Typography>
+                                                </Fragment>
+                                            ) : null}
                                         </Fragment>
                                     ) : null}
                                 </Fragment>
-                            ) : null}
+                            )}
                         </Fragment>
                     )}
-                </Fragment>
-            )}
 
-            {type === "reply" && (
-                <Fragment>
-                    <Fragment>
-                        <Grid container={true}>
-                            <Grid item={true} xs={12} lg={11}>
-                                <ReactMarkdown className="markdownStyle" source={reply?.replyBody} />
-                                {Object.entries(props.user).length !== 0 ? (
-                                    props.user && props.user.user && reply?.userId === props.user.user.id ? (
-                                        <Typography style={{ display: "inline-block", float: "right" }} align="right">
-                                            <span style={{ cursor: "pointer" }} onClick={() => deleteReply(reply.id, props.postId, reply.userId, comment.id)}>
-                                                <DeleteOutlineOutlinedIcon style={{ margin: "-5px 0px" }} color="primary" /> <span>Delete</span>
-                                            </span>
+                    {type === "reply" && (
+                        <Fragment>
+                            <Fragment>
+                                <Grid container={true}>
+                                    <Grid item={true} xs={12} lg={11}>
+                                        <ReactMarkdown className="markdownStyle" source={reply?.replyBody} />
+                                        {Object.entries(props.user).length !== 0 ? (
+                                            props.user && props.user.user && reply?.userId === props.user.user.id ? (
+                                                <ButtonFunction
+                                                    type="deleteReply"
+                                                    replyId={reply.id}
+                                                    replyUserId={reply.userId}
+                                                    commentId={comment.id}
+                                                    postId={props.postId}
+                                                    deleteReply={deleteReply}
+                                                />
+                                            ) : null
+                                        ) : null}
+                                        <Typography style={{ fontSize: "12px" }} variant="caption" align="left">
+                                            {moment(reply?.createdAt).calendar()}
                                         </Typography>
-                                    ) : null
-                                ) : null}
-                                <Typography style={{ fontSize: "12px" }} variant="body1" align="left">
-                                    {moment(reply?.createdAt).calendar()}
-                                </Typography>
-                            </Grid>
-                        </Grid>
-                    </Fragment>
-                </Fragment>
-            )}
+                                    </Grid>
+                                </Grid>
+                            </Fragment>
+                        </Fragment>
+                    )}
+                </Grid>
+            </Grid>
         </Fragment>
     );
 };
