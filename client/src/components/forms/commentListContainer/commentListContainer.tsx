@@ -11,6 +11,7 @@ const ourStyle = {
 };
 const CommentListContainer: RefForwardingComponent<HTMLDivElement, any> = (props, ref) => {
     const { comment, openModal, handleClickOpen, handleCloseModal, isBold } = props;
+
     const { replyComm } = storeHooks();
     const [replyComment, setReplyComment] = useState(false);
     const [addReply, setReply] = useState("");
@@ -33,7 +34,7 @@ const CommentListContainer: RefForwardingComponent<HTMLDivElement, any> = (props
 
             {/* here you pass your ref */}
             <div style={ourStyle} data-testid="commentitem-wrapper">
-                <CommentItem type="comment" comment={comment} user={props.user} postId={props.postId} {...props} />
+                <CommentItem type="comment" comment={comment} user={props.user} postId={props.postId} deleteComment={props.deleteComment} edit={props.edit} editComment={props.editComment} />
 
                 {Object.entries(props.user).length !== 0 ? (
                     <Typography style={{ display: "inline-block", margin: "-1px 10px", float: "right" }} align="left">
@@ -49,7 +50,16 @@ const CommentListContainer: RefForwardingComponent<HTMLDivElement, any> = (props
                             <Fragment key={i}>
                                 <div style={{ padding: "5px" }}>
                                     <CommentAuthorData {...props} comment={reply} openModal={openModal} handleClickOpen={handleClickOpen} handleCloseModal={handleCloseModal} isBold={isBold} />
-                                    <CommentItem type="reply" reply={reply} user={props.user} postId={props.postId} {...props} />
+                                    <CommentItem
+                                        type="reply"
+                                        reply={reply}
+                                        comment={comment}
+                                        user={props.user}
+                                        postId={props.postId}
+                                        deleteComment={props.deleteComment}
+                                        edit={props.edit}
+                                        editComment={props.editComment}
+                                    />
                                 </div>
                             </Fragment>
                         ))}

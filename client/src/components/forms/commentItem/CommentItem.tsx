@@ -14,7 +14,7 @@ import moment from "moment";
 import { Grid } from "@material-ui/core";
 import storeHooks from "../../../common/storeHooks";
 
-export interface CommentItemInterface {
+type CommentItemProps = {
     editComment: (comment) => void;
     comment: {
         comment_body: string;
@@ -23,13 +23,13 @@ export interface CommentItemInterface {
         id: number;
         createdAt: any;
     };
-    reply: {
+    reply?: {
         createdAt: any;
         replyBody: string;
         userId: number;
         id: number;
-    };
-    type: string;
+    } | null;
+    type: "comment" | "reply";
     postId: number;
     deleteComment: (commentId, postId, userId) => void;
     edit: () => void;
@@ -39,9 +39,9 @@ export interface CommentItemInterface {
         };
         id: number;
     };
-}
+};
 
-function CommentItem(props: CommentItemInterface) {
+const CommentItem: React.FC<CommentItemProps> = (props) => {
     const [commentEdit, setCommentEdit] = useState("");
     const [editComment, setEditComment] = useState(false);
     const { deleteRep } = storeHooks();
@@ -66,13 +66,13 @@ function CommentItem(props: CommentItemInterface) {
         deleteRep(data);
     };
 
-    const { type } = props;
+    const { type, comment, reply } = props;
 
     return (
         <Fragment>
             {type === "comment" && (
                 <Fragment>
-                    {editComment && props.comment.comment_body ? (
+                    {editComment && comment.comment_body ? (
                         <Fragment>
                             <TextField
                                 className="commentInput"
@@ -81,7 +81,7 @@ function CommentItem(props: CommentItemInterface) {
                                 id="outlined-multiline-static"
                                 multiline={true}
                                 name="comment_body"
-                                defaultValue={props.comment.comment_body}
+                                defaultValue={comment.comment_body}
                                 rows="2"
                                 fullWidth={true}
                                 margin="normal"
@@ -93,18 +93,18 @@ function CommentItem(props: CommentItemInterface) {
                         <Fragment>
                             <Grid container={true}>
                                 <Grid item={true} xs={12} lg={11}>
-                                    {props.comment.gifUrl === "" && <ReactMarkdown className="markdownStyle" source={props.comment.comment_body} />}
+                                    {comment.gifUrl === "" && <ReactMarkdown className="markdownStyle" source={comment.comment_body} />}
 
-                                    {!props.edit && props.comment.gifUrl && <img style={{ width: "55%" }} src={`${props.comment.gifUrl}`} />}
+                                    {!props.edit && comment.gifUrl && <img style={{ width: "55%" }} src={`${comment.gifUrl}`} />}
                                     <Typography style={{ fontSize: "12px" }} variant="body1" align="left">
-                                        {moment(props.comment.createdAt).calendar()}
+                                        {moment(comment.createdAt).calendar()}
                                     </Typography>
                                 </Grid>
                             </Grid>
                         </Fragment>
                     )}
 
-                    {props.comment.comment_body && editComment ? (
+                    {comment.comment_body && editComment ? (
                         <Fragment>
                             <Typography style={{ display: "inline-block", margin: "0px 20px", float: "right" }} align="left">
                                 <span style={{ cursor: "pointer" }} onClick={() => setEditComment(false)}>
@@ -112,7 +112,7 @@ function CommentItem(props: CommentItemInterface) {
                                 </span>
                             </Typography>
                             <Typography style={{ display: "inline-block", margin: "0px 20px", float: "right" }} align="left">
-                                <span style={{ cursor: "pointer" }} onClick={() => update(props.comment)}>
+                                <span style={{ cursor: "pointer" }} onClick={() => update(comment)}>
                                     <AddCircleOutlineIcon style={{ margin: "-7px 0px" }} color="primary" /> <span>Update</span>
                                 </span>
                             </Typography>
@@ -124,15 +124,15 @@ function CommentItem(props: CommentItemInterface) {
                             {/* if guest is on home page */}
                             {Object.entries(props.user).length !== 0 ? (
                                 <Fragment>
-                                    {props.user && props.user.user && props.comment.userId === props.user.user.id ? (
+                                    {props.user && props.user.user && comment.userId === props.user.user.id ? (
                                         <Typography style={{ display: "inline-block", float: "right" }} align="right">
-                                            <span style={{ cursor: "pointer" }} onClick={() => props.deleteComment(props.comment.id, props.postId, props.comment.userId)}>
+                                            <span style={{ cursor: "pointer" }} onClick={() => props.deleteComment(comment.id, props.postId, comment.userId)}>
                                                 <DeleteOutlineOutlinedIcon style={{ margin: "-5px 0px" }} color="primary" /> <span>Delete</span>
                                             </span>
                                         </Typography>
                                     ) : null}
                                     {/* hide edit button if gifUrl */}
-                                    {!props.comment.gifUrl && props.comment.userId === props.user.user.id ? (
+                                    {!comment.gifUrl && comment.userId === props.user.user.id ? (
                                         <Fragment>
                                             <Typography style={{ display: "inline-block", margin: "0px 20px", float: "right" }} align="left">
                                                 <span style={{ cursor: "pointer" }} onClick={() => setEditComment(true)}>
@@ -153,18 +153,18 @@ function CommentItem(props: CommentItemInterface) {
                     <Fragment>
                         <Grid container={true}>
                             <Grid item={true} xs={12} lg={11}>
-                                <ReactMarkdown className="markdownStyle" source={props.reply.replyBody} />
+                                <ReactMarkdown className="markdownStyle" source={reply?.replyBody} />
                                 {Object.entries(props.user).length !== 0 ? (
-                                    props.user && props.user.user && props.reply.userId === props.user.user.id ? (
+                                    props.user && props.user.user && reply?.userId === props.user.user.id ? (
                                         <Typography style={{ display: "inline-block", float: "right" }} align="right">
-                                            <span style={{ cursor: "pointer" }} onClick={() => deleteReply(props.reply.id, props.postId, props.reply.userId, props.comment.id)}>
+                                            <span style={{ cursor: "pointer" }} onClick={() => deleteReply(reply.id, props.postId, reply.userId, comment.id)}>
                                                 <DeleteOutlineOutlinedIcon style={{ margin: "-5px 0px" }} color="primary" /> <span>Delete</span>
                                             </span>
                                         </Typography>
                                     ) : null
                                 ) : null}
                                 <Typography style={{ fontSize: "12px" }} variant="body1" align="left">
-                                    {moment(props.reply.createdAt).calendar()}
+                                    {moment(reply?.createdAt).calendar()}
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -173,5 +173,5 @@ function CommentItem(props: CommentItemInterface) {
             )}
         </Fragment>
     );
-}
+};
 export default CommentItem;
