@@ -28,21 +28,29 @@ const CommentListContainer: RefForwardingComponent<HTMLDivElement, any> = (props
         setReplyComment(false);
         setReply("");
     };
+    // this pass onReply to CommentItem component, when its clicked from commentItem it will call this function which displays
+    // the reply Form
+    const onReply = () => {
+        console.log("chekcing ");
+        setReplyComment(!replyComment);
+    };
+
     return (
         <List innerRef={ref} style={{ paddingBottom: "20px" }} data-testid="comment-list-container">
             <CommentAuthorData {...props} comment={comment} openModal={openModal} handleClickOpen={handleClickOpen} handleCloseModal={handleCloseModal} isBold={isBold} />
 
             {/* here you pass your ref */}
             <div style={ourStyle} data-testid="commentitem-wrapper">
-                <CommentItem type="comment" comment={comment} user={props.user} postId={props.postId} deleteComment={props.deleteComment} edit={props.edit} editComment={props.editComment} />
-
-                {Object.entries(props.user).length !== 0 ? (
-                    <Typography style={{ display: "inline-block", margin: "-1px 10px", float: "right" }} align="left">
-                        <span style={{ cursor: "pointer" }} onClick={() => setReplyComment(!replyComment)}>
-                            <ReplyIcon style={{ margin: "-7px 0px" }} color="primary" /> <span>Reply</span>
-                        </span>
-                    </Typography>
-                ) : null}
+                <CommentItem
+                    onReply={onReply}
+                    type="comment"
+                    comment={comment}
+                    user={props.user}
+                    postId={props.postId}
+                    deleteComment={props.deleteComment}
+                    edit={props.edit}
+                    editComment={props.editComment}
+                />
 
                 {comment.commentReplies.length !== 0 ? (
                     <div style={{ marginLeft: "30px", padding: "20px" }}>
@@ -54,6 +62,7 @@ const CommentListContainer: RefForwardingComponent<HTMLDivElement, any> = (props
                                         type="reply"
                                         reply={reply}
                                         comment={comment}
+                                        onReply={onReply}
                                         user={props.user}
                                         postId={props.postId}
                                         deleteComment={props.deleteComment}

@@ -4,11 +4,9 @@ import TextField from "@material-ui/core/TextField";
 import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
 import EditIcon from "@material-ui/icons/Edit";
 import ClearIcon from "@material-ui/icons/Clear";
-import ReplyIcon from "@material-ui/icons/Reply";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import ReactMarkdown from "react-markdown/with-html";
-import CommentForm from "../comment/CommentForm";
-import ReplyForm from "../reply/ReplyForm";
+import ReplyIcon from "@material-ui/icons/Reply";
 import "./style.css";
 import moment from "moment";
 import { Grid } from "@material-ui/core";
@@ -16,6 +14,7 @@ import storeHooks from "../../../common/storeHooks";
 
 type CommentItemProps = {
     editComment: (comment) => void;
+    onReply: () => void;
     comment: {
         comment_body: string;
         gifUrl: string;
@@ -126,6 +125,9 @@ const CommentItem: React.FC<CommentItemProps> = (props) => {
                                 <Fragment>
                                     {props.user && props.user.user && comment.userId === props.user.user.id ? (
                                         <Typography style={{ display: "inline-block", float: "right" }} align="right">
+                                            <span style={{ cursor: "pointer", paddingRight: "20px" }} onClick={() => props.onReply()}>
+                                                <ReplyIcon color="primary" style={{ margin: "-5px 0px" }} /> <span>Reply</span>
+                                            </span>
                                             <span style={{ cursor: "pointer" }} onClick={() => props.deleteComment(comment.id, props.postId, comment.userId)}>
                                                 <DeleteOutlineOutlinedIcon style={{ margin: "-5px 0px" }} color="primary" /> <span>Delete</span>
                                             </span>
