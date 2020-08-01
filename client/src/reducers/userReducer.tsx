@@ -50,8 +50,6 @@ const authReducer = (state = initialState, action: any): userState =>
     produce(state, (draft) => {
         switch (action.type) {
             case types.SIGN_UP_SUCCESS:
-                console.log(action.user.user);
-                console.log(action.user.meta.message);
                 // draft.isAuthenticated = sessionData.getLoginStatus();
                 draft.email = "";
                 draft.password = "";
@@ -66,8 +64,6 @@ const authReducer = (state = initialState, action: any): userState =>
                 draft.error = action.error;
                 break;
             case types.GET_USER_SUCCESS:
-                console.log(action);
-                console.log("checking logout");
                 const loginStatus = sessionData.getLoginStatus();
                 const emailVerified = sessionData.emailVerifiedStatus();
                 const verified = loginStatus == true && emailVerified == true ? true : false;
