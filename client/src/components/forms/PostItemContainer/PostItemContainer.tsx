@@ -13,6 +13,7 @@ import OurLink from "../../../common/OurLink";
 import CommentForm from "../comment/CommentForm";
 import CommentList from "../commentList/CommentList";
 import OurModal from "../../../common/OurModal";
+import LikeButton from "../../../common/LikeButton";
 import LoopIcon from "@material-ui/icons/Loop";
 import RepeatIcon from "@material-ui/icons/Repeat";
 import "react-toastify/dist/ReactToastify.css";
@@ -116,7 +117,9 @@ function PostItemContainer(props: any) {
                             title={post.author.username}
                         />
                     </Typography>
-                    <Typography align="right">Likes: {post.likeCounts}</Typography>
+                    {/* <Typography align="right" variant="body1">
+                        Likes: {post.likeCounts}
+                    </Typography> */}
                     <Grid container={true} spacing={1} style={{ padding: "20px 0px" }}>
                         <Grid item={true} sm={10} lg={10} md={10} style={{ padding: "0px 0px" }}>
                             <Typography align="left">
@@ -159,11 +162,11 @@ function PostItemContainer(props: any) {
                                     <Fragment>
                                         {post.likedByMe === true ? (
                                             <span style={{ cursor: "pointer" }} onClick={() => props.dislikePost(post.id)}>
-                                                <FavoriteIcon style={{ color: "red" }} />
+                                                <LikeButton type="liked" likeCounts={post.likeCounts} />
                                             </span>
                                         ) : (
                                             <span onClick={() => props.likePost(post.id)}>
-                                                <FavoriteBorderIcon style={{ color: "red", cursor: "pointer" }} />
+                                                <LikeButton type="unliked" likeCounts={post.likeCounts} />
                                             </span>
                                         )}
                                     </Fragment>

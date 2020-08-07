@@ -10,6 +10,8 @@
     "watch-ts": "tsc --w",
     "build": "rimraf dist && npm run build-ts",
     "migrate": "sequelize db:migrate",
+    "seed": "sequelize db:seed:all",
+    "undoseed": "sequelize db:seed:undo:all",
     "rollback": "sequelize db:migrate:undo:all",
     "test": "ts-mocha --watch test/**/*.ts -w --watch-extensions",
     "ts": "tsc -w",
