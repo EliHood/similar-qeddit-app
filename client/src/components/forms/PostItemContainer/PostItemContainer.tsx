@@ -154,7 +154,7 @@ function PostItemContainer(props: any) {
                                 {Object.entries(currentUser).length === 0 ? (
                                     <Fragment>
                                         <span onClick={handleClickOpen}>
-                                            <FavoriteBorderIcon style={{ color: "red", cursor: "pointer" }} />
+                                            <LikeButton type="unliked" likeCounts={post.likeCounts} />
                                         </span>
                                         {openModal ? <OurModal open={openModal} handleClose={handleCloseModal} /> : null}
                                     </Fragment>

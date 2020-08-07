@@ -113,10 +113,12 @@ const CommentItem: React.FC<CommentItemProps> = (props) => {
                                         <Fragment>
                                             {props.user && props.user.user && comment.userId === props.user.user.id ? (
                                                 <Typography style={{ display: "inline-block", float: "right" }} align="right">
-                                                    <ButtonFunction type="reply" onReply={props.onReply} />
                                                     <ButtonFunction type="delete" comment={comment} userId={comment.userId} postId={props.postId} commentId={comment.id} />
                                                 </Typography>
                                             ) : null}
+                                            <Typography style={{ display: "inline-block", float: "right" }} align="right">
+                                                <ButtonFunction type="reply" onReply={props.onReply} />
+                                            </Typography>
                                             {/* hide edit button if gifUrl */}
                                             {!comment.gifUrl && comment.userId === props.user.user.id ? (
                                                 <Fragment>
