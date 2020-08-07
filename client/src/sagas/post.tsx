@@ -202,18 +202,23 @@ export function* replyComment(action) {
 }
 
 export function* deleteReply(action) {
-    try {
-        const postId = action.payload.postId;
-        const replyId = action.payload.replyId;
-        const userId = action.payload.userId;
-        const deleteReply = yield call(api.post.deleteReply, postId, replyId, userId);
-        const data = {
-            deleteReply,
-            action,
-        };
-        yield put(actionTypes.deleteReplySuccess(data));
-    } catch (err) {
-        yield put(actionTypes.deleteReplyFailure(err));
+    const deleteConfirmation = window.confirm("Are you sure you want to delete your reply ?");
+    if (deleteConfirmation) {
+        try {
+            const postId = action.payload.postId;
+            const replyId = action.payload.replyId;
+            const userId = action.payload.userId;
+            const deleteReply = yield call(api.post.deleteReply, postId, replyId, userId);
+            const data = {
+                deleteReply,
+                action,
+            };
+            yield put(actionTypes.deleteReplySuccess(data));
+        } catch (err) {
+            yield put(actionTypes.deleteReplyFailure(err));
+        }
+    } else {
+        return null;
     }
 }
 
