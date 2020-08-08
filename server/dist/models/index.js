@@ -13,8 +13,8 @@ if (process.env.NODE_ENV === "production") {
     var sequelize = new Sequelize(process.env.DATABASE_URL);
 }
 else {
-    var sequelize = new Sequelize("elifullstack", "eli", "", {
-        host: "127.0.0.1",
+    var sequelize = new Sequelize(process.env.POSTGRES_DB, process.env.POSTGRES_USER, "", {
+        host: process.env.PSQL_HOST,
         dialect: "postgres",
         pool: {
             max: 100,

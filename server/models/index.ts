@@ -17,18 +17,22 @@ dotenv.config();
 if (process.env.NODE_ENV === "production") {
   var sequelize = new Sequelize(process.env.DATABASE_URL);
 } else {
-  var sequelize = new Sequelize("elifullstack", "eli", "", {
-    host: "127.0.0.1",
-
-    dialect: "postgres",
-    pool: {
-      max: 100,
-      min: 0,
-      idle: 200000,
-      // @note https://github.com/sequelize/sequelize/issues/8133#issuecomment-359993057
-      acquire: 1000000,
-    },
-  });
+  var sequelize = new Sequelize(
+    process.env.POSTGRES_DB,
+    process.env.POSTGRES_USER,
+    "",
+    {
+      host: process.env.PSQL_HOST,
+      dialect: "postgres",
+      pool: {
+        max: 100,
+        min: 0,
+        idle: 200000,
+        // @note https://github.com/sequelize/sequelize/issues/8133#issuecomment-359993057
+        acquire: 1000000,
+      },
+    }
+  );
 }
 fs.readdirSync(__dirname)
   .filter(
