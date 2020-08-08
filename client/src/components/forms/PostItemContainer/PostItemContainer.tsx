@@ -161,13 +161,9 @@ function PostItemContainer(props: any) {
                                 ) : (
                                     <Fragment>
                                         {post.likedByMe === true ? (
-                                            <span style={{ cursor: "pointer" }} onClick={() => props.dislikePost(post.id)}>
-                                                <LikeButton type="liked" likeCounts={post.likeCounts} />
-                                            </span>
+                                            <LikeButton postId={post.id} type="liked" likeCounts={post.likeCounts} />
                                         ) : (
-                                            <span onClick={() => props.likePost(post.id)}>
-                                                <LikeButton type="unliked" likeCounts={post.likeCounts} />
-                                            </span>
+                                            <LikeButton postId={post.id} type="unliked" likeCounts={post.likeCounts} />
                                         )}
                                     </Fragment>
                                 )}
