@@ -32,6 +32,11 @@
 
 - `docker-compose up --build --force-recreate`
 
+### login
+
+`username: Caesar`
+`password: fish123`
+
 #### Docker notes on postgres(so i wont everr have to go through the pain of setting this up again lol)
 
 Once `docker-compose up` is running do
@@ -43,8 +48,3 @@ some helpful notes
 `docker logs` container id
 
 #### Docker Stuff
-
-- `docker exec -it Container id here bash`
-- `psql -U postgres`
-- `postgres-# CREATE DATABASE mytest` assign this database you created to the environment on docker-compose.yml
-- `postgres-# \q`
