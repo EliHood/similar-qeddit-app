@@ -9,6 +9,7 @@ services:
       - 5000:5000
     environment:
       PSQL_HOST: database
+      PSQL_PORT: 5430
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_DB: ${POSTGRES_DB:-elitypescript}
@@ -32,7 +33,7 @@ services:
     volumes:
       - database:/var/lib/postgresql/data
     ports:
-      - 3030:5432
+      - 3030:5439
 
 volumes:
   database:

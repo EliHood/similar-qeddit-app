@@ -17,6 +17,11 @@ dotenv.config();
 if (process.env.NODE_ENV === "production") {
   var sequelize = new Sequelize(process.env.DATABASE_URL);
 } else {
+  console.log(
+    process.env.POSTGRES_DB,
+    process.env.POSTGRES_USER,
+    process.env.PSQL_HOST
+  );
   var sequelize = new Sequelize(
     process.env.POSTGRES_DB,
     process.env.POSTGRES_USER,

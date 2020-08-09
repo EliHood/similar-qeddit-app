@@ -1,10 +1,11 @@
 {
   "development": {
-    "username": "eli",
+    "username": "postgres",
     "password": "",
-    "database": "elifullstack",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "database": "elitypescript",
+    "host": "database",
+    "dialect": "postgres",
+    "port": "5432"
   },
   "test": {
     "username": "root",
@@ -17,7 +18,7 @@
     "username": "root",
     "password": null,
     "database": "postgres://zzjzaopwltbuaj:ab21764595dc0a6d1605904addd5adef5b39c82ccde64662b8a2fe67cf173e8d@ec2-35-169-254-43.compute-1.amazonaws.com:5432/dclu6tass2c05g",
-    "host": "127.0.0.1",
+    "host": "127.0.0.2",
     "dialect": "postgres",
     "use_env_variable": "DATABASE_URL"
   }
