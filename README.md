@@ -30,6 +30,8 @@
 
 #### For executing Docker(have your env variables set up)
 
+- `docker exec -it database psql -U postgres -c "CREATE DATABASE elitypescript"`
+
 - `docker-compose up --build --force-recreate`
 
 ### login
