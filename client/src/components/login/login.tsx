@@ -59,7 +59,8 @@ function Login(props: any) {
     const [password, setPassword] = useState<String>("");
     const dispatch = useDispatch();
     const login = (userData: object, history: object) => dispatch(loginInit(userData, history));
-    const user = useSelector(userStore());
+    const user = useSelector(userStore);
+
     const goBackEmailConfirmation = () => {
         props.history.goBack();
     };

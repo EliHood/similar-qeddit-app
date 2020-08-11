@@ -10,7 +10,7 @@ export interface emailConfirmation {
 
 function EmailConfirmation(props: emailConfirmation) {
     const dispatch = useDispatch();
-    const user = useSelector(userConfirmation());
+    const user = useSelector(userConfirmation);
     const resendEmail = () => dispatch(resendEmailConfirmationInit());
     const emailMessage = user ? user : props.location.state.meta.message;
 

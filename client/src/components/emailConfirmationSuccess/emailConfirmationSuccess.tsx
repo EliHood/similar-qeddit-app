@@ -9,8 +9,8 @@ function EmailConfirmationSuccess(props) {
     console.log(props);
     const didMountRef = useRef();
     const dispatch = useDispatch();
-    const user = useSelector(userConfirmation());
-    const error = useSelector(userError());
+    const user = useSelector(userConfirmation);
+    const error = useSelector(userError);
     const emailConfirmation = (payload: object) => dispatch(emailConfirmationInit(payload));
     useEffect(() => {
         if (!didMountRef.current) {

@@ -6,8 +6,8 @@ import { getNotification, getUser, getUserPosts } from "./../selectors/selectors
 const mapStateToProps = (state, ownProps) =>
     createStructuredSelector({
         posts: getUserPosts(ownProps.match.params),
-        user: getUser(),
-        notification: getNotification(),
+        user: getUser,
+        notification: getNotification,
     });
 
 const mapDispatchToProps = (dispatch: any) => ({

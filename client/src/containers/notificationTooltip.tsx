@@ -9,7 +9,7 @@ const mapDispatchToProps = (dispatch: any) => ({
 });
 
 const mapStateToProps = createStructuredSelector({
-    getNotifications: getNotifications(),
+    getNotifications: getNotifications,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notification);

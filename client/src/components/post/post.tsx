@@ -16,7 +16,7 @@ export interface PostState {
 
 function Post(props: any) {
     const dispatch = useDispatch();
-    const postPage = useSelector(profile());
+    const postPage = useSelector(profile);
     const getPost = (id: number) => dispatch(fetchPostInit(id));
     React.useEffect(() => {
         const id = parseInt(props.match.params.id);

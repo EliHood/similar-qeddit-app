@@ -21,8 +21,8 @@ import { getIsNotified, getUser, getPosts, getPopPosts, isLoading, postError, us
 function useStoreMethods() {
     const dispatch = useDispatch();
     const [notifications] = useNotificationHook();
-    const isNotified = useSelector(getIsNotified());
-    const user = useSelector(getUser());
+    const isNotified = useSelector(getIsNotified);
+    const user = useSelector(getUser);
     const likePost = (id: number) => dispatch(likePostInit(id));
     const dislikePost = (id: number) => dispatch(dislikePostInit(id));
     const deletePost = (id: number, userId: number) => dispatch(deletePostInit(id, userId));
@@ -36,17 +36,17 @@ function useStoreMethods() {
     const updateProfile = (userData) => dispatch(updateUserProfile(userData));
     const replyComm = (data: object) => dispatch(commentReplyInit(data));
     const deleteRep = (data: object) => dispatch(deleteReplyInit(data));
-    const ourTitle = useSelector(title());
-    const titleError = useSelector(getTitleError());
-    const ourBodyError = useSelector(getBodyError());
-    const ourPostContent = useSelector(postContent());
-    const profileData = useSelector(getProfileData());
-    const popPosts = useSelector(getPopPosts());
-    const posts = useSelector(getPosts());
-    const userErr = useSelector(userError());
-    const message = useSelector(userMessage());
-    const errPost = useSelector(postError());
-    const loading = useSelector(isLoading());
+    const ourTitle = useSelector(title);
+    const titleError = useSelector(getTitleError);
+    const ourBodyError = useSelector(getBodyError);
+    const ourPostContent = useSelector(postContent);
+    const profileData = useSelector(getProfileData);
+    const popPosts = useSelector(getPopPosts);
+    const posts = useSelector(getPosts);
+    const userErr = useSelector(userError);
+    const message = useSelector(userMessage);
+    const errPost = useSelector(postError);
+    const loading = useSelector(isLoading);
     return {
         posts,
         notifications,

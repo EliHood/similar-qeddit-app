@@ -31,7 +31,7 @@ function Profile(props: profileProps) {
     const dispatch = useDispatch();
     const followUser = (username: string, id: number) => dispatch(followUserInit(username, id));
     const unfollowUser = (username: string, id: number) => dispatch(unfollowUserInit(username, id));
-    const userData = useSelector(userStore());
+    const userData = useSelector(userStore);
     useEffect(() => {
         if (!didMountRef.current) {
             const username = props.match.params.username;

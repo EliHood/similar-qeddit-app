@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 function Register(props: any) {
     const classes = useStyles();
-    const userData = useSelector(userStore());
+    const userData = useSelector(userStore);
     const dispatch = useDispatch();
     const signup = (userData: object, history: object) => dispatch(signUpInit(userData, history));
     const inputData = {
