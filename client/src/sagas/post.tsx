@@ -222,6 +222,19 @@ export function* deleteReply(action) {
     }
 }
 
+export function* searchPosts(action) {
+    console.log(action);
+    try {
+        const search = yield call(api.post.searchPosts, action.payload);
+        yield put(actionTypes.searchPostsSuccess(search));
+    } catch (err) {
+        yield put(actionTypes.searchPostsFailure(err.response.data.message));
+    }
+}
+
+export function* watchSearchPosts() {
+    yield takeLatest(types.SEARCH_POSTS_INIT, searchPosts);
+}
 export function* watchDeleteReply() {
     yield takeLatest(types.REPLY_DELETE_INIT, deleteReply);
 }
@@ -285,4 +298,5 @@ export default function*() {
     yield fork(watchLikePost);
     yield fork(watchEditComment);
     yield fork(watchdisLikePost);
+    yield fork(watchSearchPosts);
 }

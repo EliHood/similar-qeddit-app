@@ -9,6 +9,7 @@ import {
     repostPostInit,
     unrepostPostInit,
     commentReplyInit,
+    searchPostsInit,
     deleteReplyInit,
     createPostInit,
     addTitle,
@@ -17,7 +18,23 @@ import {
     editCommentInit,
     postCommentInit,
 } from "../actions/postActions";
-import { getIsNotified, getUser, getPosts, getPopPosts, isLoading, postError, userError, getBodyError, userMessage, getTitleError, postContent, getProfileData, title } from "../selectors/selectors";
+import {
+    getIsNotified,
+    searchQuery,
+    getUser,
+    getPosts,
+    getPopPosts,
+    isLoading,
+    postError,
+    userError,
+    getBodyError,
+    userMessage,
+    getTitleError,
+    postContent,
+    getProfileData,
+    results,
+    title,
+} from "../selectors/selectors";
 function useStoreMethods() {
     const dispatch = useDispatch();
     const [notifications] = useNotificationHook();
@@ -36,6 +53,7 @@ function useStoreMethods() {
     const updateProfile = (userData) => dispatch(updateUserProfile(userData));
     const replyComm = (data: object) => dispatch(commentReplyInit(data));
     const deleteRep = (data: object) => dispatch(deleteReplyInit(data));
+    const searchQ = (query: string) => dispatch(searchPostsInit(query));
     const ourTitle = useSelector(title);
     const titleError = useSelector(getTitleError);
     const ourBodyError = useSelector(getBodyError);
@@ -47,6 +65,8 @@ function useStoreMethods() {
     const message = useSelector(userMessage);
     const errPost = useSelector(postError);
     const loading = useSelector(isLoading);
+    const query = useSelector(searchQuery);
+    const postResults = useSelector(results);
     return {
         posts,
         notifications,
@@ -55,8 +75,11 @@ function useStoreMethods() {
         errPost,
         message,
         userErr,
+        query,
         isNotified,
         getProfile,
+        postResults,
+        searchQ,
         deleteRep,
         profileData,
         updateProfile,

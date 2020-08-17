@@ -7,6 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import menus from "./menu.json";
 import NavLink from "../../common/NavLink";
 import NavButton from "../../common/NavButton";
+import Search from "../search/Search";
 const drawerWidth = 210;
 const styles = makeStyles((theme) => ({
     buttonBar: {
@@ -46,6 +47,9 @@ function MainNav(props: any) {
                     {props.isAuthenticated || props.googleAccount === true ? (
                         <Fragment>
                             <ul style={{ display: "flex", flexDirection: "row", flexWrap: "wrap-reverse", paddingRight: "20px", justifyContent: "flex-end", listStyleType: "none" }}>
+                                <li>
+                                    <Search />
+                                </li>
                                 {menus.menus.map((item, i) => (
                                     <li key={i} style={{ padding: "0.5rem" }}>
                                         {item.link !== "likes" && item.link !== "posts" && item.link !== "profile" && item.link !== "logout" && <NavLink to={`/${item.link}`}>{item.name}</NavLink>}

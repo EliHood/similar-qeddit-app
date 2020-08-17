@@ -13,10 +13,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
+const sequelize_1 = __importDefault(require("sequelize"));
 const models_1 = __importDefault(require("../models"));
 const sockets_1 = require("../sockets");
 const pusherConfig_1 = __importDefault(require("./../sockets/pusherConfig"));
 const profanity_1 = require("@2toad/profanity");
+const Op = sequelize_1.default.Op;
 dotenv_1.default.config();
 const filterbadWords = (word) => {
     let arr;
@@ -403,6 +405,73 @@ exports.default = {
                     message: "Something went wrong",
                 });
             }
+        }
+    }),
+    searchPosts: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            yield models_1.default.Post.findAll({
+                where: {
+                    title: {
+                        [Op.like]: "%" + req.params.searchQuery + "%",
+                    },
+                },
+                include: [
+                    {
+                        model: models_1.default.User,
+                        as: "author",
+                        attributes: ["username", "gravatar", "bio"],
+                    },
+                    {
+                        model: models_1.default.Likes,
+                    },
+                    {
+                        model: models_1.default.Comments,
+                        include: [
+                            {
+                                model: models_1.default.CommentReplies,
+                                as: "commentReplies",
+                                include: [
+                                    {
+                                        model: models_1.default.User,
+                                        as: "author",
+                                        attributes: ["username", "gravatar", "bio"],
+                                    },
+                                ],
+                            },
+                            {
+                                model: models_1.default.User,
+                                as: "author",
+                                attributes: ["username", "gravatar", "bio"],
+                            },
+                        ],
+                    },
+                    {
+                        model: models_1.default.RePosts,
+                        include: [
+                            {
+                                model: models_1.default.User,
+                                as: "author",
+                                attributes: ["username", "gravatar", "bio"],
+                            },
+                        ],
+                    },
+                ],
+            }).then((result) => {
+                if (result.length === 0) {
+                    res.status(401).send({
+                        message: "No Posts Found",
+                    });
+                }
+                else {
+                    res.status(200).send({
+                        post: result,
+                    });
+                }
+            });
+        }
+        catch (err) {
+            console.log(err);
+            return res.status(401).send("Failed to get posts");
         }
     }),
     deleteReply: (req, res) => __awaiter(void 0, void 0, void 0, function* () {

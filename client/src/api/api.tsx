@@ -31,5 +31,6 @@ export default {
         editComment: (id: number, userId: number, commentData: any) => Axios.put(`/api/v1/posts/editComment/${userId}/${id}`, commentData).then((res) => res.data),
         replyComment: (postId: number, commentId: number, replyData: any) => Axios.post(`/api/v1/posts/replyComment/${postId}/${commentId}`, replyData).then((res) => res.data),
         deleteReply: (postId: number, commentId: number, userId: number) => Axios.delete(`/api/v1/posts/deleteReply/${postId}/${userId}/${commentId}`).then((res) => res.data),
+        searchPosts: (query: string) => Axios.get(`/api/v1/posts/searchq=${query}`).then((res) => res.data),
     },
 };

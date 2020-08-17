@@ -15,6 +15,8 @@ export interface postState {
     isNotified: boolean;
     notification: string;
     isLoading: Boolean;
+    searchValue: string;
+    results: any[];
 }
 
 const initialState: postState = {
@@ -28,6 +30,8 @@ const initialState: postState = {
     error: null,
     isNotified: false,
     notification: "",
+    searchValue: "",
+    results: [],
 };
 
 const postReducer = (state = initialState, action: any): postState =>
@@ -197,6 +201,18 @@ const postReducer = (state = initialState, action: any): postState =>
                 return;
             case types.UNREPOST_POST_FAILURE:
                 console.log(action);
+                return;
+            case types.SEARCH_POSTS_INIT:
+                console.log(action);
+                draft.searchValue = action.payload;
+                return;
+            case types.SEARCH_POSTS_SUCCESS:
+                console.log(action);
+                draft.results = action.payload.post;
+                return;
+            case types.SEARCH_POSTS_FAILURE:
+                console.log(action);
+                draft.results = [];
                 return;
         }
     });

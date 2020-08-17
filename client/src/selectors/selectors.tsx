@@ -52,3 +52,6 @@ export const postContent = createSelector(postSelector, (state) => state.postCon
 export const isLoading = createSelector(postSelector, (state) => state.isLoading);
 
 export const getNotifications = createSelector(userSelector, (state) => state.getNotifications);
+
+export const searchQuery = createSelector(postSelector, (state) => state.searchValue);
+export const results = createSelector(postSelector, (state) => state.results);

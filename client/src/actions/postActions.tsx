@@ -239,3 +239,18 @@ export const deleteReplyFailure = (payload: object) => ({
     type: types.REPLY_DELETE_FAILURE,
     payload,
 });
+
+export const searchPostsInit = (payload: string) => ({
+    type: types.SEARCH_POSTS_INIT,
+    payload,
+});
+
+export const searchPostsSuccess = (payload: object) => ({
+    type: types.SEARCH_POSTS_SUCCESS,
+    payload,
+});
+
+export const searchPostsFailure = (error: object) => ({
+    type: types.SEARCH_POSTS_FAILURE,
+    error,
+});

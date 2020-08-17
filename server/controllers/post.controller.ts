@@ -1,11 +1,13 @@
 import dotenv from "dotenv";
-import { Request, Response } from "express";
+import e, { Request, Response } from "express";
 import sequelize from "sequelize";
 import models from "../models";
 import { NotificationServ } from "../sockets";
 import pusherConfig from "./../sockets/pusherConfig";
 import { profanity } from "@2toad/profanity";
 import post from "../models/post";
+
+const Op = sequelize.Op;
 
 dotenv.config();
 const filterbadWords = (word: string) => {
@@ -399,6 +401,71 @@ export default {
           message: "Something went wrong",
         });
       }
+    }
+  },
+  searchPosts: async (req: any, res: Response) => {
+    try {
+      await models.Post.findAll({
+        where: {
+          title: {
+            [Op.like]: "%" + req.params.searchQuery + "%",
+          },
+        },
+        include: [
+          {
+            model: models.User,
+            as: "author",
+            attributes: ["username", "gravatar", "bio"],
+          },
+          {
+            model: models.Likes,
+          },
+          {
+            model: models.Comments,
+            include: [
+              {
+                model: models.CommentReplies,
+                as: "commentReplies",
+                include: [
+                  {
+                    model: models.User,
+                    as: "author",
+                    attributes: ["username", "gravatar", "bio"],
+                  },
+                ],
+              },
+              {
+                model: models.User,
+                as: "author",
+                attributes: ["username", "gravatar", "bio"],
+              },
+            ],
+          },
+          {
+            model: models.RePosts,
+            include: [
+              {
+                model: models.User,
+                as: "author",
+                attributes: ["username", "gravatar", "bio"],
+              },
+            ],
+          },
+        ],
+      }).then((result) => {
+        if (result.length === 0) {
+          res.status(401).send({
+            message: "No Posts Found",
+          });
+        } else {
+          res.status(200).send({
+            post: result,
+          });
+        }
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(401).send("Failed to get posts");
     }
   },
   deleteReply: async (req: any, res: Response) => {
