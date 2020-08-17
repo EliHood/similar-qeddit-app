@@ -228,7 +228,8 @@ export function* searchPosts(action) {
         const search = yield call(api.post.searchPosts, action.payload);
         yield put(actionTypes.searchPostsSuccess(search));
     } catch (err) {
-        yield put(actionTypes.searchPostsFailure(err.response.data.message));
+        console.log("error here", err);
+        yield put(actionTypes.searchPostsFailure(err));
     }
 }
 
