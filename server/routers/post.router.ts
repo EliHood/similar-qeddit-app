@@ -16,4 +16,5 @@ router.post("/repost/:userId/:postId", postController.rePost);
 router.delete("/unRepost/:userId/:postId", postController.unRePost);
 router.post("/replyComment/:postId/:commentId", postController.replyComment);
 router.get("/search?q=:searchQuery", postController.searchPosts);
+router.get("/search?q=", postController.searchPosts);
 export default router;

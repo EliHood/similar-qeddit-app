@@ -224,9 +224,14 @@ export function* deleteReply(action) {
 
 export function* searchPosts(action) {
     try {
-        const search = yield call(api.post.searchPosts, action.payload);
-        console.log("checing for query payload", action.payload, search);
-        yield put(actionTypes.searchPostsSuccess(search));
+        if (action.payload === "") {
+            const search = yield call(api.post.searchPostsNull, action.payload);
+            yield put(actionTypes.searchPostsSuccess(search));
+        } else {
+            const search = yield call(api.post.searchPosts, action.payload);
+            console.log("checing for query payload", search);
+            yield put(actionTypes.searchPostsSuccess(search));
+        }
     } catch (err) {
         console.log("error here", err);
         yield put(actionTypes.searchPostsFailure(err));

@@ -404,6 +404,11 @@ export default {
     }
   },
   searchPosts: async (req: any, res: Response) => {
+    if (req.params.searchQuery === "") {
+      return res.status(401).send({
+        message: "No Posts found",
+      });
+    }
     try {
       await models.Post.findAll({
         where: {

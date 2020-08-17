@@ -408,6 +408,11 @@ exports.default = {
         }
     }),
     searchPosts: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+        if (req.params.searchQuery === "") {
+            return res.status(401).send({
+                message: "No Posts found",
+            });
+        }
         try {
             yield models_1.default.Post.findAll({
                 where: {

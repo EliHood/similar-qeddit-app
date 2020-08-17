@@ -36,5 +36,6 @@ router.post("/repost/:userId/:postId", controllers_1.postController.rePost);
 router.delete("/unRepost/:userId/:postId", controllers_1.postController.unRePost);
 router.post("/replyComment/:postId/:commentId", controllers_1.postController.replyComment);
 router.get("/search?q=:searchQuery", controllers_1.postController.searchPosts);
+router.get("/search?q=", controllers_1.postController.searchPosts);
 exports.default = router;
 //# sourceMappingURL=post.router.js.map
