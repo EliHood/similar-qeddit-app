@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import * as classnames from "classnames";
 import AppBar from "@material-ui/core/AppBar";
 import Grid from "@material-ui/core/Grid";
@@ -21,10 +21,15 @@ import NotFound from "./components/404/404";
 import CollapasedMenu from "./components/menus/CollapsedMenu";
 import MainNav from "./components/menus/MainNav";
 import useWrapperSlide from "./common/useWrapperSlide";
+import Search from "./components/search/Search";
 import UserPosts from "./containers/UserPosts";
+import storehooks from "./common/storeHooks";
+import OurLink from "./common/OurLink";
+import SearchResults from "./common/SearchResults";
 function MyRouter(props) {
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const { classes, appOpen, appSetOpen } = useWrapperSlide();
+    const { postResults, query } = storehooks();
     const open = Boolean(anchorEl);
     const id = open ? "simple-popover" : undefined;
     const handleNotificationClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -49,16 +54,21 @@ function MyRouter(props) {
                 )}
             >
                 <Toolbar style={{ height: "1px" }}>
-                    <Grid item={true} style={{ flex: 1 }}>
+                    <Grid item={true} lg={2} style={{ flex: 1 }}>
                         <Typography style={{ color: "#fff" }} variant="subtitle1" color="secondary">
                             TypeScript React
                         </Typography>
+                    </Grid>
+                    <Grid item={true} lg={8} style={{ flex: 1 }}>
+                        <Search />
+                        <SearchResults />
                     </Grid>
 
                     <CollapasedMenu setOpen={appSetOpen} appOpen={appOpen} user={user} handleNotificationClick={handleNotificationClick} {...props} />
                     <MainNav {...props} handleClose={handleClose} user={user} open={open} notificationId={id} anchorEl={anchorEl} handleNotificationClick={handleNotificationClick} />
                 </Toolbar>
             </AppBar>
+
             <Switch>
                 <Route exact={true} path="/" render={() => <Landing {...props} {...classes} appOpen={appOpen} />} />
                 <Route
@@ -77,7 +87,7 @@ function MyRouter(props) {
                 <PrivateRoute exact={true} path="/editProfile" component={EditProfile} {...props} {...classes} appOpen={appOpen} />
                 <PrivateRoute exact={true} path="/:userId/likes" component={Likes} {...props} {...classes} appOpen={appOpen} />
                 <PrivateRoute exact={true} path="/:userId/posts" component={UserPosts} {...props} {...classes} appOpen={appOpen} />
-                <PrivateRoute path="/post/:id" component={Post} {...props} {...classes} appOpen={appOpen} />
+                <Route path="/post/:id" component={Post} {...props} {...classes} appOpen={appOpen} />
                 <Route component={NotFound} />
             </Switch>
         </Router>
