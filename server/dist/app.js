@@ -70,7 +70,7 @@ app.get("/", (req, res) => {
 /* development build, use logger & simulateLatency */
 if (process.env.NODE_ENV === "production") {
     app.use(morgan_1.default("dev"));
-    app.use("/", (req, res) => {
+    app.use("*", (req, res) => {
         console.log(path_1.default.join(__dirname, "../../client", "build", "index.html"));
         res.sendFile(path_1.default.join(__dirname, "../../client", "build", "index.html"));
     });
