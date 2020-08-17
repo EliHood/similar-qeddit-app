@@ -5,7 +5,6 @@ type SearchType = {};
 
 const Search: React.FC<SearchType> = () => {
     const { query, searchQ, postResults } = storehooks();
-    console.log(query);
     const search = (value) => {
         searchQ(value);
         console.log(value);

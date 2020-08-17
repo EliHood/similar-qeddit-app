@@ -15,6 +15,7 @@
 
 - Sign Up
 - Repost
+- Search Posts
 - Sign Up Validations
 - Log in
 - Google Oauth login
