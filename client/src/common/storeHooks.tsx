@@ -17,6 +17,7 @@ import {
     deleteCommentInit,
     editCommentInit,
     postCommentInit,
+    getSearchInit,
 } from "../actions/postActions";
 import {
     getIsNotified,
@@ -31,6 +32,7 @@ import {
     userMessage,
     getTitleError,
     postContent,
+    searchPageResults,
     getProfileData,
     results,
     title,
@@ -54,6 +56,7 @@ function useStoreMethods() {
     const replyComm = (data: object) => dispatch(commentReplyInit(data));
     const deleteRep = (data: object) => dispatch(deleteReplyInit(data));
     const searchQ = (query: string) => dispatch(searchPostsInit(query));
+    const getSearch = (query: string) => dispatch(getSearchInit(query));
     const ourTitle = useSelector(title);
     const titleError = useSelector(getTitleError);
     const ourBodyError = useSelector(getBodyError);
@@ -67,6 +70,7 @@ function useStoreMethods() {
     const loading = useSelector(isLoading);
     const query = useSelector(searchQuery);
     const postResults = useSelector(results);
+    const searchResults = useSelector(searchPageResults);
     return {
         posts,
         notifications,
@@ -76,8 +80,10 @@ function useStoreMethods() {
         message,
         userErr,
         query,
+        searchResults,
         isNotified,
         getProfile,
+        getSearch,
         postResults,
         searchQ,
         deleteRep,

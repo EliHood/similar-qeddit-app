@@ -57,9 +57,9 @@ function PostItemContainer(props: any) {
 
         // divRef.current.scrollIntoView({ behavior: "smooth" });
         // my attempt to scroll to the lastest comment.
-        setTimeout(() => {
-            divRef.current.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
-        }, 1200);
+        // setTimeout(() => {
+        //     divRef.current.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+        // }, 1200);
     };
     const { post, currentUser, getNotifications } = props;
     const { rePost, unRepost } = storeHooks();

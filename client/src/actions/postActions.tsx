@@ -254,3 +254,18 @@ export const searchPostsFailure = (error: object) => ({
     type: types.SEARCH_POSTS_FAILURE,
     error,
 });
+
+export const getSearchInit = (payload: string) => ({
+    type: types.GET_SEARCH_INIT,
+    payload,
+});
+
+export const getSearchSuccess = (payload: object) => ({
+    type: types.GET_SEARCH_SUCCESS,
+    payload,
+});
+
+export const getSearchFailure = (error: object) => ({
+    type: types.GET_SEARCH_FAILURE,
+    error,
+});

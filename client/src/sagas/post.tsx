@@ -5,6 +5,7 @@ import { call, fork, put, take, takeLatest } from "redux-saga/effects";
 import * as actionTypes from "../actions/postActions";
 import * as types from "../actionTypes/postActionTypes";
 import api from "../api/api";
+import searchResultPage from "../components/searchResultPage/searchResultPage";
 function createEventChannel(pusher: Pusher) {
     return eventChannel((emitter) => {
         const channel = pusher.subscribe("notification");
@@ -229,17 +230,29 @@ export function* searchPosts(action) {
             yield put(actionTypes.searchPostsSuccess(search));
         } else {
             const search = yield call(api.post.searchPosts, action.payload);
-            console.log("checing for query payload", search);
             yield put(actionTypes.searchPostsSuccess(search));
         }
     } catch (err) {
-        console.log("error here", err);
         yield put(actionTypes.searchPostsFailure(err));
+    }
+}
+
+export function* searchPageResults(action) {
+    const query = action.payload;
+    try {
+        const search = yield call(api.post.searchPosts, query);
+        yield put(actionTypes.getSearchSuccess(search));
+    } catch (err) {
+        console.log("error here", err);
+        yield put(actionTypes.getSearchFailure(err));
     }
 }
 
 export function* watchSearchPosts() {
     yield takeLatest(types.SEARCH_POSTS_INIT, searchPosts);
+}
+export function* watchSearchPageResults() {
+    yield takeLatest(types.GET_SEARCH_INIT, searchPageResults);
 }
 export function* watchDeleteReply() {
     yield takeLatest(types.REPLY_DELETE_INIT, deleteReply);
@@ -290,6 +303,7 @@ export function* watchCreatePost() {
 // export function*
 export default function*() {
     yield fork(watchPosts);
+    yield fork(watchSearchPageResults);
     yield fork(watchReplyComment);
     yield fork(watchDeleteReply);
     yield fork(commentUpdates);

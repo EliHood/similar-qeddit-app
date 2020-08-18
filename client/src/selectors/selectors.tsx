@@ -55,3 +55,4 @@ export const getNotifications = createSelector(userSelector, (state) => state.ge
 
 export const searchQuery = createSelector(postSelector, (state) => state.searchValue);
 export const results = createSelector(postSelector, (state) => state.results);
+export const searchPageResults = createSelector(postSelector, (state) => state.searchPageResults);

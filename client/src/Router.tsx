@@ -26,6 +26,7 @@ import UserPosts from "./containers/UserPosts";
 import storehooks from "./common/storeHooks";
 import OurLink from "./common/OurLink";
 import SearchResults from "./common/SearchResults";
+import SearchResultPage from "./components/searchResultPage/searchResultPage";
 function MyRouter(props) {
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const { classes, appOpen, appSetOpen } = useWrapperSlide();
@@ -60,7 +61,7 @@ function MyRouter(props) {
                         </Typography>
                     </Grid>
                     <Grid item={true} lg={8} style={{ flex: 1 }}>
-                        <Search />
+                        <Search {...props} />
                         <SearchResults />
                     </Grid>
 
@@ -81,6 +82,7 @@ function MyRouter(props) {
                 />
                 <Route path="/emailConfirmation" component={EmailConfirmation} {...props} />
                 {/* <Route path='/resendEmailConfirmation'></Route> */}
+                <Route exact={true} path="/search/posts" component={SearchResultPage} {...props} {...classes} />
                 <Route path="/emailConfirmationSuccess/:userId/:token" component={EmailConfirmationSuccess} {...props} />
                 <PrivateRoute exact={true} path="/dashboard" component={Dashboard} {...props} {...classes} appOpen={appOpen} />
                 <PrivateRoute exact={true} path="/profile/:username" component={Profile} {...props} {...classes} appOpen={appOpen} />
@@ -88,6 +90,7 @@ function MyRouter(props) {
                 <PrivateRoute exact={true} path="/:userId/likes" component={Likes} {...props} {...classes} appOpen={appOpen} />
                 <PrivateRoute exact={true} path="/:userId/posts" component={UserPosts} {...props} {...classes} appOpen={appOpen} />
                 <Route path="/post/:id" component={Post} {...props} {...classes} appOpen={appOpen} />
+
                 <Route component={NotFound} />
             </Switch>
         </Router>

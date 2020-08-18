@@ -17,6 +17,7 @@ export interface postState {
     isLoading: Boolean;
     searchValue: string;
     results: any[];
+    searchPageResults: any[];
 }
 
 const initialState: postState = {
@@ -32,6 +33,7 @@ const initialState: postState = {
     notification: "",
     searchValue: "",
     results: [],
+    searchPageResults: [],
 };
 
 const postReducer = (state = initialState, action: any): postState =>
@@ -59,6 +61,7 @@ const postReducer = (state = initialState, action: any): postState =>
             case types.LIKE_POST_SUCCESS:
                 console.log("fsfsfssfsf", action);
                 const findKey = state.posts.findIndex((x) => x.id === action.payload.id);
+                console.log(findKey);
                 draft.posts[findKey].likeCounts = draft.posts[findKey].likeCounts + 1;
                 draft.posts[findKey].likedByMe = true;
                 draft.error = null;
@@ -148,8 +151,7 @@ const postReducer = (state = initialState, action: any): postState =>
                 return;
             case types.COMMENT_UPDATES_SUCCESS:
                 console.log(action);
-                const findCommentKey2 = state.posts.findIndex((x) => x.id === action.payload.comment.postId);
-                console.log(findCommentKey2);
+                const findCommentKey2 = draft.posts.findIndex((x) => x.id === action.payload.comment.postId);
                 draft.posts[findCommentKey2].Comments = [
                     action.payload.comment,
                     // add comment first, then sort it out by the most recent comment
@@ -169,6 +171,7 @@ const postReducer = (state = initialState, action: any): postState =>
                 const repostPostKey = state.posts.findIndex((x) => x.id === postId);
                 console.log("checking repost post Key", repostPostKey);
                 draft.posts[repostPostKey].RepostedByMe = true;
+
                 return;
             case types.REPOST_POST_FAILURE:
                 console.log(action);
@@ -179,6 +182,7 @@ const postReducer = (state = initialState, action: any): postState =>
                 const postReplyIndex = state.posts.findIndex((x) => x.id === replyPostId);
                 const commentIndex = state.posts[postReplyIndex].Comments.findIndex((x) => x.id === replyCommentId);
                 draft.posts[postReplyIndex].Comments[commentIndex].commentReplies = [action.payload.reply, ...draft.posts[postReplyIndex].Comments[commentIndex].commentReplies];
+
                 return;
             case types.COMMENT_REPLY_FAILURE:
                 console.log(action.error);
@@ -191,6 +195,7 @@ const postReducer = (state = initialState, action: any): postState =>
                 const deleteReplyIdx = state.posts.findIndex((x) => x.id === deleteReplyPostId);
                 const commentIdx = state.posts[deleteReplyIdx].Comments.findIndex((x) => x.id === deleteReplyCommentId);
                 draft.posts[deleteReplyIdx].Comments[commentIdx].commentReplies = [...draft.posts[deleteReplyIdx].Comments[commentIdx].commentReplies.filter((item) => item.id !== replyId)];
+
                 return;
             case types.UNREPOST_POST_SUCCESS:
                 console.log(action);
@@ -213,6 +218,13 @@ const postReducer = (state = initialState, action: any): postState =>
             case types.SEARCH_POSTS_FAILURE:
                 console.log(action);
                 draft.results = [];
+                return;
+            case types.GET_SEARCH_SUCCESS:
+                console.log(action);
+                draft.posts = action.payload.post;
+                return;
+            case types.GET_SEARCH_FAILURE:
+                console.log(action);
                 return;
         }
     });

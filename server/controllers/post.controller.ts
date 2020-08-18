@@ -410,7 +410,7 @@ export default {
       });
     }
     try {
-      await models.Post.findAll({
+      const posts = await models.Post.findAll({
         where: {
           title: {
             [Op.like]: "%" + req.params.searchQuery + "%",
@@ -457,17 +457,61 @@ export default {
             ],
           },
         ],
-      }).then((result) => {
-        if (result.length === 0) {
-          res.status(401).send({
-            message: "No Posts Found",
-          });
-        } else {
-          res.status(200).send({
-            post: result,
-          });
-        }
       });
+      let currentUser;
+      currentUser = req.session && req.session.user ? req.session.user.id : 0;
+
+      posts.forEach((post) => {
+        if (post.Likes.length === 0) {
+          post.setDataValue("likedByMe", false);
+        }
+        if (post.RePosts.length === 0) {
+          post.setDataValue("RepostedByMe", false);
+        }
+        post.RePosts.forEach((repost) => {
+          const googleLogin = req.session.passport;
+          if (typeof googleLogin === "object") {
+            if (repost.userId === googleLogin.user.id) {
+              post.setDataValue("RepostedByMe", true);
+            }
+          }
+
+          if (typeof req.session.user === "undefined") {
+            if (
+              typeof googleLogin === "undefined" &&
+              typeof req.session.user === "undefined"
+            ) {
+              post.setDataValue("RepostedByMe", false);
+            }
+          } else if (typeof req.session.user === "object") {
+            if (repost.userId === req.session.user.id) {
+              post.setDataValue("RepostedByMe", true);
+            }
+          }
+        });
+        post.Likes.forEach((like) => {
+          // console.log(like.userId);
+          if (req.user) {
+            if (like.userId === req.session.passport.user.id) {
+              post.setDataValue("likedByMe", true);
+            }
+          } else if (like.userId === currentUser) {
+            post.setDataValue("likedByMe", true);
+          }
+          // else if(like.userId !== currentUser) {
+          //   post.setDataValue("likedByMe", false);
+          // }
+        });
+      });
+      if (posts.length === 0) {
+        res.status(401).send({
+          message: "No Posts Found",
+        });
+      } else {
+        res.status(200).send({
+          post: posts,
+        });
+      }
     } catch (err) {
       console.log(err);
       return res.status(401).send("Failed to get posts");

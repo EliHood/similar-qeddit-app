@@ -7,13 +7,8 @@ import Tabs from "@material-ui/core/Tabs";
 import Typography from "@material-ui/core/Typography";
 import { Grid } from "@material-ui/core";
 import usePostsHook from "../../common/postsHook";
-import useNotificationHook from "../../common/notificationHook";
-import { useDispatch, useSelector } from "react-redux";
-import { likePostInit, dislikePostInit, deletePostInit, deleteCommentInit, editCommentInit, postCommentInit } from "./../../actions/postActions";
-import { getIsNotified, getUser, getPopPosts, getPosts } from "./../../selectors/selectors";
 import "./style.css";
 import storeMethods from "../../common/storeHooks";
-import OurLoader from "../../common/OurLoader";
 interface TabPanelProps {
     children?: React.ReactNode;
     index: any;
@@ -44,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-export default function OurTabs(props) {
+export default function OurTabs() {
     // calls the posts api once, then we use storeMethods().posts to get the posts from store
     usePostsHook();
     const classes = useStyles();
