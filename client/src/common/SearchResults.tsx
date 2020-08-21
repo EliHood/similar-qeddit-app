@@ -4,7 +4,7 @@ import OurLink from "../common/OurLink";
 type searchResultType = {};
 const SearchResults: React.FC<searchResultType> = (props) => {
     const { postResults, query } = storehooks();
-    console.log("chcking for query", query);
+
     return (
         <Fragment>
             {postResults.map((item, index) => (

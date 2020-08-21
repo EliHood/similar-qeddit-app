@@ -30,7 +30,6 @@ const CommentListContainer: RefForwardingComponent<HTMLDivElement, any> = (props
     // this pass onReply to CommentItem component, when its clicked from commentItem it will call this function which displays
     // the reply Form
     const onReply = () => {
-        console.log("chekcing ");
         setReplyComment(!replyComment);
     };
 

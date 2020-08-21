@@ -84,7 +84,7 @@ function CollapasedMenu(props: any) {
                                 userId={user.id}
                                 id={props.notificationId}
                                 handleClose={handleClose}
-                                open={props.open}
+                                open={false}
                                 anchorEl={props.anchorEl}
                                 handleNotificationClick={props.handleNotificationClick}
                                 title={"Notifications"}

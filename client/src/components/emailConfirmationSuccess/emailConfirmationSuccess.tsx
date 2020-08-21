@@ -6,7 +6,6 @@ import { userConfirmation, userError } from "../../selectors/selectors";
 import { emailConfirmationInit } from "../../actions/userActions";
 
 function EmailConfirmationSuccess(props) {
-    console.log(props);
     const didMountRef = useRef();
     const dispatch = useDispatch();
     const user = useSelector(userConfirmation);

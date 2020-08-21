@@ -68,7 +68,7 @@ function Register(props: any) {
             email,
             password,
         };
-        console.log(creds);
+
         signup(creds, history);
     };
     const { username, email, password, passwordConf, passwordConfError, usernameError, passwordError, emailError } = userData;
