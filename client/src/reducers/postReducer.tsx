@@ -18,6 +18,8 @@ export interface postState {
     searchValue: string;
     results: any[];
     searchPageResults: any[];
+    selectedUser: string;
+    mentionedUser: boolean;
 }
 
 const initialState: postState = {
@@ -34,6 +36,8 @@ const initialState: postState = {
     searchValue: "",
     results: [],
     searchPageResults: [],
+    selectedUser: "",
+    mentionedUser: false,
 };
 
 const postReducer = (state = initialState, action: any): postState =>
@@ -225,6 +229,15 @@ const postReducer = (state = initialState, action: any): postState =>
                 return;
             case types.GET_SEARCH_FAILURE:
                 console.log(action);
+                return;
+            case types.SET_SELECTED_USER:
+                console.log(action);
+                draft.selectedUser = action.payload;
+                draft.mentionedUser = false;
+                return;
+
+            case types.SET_MENTIONED_USER:
+                draft.mentionedUser = true;
                 return;
         }
     });

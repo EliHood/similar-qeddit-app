@@ -56,3 +56,26 @@ export const getNotifications = createSelector(userSelector, (state) => state.ge
 export const searchQuery = createSelector(postSelector, (state) => state.searchValue);
 export const results = createSelector(postSelector, (state) => state.results);
 export const searchPageResults = createSelector(postSelector, (state) => state.searchPageResults);
+export const getSelectedUser = createSelector(postSelector, (state) => state.selectedUser);
+export const mentionUser = createSelector(postSelector, (state) => state.mentionedUser);
+export const fetchRelatedUsers = createSelector(postSelector, (state) => {
+    // const users = state.posts.flatMap((x) => [x.author.username].concat(x.Comments.flatMap((y) => y.commentReplies.map((z) => z.author.username).concat(y.author.username))));
+    function removeDuplicatesBy(keyFn, array) {
+        var mySet = new Set();
+        return array.filter(function(x) {
+            var key = keyFn(x),
+                isNew = !mySet.has(key);
+            if (isNew) mySet.add(key);
+            return isNew;
+        });
+    }
+    const users = state.posts.reduce((names, { author: { username }, Comments }) => {
+        Comments.forEach(({ author: { username }, commentReplies }) => {
+            commentReplies.forEach(({ author: { username } }) => names.push({ id: Math.floor(Math.random() * 1000), display: username }));
+        });
+
+        return names;
+    }, []);
+    const newUsers = removeDuplicatesBy((x) => x.display, users);
+    return newUsers;
+});

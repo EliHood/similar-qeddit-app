@@ -12,7 +12,7 @@ import "./style.css";
 import moment from "moment";
 import { Grid } from "@material-ui/core";
 import storeHooks from "../../../common/storeHooks";
-
+import { MentionsInput, Mention } from "react-mentions";
 type CommentItemProps = {
     editComment: (comment) => void;
     onReply: () => void;
@@ -44,7 +44,8 @@ type CommentItemProps = {
 const CommentItem: React.FC<CommentItemProps> = (props) => {
     const [commentEdit, setCommentEdit] = useState("");
     const [editComment, setEditComment] = useState(false);
-    const { deleteRep } = storeHooks();
+    const [mention, setMentionedUser] = useState();
+    const { deleteRep, mentionUsers } = storeHooks();
 
     const update = (comment) => {
         const data = {

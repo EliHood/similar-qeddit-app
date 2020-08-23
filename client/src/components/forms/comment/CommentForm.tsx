@@ -8,28 +8,58 @@ import React, { Fragment, useState } from "react";
 import GifSection from "./GifSection";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import OurTextField from "../../../common/OurTextField";
-
+import storeHooks from "../../../common/storeHooks";
 export interface commentProps {
     onSubmit: any;
     comment_body: string;
     commentChange: (e: any) => void;
     gifUrl: any;
     isGif: string;
+    mentionedUser?: boolean;
+    setMentionedUser?: (data: boolean) => void;
+    setCommentBody?: (data: string) => any;
 }
 
 export default function CommentForm(props: commentProps) {
     const [isGifSelected, setGifSelected] = useState<Boolean>(false);
+    const { mentionUsers, setSelectedOptionValue, selectedUser, mentionedUser } = storeHooks();
+    const { setCommentBody, setMentionedUser, comment_body } = props;
+    const selectedOption = (option) => {
+        setSelectedOptionValue(option);
+        setCommentBody?.(comment_body.concat(option).replace("@", ""));
+        setMentionedUser?.(false);
+    };
+
+    const options = mentionUsers.map((item, key) => (
+        <option key={key} value={item.display}>
+            {item.display}
+        </option>
+    ));
     return (
         <Fragment>
             <form onSubmit={props.onSubmit}>
                 {isGifSelected === false ? (
                     <Fragment>
-                        <OurTextField type="gif" comment_body={props.comment_body} commentChange={props.commentChange} setGifSelected={() => setGifSelected(true)} />
+                        <OurTextField
+                            type="gif-commentfield"
+                            selectedUser={selectedUser}
+                            comment_body={props.comment_body}
+                            commentChange={props.commentChange}
+                            setGifSelected={() => setGifSelected(true)}
+                        />
                         {props.comment_body.length > 200 && (
                             <FormHelperText error={true} id="component-helper-text">
                                 {"Comment must be less than 200 chars"}
                             </FormHelperText>
                         )}
+
+                        {props.mentionedUser && (
+                            <select onChange={(e) => selectedOption(e.target.value)} name="mentionedUsers">
+                                <option value="">Select User</option>
+                                {options}
+                            </select>
+                        )}
+
                         <br />
                         <br />
 

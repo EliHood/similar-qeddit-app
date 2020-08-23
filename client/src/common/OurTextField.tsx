@@ -3,8 +3,9 @@ import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import GifIcon from "@material-ui/icons/Gif";
 import TextFieldsIcon from "@material-ui/icons/TextFields";
+import storeHooks from "./storeHooks";
 type FieldType = {
-    type: "gif" | "post" | "comment" | "post-content";
+    type: "gif-commentfield" | "post" | "comment" | "post-content";
     handleTitleChange?: (e: any) => void;
     title?: String;
     titleError?: boolean | null;
@@ -14,9 +15,12 @@ type FieldType = {
     bodyError?: boolean | null;
     handleContentChange?: (e: any) => void;
     setGifSelected?: () => void;
+    selectedUser?: String;
 };
 
 const OurTextField: React.FC<FieldType> = (props) => {
+    const { selectedUser } = storeHooks();
+    const ifSelectedUser = selectedUser !== "" ? "@" + selectedUser : "";
     return (
         <Fragment>
             {props.type === "post" && (
@@ -34,7 +38,7 @@ const OurTextField: React.FC<FieldType> = (props) => {
                 />
             )}
 
-            {props.type === "gif" && (
+            {props.type === "gif-commentfield" && (
                 <TextField
                     className="commentInput"
                     type="text"
@@ -44,7 +48,7 @@ const OurTextField: React.FC<FieldType> = (props) => {
                     multiline={true}
                     size={"medium"}
                     name="comment_body"
-                    value={props.comment_body!}
+                    value={props.comment_body}
                     rows={props.comment_body!.length > 35 ? 3 : 1}
                     error={props.comment_body!.length > 200 ? true : false}
                     fullWidth={true}

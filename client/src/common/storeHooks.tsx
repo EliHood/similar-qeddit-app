@@ -9,10 +9,12 @@ import {
     repostPostInit,
     unrepostPostInit,
     commentReplyInit,
+    setSelectedUser,
     searchPostsInit,
     deleteReplyInit,
     createPostInit,
     addTitle,
+    setMentionedUser,
     addContent,
     deleteCommentInit,
     editCommentInit,
@@ -29,6 +31,8 @@ import {
     postError,
     userError,
     getBodyError,
+    getSelectedUser,
+    mentionUser,
     userMessage,
     getTitleError,
     postContent,
@@ -36,6 +40,7 @@ import {
     getProfileData,
     results,
     title,
+    fetchRelatedUsers,
 } from "../selectors/selectors";
 function useStoreMethods() {
     const dispatch = useDispatch();
@@ -57,6 +62,8 @@ function useStoreMethods() {
     const deleteRep = (data: object) => dispatch(deleteReplyInit(data));
     const searchQ = (query: string) => dispatch(searchPostsInit(query));
     const getSearch = (query: string) => dispatch(getSearchInit(query));
+    const setSelectedOptionValue = (optionValue: string) => dispatch(setSelectedUser(optionValue));
+    const setMentioned = () => dispatch(setMentionedUser());
     const ourTitle = useSelector(title);
     const titleError = useSelector(getTitleError);
     const ourBodyError = useSelector(getBodyError);
@@ -71,18 +78,27 @@ function useStoreMethods() {
     const query = useSelector(searchQuery);
     const postResults = useSelector(results);
     const searchResults = useSelector(searchPageResults);
+    const mentionUsers = useSelector(fetchRelatedUsers);
+    const selectedUser = useSelector(getSelectedUser);
+    const mentionedUser = useSelector(mentionUser);
     return {
         posts,
         notifications,
         user,
+        mentionUsers,
+        setSelectedOptionValue,
+        setMentioned,
+        mentionedUser,
         loading,
         errPost,
         message,
         userErr,
         query,
+        selectedUser,
         searchResults,
         isNotified,
         getProfile,
+        setSelectedUser,
         getSearch,
         postResults,
         searchQ,

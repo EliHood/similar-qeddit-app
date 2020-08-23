@@ -11,7 +11,7 @@ function Landing(props: any) {
     // calls the posts api once, then we use storeMethods().posts to get the posts from store
     usePostsHook();
     // const classes = styles();
-    const { postResults } = storeMethods();
+
     return (
         <Fragment>
             <OurWrapper appBar={props.appBar} appOpen={props.appOpen} appBarShift={props.appBarShift}>

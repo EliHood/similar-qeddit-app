@@ -18,20 +18,28 @@ import LoopIcon from "@material-ui/icons/Loop";
 import RepeatIcon from "@material-ui/icons/Repeat";
 import "react-toastify/dist/ReactToastify.css";
 import storeHooks from "../../../common/storeHooks";
+
 function PostItemContainer(props: any) {
     const [openModal, setOpenModal] = useState(false);
     const [openForm, setOpenForm] = useState(false);
     const [comment_body, setCommentBody] = useState("");
     const [gifUrl, setGifUrl] = useState("");
+    const [mentionedUser, setMentionedUser] = useState(false);
     const divRef = React.useRef<any>();
+    const { rePost, unRepost, selectedUser } = storeHooks();
     const writeComment = () => {
         // this is the same as this.setState({ openForm: !this.state.open })
         setOpenForm(!openForm);
     };
-
     const commentChange = (comment) => {
-        setGifUrl("");
         setCommentBody(comment);
+
+        if (comment.charAt(0).includes("@") && comment.length > 0) {
+            setMentionedUser(true);
+        } else {
+            setMentionedUser(false);
+        }
+        setGifUrl("");
     };
     const selectGif = (e) => {
         setGifUrl(e.images.downsized_large.url);
@@ -57,13 +65,11 @@ function PostItemContainer(props: any) {
 
         // divRef.current.scrollIntoView({ behavior: "smooth" });
         // my attempt to scroll to the lastest comment.
-        // setTimeout(() => {
-        //     divRef.current.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
-        // }, 1200);
+        setTimeout(() => {
+            divRef.current.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+        }, 1200);
     };
     const { post, currentUser, getNotifications } = props;
-    const { rePost, unRepost } = storeHooks();
-
     // check if user is on user posts,
     const ifOnPosts = window.location.href.indexOf("posts") != -1;
 
@@ -212,6 +218,9 @@ function PostItemContainer(props: any) {
                                 onSubmit={(e) => commentSubmit(e, post.id)}
                                 gifUrl={selectGif}
                                 isGif={gifUrl}
+                                mentionedUser={mentionedUser}
+                                setMentionedUser={setMentionedUser}
+                                setCommentBody={setCommentBody}
                             />
                         ) : null}
                     </Grid>

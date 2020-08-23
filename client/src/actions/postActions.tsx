@@ -269,3 +269,12 @@ export const getSearchFailure = (error: object) => ({
     type: types.GET_SEARCH_FAILURE,
     error,
 });
+
+export const setSelectedUser = (payload: string) => ({
+    type: types.SET_SELECTED_USER,
+    payload,
+});
+
+export const setMentionedUser = () => ({
+    type: types.SET_MENTIONED_USER,
+});
