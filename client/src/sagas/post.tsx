@@ -5,15 +5,23 @@ import { call, fork, put, take, takeLatest } from "redux-saga/effects";
 import * as actionTypes from "../actions/postActions";
 import * as types from "../actionTypes/postActionTypes";
 import api from "../api/api";
-import searchResultPage from "../components/searchResultPage/searchResultPage";
+
+type commentType = {
+    body: String;
+    userId: number;
+    currentUser: number;
+    commenterId: number;
+};
+
 function createEventChannel(pusher: Pusher) {
     return eventChannel((emitter) => {
         const channel = pusher.subscribe("notification");
-        channel.bind("my-event", (data: string) => {
+        channel.bind("my-event", (data: commentType) => {
             console.log("sdd", data);
             // we need an emitter for notificationSuccess method to work
-            emitter(data);
-            toast.success(data);
+            emitter(data.body);
+
+            toast.success(data.body);
         });
         return () => channel.unbind("my-event", emitter);
     });
@@ -27,6 +35,7 @@ function createCommentChannel(pusher: Pusher) {
             // we need an emitter for notificationSuccess method to work
             emitter(data);
         });
+
         return () => channel.unbind("new-comment", emitter);
     });
 }

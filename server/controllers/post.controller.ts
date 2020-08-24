@@ -311,6 +311,9 @@ export default {
         gifUrl: req.body.gifUrl,
       };
       console.log("dfffcheck", postData);
+      const users = await models.User.findAll();
+      const usernames = users.map((item) => item.username);
+
       await models.Comments.create(postData).then((comment) => {
         console.log("this is the comment", comment);
         models.Comments.findOne({
@@ -336,11 +339,32 @@ export default {
             },
           ],
         }).then(async (newComment) => {
-          console.log("dsdsdssdsd", newComment.postId, newComment.userId); // con
+          if (usernames.some((user) => req.body.comment_body.includes(user))) {
+            // will trigger mention notification if user is mentioned
+            const username = usernames.find((user) =>
+              req.body.comment_body.includes(user)
+            );
+            console.log("this got called");
+            NotificationServ.userMention(
+              currentUser,
+              newComment.postId,
+              username,
+              newComment.userId
+            );
+            pusherConfig.trigger("post-comments", "user-mention", {
+              comment: newComment,
+            });
+          } else {
+            console.log("no luck finding user");
+          }
+          console.log("dsdsdssdsd", currentUser, newComment.userId); // con
+
           NotificationServ.newCommentNotification(
+            currentUser,
             newComment.postId,
             newComment.userId
           );
+
           pusherConfig.trigger("post-comments", "new-comment", {
             comment: newComment,
           });

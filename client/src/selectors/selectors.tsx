@@ -58,6 +58,7 @@ export const results = createSelector(postSelector, (state) => state.results);
 export const searchPageResults = createSelector(postSelector, (state) => state.searchPageResults);
 export const getSelectedUser = createSelector(postSelector, (state) => state.selectedUser);
 export const mentionUser = createSelector(postSelector, (state) => state.mentionedUser);
+export const getCommenterId = createSelector(postSelector, (state) => state.commenterId);
 export const fetchRelatedUsers = createSelector(postSelector, (state) => {
     // const users = state.posts.flatMap((x) => [x.author.username].concat(x.Comments.flatMap((y) => y.commentReplies.map((z) => z.author.username).concat(y.author.username))));
     function removeDuplicatesBy(keyFn, array) {

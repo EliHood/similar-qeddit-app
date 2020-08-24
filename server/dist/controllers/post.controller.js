@@ -319,6 +319,8 @@ exports.default = {
                 gifUrl: req.body.gifUrl,
             };
             console.log("dfffcheck", postData);
+            const users = yield models_1.default.User.findAll();
+            const usernames = users.map((item) => item.username);
             yield models_1.default.Comments.create(postData).then((comment) => {
                 console.log("this is the comment", comment);
                 models_1.default.Comments.findOne({
@@ -344,8 +346,20 @@ exports.default = {
                         },
                     ],
                 }).then((newComment) => __awaiter(void 0, void 0, void 0, function* () {
-                    console.log("dsdsdssdsd", newComment.postId, newComment.userId); // con
-                    sockets_1.NotificationServ.newCommentNotification(newComment.postId, newComment.userId);
+                    if (usernames.some((user) => req.body.comment_body.includes(user))) {
+                        // will trigger mention notification if user is mentioned
+                        const username = usernames.find((user) => req.body.comment_body.includes(user));
+                        console.log("this got called");
+                        sockets_1.NotificationServ.userMention(currentUser, newComment.postId, username, newComment.userId);
+                        pusherConfig_1.default.trigger("post-comments", "user-mention", {
+                            comment: newComment,
+                        });
+                    }
+                    else {
+                        console.log("no luck finding user");
+                    }
+                    console.log("dsdsdssdsd", currentUser, newComment.userId); // con
+                    sockets_1.NotificationServ.newCommentNotification(currentUser, newComment.postId, newComment.userId);
                     pusherConfig_1.default.trigger("post-comments", "new-comment", {
                         comment: newComment,
                     });

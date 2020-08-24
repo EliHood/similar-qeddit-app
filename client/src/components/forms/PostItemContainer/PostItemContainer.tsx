@@ -26,7 +26,7 @@ function PostItemContainer(props: any) {
     const [gifUrl, setGifUrl] = useState("");
     const [mentionedUser, setMentionedUser] = useState(false);
     const divRef = React.useRef<any>();
-    const { rePost, unRepost, selectedUser } = storeHooks();
+    const { rePost, unRepost, selectedUser, commenterId } = storeHooks();
     const writeComment = () => {
         // this is the same as this.setState({ openForm: !this.state.open })
         setOpenForm(!openForm);
@@ -75,7 +75,10 @@ function PostItemContainer(props: any) {
 
     return (
         <Fragment>
-            {getNotifications && <ToastContainer autoClose={1000} position={toast.POSITION.BOTTOM_RIGHT} />}
+            {/* do not show notification dialong if commenter comments on a post, only show comment notification if someelse commented on a post
+             do not need to see notification for your own comments
+             */}
+            {getNotifications && currentUser.user.id !== commenterId && <ToastContainer autoClose={1000} position={toast.POSITION.BOTTOM_RIGHT} />}
             <Grid data-testid="post-item-container" item={true} sm={12} md={12} style={{ margin: "20px 0px" }}>
                 <Paper style={{ padding: "20px" }}>
                     {ifOnPosts ? (

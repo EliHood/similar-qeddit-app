@@ -20,6 +20,7 @@ export interface postState {
     searchPageResults: any[];
     selectedUser: string;
     mentionedUser: boolean;
+    commenterId: any;
 }
 
 const initialState: postState = {
@@ -38,6 +39,7 @@ const initialState: postState = {
     searchPageResults: [],
     selectedUser: "",
     mentionedUser: false,
+    commenterId: null,
 };
 
 const postReducer = (state = initialState, action: any): postState =>
@@ -165,6 +167,7 @@ const postReducer = (state = initialState, action: any): postState =>
                         return date2 - date1;
                     }),
                 ];
+                draft.commenterId = action.payload.comment.userId;
                 return;
             case types.COMMENT_UPDATES_FAILURE:
                 console.log(action);

@@ -41,6 +41,7 @@ import {
     results,
     title,
     fetchRelatedUsers,
+    getCommenterId,
 } from "../selectors/selectors";
 function useStoreMethods() {
     const dispatch = useDispatch();
@@ -81,6 +82,7 @@ function useStoreMethods() {
     const mentionUsers = useSelector(fetchRelatedUsers);
     const selectedUser = useSelector(getSelectedUser);
     const mentionedUser = useSelector(mentionUser);
+    const commenterId = useSelector(getCommenterId);
     return {
         posts,
         notifications,
@@ -88,6 +90,7 @@ function useStoreMethods() {
         mentionUsers,
         setSelectedOptionValue,
         setMentioned,
+        commenterId,
         mentionedUser,
         loading,
         errPost,
