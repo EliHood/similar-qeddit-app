@@ -78,7 +78,7 @@ function PostItemContainer(props: any) {
             {/* do not show notification dialong if commenter comments on a post, only show comment notification if someelse commented on a post
              do not need to see notification for your own comments
              */}
-            {getNotifications && currentUser && currentUser.user && currentUser.user.id !== commenterId && <ToastContainer autoClose={1000} position={toast.POSITION.BOTTOM_RIGHT} />}
+            {getNotifications && currentUser && currentUser.user && currentUser.user.id !== commenterId && <ToastContainer autoClose={4000} position={toast.POSITION.BOTTOM_RIGHT} />}
             <Grid data-testid="post-item-container" item={true} sm={12} md={12} style={{ margin: "20px 0px" }}>
                 <Paper style={{ padding: "20px" }}>
                     {ifOnPosts ? (

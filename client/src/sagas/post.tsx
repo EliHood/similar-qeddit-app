@@ -23,7 +23,16 @@ function createEventChannel(pusher: Pusher) {
 
             toast.success(data.body);
         });
-        return () => channel.unbind("my-event", emitter);
+        channel.bind("user-mention", (data: string) => {
+            console.log("sdd usermention", data);
+            // we need an emitter for notificationSuccess method to work
+            emitter(data);
+            toast.info(data);
+        });
+        return () => {
+            channel.unbind("my-event", emitter);
+            channel.unbind("user-mention", emitter);
+        };
     });
 }
 
@@ -36,7 +45,9 @@ function createCommentChannel(pusher: Pusher) {
             emitter(data);
         });
 
-        return () => channel.unbind("new-comment", emitter);
+        return () => {
+            channel.unbind("new-comment", emitter);
+        };
     });
 }
 
