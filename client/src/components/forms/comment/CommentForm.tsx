@@ -26,7 +26,7 @@ export default function CommentForm(props: commentProps) {
     const { setCommentBody, setMentionedUser, comment_body } = props;
     const selectedOption = (option) => {
         setSelectedOptionValue(option);
-        setCommentBody?.(comment_body.concat(option).replace("@", ""));
+        setCommentBody?.(comment_body.concat(option));
         setMentionedUser?.(false);
     };
 

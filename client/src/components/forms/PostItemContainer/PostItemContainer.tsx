@@ -5,8 +5,6 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import moment from "moment";
 import { toast, ToastContainer } from "react-toastify";
 import OurLink from "../../../common/OurLink";
@@ -33,12 +31,21 @@ function PostItemContainer(props: any) {
     };
     const commentChange = (comment) => {
         setCommentBody(comment);
-
-        if (comment.charAt(0).includes("@") && comment.length > 0) {
-            setMentionedUser(true);
-        } else {
+        const regex = /^@/i; // checks for the first character is @
+        // const regexTwitter = /\B@[a-z0-9_-]+/gi;
+        const words = comment.split(" ");
+        if (words.length === 0) {
             setMentionedUser(false);
         }
+        for (let i = 0; i < words.length; i++) {
+            const letter = words[i];
+            if (regex.test(letter)) {
+                setMentionedUser(true);
+            } else {
+                setMentionedUser(false);
+            }
+        }
+
         setGifUrl("");
     };
     const selectGif = (e) => {

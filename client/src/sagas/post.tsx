@@ -40,7 +40,6 @@ function createCommentChannel(pusher: Pusher) {
     return eventChannel((emitter) => {
         const channel = pusher.subscribe("post-comments");
         channel.bind("new-comment", (data: string) => {
-            console.log(data);
             // we need an emitter for notificationSuccess method to work
             emitter(data);
         });
@@ -102,7 +101,6 @@ export function* fetchPost(action) {
     }
 }
 export function* createPost(action) {
-    console.log("saga", action);
     try {
         const post = yield call(api.post.createPost, action.payload);
         yield put(actionTypes.createPostSuccess(post));
