@@ -31,10 +31,11 @@ export default function CommentForm(props: commentProps) {
     };
 
     const options = mentionUsers.map((item, key) => (
-        <option key={key} value={item.display}>
-            {item.display}
+        <option key={key} value={item}>
+            {item}
         </option>
     ));
+
     return (
         <Fragment>
             <form onSubmit={props.onSubmit}>

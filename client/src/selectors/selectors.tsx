@@ -70,13 +70,15 @@ export const fetchRelatedUsers = createSelector(postSelector, (state) => {
             return isNew;
         });
     }
-    const users = state.posts.reduce((names, { author: { username }, Comments }) => {
-        Comments.forEach(({ author: { username }, commentReplies }) => {
-            commentReplies.forEach(({ author: { username } }) => names.push({ id: Math.floor(Math.random() * 1000), display: username }));
-        });
+    // Recursion
+    function recursGetUsers(array) {
+        if (!array) return [];
 
-        return names;
-    }, []);
-    const newUsers = removeDuplicatesBy((x) => x.display, users);
+        return array.flatMap((v) => {
+            return [v.author.username].concat(recursGetUsers(v.Comments)).concat(recursGetUsers(v.commentReplies));
+        });
+    }
+    const users = recursGetUsers(state.posts);
+    const newUsers = removeDuplicatesBy((x) => x, users);
     return newUsers;
 });
