@@ -17,6 +17,7 @@
 - Repost
 - Search Posts
 - Sign Up Validations
+- Mention Users
 - Log in
 - Google Oauth login
 - Log Out

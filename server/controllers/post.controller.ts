@@ -339,18 +339,30 @@ export default {
             },
           ],
         }).then(async (newComment) => {
-          if (usernames.some((user) => req.body.comment_body.includes(user))) {
-            // will trigger mention notification if user is mentioned
-            const username = usernames.find((user) =>
-              req.body.comment_body.includes(user)
-            );
+          const body = req.body.comment_body;
+          if (usernames.some((user) => body.includes(user))) {
+            const regex = /^@/i;
+            const sentence = body.split(" ");
+            for (let i = 0; i < sentence.length; i++) {
+              const word = sentence[i];
+              let username;
+              if (regex.test(word)) {
+                console.log("this test passed bro", word);
+                username = word;
+                const newUsername = username.slice(1);
+                if (usernames.includes(newUsername)) {
+                  NotificationServ.userMention(
+                    currentUser,
+                    newComment.postId,
+                    newUsername,
+                    newComment.userId
+                  );
+                  console.log(newUsername + " got mentioned");
+                }
+              }
+            }
             console.log("this got called");
-            NotificationServ.userMention(
-              currentUser,
-              newComment.postId,
-              username,
-              newComment.userId
-            );
+
             pusherConfig.trigger("post-comments", "user-mention", {
               comment: newComment,
             });
