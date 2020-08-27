@@ -26,8 +26,9 @@ export default {
     const { userId, title } = post;
     console.log("notification", userId);
     const commenterName = commenter.username;
-    const body = `${commenterName} mentioned ${mentionedUser}`;
+    const body = `${commenterName} mentioned you`;
     console.log("checking for user ids", userId, commenterId, currentUser);
+
     if (currentUser !== userId) {
       await models.Notification.create({ userId, body, status: "unread" });
     }

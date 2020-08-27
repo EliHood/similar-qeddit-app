@@ -42,7 +42,7 @@ exports.default = {
             const { userId, title } = post;
             console.log("notification", userId);
             const commenterName = commenter.username;
-            const body = `${commenterName} mentioned ${mentionedUser}`;
+            const body = `${commenterName} mentioned you`;
             console.log("checking for user ids", userId, commenterId, currentUser);
             if (currentUser !== userId) {
                 yield models_1.default.Notification.create({ userId, body, status: "unread" });

@@ -3,3 +3,8 @@
     margin: 0px !important;
     word-wrap: break-word;
 }
+
+.highlightMention {
+    background-color: #ffff00;
+    width: 200px;
+}
