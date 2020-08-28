@@ -78,6 +78,9 @@ const CommentItem: React.FC<CommentItemProps> = (props) => {
                             {editComment && comment.comment_body ? (
                                 <Fragment>
                                     <TextField
+                                        inputProps={{
+                                            "data-testid": "comment-item-textfield",
+                                        }}
                                         className="commentInput"
                                         type="text"
                                         style={{ borderRadius: "50%" }}
@@ -94,9 +97,10 @@ const CommentItem: React.FC<CommentItemProps> = (props) => {
                                 </Fragment>
                             ) : (
                                 <Fragment>
-                                    {comment.gifUrl === "" && <ReactMarkdown className="markdownStyle" source={comment.comment_body} />}
+                                    <div data-testid="comment-body">{comment.gifUrl === "" && <ReactMarkdown className="markdownStyle" source={comment.comment_body} />}</div>
+
                                     {!props.edit && comment.gifUrl && <img style={{ width: "55%", clear: "both", display: "block" }} src={`${comment.gifUrl}`} />}
-                                    <Typography style={{ fontSize: "12px" }} variant="caption" align="left">
+                                    <Typography id="date" style={{ fontSize: "12px" }} variant="caption" align="left">
                                         {moment(comment.createdAt).calendar()}
                                     </Typography>
                                 </Fragment>
@@ -137,10 +141,12 @@ const CommentItem: React.FC<CommentItemProps> = (props) => {
 
                     {type === "reply" && (
                         <Fragment>
-                            <Fragment>
+                            <div data-testid="reply-data">
                                 <Grid container={true}>
                                     <Grid item={true} xs={12} lg={11}>
-                                        <ReactMarkdown className="markdownStyle" source={reply?.replyBody} />
+                                        <div data-testid="reply-body">
+                                            <ReactMarkdown className="markdownStyle" source={reply?.replyBody} />
+                                        </div>
                                         {Object.entries(props.user).length !== 0 ? (
                                             props.user && props.user.user && reply?.userId === props.user.user.id ? (
                                                 <ButtonFunction
@@ -158,7 +164,7 @@ const CommentItem: React.FC<CommentItemProps> = (props) => {
                                         </Typography>
                                     </Grid>
                                 </Grid>
-                            </Fragment>
+                            </div>
                         </Fragment>
                     )}
                 </Grid>
