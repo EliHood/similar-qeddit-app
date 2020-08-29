@@ -5,7 +5,6 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
-import moment from "moment";
 import { toast, ToastContainer } from "react-toastify";
 import OurLink from "../../../common/OurLink";
 import CommentForm from "../comment/CommentForm";
@@ -16,6 +15,8 @@ import LoopIcon from "@material-ui/icons/Loop";
 import RepeatIcon from "@material-ui/icons/Repeat";
 import "react-toastify/dist/ReactToastify.css";
 import storeHooks from "../../../common/storeHooks";
+import OurDate from "../../../common/Date";
+import AuthButtons from "../../../common/AuthButtons";
 
 function PostItemContainer(props: any) {
     const [openModal, setOpenModal] = useState(false);
@@ -167,29 +168,12 @@ function PostItemContainer(props: any) {
                         </Grid>
                         <Grid item={true} sm={2} lg={2} style={{ padding: "0px 15px" }}>
                             <Typography align="right">
-                                {Object.entries(currentUser).length === 0 ? (
-                                    <Fragment>
-                                        <span onClick={handleClickOpen}>
-                                            <LikeButton type="unliked" likeCounts={post.likeCounts} />
-                                        </span>
-                                        {openModal ? <OurModal open={openModal} handleClose={handleCloseModal} /> : null}
-                                    </Fragment>
-                                ) : (
-                                    <Fragment>
-                                        {post.likedByMe === true ? (
-                                            <LikeButton postId={post.id} type="liked" likeCounts={post.likeCounts} />
-                                        ) : (
-                                            <LikeButton postId={post.id} type="unliked" likeCounts={post.likeCounts} />
-                                        )}
-                                    </Fragment>
-                                )}
+                                <AuthButtons currentUser={currentUser} type="post-buttons" handleClickOpen={handleClickOpen} handleCloseModal={handleCloseModal} post={post} openModal={openModal} />
                             </Typography>
                         </Grid>
                     </Grid>
 
-                    <Typography variant="subtitle1" align="left">
-                        {moment(post.createdAt).calendar()}
-                    </Typography>
+                    <OurDate type="post-date" createdAt={post.createdAt} />
                     <Grid item={true} sm={12} lg={12} style={{ paddingTop: "40px" }}>
                         {post.Comments.length === 0 ? <div ref={divRef}></div> : null}
                         {post.Comments.length > 0 ? (
@@ -207,20 +191,15 @@ function PostItemContainer(props: any) {
                                 <Typography>No Commments Yet</Typography>
                             </Grid>
                         )}
-                        {Object.entries(currentUser).length === 0 ? (
-                            <Fragment>
-                                <Button onClick={handleClickOpen} variant="outlined" component="span" color="primary">
-                                    {"Write A Comment"}
-                                </Button>
-                                {openModal ? <OurModal open={openModal} handleClose={handleCloseModal} /> : null}
-                            </Fragment>
-                        ) : (
-                            <Fragment>
-                                <Button onClick={writeComment} variant="outlined" component="span" color="primary">
-                                    {openForm ? "Close" : "Write A Comment"}
-                                </Button>
-                            </Fragment>
-                        )}
+                        <AuthButtons
+                            type="post-buttons-modal"
+                            currentUser={currentUser}
+                            writeComment={writeComment}
+                            openForm={openForm}
+                            handleClickOpen={handleClickOpen}
+                            handleCloseModal={handleCloseModal}
+                            openModal={openModal}
+                        />
                         {openForm ? (
                             <CommentForm
                                 commentChange={(e: any) => commentChange(e.target.value)}

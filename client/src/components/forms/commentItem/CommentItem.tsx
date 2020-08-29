@@ -1,18 +1,15 @@
 import React, { Fragment, useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
-import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
-import EditIcon from "@material-ui/icons/Edit";
-import ClearIcon from "@material-ui/icons/Clear";
-import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import ReactMarkdown from "react-markdown/with-html";
 import ButtonFunction from "../../../common/ButtonFunction";
-import ReplyIcon from "@material-ui/icons/Reply";
 import "./style.css";
-import moment from "moment";
 import { Grid } from "@material-ui/core";
 import storeHooks from "../../../common/storeHooks";
-import { MentionsInput, Mention } from "react-mentions";
+import OurDate from "../../../common/Date";
+import CommentBody from "../commentBody/commentBody";
+import OurTextField from "../../../common/OurTextField";
+import AuthButtons from "../../../common/AuthButtons";
 type CommentItemProps = {
     editComment: (comment) => void;
     onReply: () => void;
@@ -44,8 +41,8 @@ type CommentItemProps = {
 const CommentItem: React.FC<CommentItemProps> = (props) => {
     const [commentEdit, setCommentEdit] = useState("");
     const [editComment, setEditComment] = useState(false);
-    const [mention, setMentionedUser] = useState();
-    const { deleteRep, mentionUsers } = storeHooks();
+    const [] = useState();
+    const { deleteRep } = storeHooks();
 
     const update = (comment) => {
         const data = {
@@ -76,34 +73,9 @@ const CommentItem: React.FC<CommentItemProps> = (props) => {
                     {type === "comment" && (
                         <Fragment>
                             {editComment && comment.comment_body ? (
-                                <Fragment>
-                                    <TextField
-                                        inputProps={{
-                                            "data-testid": "comment-item-textfield",
-                                        }}
-                                        className="commentInput"
-                                        type="text"
-                                        style={{ borderRadius: "50%" }}
-                                        id="outlined-multiline-static"
-                                        multiline={true}
-                                        name="comment_body"
-                                        defaultValue={comment.comment_body}
-                                        rows="2"
-                                        fullWidth={true}
-                                        margin="normal"
-                                        variant="outlined"
-                                        onChange={(e) => setCommentEdit(e.target.value)}
-                                    />
-                                </Fragment>
+                                <OurTextField type="edit-comment" comment_body={comment.comment_body} setCommentEdit={(e) => setCommentEdit(e.target.value)} />
                             ) : (
-                                <Fragment>
-                                    <div data-testid="comment-body">{comment.gifUrl === "" && <ReactMarkdown className="markdownStyle" source={comment.comment_body} />}</div>
-
-                                    {!props.edit && comment.gifUrl && <img style={{ width: "55%", clear: "both", display: "block" }} src={`${comment.gifUrl}`} />}
-                                    <Typography id="date" style={{ fontSize: "12px" }} variant="caption" align="left">
-                                        {moment(comment.createdAt).calendar()}
-                                    </Typography>
-                                </Fragment>
+                                <CommentBody comment={comment} edit={props.edit} />
                             )}
 
                             {comment.comment_body && editComment ? (
@@ -114,26 +86,7 @@ const CommentItem: React.FC<CommentItemProps> = (props) => {
                             ) : (
                                 <Fragment>
                                     {/* if guest is on home page */}
-                                    {Object.entries(props.user).length !== 0 ? (
-                                        <Fragment>
-                                            {props.user && props.user.user && comment.userId === props.user.user.id ? (
-                                                <Typography style={{ display: "inline-block", float: "right" }} align="right">
-                                                    <ButtonFunction type="delete" comment={comment} userId={comment.userId} postId={props.postId} commentId={comment.id} />
-                                                </Typography>
-                                            ) : null}
-                                            <Typography style={{ display: "inline-block", float: "right" }} align="right">
-                                                <ButtonFunction type="reply" onReply={props.onReply} />
-                                            </Typography>
-                                            {/* hide edit button if gifUrl */}
-                                            {!comment.gifUrl && comment.userId === props.user.user.id ? (
-                                                <Fragment>
-                                                    <Typography style={{ display: "inline-block", margin: "0px 20px", float: "right" }} align="left">
-                                                        <ButtonFunction type="edit" setEditComment={setEditComment} />
-                                                    </Typography>
-                                                </Fragment>
-                                            ) : null}
-                                        </Fragment>
-                                    ) : null}
+                                    <AuthButtons type="comment-buttons" comment={comment} user={props.user} postId={props.postId} onReply={props.onReply} setEditComment={setEditComment} />
                                 </Fragment>
                             )}
                         </Fragment>
@@ -159,9 +112,7 @@ const CommentItem: React.FC<CommentItemProps> = (props) => {
                                                 />
                                             ) : null
                                         ) : null}
-                                        <Typography style={{ fontSize: "12px" }} variant="caption" align="left">
-                                            {moment(reply?.createdAt).calendar()}
-                                        </Typography>
+                                        <OurDate type="reply-date" createdAt={reply?.createdAt} />
                                     </Grid>
                                 </Grid>
                             </div>

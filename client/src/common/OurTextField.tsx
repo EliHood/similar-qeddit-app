@@ -5,7 +5,7 @@ import GifIcon from "@material-ui/icons/Gif";
 import TextFieldsIcon from "@material-ui/icons/TextFields";
 import storeHooks from "./storeHooks";
 type FieldType = {
-    type: "gif-commentfield" | "post" | "comment" | "post-content";
+    type: "gif-commentfield" | "post" | "comment" | "post-content" | "edit-comment";
     handleTitleChange?: (e: any) => void;
     title?: String;
     titleError?: boolean | null;
@@ -16,6 +16,7 @@ type FieldType = {
     handleContentChange?: (e: any) => void;
     setGifSelected?: () => void;
     selectedUser?: String;
+    setCommentEdit?: (e: any) => void;
 };
 
 const OurTextField: React.FC<FieldType> = (props) => {
@@ -79,6 +80,25 @@ const OurTextField: React.FC<FieldType> = (props) => {
                     value={props.post_content!}
                     onChange={props?.handleContentChange}
                     margin="normal"
+                />
+            )}
+            {props.type === "edit-comment" && (
+                <TextField
+                    inputProps={{
+                        "data-testid": "comment-item-textfield",
+                    }}
+                    className="commentInput"
+                    type="text"
+                    style={{ borderRadius: "50%" }}
+                    id="outlined-multiline-static"
+                    multiline={true}
+                    name="comment_body"
+                    defaultValue={props.comment_body}
+                    rows="2"
+                    fullWidth={true}
+                    margin="normal"
+                    variant="outlined"
+                    onChange={props?.setCommentEdit}
                 />
             )}
         </Fragment>
