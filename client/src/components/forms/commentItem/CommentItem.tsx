@@ -63,8 +63,8 @@ const CommentItem: React.FC<CommentItemProps> = (props) => {
         };
         deleteRep(data);
     };
-    const memoizedDeleteReply = useCallback((replyId, postId, userId, commentId) => deleteReply(replyId, postId, userId, commentId), []);
-    const memoizedUpdate = useCallback((comment) => update(comment), []);
+    const memoizedDeleteReply = useCallback((replyId, postId, userId, commentId) => deleteReply(replyId, postId, userId, commentId), [deleteReply]);
+    const memoizedUpdate = useCallback((comment) => update(comment), [update]);
     const { type, comment, reply } = props;
 
     return (

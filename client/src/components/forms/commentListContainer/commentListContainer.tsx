@@ -14,24 +14,28 @@ const CommentListContainer: RefForwardingComponent<HTMLDivElement, any> = (props
     const { replyComm } = storeHooks();
     const [replyComment, setReplyComment] = useState(false);
     const [addReply, setReply] = useState("");
-    const replySubmit = (e) => {
-        e.preventDefault();
-        const data = {
-            replyBody: addReply,
-            userId: props.user.user.id,
-            postId: props.postId,
-            commentId: comment.id,
-        };
+    const replySubmit = React.useCallback(
+        (e: any) => {
+            e.preventDefault();
+            const data = {
+                replyBody: addReply,
+                userId: props.user.user.id,
+                postId: props.postId,
+                commentId: comment.id,
+            };
 
-        replyComm(data);
-        setReplyComment(false);
-        setReply("");
-    };
+            replyComm(data);
+            setReplyComment(false);
+            setReply("");
+        },
+        [replyComm, setReplyComment, setReply],
+    );
     // this pass onReply to CommentItem component, when its clicked from commentItem it will call this function which displays
     // the reply Form
-    const onReply = () => {
+    const onReply = React.useCallback(() => {
+        console.log("onreply callback");
         setReplyComment(!replyComment);
-    };
+    }, [setReplyComment, replyComment]);
 
     return (
         <List innerRef={ref} style={{ paddingBottom: "20px" }} data-testid="comment-list-container">

@@ -20,14 +20,17 @@ function EditProfile(props: any) {
             setGravatar(gravatar ? gravatar : profileData.gravatar);
         }
     });
-    const handleSubmit = (e: any) => {
-        e.preventDefault();
-        const formData = {
-            bio,
-            gravatar,
-        };
-        updateProfile(formData);
-    };
+    const handleSubmit = React.useCallback(
+        (e: any) => {
+            e.preventDefault();
+            const formData = {
+                bio,
+                gravatar,
+            };
+            updateProfile(formData);
+        },
+        [updateProfile],
+    );
 
     return (
         <OurWrapper appBar={props.appBar} appOpen={props.appOpen} appBarShift={props.appBarShift}>

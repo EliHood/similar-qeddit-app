@@ -26,57 +26,66 @@ function PostItemContainer(props: any) {
     const [mentionedUser, setMentionedUser] = useState(false);
     const divRef = React.useRef<any>();
     const { rePost, unRepost, selectedUser, commenterId } = storeHooks();
-    const writeComment = () => {
+    const writeComment = React.useCallback(() => {
         // this is the same as this.setState({ openForm: !this.state.open })
         setOpenForm(!openForm);
-    };
-    const commentChange = (comment) => {
-        setCommentBody(comment);
-        const regex = /^@/i; // checks for the first character is @
-        // const regexTwitter = /\B@[a-z0-9_-]+/gi;
-        const words = comment.split(" ");
-        if (words.length === 0) {
-            setMentionedUser(false);
-        }
-        for (let i = 0; i < words.length; i++) {
-            const letter = words[i];
-            if (regex.test(letter)) {
-                setMentionedUser(true);
-            } else {
+    }, [setOpenForm, openForm]);
+    const commentChange = React.useCallback(
+        (comment) => {
+            setCommentBody(comment);
+            const regex = /^@/i; // checks for the first character is @
+            // const regexTwitter = /\B@[a-z0-9_-]+/gi;
+            const words = comment.split(" ");
+            if (words.length === 0) {
                 setMentionedUser(false);
             }
-        }
+            for (let i = 0; i < words.length; i++) {
+                const letter = words[i];
+                if (regex.test(letter)) {
+                    setMentionedUser(true);
+                } else {
+                    setMentionedUser(false);
+                }
+            }
 
-        setGifUrl("");
-    };
-    const selectGif = (e) => {
-        setGifUrl(e.images.downsized_large.url);
-        setCommentBody("");
-        // you wont be able to add text comment with a gif, it will look weird :(
-    };
-    const handleClickOpen = () => {
+            setGifUrl("");
+        },
+        [setMentionedUser, setGifUrl],
+    );
+    const selectGif = React.useCallback(
+        (e) => {
+            setGifUrl(e.images.downsized_large.url);
+            setCommentBody("");
+            // you wont be able to add text comment with a gif, it will look weird :(
+        },
+        [setGifUrl, setCommentBody],
+    );
+    const handleClickOpen = React.useCallback(() => {
         setOpenModal(true);
-    };
-    const handleCloseModal = () => {
+    }, [setOpenModal]);
+    const handleCloseModal = React.useCallback(() => {
         setOpenModal(false);
-    };
-    const commentSubmit = (e: any, id: number) => {
-        e.preventDefault();
-        const formData = {
-            comment_body,
-            id,
-            gifUrl,
-        };
-        props.postComment(formData);
-        setCommentBody("");
-        setOpenForm(false);
+    }, [setOpenModal]);
+    const commentSubmit = React.useCallback(
+        (e: any, id: number) => {
+            e.preventDefault();
+            const formData = {
+                comment_body,
+                id,
+                gifUrl,
+            };
+            props.postComment(formData);
+            setCommentBody("");
+            setOpenForm(false);
 
-        // divRef.current.scrollIntoView({ behavior: "smooth" });
-        // my attempt to scroll to the lastest comment.
-        setTimeout(() => {
-            divRef.current.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
-        }, 1200);
-    };
+            // divRef.current.scrollIntoView({ behavior: "smooth" });
+            // my attempt to scroll to the lastest comment.
+            setTimeout(() => {
+                divRef.current.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+            }, 1200);
+        },
+        [setCommentBody, setOpenForm, comment_body, gifUrl],
+    );
     const { post, currentUser, getNotifications } = props;
     // check if user is on user posts,
     const ifOnPosts = window.location.href.indexOf("posts") != -1;

@@ -19,18 +19,22 @@ function CommentList(props: any, ref: Ref<HTMLDivElement>) {
             setShowMore(the_comments);
         }
     };
-    const handleClickOpen = () => {
+    const handleClickOpen = React.useCallback(() => {
+        console.log("this got called owl man");
         setOpenModal(true);
-    };
+    }, [setOpenModal]);
     const handleCloseModal = () => {
         setOpenModal(false);
     };
 
-    const showLessComments = (e) => {
-        e.preventDefault();
-        setShowMore(2);
-        setShowLessFlag(false);
-    };
+    const showLessComments = React.useCallback(
+        (e) => {
+            e.preventDefault();
+            setShowMore(2);
+            setShowLessFlag(false);
+        },
+        [setShowMore, setShowLessFlag],
+    );
     const isBold = (comment) => {
         return comment.userId === props.userId ? 800 : 400;
     };
