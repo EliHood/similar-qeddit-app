@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useCallback } from "react";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import ReactMarkdown from "react-markdown/with-html";
@@ -41,7 +41,6 @@ type CommentItemProps = {
 const CommentItem: React.FC<CommentItemProps> = (props) => {
     const [commentEdit, setCommentEdit] = useState("");
     const [editComment, setEditComment] = useState(false);
-    const [] = useState();
     const { deleteRep } = storeHooks();
 
     const update = (comment) => {
@@ -54,6 +53,7 @@ const CommentItem: React.FC<CommentItemProps> = (props) => {
         props.editComment(data);
         setEditComment(false);
     };
+
     const deleteReply = (replyId, postId, userId, commentId) => {
         const data = {
             replyId: replyId,
@@ -63,7 +63,8 @@ const CommentItem: React.FC<CommentItemProps> = (props) => {
         };
         deleteRep(data);
     };
-
+    const memoizedDeleteReply = useCallback((replyId, postId, userId, commentId) => deleteReply(replyId, postId, userId, commentId), []);
+    const memoizedUpdate = useCallback((comment) => update(comment), []);
     const { type, comment, reply } = props;
 
     return (
@@ -81,7 +82,7 @@ const CommentItem: React.FC<CommentItemProps> = (props) => {
                             {comment.comment_body && editComment ? (
                                 <Fragment>
                                     <ButtonFunction type="cancel" setEditComment={setEditComment} />
-                                    <ButtonFunction type="update" update={update} comment={comment} />
+                                    <ButtonFunction type="update" update={memoizedUpdate} comment={comment} />
                                 </Fragment>
                             ) : (
                                 <Fragment>
@@ -108,7 +109,7 @@ const CommentItem: React.FC<CommentItemProps> = (props) => {
                                                     replyUserId={reply.userId}
                                                     commentId={comment.id}
                                                     postId={props.postId}
-                                                    deleteReply={deleteReply}
+                                                    deleteReply={memoizedDeleteReply}
                                                 />
                                             ) : null
                                         ) : null}
