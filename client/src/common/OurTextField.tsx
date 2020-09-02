@@ -21,7 +21,7 @@ type FieldType = {
 
 const OurTextField: React.FC<FieldType> = (props) => {
     const { selectedUser } = storeHooks();
-    const ifSelectedUser = selectedUser !== "" ? "@" + selectedUser : "";
+
     return (
         <Fragment>
             {props.type === "post" && (
