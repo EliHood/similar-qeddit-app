@@ -37,9 +37,9 @@ function MyRouter(props) {
         setAnchorEl(event.currentTarget);
         props.notifications(user.id);
     };
-    const handleClose = () => {
+    const handleClose = React.useCallback(() => {
         setAnchorEl(null);
-    };
+    }, [setAnchorEl]);
     const user = props.currentUser.user ? props.currentUser.user : "";
     return props.hasError ? (
         <div>Error</div>
