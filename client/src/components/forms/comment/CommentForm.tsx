@@ -18,23 +18,31 @@ export interface commentProps {
     mentionedUser?: boolean;
     setMentionedUser?: (data: boolean) => void;
     setCommentBody?: (data: string) => any;
+    currentUser?: {
+        username: string;
+    };
 }
 
 export default function CommentForm(props: commentProps) {
     const [isGifSelected, setGifSelected] = useState<Boolean>(false);
     const { mentionUsers, setSelectedOptionValue, selectedUser, mentionedUser } = storeHooks();
-    const { setCommentBody, setMentionedUser, comment_body } = props;
-    const selectedOption = (option) => {
-        setSelectedOptionValue(option);
-        setCommentBody?.(comment_body.concat(option));
-        setMentionedUser?.(false);
-    };
+    const { setCommentBody, setMentionedUser, currentUser, comment_body } = props;
+    const selectedOption = React.useCallback(
+        (option) => {
+            setSelectedOptionValue(option);
+            setCommentBody?.(comment_body.concat(option));
+            setMentionedUser?.(false);
+        },
+        [setSelectedOptionValue, setCommentBody, setMentionedUser, comment_body],
+    );
 
-    const options = mentionUsers.map((item, key) => (
-        <option key={key} value={item}>
-            {item}
-        </option>
-    ));
+    const options = mentionUsers
+        .filter((item) => item !== currentUser?.username) // current user can't mention themselves
+        .map((item, key) => (
+            <option key={key} value={item}>
+                {item}
+            </option>
+        ));
 
     return (
         <Fragment>

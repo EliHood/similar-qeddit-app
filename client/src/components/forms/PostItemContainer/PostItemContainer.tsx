@@ -219,6 +219,7 @@ function PostItemContainer(props: any) {
                                 mentionedUser={mentionedUser}
                                 setMentionedUser={setMentionedUser}
                                 setCommentBody={setCommentBody}
+                                currentUser={props.currentUser.user}
                             />
                         ) : null}
                     </Grid>
