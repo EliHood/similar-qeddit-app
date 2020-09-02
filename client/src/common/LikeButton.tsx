@@ -10,11 +10,13 @@ type LikeButtonProps = {
 
 const LikeButton: React.FC<LikeButtonProps> = (props) => {
     const { likePost, dislikePost } = storehooks();
+    const memoizedLike = React.useCallback((id) => likePost(id), [likePost]);
+    const memoizedDislike = React.useCallback((id) => dislikePost(id), [dislikePost]);
     return (
         <Fragment>
             {props.type === "liked" && (
                 <Fragment>
-                    <span style={{ cursor: "pointer" }} onClick={() => dislikePost(props.postId!)}>
+                    <span style={{ cursor: "pointer" }} onClick={() => memoizedDislike(props.postId!)}>
                         <span style={{ padding: "12px" }}>Likes {props.likeCounts}</span>
                         <FavoriteIcon style={{ color: "red", cursor: "pointer", margin: "-7px" }} />
                     </span>
@@ -22,7 +24,7 @@ const LikeButton: React.FC<LikeButtonProps> = (props) => {
             )}
             {props.type === "unliked" && (
                 <Fragment>
-                    <span onClick={() => likePost(props.postId!)}>
+                    <span onClick={() => memoizedLike(props.postId!)}>
                         <span style={{ padding: "12px" }}>Likes {props.likeCounts}</span>
                         <FavoriteBorderIcon style={{ color: "red", cursor: "pointer", margin: "-7px" }} />
                     </span>
