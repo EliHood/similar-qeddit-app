@@ -14,12 +14,12 @@ function PostList(props: any) {
         <Fragment>
             {posts.length > 0 ? (
                 posts.map((post, i) => (
-                    <Fragment key={i}>
+                    <div key={i} data-testid="post-list">
                         <PostItemContainer post={post} currentUser={currentUser} {...props} />
-                    </Fragment>
+                    </div>
                 ))
             ) : (
-                <div>
+                <div data-testid="no-posts">
                     <Grid item={true} md={8}>
                         <Typography>No Posts yet</Typography>
                     </Grid>
