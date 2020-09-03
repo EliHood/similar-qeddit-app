@@ -8,6 +8,7 @@ import OurLoader from "../../../common/OurLoader";
 
 function PostList(props: any) {
     const { posts, currentUser } = props;
+
     return storeHooks().loading ? (
         <OurLoader />
     ) : (

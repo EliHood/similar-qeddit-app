@@ -8,16 +8,15 @@ type CommentType = {
         comment_body: string;
         createdAt: string;
     };
-    edit: () => void;
 };
 
 const CommentBody: React.FC<CommentType> = (props) => {
-    const { comment, edit } = props;
+    const { comment } = props;
     return (
         <Fragment>
             <div data-testid="comment-body">{comment.gifUrl === "" && <ReactMarkdown className="markdownStyle" source={comment.comment_body} />}</div>
 
-            {!edit && comment.gifUrl && <img style={{ width: "55%", clear: "both", display: "block" }} src={`${comment.gifUrl}`} />}
+            {comment.gifUrl && <img style={{ width: "55%", clear: "both", display: "block" }} src={`${comment.gifUrl}`} />}
 
             <OurDate type="comment-date" createdAt={comment.createdAt} />
         </Fragment>

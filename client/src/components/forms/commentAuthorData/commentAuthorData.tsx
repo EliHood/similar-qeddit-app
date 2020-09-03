@@ -18,13 +18,14 @@ interface CommentAuthorDataInterface {
     currentUser: Object;
 }
 const CommentAuthorData = (props: CommentAuthorDataInterface) => {
-    const { comment, isBold, openModal, handleCloseModal, handleClickOpen } = props;
+    const { comment, isBold, currentUser, openModal, handleCloseModal, handleClickOpen } = props;
     const isReply = comment["commentReplies"] !== undefined ? "-10px 15px" : "-10px 0px";
+
     return (
         <Fragment>
             <img alt="gravatar" style={{ margin: isReply }} src={comment.author.gravatar} width="30" height="30" />
             <Typography style={{ display: "inline-block", margin: "10px 10px", fontWeight: 700, padding: "0px 0px" }} variant="h6" align="left">
-                {Object.entries(props.currentUser).length === 0 ? (
+                {Object.entries(currentUser).length === 0 ? (
                     <Fragment>
                         <span style={{ fontSize: "12px", margin: "0px", padding: "0px", cursor: "pointer", fontWeight: isBold(comment) }} onClick={handleClickOpen}>
                             {comment.author.username}

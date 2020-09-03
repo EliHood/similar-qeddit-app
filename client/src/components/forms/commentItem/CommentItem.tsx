@@ -29,7 +29,7 @@ type CommentItemProps = {
     type: "comment" | "reply";
     postId: number;
     deleteComment: (commentId, postId, userId) => void;
-    edit: () => void;
+
     user: {
         user: {
             id: number;
@@ -76,7 +76,7 @@ const CommentItem: React.FC<CommentItemProps> = (props) => {
                             {editComment && comment.comment_body ? (
                                 <OurTextField type="edit-comment" comment_body={comment.comment_body} setCommentEdit={(e) => setCommentEdit(e.target.value)} />
                             ) : (
-                                <CommentBody comment={comment} edit={props.edit} />
+                                <CommentBody comment={comment} />
                             )}
 
                             {comment.comment_body && editComment ? (
