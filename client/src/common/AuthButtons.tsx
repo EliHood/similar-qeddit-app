@@ -4,6 +4,7 @@ import ButtonFunction from "./ButtonFunction";
 import LikeButton from "./LikeButton";
 import OurModal from "./OurModal";
 import { Button } from "@material-ui/core";
+import storehooks from "./storeHooks";
 type AuthButtonType = {
     type: "post-buttons" | "comment-buttons" | "post-buttons-modal";
     user?: {
@@ -34,6 +35,9 @@ type AuthButtonType = {
 
 const AuthButtons: React.FC<AuthButtonType> = (props) => {
     const { postId, currentUser, writeComment, openForm, openModal, handleCloseModal, handleClickOpen, post, type, comment, user, onReply, setEditComment } = props;
+    const { likePost, dislikePost } = storehooks();
+    const memoizedLike = React.useCallback((id) => likePost(id), [likePost]);
+    const memoizedDislike = React.useCallback((id) => dislikePost(id), [dislikePost]);
     return (
         <Fragment>
             {type === "comment-buttons" &&
@@ -62,16 +66,16 @@ const AuthButtons: React.FC<AuthButtonType> = (props) => {
                 (Object.entries(currentUser!).length === 0 ? (
                     <Fragment>
                         <span onClick={handleClickOpen}>
-                            <LikeButton type="unliked" likeCounts={post!.likeCounts} />
+                            <LikeButton like={memoizedLike} type="unliked" likeCounts={post!.likeCounts} />
                         </span>
                         {openModal ? <OurModal open={openModal} handleClose={handleCloseModal} /> : null}
                     </Fragment>
                 ) : (
                     <Fragment>
                         {post!.likedByMe === true ? (
-                            <LikeButton postId={post!.id} type="liked" likeCounts={post!.likeCounts} />
+                            <LikeButton postId={post!.id} dislike={memoizedDislike} type="liked" likeCounts={post!.likeCounts} />
                         ) : (
-                            <LikeButton postId={post!.id} type="unliked" likeCounts={post!.likeCounts} />
+                            <LikeButton postId={post!.id} like={memoizedLike} type="unliked" likeCounts={post!.likeCounts} />
                         )}
                     </Fragment>
                 ))}

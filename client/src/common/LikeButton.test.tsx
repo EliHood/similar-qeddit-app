@@ -31,4 +31,35 @@ describe("Should test <Like/> component", () => {
         );
         expect(container.find(FavoriteBorderIcon).at(0)).toHaveLength(1);
     });
+
+    it("should test onClick of liked button", () => {
+        const mockFn = jest.fn();
+        const container = mount(
+            <Provider store={store}>
+                <LikeButton {...mockProps2} like={mockFn} />
+            </Provider>,
+        );
+
+        container
+            .find("span")
+            .at(0)
+            .simulate("click");
+        expect(mockFn).toHaveBeenCalled();
+        // how should i pass jest.fn() to the onClick prop ?
+    });
+    it("should test onClick of unliked button", () => {
+        const mockFn = jest.fn();
+        const container = mount(
+            <Provider store={store}>
+                <LikeButton {...mockProps} dislike={mockFn} />
+            </Provider>,
+        );
+
+        container
+            .find("span")
+            .at(0)
+            .simulate("click");
+        expect(mockFn).toHaveBeenCalled();
+        // how should i pass jest.fn() to the onClick prop ?
+    });
 });
