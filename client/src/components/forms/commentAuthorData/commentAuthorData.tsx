@@ -19,7 +19,7 @@ interface CommentAuthorDataInterface {
 }
 const CommentAuthorData = (props: CommentAuthorDataInterface) => {
     const { comment, isBold, currentUser, openModal, handleCloseModal, handleClickOpen } = props;
-    const isReply = comment["commentReplies"] !== undefined ? "-10px 15px" : "-10px 0px";
+    const isReply = comment.commentReplies !== undefined ? "-10px 15px" : "-10px 0px";
 
     return (
         <Fragment>

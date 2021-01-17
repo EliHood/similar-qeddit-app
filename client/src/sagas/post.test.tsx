@@ -12,7 +12,7 @@ it("should test get posts error", () => {
     const error = new Error("Whoops");
     return expectSaga(getPosts)
         .provide([[call(api.post.getPosts), throwError(error)]])
-        .put({ type: types.GET_POSTS_FAILURE, error: error })
+        .put({ type: types.GET_POSTS_FAILURE, error })
         .run();
 });
 
@@ -72,6 +72,6 @@ it("should test fetch post error", () => {
             [call(api.post.getPost, postId), post],
             [matchers.call.fn(api.post.getPost), error],
         ])
-        .put({ type: types.FETCH_POST_FAILURE, error: error })
+        .put({ type: types.FETCH_POST_FAILURE, error })
         .run();
 });

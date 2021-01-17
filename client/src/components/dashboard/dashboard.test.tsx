@@ -51,7 +51,6 @@ describe("Should test <Dashboard/> component", () => {
             title: "owls are cool",
             content: "im a goat and a fish",
         };
-        // console.log(data);
         expect(wrapper.find("PostForm").simulate("submit", { preventDefault() {} }));
         expect(mockDispatch).toHaveBeenCalled(result.current(data)); // this issues is caused by this line
     });

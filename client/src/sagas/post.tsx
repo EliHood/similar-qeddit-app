@@ -213,7 +213,7 @@ export function* replyComment(action) {
         const postId = action.payload.postId;
         const commentId = action.payload.commentId;
         const replyBody = action.payload.replyBody;
-        const replyComment = yield call(api.post.replyComment, postId, commentId, { replyBody: replyBody });
+        const replyComment = yield call(api.post.replyComment, postId, commentId, { replyBody });
         yield put(actionTypes.commentReplySuccess(replyComment));
     } catch (err) {
         yield put(actionTypes.commentReplyFailure(err));

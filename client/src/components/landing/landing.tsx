@@ -2,16 +2,13 @@ import React, { Fragment } from "react";
 import PostList from "../forms/postList/postList";
 import GridHoc from "../hoc/grid";
 import Typography from "@material-ui/core/Typography";
-import usePostsHook from "./../../common/postsHook";
+import usePostsHook from "../../common/usePostHook";
 import storeMethods from "./../../common/storeHooks";
 import OurError from "../../common/OurError";
 import OurWrapper from "../../common/OurWrapper";
 import Grid from "@material-ui/core/Grid";
 function Landing(props: any) {
-    // calls the posts api once, then we use storeMethods().posts to get the posts from store
     usePostsHook();
-    // const classes = styles();
-
     return (
         <Fragment>
             <OurWrapper appBar={props.appBar} appOpen={props.appOpen} appBarShift={props.appBarShift}>

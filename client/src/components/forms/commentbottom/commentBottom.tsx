@@ -91,7 +91,7 @@ const CommentBottom: React.FC<commentBottomType> = ({ post, currentUser, deleteC
     );
     return (
         <Grid item={true} sm={12} lg={12} style={{ paddingTop: "40px" }}>
-            {post.Comments.length === 0 ? <div ref={divRef}></div> : null}
+            {post.Comments.length === 0 ?  <div ref={divRef}/> : null}
             {post.Comments.length > 0 ? (
                 <Fragment>
                     <span style={{ margin: "15px 0px", fontSize: "14px" }}> ({post.Comments.length}) </span>

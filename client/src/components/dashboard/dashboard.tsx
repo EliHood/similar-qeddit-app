@@ -25,7 +25,6 @@ function Dashboard(props: any) {
     const onSubmit = (e: any) => {
         e.preventDefault();
         const postData = { ourTitle, ourPostContent };
-        console.log(postData);
         createPost(postData);
     };
     const isEnabled = titleError === true && ourBodyError === true ? false : true;

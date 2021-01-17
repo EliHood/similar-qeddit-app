@@ -25,7 +25,6 @@ class Nav extends Component<routerContainerProps, routerContainerState> {
         this.props.getUser();
     }
     componentDidCatch(error, info) {
-        console.log(error, info);
         this.setState({
             hasError: true,
         });

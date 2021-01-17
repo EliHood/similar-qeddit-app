@@ -62,9 +62,9 @@ export const getCommenterId = createSelector(postSelector, (state) => state.comm
 export const fetchRelatedUsers = createSelector(postSelector, (state) => {
     // const users = state.posts.flatMap((x) => [x.author.username].concat(x.Comments.flatMap((y) => y.commentReplies.map((z) => z.author.username).concat(y.author.username))));
     function removeDuplicatesBy(keyFn, array) {
-        var mySet = new Set();
+        let mySet = new Set();
         return array.filter(function(x) {
-            var key = keyFn(x),
+            let key = keyFn(x),
                 isNew = !mySet.has(key);
             if (isNew) mySet.add(key);
             return isNew;

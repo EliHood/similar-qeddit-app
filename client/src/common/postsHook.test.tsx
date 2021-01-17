@@ -1,17 +1,11 @@
-import React from "react";
-import { renderHook, act } from "@testing-library/react-hooks";
-import usePostsHook from "./postsHook";
+import { renderHook } from "@testing-library/react-hooks";
+import usePostsHook from "./usePostHook";
 import { initCommentUpdates, getPostsInit } from "../actions/postActions";
-import { getPosts } from "../selectors/selectors";
-import { useSelector, useDispatch } from "react-redux";
 import * as ReactRedux from "react-redux";
-import { Provider } from "react-redux";
-import { store } from "../store";
 
 describe("usePostsHook hook", () => {
     // this mock will be the dispatch function that redux returns on useDispatch()
     const mockDispatch = jest.fn();
-    const mockSelector = jest.fn();
     beforeAll(() => {
         // tells useDispatch to return the mocked dispatch
         ReactRedux.useDispatch = jest.fn().mockImplementation(() => mockDispatch);

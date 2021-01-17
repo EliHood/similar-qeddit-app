@@ -15,7 +15,7 @@ const Search: React.FC<SearchType> = (props) => {
     };
     const onSubmit = (e) => {
         e.preventDefault();
-        history.push({ pathname: `/search/posts?q=${query}`, state: { query: query, currentUser: props.currentUser } });
+        history.push({ pathname: `/search/posts?q=${query}`, state: { query, currentUser: props.currentUser } });
     };
     const disableIfEmpty = query.length === 0 ? true : false;
     const ifTyping = query.length > 0 ? "100px" : "-40px";

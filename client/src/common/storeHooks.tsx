@@ -1,4 +1,3 @@
-import usePostsHook from "./postsHook";
 import useNotificationHook from "./notificationHook";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserProfile, updateUserProfile } from "../actions/userActions";
@@ -13,9 +12,7 @@ import {
     searchPostsInit,
     deleteReplyInit,
     createPostInit,
-    addTitle,
     setMentionedUser,
-    addContent,
     deleteCommentInit,
     editCommentInit,
     postCommentInit,

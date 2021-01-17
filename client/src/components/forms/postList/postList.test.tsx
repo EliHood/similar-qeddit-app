@@ -11,7 +11,7 @@ describe("Should render <PostList/>", () => {
         currentUser: {},
     };
     const mockProps2 = {
-        posts: posts,
+        posts,
         currentUser: {},
     };
 

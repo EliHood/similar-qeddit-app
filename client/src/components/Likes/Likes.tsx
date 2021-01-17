@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import PostList from "../forms/postList/postList";
 import GridHoc from "../hoc/grid";
-import usePostsHook from "./../../common/postsHook";
+import usePostsHook from "../../common/usePostHook";
 import OurWrapper from "../../common/OurWrapper";
 export interface IProps {
     match?: any;

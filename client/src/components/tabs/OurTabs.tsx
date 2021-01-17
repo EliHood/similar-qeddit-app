@@ -6,7 +6,7 @@ import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Typography from "@material-ui/core/Typography";
 import { Grid } from "@material-ui/core";
-import usePostsHook from "../../common/postsHook";
+import usePostsHook from "../../common/usePostHook";
 import "./style.css";
 import storeMethods from "../../common/storeHooks";
 interface TabPanelProps {

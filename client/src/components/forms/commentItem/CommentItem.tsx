@@ -56,10 +56,10 @@ const CommentItem: React.FC<CommentItemProps> = (props) => {
 
     const deleteReply = (replyId, postId, userId, commentId) => {
         const data = {
-            replyId: replyId,
-            postId: postId,
-            userId: userId,
-            commentId: commentId,
+            replyId,
+            postId,
+            userId,
+            commentId,
         };
         deleteRep(data);
     };
