@@ -8,8 +8,8 @@ import { useDispatch } from "react-redux";
 import { addTitle, addContent } from "../../actions/postActions";
 import OurError from "../../common/OurError";
 import storeMethods from "../../common/storeHooks";
-import * as classnames from "classnames";
 import OurWrapper from "../../common/OurWrapper";
+
 function Dashboard(props: any) {
     const dispatch = useDispatch();
     const inputData = {
@@ -27,7 +27,9 @@ function Dashboard(props: any) {
         const postData = { ourTitle, ourPostContent };
         createPost(postData);
     };
+
     const isEnabled = titleError === true && ourBodyError === true ? false : true;
+
     return (
         <Fragment>
             <OurWrapper appBar={props.appBar} appOpen={props.appOpen} appBarShift={props.appBarShift}>

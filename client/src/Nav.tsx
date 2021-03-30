@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import { getUser, logOutInit, initGetNotifications } from "./actions/userActions";
 import { history } from "./ourHistory";
 import Router from "./Router";
-export interface routerContainerState {
+export type routerContainerState = {
     hasError: boolean;
     messages: any[];
 }
-export interface routerContainerProps {
+export type routerContainerProps = {
     getUser: () => void;
     logOutInit: (data) => void;
     darkTheme: () => void;
@@ -16,6 +16,7 @@ export interface routerContainerProps {
         isAuthenticated: boolean;
     };
 }
+
 class Nav extends Component<routerContainerProps, routerContainerState> {
     state: routerContainerState = {
         hasError: false,
@@ -36,6 +37,7 @@ class Nav extends Component<routerContainerProps, routerContainerState> {
 
     render() {
         const { hasError } = this.state;
+
         return (
             <Router
                 darkTheme={this.props.darkTheme}

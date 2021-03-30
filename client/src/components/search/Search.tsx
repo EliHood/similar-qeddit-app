@@ -4,22 +4,22 @@ import storehooks from "../../common/storeHooks";
 import { Button } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import { history } from "../../ourHistory";
-type SearchType = {
-    currentUser?: any;
-};
-
-const Search: React.FC<SearchType> = (props) => {
+import {SearchType} from '../../utils/types'
+const Search: React.FC<SearchType> = ({ currentUser}) => {
     const { query, searchQ } = storehooks();
     const search = (value) => {
         searchQ(value);
     };
+
     const onSubmit = (e) => {
         e.preventDefault();
-        history.push({ pathname: `/search/posts?q=${query}`, state: { query, currentUser: props.currentUser } });
+        history.push({ pathname: `/search/posts?q=${query}`, state: { query, currentUser } });
     };
+
     const disableIfEmpty = query.length === 0 ? true : false;
     const ifTyping = query.length > 0 ? "100px" : "-40px";
     const fadeIfempty = query.length > 0 ? 1 : 0.1;
+
     return (
         <Fragment>
             <form onSubmit={onSubmit}>

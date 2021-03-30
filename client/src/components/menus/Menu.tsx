@@ -20,9 +20,9 @@ const styles = (theme) => ({
         right: "0px",
         top: "0px",
         left: "0px",
-        position: "absolute" as "absolute",
+        position: "absolute" as const,
         [theme.breakpoints.up("lg")]: {
-            position: "absolute" as "absolute",
+            position: "absolute" as const,
         },
         padding: "0px",
     },
@@ -37,6 +37,7 @@ const styles = (theme) => ({
 
 function OurMenu(props: any) {
     const { classes, theme } = props;
+
     return (
         <div className={classes.buttonCollapse}>
             <IconButton onClick={() => props.setOpen(!props.appOpen)}>

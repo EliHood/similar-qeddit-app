@@ -2,7 +2,7 @@ import produce from "immer";
 import * as types from "../actionTypes/userActionTypes";
 import { sessionData, validation } from "../utils";
 
-export interface userState {
+export type userState = {
     isAuthenticated: boolean;
     googleAccount: any;
     emailVerified: boolean;

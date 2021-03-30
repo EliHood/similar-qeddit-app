@@ -7,7 +7,7 @@ import * as types from "../actionTypes/postActionTypes";
 import api from "../api/api";
 
 type commentType = {
-    body: String;
+    body: string;
     userId: number;
     currentUser: number;
     commenterId: number;
@@ -29,6 +29,7 @@ function createEventChannel(pusher: Pusher) {
             emitter(data);
             toast.info(data);
         });
+
         return () => {
             channel.unbind("my-event", emitter);
             channel.unbind("user-mention", emitter);
@@ -57,6 +58,7 @@ export function* commentUpdates() {
             forceTLS: true,
         });
         const channel = yield call(createCommentChannel, pusherClient);
+
         while (true) {
             const data = yield take(channel);
             console.log(data);
@@ -74,6 +76,7 @@ export function* getNotification() {
             forceTLS: true,
         });
         const channel = yield call(createEventChannel, pusherClient);
+
         while (true) {
             const data = yield take(channel);
             yield put(actionTypes.notificationSuccess(data));
@@ -148,6 +151,7 @@ export function* dislikePost(action) {
 
 export function* deletePost(action) {
     const deleteConfirmation = window.confirm("Are you sure you want to delete your post ?");
+
     if (deleteConfirmation) {
         try {
             const deletePost = yield call(api.post.deletePost, action.payload, action.userId);
@@ -172,6 +176,7 @@ export function* postComment(action) {
 export function* deleteComment(action) {
     const deleteConfirmation = window.confirm("Are you sure you want to delete your comment ?");
     console.log(action);
+
     if (deleteConfirmation) {
         try {
             const deleteComment = yield call(api.post.deleteComment, action.payload, action.userId);
@@ -222,6 +227,7 @@ export function* replyComment(action) {
 
 export function* deleteReply(action) {
     const deleteConfirmation = window.confirm("Are you sure you want to delete your reply ?");
+
     if (deleteConfirmation) {
         try {
             const postId = action.payload.postId;
@@ -257,6 +263,7 @@ export function* searchPosts(action) {
 
 export function* searchPageResults(action) {
     const query = action.payload;
+
     try {
         const search = yield call(api.post.searchPosts, query);
         yield put(actionTypes.getSearchSuccess(search));

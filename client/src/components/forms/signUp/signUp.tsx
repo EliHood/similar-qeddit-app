@@ -3,7 +3,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import TextField from "@material-ui/core/TextField";
 import React from "react";
 
-interface SignUpFormInterface {
+type SignUpFormInterface = {
     submit: (e) => void;
     usernameChange: (e) => void;
     emailChange: (e) => void;

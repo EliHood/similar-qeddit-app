@@ -6,7 +6,7 @@ import usePostsHook from "../../common/usePostHook";
 import storeMethods from "./../../common/storeHooks";
 import OurError from "../../common/OurError";
 import OurWrapper from "../../common/OurWrapper";
-import Grid from "@material-ui/core/Grid";
+
 function Landing(props: any) {
     usePostsHook();
     return (

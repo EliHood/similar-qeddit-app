@@ -27,6 +27,7 @@ import storehooks from "./common/storeHooks";
 import OurLink from "./common/OurLink";
 import SearchResults from "./common/SearchResults";
 import SearchResultPage from "./components/searchResultPage/searchResultPage";
+
 function MyRouter(props) {
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const { classes, appOpen, appSetOpen } = useWrapperSlide();
@@ -37,10 +38,12 @@ function MyRouter(props) {
         setAnchorEl(event.currentTarget);
         props.notifications(user.id);
     };
+
     const handleClose = React.useCallback(() => {
         setAnchorEl(null);
     }, [setAnchorEl]);
     const user = props.currentUser.user ? props.currentUser.user : "";
+
     return props.hasError ? (
         <div>Error</div>
     ) : (

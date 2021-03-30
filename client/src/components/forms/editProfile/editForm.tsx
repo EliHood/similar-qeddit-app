@@ -4,16 +4,11 @@ import FormLabel from "@material-ui/core/FormLabel";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
-interface EditProfileForm {
-    bio: string;
-    gravatar: string;
-    onSubmit: (e) => void;
-    handleBio: (e) => void;
-    handleGravatar: (e) => void;
-}
+import {EditProfileFormType} from '../../../utils/types'
 
-const EditProfileForm = (props: EditProfileForm) => (
-    <form onSubmit={props.onSubmit} data-testid="edit-form">
+
+const EditProfileForm = ({onSubmit, bio, gravatar, handleBio, handleGravatar}: EditProfileFormType) => (
+    <form onSubmit={onSubmit} data-testid="edit-form">
         <Typography variant="subtitle1">Edit Profile</Typography>
         <FormGroup style={{ padding: "30px 0px" }}>
             <FormLabel data-testid="form-bio-label" style={{ display: "block" }}>
@@ -32,8 +27,8 @@ const EditProfileForm = (props: EditProfileForm) => (
                 }}
                 multiline={true}
                 rows="3"
-                defaultValue={props.bio}
-                onChange={props.handleBio}
+                defaultValue={bio}
+                onChange={handleBio}
                 margin="normal"
                 variant="outlined"
             />
@@ -52,8 +47,8 @@ const EditProfileForm = (props: EditProfileForm) => (
                 name="gravatar"
                 multiline={true}
                 rows="3"
-                onChange={props.handleGravatar}
-                defaultValue={props.gravatar}
+                onChange={handleGravatar}
+                defaultValue={gravatar}
                 margin="normal"
                 variant="outlined"
             />

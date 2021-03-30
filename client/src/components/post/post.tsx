@@ -4,15 +4,6 @@ import React, { Fragment } from "react";
 import { fetchPostInit } from "../../actions/postActions";
 import { useDispatch, useSelector } from "react-redux";
 import { profile } from "../../selectors/selectors";
-export interface PostProps {
-    fetchPostInit: (event) => void;
-    post: any;
-    match: any;
-}
-export interface PostState {
-    passwordConf: string;
-    passErr: string;
-}
 
 function Post(props: any) {
     const dispatch = useDispatch();
@@ -24,6 +15,7 @@ function Post(props: any) {
     }, []);
 
     const { title, postContent, author } = postPage;
+
     return (
         <Fragment>
             <Grid item={true} sm={12} md={12} style={{ margin: "20px 0px", padding: "0px 200px" }}>

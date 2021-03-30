@@ -1,30 +1,23 @@
 import React, { Fragment } from "react";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import storehooks from "./storeHooks";
-type LikeButtonProps = {
-    type: "liked" | "unliked";
-    likeCounts: number;
-    postId?: number;
-    dislike?: (id: number) => void;
-    like?: (id: number) => void;
-};
+import {LikeButtonPropsType} from '../utils/types'
 
-const LikeButton: React.FC<LikeButtonProps> = (props) => {
+const LikeButton: React.FC<LikeButtonPropsType> = ({dislike, postId, like, likeCounts, type}) => {
     return (
         <Fragment>
-            {props.type === "liked" && (
+            {type === "liked" && (
                 <Fragment>
-                    <span style={{ cursor: "pointer" }} onClick={() => props.dislike?.(props.postId!)}>
-                        <span style={{ padding: "12px" }}>Likes {props.likeCounts}</span>
+                    <span style={{ cursor: "pointer" }} onClick={() => dislike?.(postId!)}>
+                        <span style={{ padding: "12px" }}>Likes {likeCounts}</span>
                         <FavoriteIcon style={{ color: "red", cursor: "pointer", margin: "-7px" }} />
                     </span>
                 </Fragment>
             )}
-            {props.type === "unliked" && (
+            {type === "unliked" && (
                 <Fragment>
-                    <span onClick={() => props.like?.(props.postId!)}>
-                        <span style={{ padding: "12px" }}>Likes {props.likeCounts}</span>
+                    <span onClick={() => like?.(postId!)}>
+                        <span style={{ padding: "12px" }}>Likes {likeCounts}</span>
                         <FavoriteBorderIcon style={{ color: "red", cursor: "pointer", margin: "-7px" }} />
                     </span>
                 </Fragment>

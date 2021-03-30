@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useRef } from "react";
 import Popover from "@material-ui/core/Popover";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
-// import { userStore } from "../../selectors/selectors";
 export default function Notification(props: any) {
     const [anchorEl] = React.useState<HTMLButtonElement | null>(null);
     const didMountRef = useRef<Object>();

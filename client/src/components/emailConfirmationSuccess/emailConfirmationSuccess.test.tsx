@@ -41,7 +41,7 @@ describe("Should render email confirmation success", () => {
         );
 
         // const { result } = renderHook(() => useSelector(userConfirmation()));
-     
+
         // expect(getByTestId("success-message")).toBeInTheDocument();
         // expect(getByTestId("success-message")).toBeTruthy();
     });

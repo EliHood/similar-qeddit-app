@@ -25,6 +25,7 @@ function PostItemContainer(props: any) {
     const { post, currentUser, getNotifications } = props;
     // check if user is on user posts,
     const ifOnPosts = window.location.href.indexOf("posts") != -1;
+
     return (
         <Fragment>
             {/* do not show notification dialong if commenter comments on a post, only show comment notification if someelse commented on a post

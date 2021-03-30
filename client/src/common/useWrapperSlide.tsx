@@ -43,6 +43,7 @@ const styles = makeStyles((theme) => ({
 function useWrapperSlide() {
     const [appOpen, appSetOpen] = React.useState(false);
     const classes = styles();
+
     return {
         appOpen,
         appSetOpen,

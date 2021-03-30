@@ -1,10 +1,7 @@
 import produce from "immer";
 import * as types from "../actionTypes/postActionTypes";
 import { validation } from "../utils";
-import { unRepostPost } from "../sagas/post";
-import { dark } from "@material-ui/core/styles/createPalette";
-import { deleteReplyInit } from "../actions/postActions";
-export interface postState {
+export type postState = {
     posts: any[];
     postPage: any;
     error: any;
@@ -14,7 +11,7 @@ export interface postState {
     postContent: string;
     isNotified: boolean;
     notification: string;
-    isLoading: Boolean;
+    isLoading: boolean;
     searchValue: string;
     results: any[];
     searchPageResults: any[];
@@ -47,22 +44,26 @@ const postReducer = (state = initialState, action: any): postState =>
         switch (action.type) {
             case types.GET_POSTS_INIT:
                 draft.isLoading = true;
+
                 return;
             case types.GET_POSTS_SUCCESS:
                 console.log(action);
                 draft.isLoading = false;
                 draft.posts = action.payload;
+
                 return;
             case types.GET_POSTS_FAILURE:
                 console.log(action);
                 draft.isLoading = false;
                 draft.error = action.error;
+
                 return;
             case types.CREATE_POST_SUCCESS:
                 console.log(action.payload);
                 draft.posts = [action.payload.post, ...draft.posts];
                 draft.title = "";
                 draft.postContent = "";
+
                 return;
             case types.LIKE_POST_SUCCESS:
                 console.log("fsfsfssfsf", action);
@@ -71,19 +72,23 @@ const postReducer = (state = initialState, action: any): postState =>
                 draft.posts[findKey].likeCounts = draft.posts[findKey].likeCounts + 1;
                 draft.posts[findKey].likedByMe = true;
                 draft.error = null;
+
                 // draft.posts[findKey] = [...(draft.posts[findKey].likeCounts + 1)];
                 return;
             case types.LIKE_POST_FAILURE:
                 console.log("testing", action);
                 draft.error = action.error.message;
+
                 return;
             case types.FETCH_POST_SUCCESS:
                 console.log(action);
                 draft.postPage = action.payload;
+
                 return;
             case types.FETCH_POST_FAILURE:
                 console.log(action);
                 draft.error = action.error;
+
                 return;
             case types.DISLIKE_POST_SUCCESS:
                 console.log(action);
@@ -91,35 +96,43 @@ const postReducer = (state = initialState, action: any): postState =>
                 draft.posts[newfindKey].likeCounts = draft.posts[newfindKey].likeCounts - 1;
                 draft.posts[newfindKey].likedByMe = false;
                 draft.error = null;
+
                 return;
             case types.DELETE_POST_SUCCESS:
                 console.log(action);
                 draft.posts = [...draft.posts.filter((item) => item.id !== action.id)];
+
                 return;
 
             case types.DISLIKE_POST_FAILURE:
                 console.log("test", action);
                 draft.error = action.error.message;
+
                 return;
             // Post comment will not be appending comment to the array state, comment update
             // success will because comments will be real time
             case types.POST_COMMENT_SUCCESS:
                 console.log(action);
+
                 return;
             case types.POST_COMMENT_FAILURE:
                 draft.error = action.error;
+
                 return;
             case types.DISLIKE_POST_FAILURE:
                 console.log(action);
                 draft.error = action.error;
+
                 return;
             case types.ADD_TITLE:
                 draft.title = action.data;
                 draft.titleError = validation.validateString(action.data);
+
                 return;
             case types.ADD_CONTENT:
                 draft.postContent = action.data;
                 draft.bodyError = validation.validateContent(action.data);
+
                 return;
             case types.EDIT_COMMENT_SUCCESS:
                 console.log(action);
@@ -131,29 +144,36 @@ const postReducer = (state = initialState, action: any): postState =>
                     ...draft.posts[postKey].Comments.sort((a, b) => {
                         const date1 = new Date(a.createdAt) as any;
                         const date2 = new Date(b.createdAt) as any;
+
                         return date1 - date2;
                     }),
                 ];
+
                 return;
             case types.EDIT_COMMENT_FAILURE:
                 console.log(action);
                 draft.error = action.data;
+
                 return;
             case types.DELETE_COMMENT_SUCCESS:
                 const newPostKey = state.posts.findIndex((x) => x.id === action.postId);
                 draft.posts[newPostKey].Comments = [...draft.posts[newPostKey].Comments.filter((item) => item.id !== action.id)];
+
                 // draft.posts = draft.posts[newPostKey].Comments.filter((item) => item.id !== action.id);
                 return;
             case types.DELETE_COMMENT_FAILURE:
                 draft.error = action.error;
+
                 return;
             case types.NOTIFICATION_SUCCESS:
                 console.log(action);
                 draft.notification = action.payload;
+
                 return;
             case types.NOTIFICATION_FAILURE:
                 console.log(action);
                 draft.error = action.error;
+
                 return;
             case types.COMMENT_UPDATES_SUCCESS:
                 console.log(action);
@@ -164,13 +184,16 @@ const postReducer = (state = initialState, action: any): postState =>
                     ...draft.posts[findCommentKey2].Comments.sort((a, b) => {
                         const date1 = new Date(a.createdAt) as any;
                         const date2 = new Date(b.createdAt) as any;
+
                         return date2 - date1;
                     }),
                 ];
                 draft.commenterId = action.payload.comment.userId;
+
                 return;
             case types.COMMENT_UPDATES_FAILURE:
                 console.log(action);
+
                 return;
             case types.REPOST_POST_SUCCESS:
                 console.log(action);
@@ -182,6 +205,7 @@ const postReducer = (state = initialState, action: any): postState =>
                 return;
             case types.REPOST_POST_FAILURE:
                 console.log(action);
+
                 return;
             case types.COMMENT_REPLY_SUCCESS:
                 const replyPostId = action.payload.reply.postId;
@@ -193,6 +217,7 @@ const postReducer = (state = initialState, action: any): postState =>
                 return;
             case types.COMMENT_REPLY_FAILURE:
                 console.log(action.error);
+
                 return;
             case types.REPLY_DELETE_SUCCESS:
                 console.log(action);
@@ -210,37 +235,46 @@ const postReducer = (state = initialState, action: any): postState =>
                 const unrepostPostKey = state.posts.findIndex((x) => x.id === unRepostId);
                 console.log("checking repost post Key", unrepostPostKey);
                 draft.posts[unrepostPostKey].RepostedByMe = false;
+
                 return;
             case types.UNREPOST_POST_FAILURE:
                 console.log(action);
+
                 return;
             case types.SEARCH_POSTS_INIT:
                 console.log(action);
                 draft.searchValue = action.payload;
+
                 return;
             case types.SEARCH_POSTS_SUCCESS:
                 console.log(action);
                 draft.results = action.payload.post;
+
                 return;
             case types.SEARCH_POSTS_FAILURE:
                 console.log(action);
                 draft.results = [];
+
                 return;
             case types.GET_SEARCH_SUCCESS:
                 console.log(action);
                 draft.posts = action.payload.post;
+
                 return;
             case types.GET_SEARCH_FAILURE:
                 console.log(action);
+
                 return;
             case types.SET_SELECTED_USER:
                 console.log(action);
                 draft.selectedUser = action.payload;
                 draft.mentionedUser = false;
+
                 return;
 
             case types.SET_MENTIONED_USER:
                 draft.mentionedUser = true;
+
                 return;
         }
     });

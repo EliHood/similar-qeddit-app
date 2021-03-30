@@ -1,13 +1,8 @@
 import React, { Fragment } from "react";
 import Typography from "@material-ui/core/Typography";
 import moment from "moment";
-type OurDate = {
-    type: "post-date" | "comment-date" | "reply-date";
-    createdAt: string;
-};
-
-const OurDate: React.FC<OurDate> = (props) => {
-    const { type, createdAt } = props;
+import {OurDateType} from '../utils/types'
+const OurDate: React.FC<OurDateType> = ({type = "post-date", createdAt}) => {
     return (
         <Fragment>
             {type === "post-date" && (

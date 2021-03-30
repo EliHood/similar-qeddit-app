@@ -3,7 +3,7 @@ import GridHoc from "../hoc/grid";
 import { useSelector, useDispatch } from "react-redux";
 import { userConfirmation } from "../../selectors/selectors";
 import { resendEmailConfirmationInit } from "../../actions/userActions";
-export interface emailConfirmation {
+export type emailConfirmation = {
     location: any;
     // user?: any;
 }

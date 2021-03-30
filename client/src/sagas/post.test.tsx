@@ -10,6 +10,7 @@ import { getPosts, watchPosts, watchFetchPost, fetchPost } from "./post";
 
 it("should test get posts error", () => {
     const error = new Error("Whoops");
+
     return expectSaga(getPosts)
         .provide([[call(api.post.getPosts), throwError(error)]])
         .put({ type: types.GET_POSTS_FAILURE, error })
@@ -18,6 +19,7 @@ it("should test get posts error", () => {
 
 it("should test fetches posts", () => {
     const posts = { posts: [] };
+
     return expectSaga(watchPosts, api)
         .dispatch({ type: types.GET_POSTS_INIT }) // calls the di
         .provide([
@@ -42,6 +44,7 @@ it("should get post", () => {
         Comments: [],
         Likes: [],
     };
+
     return expectSaga(fetchPost, api)
         .dispatch({ type: types.FETCH_POST_INIT })
         .provide([
@@ -66,6 +69,7 @@ it("should test fetch post error", () => {
         Likes: [],
     };
     const error = "Something went wrong";
+
     return expectSaga(fetchPost)
         .dispatch({ type: types.FETCH_POST_INIT })
         .provide([

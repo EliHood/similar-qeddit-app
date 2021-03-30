@@ -14,7 +14,7 @@ AxiosInstance.interceptors.response.use(
     (response) =>
         // const token = localStorage.getItem('auth');
         // response.headers.Authorization =  token ? `Bearer ${token}` : '';
-      
+
         response,
 );
 

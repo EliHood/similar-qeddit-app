@@ -4,14 +4,15 @@ import OurSecondaryButton from "../../../common/OurSecondaryButton";
 import CommentListContainer from "../commentListContainer/commentListContainer";
 
 function CommentList(props: any, ref: Ref<HTMLDivElement>) {
-    const [showMore, setShowMore] = useState<Number>(2);
+    const [showMore, setShowMore] = useState<number>(2);
     const [openModal, setOpenModal] = useState(false);
-    const [showLessFlag, setShowLessFlag] = useState<Boolean>(false);
+    const [showLessFlag, setShowLessFlag] = useState<boolean>(false);
     const the_comments = props.comments.length;
     const inc = showMore as any;
     const min = Math.min(2, the_comments - inc);
     const showComments = (e) => {
         e.preventDefault();
+
         if (inc + 2 && inc <= the_comments) {
             setShowMore(inc + 2);
             setShowLessFlag(true);
@@ -19,6 +20,7 @@ function CommentList(props: any, ref: Ref<HTMLDivElement>) {
             setShowMore(the_comments);
         }
     };
+
     const handleClickOpen = React.useCallback(() => {
         console.log("this got called owl man");
         setOpenModal(true);
@@ -38,12 +40,14 @@ function CommentList(props: any, ref: Ref<HTMLDivElement>) {
     const isBold = (comment) => {
         return comment.userId === props.userId ? 800 : 400;
     };
+
     // show comments by recent, and have the latest comment at the bottom, with the previous one just before it.
     const filterComments = props.comments
         .slice(0)
         .sort((a, b) => {
             const date1 = new Date(a.createdAt) as any;
             const date2 = new Date(b.createdAt) as any;
+
             return date2 - date1;
         })
         .slice(0, inc)
@@ -57,33 +61,35 @@ function CommentList(props: any, ref: Ref<HTMLDivElement>) {
         ));
     };
 
-    return (
-        <Grid data-testid="comment-list-div">
-            <Fragment>
-                <div style={{ margin: "30px 0px" }} data-testid="show_more_less">
-                    {props.comments.length > 2 ? (
+    const showMoreLess = (
+        <div style={{ margin: "30px 0px" }} data-testid="show_more_less">
+            {props.comments.length > 2 ? (
+                <Fragment>
+                    {min !== -1 && min !== -2 ? (
                         <Fragment>
-                            {min !== -1 && min !== -2 ? (
-                                <Fragment>
-                                    {min !== 0 ? (
-                                        <OurSecondaryButton test={"show_more_button"} onClick={(e) => showComments(e)} component="span" color="secondary">
-                                            View {min !== -1 && min !== -2 ? min : 0} More Comments
-                                        </OurSecondaryButton>
-                                    ) : (
-                                        <OurSecondaryButton test={"show_less_button"} onClick={(e) => showLessComments(e)} component="span" color="secondary">
-                                            Show Less Comments
-                                        </OurSecondaryButton>
-                                    )}
-                                </Fragment>
+                            {min !== 0 ? (
+                                <OurSecondaryButton test={"show_more_button"} onClick={(e) => showComments(e)} component="span" color="secondary">
+                                    View {min !== -1 && min !== -2 ? min : 0} More Comments
+                                </OurSecondaryButton>
                             ) : (
                                 <OurSecondaryButton test={"show_less_button"} onClick={(e) => showLessComments(e)} component="span" color="secondary">
                                     Show Less Comments
                                 </OurSecondaryButton>
                             )}
                         </Fragment>
-                    ) : null}
-                </div>
-            </Fragment>
+                    ) : (
+                        <OurSecondaryButton test={"show_less_button"} onClick={(e) => showLessComments(e)} component="span" color="secondary">
+                            Show Less Comments
+                        </OurSecondaryButton>
+                    )}
+                </Fragment>
+            ) : null}
+        </div>
+    );
+
+    return (
+        <Grid data-testid="comment-list-div">
+            <Fragment>{showMoreLess}</Fragment>
             {showLessFlag === true ? (
                 // will show most recent comments below
                 showMoreComments()

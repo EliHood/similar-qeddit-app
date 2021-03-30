@@ -40,6 +40,7 @@ const styles = makeStyles((theme) => ({
 function MainNav(props: any) {
     const [, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const classes = styles();
+
     return (
         <Grid item={true}>
             <div className={classes.buttonBar} id="appbar-collapse">

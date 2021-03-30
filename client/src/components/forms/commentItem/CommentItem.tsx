@@ -10,37 +10,11 @@ import OurDate from "../../../common/Date";
 import CommentBody from "../commentBody/commentBody";
 import OurTextField from "../../../common/OurTextField";
 import AuthButtons from "../../../common/AuthButtons";
-type CommentItemProps = {
-    editComment: (comment) => void;
-    onReply: () => void;
-    comment: {
-        comment_body: string;
-        gifUrl: string;
-        userId: number;
-        id: number;
-        createdAt: any;
-    };
-    reply?: {
-        createdAt: any;
-        replyBody: string;
-        userId: number;
-        id: number;
-    } | null;
-    type: "comment" | "reply";
-    postId: number;
-    deleteComment: (commentId, postId, userId) => void;
+import {CommentItemPropsType} from '../../../utils/types'
 
-    user: {
-        user: {
-            id: number;
-        };
-        id: number;
-    };
-};
-
-const CommentItem: React.FC<CommentItemProps> = (props) => {
+const CommentItem: React.FC<CommentItemPropsType> = ({type,comment, reply, editComment, user, onReply, postId}) => {
     const [commentEdit, setCommentEdit] = useState("");
-    const [editComment, setEditComment] = useState(false);
+    const [editCommentValue, setEditComment] = useState(false);
     const { deleteRep } = storeHooks();
 
     const update = (comment) => {
@@ -50,7 +24,7 @@ const CommentItem: React.FC<CommentItemProps> = (props) => {
             postId: comment.postId,
             userId: comment.userId,
         };
-        props.editComment(data);
+        editComment(data);
         setEditComment(false);
     };
 
@@ -63,9 +37,9 @@ const CommentItem: React.FC<CommentItemProps> = (props) => {
         };
         deleteRep(data);
     };
+
     const memoizedDeleteReply = useCallback((replyId, postId, userId, commentId) => deleteReply(replyId, postId, userId, commentId), [deleteReply]);
     const memoizedUpdate = useCallback((comment) => update(comment), [update]);
-    const { type, comment, reply } = props;
 
     return (
         <Fragment>
@@ -73,13 +47,13 @@ const CommentItem: React.FC<CommentItemProps> = (props) => {
                 <Grid item={true} xs={12} lg={11}>
                     {type === "comment" && (
                         <Fragment>
-                            {editComment && comment.comment_body ? (
+                            {editCommentValue && comment.comment_body ? (
                                 <OurTextField type="edit-comment" comment_body={comment.comment_body} setCommentEdit={(e) => setCommentEdit(e.target.value)} />
                             ) : (
                                 <CommentBody comment={comment} />
                             )}
 
-                            {comment.comment_body && editComment ? (
+                            {comment.comment_body && editCommentValue ? (
                                 <Fragment>
                                     <ButtonFunction type="cancel" setEditComment={setEditComment} />
                                     <ButtonFunction type="update" update={memoizedUpdate} comment={comment} />
@@ -87,7 +61,7 @@ const CommentItem: React.FC<CommentItemProps> = (props) => {
                             ) : (
                                 <Fragment>
                                     {/* if guest is on home page */}
-                                    <AuthButtons type="comment-buttons" comment={comment} user={props.user} postId={props.postId} onReply={props.onReply} setEditComment={setEditComment} />
+                                    <AuthButtons type="comment-buttons" comment={comment} user={user} postId={postId} onReply={onReply} setEditComment={setEditComment} />
                                 </Fragment>
                             )}
                         </Fragment>
@@ -101,14 +75,14 @@ const CommentItem: React.FC<CommentItemProps> = (props) => {
                                         <div data-testid="reply-body">
                                             <ReactMarkdown className="markdownStyle" source={reply?.replyBody} />
                                         </div>
-                                        {Object.entries(props.user).length !== 0 ? (
-                                            props.user && props.user.user && reply?.userId === props.user.user.id ? (
+                                        {Object.entries(user).length !== 0 ? (
+                                            user && user.user && reply?.userId === user.user.id ? (
                                                 <ButtonFunction
                                                     type="deleteReply"
                                                     replyId={reply.id}
                                                     replyUserId={reply.userId}
                                                     commentId={comment.id}
-                                                    postId={props.postId}
+                                                    postId={postId}
                                                     deleteReply={memoizedDeleteReply}
                                                 />
                                             ) : null

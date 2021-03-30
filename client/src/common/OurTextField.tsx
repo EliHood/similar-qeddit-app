@@ -7,15 +7,15 @@ import storeHooks from "./storeHooks";
 type FieldType = {
     type: "gif-commentfield" | "post" | "comment" | "post-content" | "edit-comment";
     handleTitleChange?: (e: any) => void;
-    title?: String;
+    title?: string;
     titleError?: boolean | null;
-    comment_body?: String;
+    comment_body?: string;
     commentChange?: (e: any) => void;
-    post_content?: String;
+    post_content?: string;
     bodyError?: boolean | null;
     handleContentChange?: (e: any) => void;
     setGifSelected?: () => void;
-    selectedUser?: String;
+    selectedUser?: string;
     setCommentEdit?: (e: any) => void;
 };
 

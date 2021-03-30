@@ -5,11 +5,13 @@ import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import Notification from "../../containers/notificationTooltip";
 import OurMenuItem from "../../common/OurMenuItem";
+
 function CollapasedMenu(props: any) {
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const handleClose = () => {
         setAnchorEl(null);
     };
+
     const user = props.currentUser.user ? props.currentUser.user : "";
 
     return (

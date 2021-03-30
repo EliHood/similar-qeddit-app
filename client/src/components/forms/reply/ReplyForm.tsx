@@ -3,18 +3,13 @@ import Grid from "@material-ui/core/Grid";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import TextField from "@material-ui/core/TextField";
 import TextFieldsIcon from "@material-ui/icons/TextFields";
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import FormHelperText from "@material-ui/core/FormHelperText";
-export interface replyProps {
-    onSubmit: (e: any) => void;
-    replyBody: string;
-    replyChange: (e: any) => void;
-}
-
-export default function ReplyForm(props: replyProps) {
+import {ReplyPropsType} from '../../../utils/types';
+export default function ReplyForm({onSubmit, replyChange, replyBody,}: ReplyPropsType) {
     return (
         <Fragment>
-            <form onSubmit={props.onSubmit}>
+            <form onSubmit={onSubmit}>
                 <Fragment>
                     <TextField
                         className="commentInput"
@@ -25,15 +20,15 @@ export default function ReplyForm(props: replyProps) {
                         multiline={true}
                         size={"medium"}
                         name="reply_body"
-                        value={props.replyBody}
-                        rows={props.replyBody.length > 35 ? 3 : 1}
-                        error={props.replyBody.length > 200 ? true : false}
+                        value={replyBody}
+                        rows={replyBody.length > 35 ? 3 : 1}
+                        error={replyBody.length > 200 ? true : false}
                         fullWidth={true}
                         margin="normal"
                         variant="outlined"
-                        onChange={props.replyChange}
+                        onChange={replyChange}
                     />
-                    {props.replyBody.length > 200 && (
+                    {replyBody.length > 200 && (
                         <FormHelperText error={true} id="component-helper-text">
                             {"Comment must be less than 200 chars"}
                         </FormHelperText>
@@ -41,7 +36,7 @@ export default function ReplyForm(props: replyProps) {
                     <br />
                     <br />
 
-                    <Button disabled={props.replyBody.length > 6 && props.replyBody.length <= 200 ? false : true} type="submit" variant="outlined" color="primary">
+                    <Button disabled={replyBody.length > 6 && replyBody.length <= 200 ? false : true} type="submit" variant="outlined" color="primary">
                         Reply
                     </Button>
                 </Fragment>

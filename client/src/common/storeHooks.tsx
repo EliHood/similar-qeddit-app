@@ -40,6 +40,7 @@ import {
     fetchRelatedUsers,
     getCommenterId,
 } from "../selectors/selectors";
+
 function useStoreMethods() {
     const dispatch = useDispatch();
     const [notifications] = useNotificationHook();
@@ -80,6 +81,7 @@ function useStoreMethods() {
     const selectedUser = useSelector(getSelectedUser);
     const mentionedUser = useSelector(mentionUser);
     const commenterId = useSelector(getCommenterId);
+
     return {
         posts,
         notifications,

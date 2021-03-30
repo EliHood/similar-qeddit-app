@@ -14,10 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { userStore } from "../../selectors/selectors";
 import { addEmail, addPassword, addUsername, signUpInit, addPasswordConf } from "../../actions/userActions";
 import OurWrapper from "../../common/OurWrapper";
-export interface registerState {
-    passwordConf: string;
-    passErr: string;
-}
+
 const useStyles = makeStyles((theme) => ({
     root: {
         height: "100vh",
@@ -48,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(3, 0, 2),
     },
 }));
+
 function Register(props: any) {
     const classes = useStyles();
     const userData = useSelector(userStore);
@@ -71,8 +69,10 @@ function Register(props: any) {
 
         signup(creds, history);
     };
+
     const { username, email, password, passwordConf, passwordConfError, usernameError, passwordError, emailError } = userData;
     const isEnabled = passwordConfError === true && emailError === true && passwordError === true && usernameError === true ? false : true;
+
     return (
         <OurWrapper appBar={props.appBar} appOpen={props.appOpen} appBarShift={props.appBarShift}>
             <Fragment>

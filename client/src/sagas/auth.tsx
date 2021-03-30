@@ -85,6 +85,7 @@ export function* login(action) {
         const decoded = jwtDecode(token);
         setAuthToken(token);
         console.log("login saga", login.user.email_verified);
+
         if (login.user.email_verified !== null) {
             localStorage.setItem("email_verified", login.user.email_verified.toString());
         }
@@ -160,6 +161,7 @@ export function* getNotifications(action) {
 
 export function* markAsRead(action) {
     console.log(action);
+
     try {
         const mark = yield call(api.user.markAsRead, action.payload);
         console.log(mark);

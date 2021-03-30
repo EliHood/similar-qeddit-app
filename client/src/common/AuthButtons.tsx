@@ -5,39 +5,27 @@ import LikeButton from "./LikeButton";
 import OurModal from "./OurModal";
 import { Button } from "@material-ui/core";
 import storehooks from "./storeHooks";
-type AuthButtonType = {
-    type: "post-buttons" | "comment-buttons" | "post-buttons-modal";
-    user?: {
-        user: {
-            id: number;
-        };
-    };
-    comment?: {
-        userId: number;
-        id: number;
-        gifUrl: String;
-    };
-    postId?: number;
-    post?: {
-        id: number;
-        likeCounts: number;
-        likedByMe: Boolean;
-    };
-    handleClickOpen?: () => void;
-    onReply?: () => void;
-    setEditComment?: (e: any) => void;
-    currentUser?: Object;
-    openModal?: boolean;
-    handleCloseModal?: () => void;
-    writeComment?: () => void;
-    openForm?: Boolean;
-};
+import {AuthButtonType} from '../utils/types'
 
-const AuthButtons: React.FC<AuthButtonType> = (props) => {
-    const { postId, currentUser, writeComment, openForm, openModal, handleCloseModal, handleClickOpen, post, type, comment, user, onReply, setEditComment } = props;
+const AuthButtons = ({
+    postId,
+    currentUser,
+    writeComment,
+    openForm,
+    openModal,
+    handleCloseModal,
+    handleClickOpen,
+    post,
+    type = "post-buttons-modal",
+    comment,
+    user,
+    onReply,
+    setEditComment,
+}: AuthButtonType) => {
     const { likePost, dislikePost } = storehooks();
     const memoizedLike = React.useCallback((id) => likePost(id), [likePost]);
     const memoizedDislike = React.useCallback((id) => dislikePost(id), [dislikePost]);
+
     return (
         <Fragment>
             {type === "comment-buttons" &&

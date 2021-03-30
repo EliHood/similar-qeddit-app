@@ -9,20 +9,17 @@ import { Grid } from "@material-ui/core";
 import usePostsHook from "../../common/usePostHook";
 import "./style.css";
 import storeMethods from "../../common/storeHooks";
-interface TabPanelProps {
-    children?: React.ReactNode;
-    index: any;
-    value: any;
-}
+import {TabPanelPropsType } from '../../utils/types'
 
-function TabPanel(props: TabPanelProps) {
-    const { children, value, index, ...other } = props;
+
+function TabPanel({children, index, value, ...other}: TabPanelPropsType ) {
     return (
         <Typography component="div" role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other}>
             {value === index && <Box p={3}>{children}</Box>}
         </Typography>
     );
 }
+
 function a11yProps(index: any) {
     return {
         id: `simple-tab-${index}`,

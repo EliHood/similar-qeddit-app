@@ -2,23 +2,23 @@ import React, { Fragment } from "react";
 import Typography from "@material-ui/core/Typography";
 import OurLink from "../../../common/OurLink";
 import OurModal from "../../../common/OurModal";
-interface CommentAuthorDataInterface {
+type CommentAuthorDataInterface = {
     comment: {
         author: {
             username: string;
             gravatar: string;
         };
         userId: number;
+        commentReplies: any;
     };
     userId: number;
     isBold: any;
     openModal: () => void;
     handleCloseModal: () => void;
     handleClickOpen: () => void;
-    currentUser: Object;
+    currentUser: Record<string, any>;
 }
-const CommentAuthorData = (props: CommentAuthorDataInterface) => {
-    const { comment, isBold, currentUser, openModal, handleCloseModal, handleClickOpen } = props;
+const CommentAuthorData = ({ comment, isBold, currentUser, openModal, handleCloseModal, handleClickOpen, userId }: CommentAuthorDataInterface) => {
     const isReply = comment.commentReplies !== undefined ? "-10px 15px" : "-10px 0px";
 
     return (
@@ -29,7 +29,7 @@ const CommentAuthorData = (props: CommentAuthorDataInterface) => {
                     <Fragment>
                         <span style={{ fontSize: "12px", margin: "0px", padding: "0px", cursor: "pointer", fontWeight: isBold(comment) }} onClick={handleClickOpen}>
                             {comment.author.username}
-                            {comment.userId === props.userId && <span style={{ fontSize: "12px" }}> (OP)</span>}
+                            {comment.userId === userId && <span style={{ fontSize: "12px" }}> (OP)</span>}
                         </span>
 
                         {openModal ? <OurModal open={openModal} handleClose={handleCloseModal} /> : null}
@@ -43,7 +43,7 @@ const CommentAuthorData = (props: CommentAuthorDataInterface) => {
                             }}
                             title={comment.author.username}
                         />
-                        {comment.userId === props.userId && <span style={{ fontSize: "12px" }}> (OP)</span>}
+                        {comment.userId === userId && <span style={{ fontSize: "12px" }}> (OP)</span>}
                     </Fragment>
                 )}
             </Typography>

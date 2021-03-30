@@ -9,24 +9,11 @@ import GifSection from "./GifSection";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import OurTextField from "../../../common/OurTextField";
 import storeHooks from "../../../common/storeHooks";
-export interface commentProps {
-    onSubmit: any;
-    comment_body: string;
-    commentChange: (e: any) => void;
-    gifUrl: any;
-    isGif: string;
-    mentionedUser?: boolean;
-    setMentionedUser?: (data: boolean) => void;
-    setCommentBody?: (data: string) => any;
-    currentUser?: {
-        username: string;
-    };
-}
+import { CommentPropsType} from '../../../utils/types'
 
-export default function CommentForm(props: commentProps) {
-    const [isGifSelected, setGifSelected] = useState<Boolean>(false);
+export default function CommentForm({commentChange, comment_body, gifUrl, isGif, setCommentBody, onSubmit, setMentionedUser, currentUser}: CommentPropsType) {
+    const [isGifSelected, setGifSelected] = useState<boolean>(false);
     const { mentionUsers, setSelectedOptionValue, selectedUser, mentionedUser } = storeHooks();
-    const { setCommentBody, setMentionedUser, currentUser, comment_body } = props;
     const selectedOption = React.useCallback(
         (option) => {
             setSelectedOptionValue(option);
@@ -46,23 +33,23 @@ export default function CommentForm(props: commentProps) {
 
     return (
         <Fragment>
-            <form onSubmit={props.onSubmit}>
+            <form onSubmit={onSubmit}>
                 {isGifSelected === false ? (
                     <Fragment>
                         <OurTextField
                             type="gif-commentfield"
                             selectedUser={selectedUser}
-                            comment_body={props.comment_body}
-                            commentChange={props.commentChange}
+                            comment_body={comment_body}
+                            commentChange={commentChange}
                             setGifSelected={() => setGifSelected(true)}
                         />
-                        {props.comment_body.length > 200 && (
+                        {comment_body.length > 200 && (
                             <FormHelperText error={true} id="component-helper-text">
                                 {"Comment must be less than 200 chars"}
                             </FormHelperText>
                         )}
 
-                        {props.mentionedUser && (
+                        {mentionedUser && (
                             <select onChange={(e) => selectedOption(e.target.value)} name="mentionedUsers">
                                 <option value="">Select User</option>
                                 {options}
@@ -72,19 +59,19 @@ export default function CommentForm(props: commentProps) {
                         <br />
                         <br />
 
-                        <Button disabled={props.comment_body.length > 6 && props.comment_body.length <= 200 ? false : true} type="submit" variant="outlined" color="primary">
+                        <Button disabled={comment_body.length > 6 && comment_body.length <= 200 ? false : true} type="submit" variant="outlined" color="primary">
                             Post A Comment
                         </Button>
                     </Fragment>
                 ) : (
                     <Fragment>
-                        <GifSection select={props.gifUrl} />
+                        <GifSection select={gifUrl} />
                         <Grid container={true} spacing={1} style={{ padding: "50px 0px" }}>
                             <Grid item={true} sm={1} lg={1}>
                                 <TextFieldsIcon style={{ cursor: "pointer" }} onClick={() => setGifSelected(false)} />
                             </Grid>
                             <Grid item={true} sm={3} lg={3}>
-                                <Button disabled={props.isGif !== "" ? false : true} size="small" type="submit" variant="outlined" color="primary">
+                                <Button disabled={isGif !== "" ? false : true} size="small" type="submit" variant="outlined" color="primary">
                                     Post GIPHY
                                 </Button>
                             </Grid>

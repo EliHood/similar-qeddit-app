@@ -15,8 +15,10 @@ const myStyles: React.CSSProperties = {
     padding: "15px",
     zIndex: 99999,
 };
+
 function OurError() {
     const { errPost } = useStoreMethods();
+
     return (
         <Alert style={myStyles} severity="error">
             {errPost}

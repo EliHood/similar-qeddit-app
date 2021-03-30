@@ -62,14 +62,18 @@ export const getCommenterId = createSelector(postSelector, (state) => state.comm
 export const fetchRelatedUsers = createSelector(postSelector, (state) => {
     // const users = state.posts.flatMap((x) => [x.author.username].concat(x.Comments.flatMap((y) => y.commentReplies.map((z) => z.author.username).concat(y.author.username))));
     function removeDuplicatesBy(keyFn, array) {
-        let mySet = new Set();
+        const mySet = new Set();
+
         return array.filter(function(x) {
-            let key = keyFn(x),
+            const key = keyFn(x),
                 isNew = !mySet.has(key);
+
             if (isNew) mySet.add(key);
+
             return isNew;
         });
     }
+
     // Recursion
     function recursGetUsers(array) {
         if (!array) return [];
@@ -78,7 +82,9 @@ export const fetchRelatedUsers = createSelector(postSelector, (state) => {
             return [v.author.username].concat(recursGetUsers(v.Comments)).concat(recursGetUsers(v.commentReplies));
         });
     }
+
     const users = recursGetUsers(state.posts);
     const newUsers = removeDuplicatesBy((x) => x, users);
+
     return newUsers;
 });

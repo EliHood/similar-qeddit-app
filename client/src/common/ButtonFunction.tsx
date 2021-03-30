@@ -6,52 +6,39 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import Typography from "@material-ui/core/Typography";
 import ReplyIcon from "@material-ui/icons/Reply";
 import storeHooks from "./storeHooks";
-type ButtonFunctionProps = {
-    type: "edit" | "reply" | "delete" | "cancel" | "update" | "deleteReply";
-    onReply?: () => void;
-    update?: (data: Object) => void;
-    postId?: number | any;
-    userId?: number | any;
-    commentId?: number | any;
-    comment?: any;
-    setEditComment?: (boolean: boolean) => void;
-    deleteReply?: (replyId?: number, postId?: number, replyUserId?: number, commentId?: number) => void;
-    replyId?: number;
-    replyUserId?: number;
-};
-
-const ButtonFunction: React.FC<ButtonFunctionProps> = (props) => {
+import {ButtonFunctionProps } from '../utils/types';
+const ButtonFunction: React.FC<ButtonFunctionProps> = ({ type, onReply, update, postId, userId, commentId, comment, setEditComment, deleteReply, replyId, replyUserId }) => {
     const { deleteComment } = storeHooks();
     return (
         <Fragment>
-            {props.type === "reply" && (
-                <span style={{ cursor: "pointer", paddingRight: "20px" }} onClick={() => props.onReply?.()}>
+            {type === "reply" && (
+                <span style={{ cursor: "pointer", paddingRight: "20px" }} onClick={() => onReply?.()}>
                     <ReplyIcon color="primary" style={{ margin: "-5px 0px" }} /> <span>Reply</span>
                 </span>
             )}
-            {props.type === "delete" && (
-                <span style={{ cursor: "pointer" }} onClick={() => deleteComment(props.commentId, props.postId, props.userId)}>
+            {type === "delete" && (
+                <span style={{ cursor: "pointer" }} onClick={() => deleteComment(commentId, postId, userId)}>
                     <DeleteOutlineOutlinedIcon style={{ margin: "-5px 0px" }} color="primary" /> <span>Delete</span>
                 </span>
             )}
-            {props.type === "edit" && (
-                <span style={{ cursor: "pointer" }} onClick={() => props.setEditComment?.(true)}>
+            {type === "edit" && (
+                <span style={{ cursor: "pointer" }} onClick={() => setEditComment?.(true)}>
                     <EditIcon style={{ margin: "-5px 0px" }} color="primary" /> <span>Edit</span>
                 </span>
             )}
-            {props.type === "cancel" && (
-                <span style={{ cursor: "pointer", paddingRight: "20px" }} onClick={() => props.setEditComment?.(false)}>
+            {type === "cancel" && (
+                <span style={{ cursor: "pointer", paddingRight: "20px" }} onClick={() => setEditComment?.(false)}>
                     <ClearIcon style={{ margin: "-7px 0px" }} color="primary" /> <span>Cancel</span>
                 </span>
             )}
-            {props.type === "update" && (
-                <span style={{ cursor: "pointer" }} onClick={() => props.update?.(props.comment)}>
+            {type === "update" && (
+                <span style={{ cursor: "pointer" }} onClick={() => update?.(comment)}>
                     <AddCircleOutlineIcon style={{ margin: "-7px 0px" }} color="primary" /> <span>Update</span>
                 </span>
             )}
-            {props.type === "deleteReply" && (
+            {type === "deleteReply" && (
                 <Typography style={{ display: "inline-block", float: "right" }} align="right">
-                    <span style={{ cursor: "pointer" }} onClick={() => props.deleteReply?.(props.replyId, props.postId, props.replyUserId, props.commentId)}>
+                    <span style={{ cursor: "pointer" }} onClick={() => deleteReply?.(replyId, postId, replyUserId, commentId)}>
                         <DeleteOutlineOutlinedIcon style={{ margin: "-5px 0px" }} color="primary" /> <span>Delete</span>
                     </span>
                 </Typography>

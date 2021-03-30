@@ -14,7 +14,7 @@ import { loginInit } from "./../../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import { userStore } from "../../selectors/selectors";
 import OurWrapper from "../../common/OurWrapper";
-export interface loginProps {
+export type loginProps = {
     onChange: (event: any) => void;
     loginInit: (event: object, history: object) => void;
     initLogin: () => void;
@@ -55,8 +55,8 @@ const useStyles = makeStyles((theme) => ({
 
 function Login(props: any) {
     const classes = useStyles();
-    const [username, setUsername] = useState<String>("");
-    const [password, setPassword] = useState<String>("");
+    const [username, setUsername] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
     const dispatch = useDispatch();
     const login = (userData: object, history: object) => dispatch(loginInit(userData, history));
     const user = useSelector(userStore);
@@ -64,6 +64,7 @@ function Login(props: any) {
     const goBackEmailConfirmation = () => {
         props.history.goBack();
     };
+
     const handleSubmit = (e: any) => {
         e.preventDefault();
         const creds = {

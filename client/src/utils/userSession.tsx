@@ -11,6 +11,7 @@ export default {
             setAuthToken(localStorage.jwtToken);
             // Decode token and get user info and exp
             const token = localStorage.getItem("jwtToken");
+
             if (token !== "null") {
                 const decoded = jwt_decode(token);
                 // console.log(decoded);
@@ -21,6 +22,7 @@ export default {
                 // store.dispatch(getUser());
                 // Check for expired token
                 const currentTime = Date.now() / 1000;
+
                 if (decoded.iat > currentTime) {
                     // Logout user
                     store.dispatch(logOutInit(history));

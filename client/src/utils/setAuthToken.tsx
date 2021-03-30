@@ -1,4 +1,4 @@
-import Axios from "../Axios";
+import Axios from "../ourAxios";
 
 const setAuthToken = (token) => {
     if (token) {

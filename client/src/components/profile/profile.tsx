@@ -10,23 +10,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { getProfileInit, followUserInit, unfollowUserInit } from "../../actions/userActions";
 import { userStore } from "../../selectors/selectors";
 import OurWrapper from "../../common/OurWrapper";
-export interface profileProps {
-    getProfileInit: (username: string) => void;
-    unfollowUserInit: (username: string, id: number) => void;
-    followUserInit: (username: string, id: number) => void;
-    username: string;
-    match: any;
-    user: any;
-    currentUser: {
-        user: {
-            id: number;
-        };
-    };
-    appBar: any;
-    appBarShift: any;
-    appOpen: Boolean;
-}
-function Profile(props: profileProps) {
+import {ProfilePropsType} from '../../utils/types'
+
+function Profile({match, appBar, appBarShift,appOpen}: ProfilePropsType) {
     const didMountRef = useRef<Object>();
     const dispatch = useDispatch();
     const followUser = (username: string, id: number) => dispatch(followUserInit(username, id));
@@ -34,7 +20,7 @@ function Profile(props: profileProps) {
     const userData = useSelector(userStore);
     useEffect(() => {
         if (!didMountRef.current) {
-            const username = props.match.params.username;
+            const username = match.params.username;
             dispatch(getProfileInit(username));
         } else {
             // console.log("test");
@@ -45,10 +31,10 @@ function Profile(props: profileProps) {
     const currentUser = userData.currentUser.user;
     const userFollowerCount = user && user.UserFollowers ? user.UserFollowers.length : "";
     const followerPlural = userFollowerCount.length > 1 ? "Follower" : "Followers";
+
     return (
         <Fragment>
-            {/* <Typography variant="h6" style={{ margin: "20px 0px" }}>Your Profile</Typography> */}
-            <OurWrapper appBar={props.appBar} appOpen={props.appOpen} appBarShift={props.appBarShift}>
+            <OurWrapper appBar={appBar} appOpen={appOpen} appBarShift={appBarShift}>
                 {currentUser && user && (
                     <Fragment>
                         <Avatar src={user.gravatar} />

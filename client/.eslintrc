@@ -1,0 +1,72 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
+      "prettier"
+    ],
+    "plugins": ["@typescript-eslint", "react-hooks"],
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    },
+    "rules": {
+      "@typescript-eslint/consistent-type-definitions": ["warn", "type"],
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/explicit-member-accessibility": "off",
+      "@typescript-eslint/no-angle-bracket-type-assertion": "off",
+      "@typescript-eslint/no-non-null-assertion": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          "argsIgnorePattern": "^_",
+          "ignoreRestSiblings": true
+        }
+      ],
+      "@typescript-eslint/no-use-before-define": [
+        "warn",
+        {
+          "functions": false,
+          "classes": false,
+          "variables": true
+        }
+      ],
+      "import/no-extraneous-dependencies": "warn",
+      "import/order": [
+        "warn",
+        {
+          "newlines-between": "always"
+        }
+      ],
+      "no-case-declarations": "warn",
+      "no-console": "warn",
+      "no-debugger": "warn",
+      "no-else-return": "warn",
+      "no-param-reassign": "warn",
+      "no-undef": "off",
+      "no-unused-vars": "off",
+      "no-var": "warn",
+      "object-shorthand": "warn",
+      "prefer-const": "warn",
+      "react/jsx-boolean-value": "warn",
+      "react/jsx-curly-brace-presence": "warn",
+      "react/jsx-key": "warn",
+      "react/jsx-sort-props": [
+        "warn",
+        {
+          "callbacksLast": true,
+          "reservedFirst": true,
+          "shorthandLast": true
+        }
+      ],
+      "react/jsx-props-no-spreading": 1,
+      "react/no-array-index-key": "warn",
+      "react/prefer-stateless-function": "warn",
+      "react/self-closing-comp": "warn",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "off",
+      "yoda": "warn"
+    }
+  }

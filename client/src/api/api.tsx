@@ -1,4 +1,4 @@
-import Axios from "../Axios";
+import Axios from "../ourAxios";
 
 export default {
     user: {

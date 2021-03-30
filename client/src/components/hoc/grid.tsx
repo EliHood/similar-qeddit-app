@@ -1,6 +1,6 @@
 import { Grid } from "@material-ui/core";
 import React, { Component } from "react";
-export interface gridHocState {}
+export type gridHocState = {}
 export default function(WrappedComponent) {
     class GridHoc extends Component<{}, gridHocState> {
         state = {};
