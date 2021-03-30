@@ -6,7 +6,7 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import Typography from "@material-ui/core/Typography";
 import ReplyIcon from "@material-ui/icons/Reply";
 import storeHooks from "./storeHooks";
-import {ButtonFunctionProps } from '../utils/types';
+import { ButtonFunctionProps } from "../utils/types";
 const ButtonFunction: React.FC<ButtonFunctionProps> = ({ type, onReply, update, postId, userId, commentId, comment, setEditComment, deleteReply, replyId, replyUserId }) => {
     const { deleteComment } = storeHooks();
     return (

@@ -17,6 +17,8 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.23.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.3.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "immer": "^4.0.1",
     "jwt-decode": "^2.2.0",

@@ -6,7 +6,7 @@ import Router from "./Router";
 export type routerContainerState = {
     hasError: boolean;
     messages: any[];
-}
+};
 export type routerContainerProps = {
     getUser: () => void;
     logOutInit: (data) => void;
@@ -15,7 +15,7 @@ export type routerContainerProps = {
     user: {
         isAuthenticated: boolean;
     };
-}
+};
 
 class Nav extends Component<routerContainerProps, routerContainerState> {
     state: routerContainerState = {

@@ -1,16 +1,23 @@
 {
-    "eslint.format.enable": true,
-    "eslint.run": "onSave",
-    "eslint.validate": [
-        {
-          "language": "typescriptreact",
-          "autoFix": true
-        }
-    ],
     "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true 
+      "source.fixAll.eslint": true
     },
-    "eslint.lintTask.enable": true,
-    "eslint.debug": true,
-    
-}
+    "eslint.validate": [
+      {
+        "language": "typescriptreact"
+      }
+    ],
+    "eslint.validate": [
+      {
+        "language": "typescript"
+      }
+    ],
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.formatOnSave": true,
+    "eslint.enable": false,
+
+    "workbench.preferredLightColorTheme": "Visual Studio Light",
+    "prettier.semi": false
+  }
