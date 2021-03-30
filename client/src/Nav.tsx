@@ -1,62 +1,66 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { getUser, logOutInit, initGetNotifications } from "./actions/userActions";
-import { history } from "./ourHistory";
-import Router from "./Router";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getUser, logOutInit, initGetNotifications } from './actions/userActions';
+import { history } from './ourHistory';
+import Router from './Router';
+
 export type routerContainerState = {
-    hasError: boolean;
-    messages: any[];
+  hasError: boolean;
+  messages: any[];
 };
 export type routerContainerProps = {
-    getUser: () => void;
-    logOutInit: (data) => void;
-    darkTheme: () => void;
-    initGetNotifications: (id: number) => void;
-    user: {
-        isAuthenticated: boolean;
-    };
+  getUser: () => void;
+  logOutInit: (data) => void;
+  darkTheme: () => void;
+  initGetNotifications: (id: number) => void;
+  user: {
+    isAuthenticated: boolean;
+  };
 };
 
 class Nav extends Component<routerContainerProps, routerContainerState> {
-    state: routerContainerState = {
-        hasError: false,
-        messages: [],
-    };
-    componentDidMount() {
-        this.props.getUser();
-    }
-    componentDidCatch(error, info) {
-        this.setState({
-            hasError: true,
-        });
-    }
-    ourLogOut = (e) => {
-        e.preventDefault();
-        this.props.logOutInit(history);
-    };
+  state: routerContainerState = {
+    hasError: false,
+    messages: [],
+  };
 
-    render() {
-        const { hasError } = this.state;
+  componentDidMount() {
+    this.props.getUser();
+  }
 
-        return (
-            <Router
-                darkTheme={this.props.darkTheme}
-                notifications={this.props.initGetNotifications}
-                hasError={hasError}
-                logOut={this.ourLogOut}
-                user={this.props.user.isAuthenticated}
-                {...this.props.user}
-            />
-        );
-    }
+  componentDidCatch(error, info) {
+    this.setState({
+      hasError: true,
+    });
+  }
+
+  ourLogOut = (e) => {
+    e.preventDefault();
+    this.props.logOutInit(history);
+  };
+
+  render() {
+    const { hasError } = this.state;
+
+    return (
+      <Router
+        darkTheme={this.props.darkTheme}
+        notifications={this.props.initGetNotifications}
+        hasError={hasError}
+        logOut={this.ourLogOut}
+        user={this.props.user.isAuthenticated}
+        {...this.props.user}
+      />
+    );
+  }
 }
 const dispatchToProps = (dispatch: any) => ({
-    getUser: () => dispatch(getUser()),
-    logOutInit: (data: object) => dispatch(logOutInit(data)),
-    initGetNotifications: (id: number) => dispatch(initGetNotifications(id)),
+  getUser: () => dispatch(getUser()),
+  logOutInit: (data: object) => dispatch(logOutInit(data)),
+  initGetNotifications: (id: number) => dispatch(initGetNotifications(id)),
 });
 
 const mapStateToProps = (state: any) => ({
-    user: state.user,
+  user: state.user,
 });
 export default connect(mapStateToProps, dispatchToProps)(Nav);
