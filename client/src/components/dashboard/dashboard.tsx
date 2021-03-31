@@ -11,50 +11,50 @@ import storeMethods from '../../common/storeHooks';
 import OurWrapper from '../../common/OurWrapper';
 
 function Dashboard(props: any) {
-  const dispatch = useDispatch();
-  const inputData = {
-    addTitle: (data: string) => dispatch(addTitle(data)),
-    addContent: (data: string) => dispatch(addContent(data)),
-  };
-  const handleInputChange = useInputChange(inputData);
-  const { ourTitle } = storeMethods();
-  const { titleError } = storeMethods();
-  const { ourBodyError } = storeMethods();
-  const { ourPostContent } = storeMethods();
-  const { createPost } = storeMethods();
-  const onSubmit = (e: any) => {
-    e.preventDefault();
-    const postData = { ourTitle, ourPostContent };
-    createPost(postData);
-  };
+    const dispatch = useDispatch();
+    const inputData = {
+        addTitle: (data: string) => dispatch(addTitle(data)),
+        addContent: (data: string) => dispatch(addContent(data)),
+    };
+    const handleInputChange = useInputChange(inputData);
+    const { ourTitle } = storeMethods();
+    const { titleError } = storeMethods();
+    const { ourBodyError } = storeMethods();
+    const { ourPostContent } = storeMethods();
+    const { createPost } = storeMethods();
+    const onSubmit = (e: any) => {
+        e.preventDefault();
+        const postData = { ourTitle, ourPostContent };
+        createPost(postData);
+    };
 
-  const isEnabled = !(titleError === true && ourBodyError === true);
+    const isEnabled = !(titleError === true && ourBodyError === true);
 
-  return (
-    <>
-      <OurWrapper appBar={props.appBar} appOpen={props.appOpen} appBarShift={props.appBarShift}>
-        <Grid justify="center" container>
-          <Grid item lg={9} xs={11}>
-            {storeMethods().errPost && <OurError />}
-            <PostForm
-              title={ourTitle}
-              postContent={ourPostContent}
-              handleTitleChange={handleInputChange}
-              handleContentChange={handleInputChange}
-              onSubmit={onSubmit}
-              disButton={isEnabled}
-              titleError={titleError}
-              bodyError={ourBodyError}
-            />
-          </Grid>
-        </Grid>
+    return (
+        <>
+            <OurWrapper appBar={props.appBar} appOpen={props.appOpen} appBarShift={props.appBarShift}>
+                <Grid justify="center" container>
+                    <Grid item lg={9} xs={11}>
+                        {storeMethods().errPost && <OurError />}
+                        <PostForm
+                            title={ourTitle}
+                            postContent={ourPostContent}
+                            handleTitleChange={handleInputChange}
+                            handleContentChange={handleInputChange}
+                            onSubmit={onSubmit}
+                            disButton={isEnabled}
+                            titleError={titleError}
+                            bodyError={ourBodyError}
+                        />
+                    </Grid>
+                </Grid>
 
-        <br />
+                <br />
 
-        <OurTabs />
-      </OurWrapper>
-    </>
-  );
+                <OurTabs />
+            </OurWrapper>
+        </>
+    );
 }
 
 export default GridHoc(Dashboard);

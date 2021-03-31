@@ -5,12 +5,12 @@ import { initGetNotifications, markAsReadInit } from '../actions/userActions';
 import { getNotifications } from '../selectors/selectors';
 
 const mapDispatchToProps = (dispatch: any) => ({
-  initGetNotifications: (id: number) => dispatch(initGetNotifications(id)),
-  markAsReadInit: (id: number) => dispatch(markAsReadInit(id)),
+    initGetNotifications: (id: number) => dispatch(initGetNotifications(id)),
+    markAsReadInit: (id: number) => dispatch(markAsReadInit(id)),
 });
 
 const mapStateToProps = createStructuredSelector({
-  getNotifications,
+    getNotifications,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notification);

@@ -4,14 +4,14 @@ import { initCommentUpdates, getPostsInit } from '../actions/postActions';
 import { getPosts } from '../selectors/selectors';
 
 function usePostsHooks() {
-  const dispatch = useDispatch();
-  const posts = useSelector(getPosts);
-  React.useEffect(() => {
-    dispatch(getPostsInit());
-    dispatch(initCommentUpdates());
-  }, []);
+    const dispatch = useDispatch();
+    const posts = useSelector(getPosts);
+    React.useEffect(() => {
+        dispatch(getPostsInit());
+        dispatch(initCommentUpdates());
+    }, []);
 
-  return { posts };
+    return { posts };
 }
 
 export default usePostsHooks;

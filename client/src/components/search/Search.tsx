@@ -7,39 +7,39 @@ import { history } from '../../ourHistory';
 import { SearchType } from '../../utils/types';
 
 const Search: React.FC<SearchType> = ({ currentUser }) => {
-  const { query, searchQ } = storehooks();
-  const search = (value) => {
-    searchQ(value);
-  };
+    const { query, searchQ } = storehooks();
+    const search = (value) => {
+        searchQ(value);
+    };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    history.push({ pathname: `/search/posts?q=${query}`, state: { query, currentUser } });
-  };
+    const onSubmit = (e) => {
+        e.preventDefault();
+        history.push({ pathname: `/search/posts?q=${query}`, state: { query, currentUser } });
+    };
 
-  const disableIfEmpty = query.length === 0;
-  const ifTyping = query.length > 0 ? '100px' : '-40px';
-  const fadeIfempty = query.length > 0 ? 1 : 0.1;
+    const disableIfEmpty = query.length === 0;
+    const ifTyping = query.length > 0 ? '100px' : '-40px';
+    const fadeIfempty = query.length > 0 ? 1 : 0.1;
 
-  return (
-    <>
-      <form onSubmit={onSubmit}>
-        <InputBase placeholder="Search…" style={{ color: '#fff' }} onChange={(e) => search(e.target.value)} value={query} inputProps={{ 'aria-label': 'search' }} />
-        <Button
-          disabled={disableIfEmpty}
-          style={{
-            marginLeft: ifTyping, opacity: fadeIfempty, transition: 'ease 0.4s', outline: 'none', backgroundColor: 'transparent',
-          }}
-          size="small"
-          type="submit"
-          variant="outlined"
-          color="primary"
-        >
-          <SearchIcon style={{ color: '#fff' }} />
-        </Button>
-      </form>
-    </>
-  );
+    return (
+        <>
+            <form onSubmit={onSubmit}>
+                <InputBase placeholder="Search…" style={{ color: '#fff' }} onChange={(e) => search(e.target.value)} value={query} inputProps={{ 'aria-label': 'search' }} />
+                <Button
+                    disabled={disableIfEmpty}
+                    style={{
+                        marginLeft: ifTyping, opacity: fadeIfempty, transition: 'ease 0.4s', outline: 'none', backgroundColor: 'transparent',
+                    }}
+                    size="small"
+                    type="submit"
+                    variant="outlined"
+                    color="primary"
+                >
+                    <SearchIcon style={{ color: '#fff' }} />
+                </Button>
+            </form>
+        </>
+    );
 };
 
 export default Search;

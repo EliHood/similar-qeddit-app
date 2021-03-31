@@ -7,157 +7,157 @@ import Notification from '../../containers/notificationTooltip';
 import OurMenuItem from '../../common/OurMenuItem';
 
 function CollapasedMenu(props: any) {
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
-  const user = props.currentUser.user ? props.currentUser.user : '';
+    const user = props.currentUser.user ? props.currentUser.user : '';
 
-  return (
-    <Grid item>
-      <OurMenu appOpen={props.appOpen} setOpen={props.setOpen}>
-        {props.isAuthenticated || props.googleAccount === true ? (
-          <>
-            <OurMenuItem>
-              <Link
-                style={{
-                  fontWeight: '500',
-                  textDecoration: 'none',
-                }}
-                to="/"
-                color="primary"
-              >
-                Home
-              </Link>
-            </OurMenuItem>
+    return (
+        <Grid item>
+            <OurMenu appOpen={props.appOpen} setOpen={props.setOpen}>
+                {props.isAuthenticated || props.googleAccount === true ? (
+                    <>
+                        <OurMenuItem>
+                            <Link
+                                style={{
+                                    fontWeight: '500',
+                                    textDecoration: 'none',
+                                }}
+                                to="/"
+                                color="primary"
+                            >
+                                Home
+                            </Link>
+                        </OurMenuItem>
 
-            <OurMenuItem>
-              <Link
-                style={{
-                  textDecoration: 'none',
-                  fontWeight: '500',
-                }}
-                to="/dashboard"
-              >
-                Dashboard
-              </Link>
-            </OurMenuItem>
+                        <OurMenuItem>
+                            <Link
+                                style={{
+                                    textDecoration: 'none',
+                                    fontWeight: '500',
+                                }}
+                                to="/dashboard"
+                            >
+                                Dashboard
+                            </Link>
+                        </OurMenuItem>
 
-            <OurMenuItem>
-              <Link
-                style={{
-                  textDecoration: 'none',
-                  fontWeight: '500',
-                }}
-                to={{
-                  pathname: `/${user.id}/likes`,
-                }}
-              >
-                Your Likes
-              </Link>
-            </OurMenuItem>
-            <OurMenuItem>
-              <Link
-                style={{
-                  textDecoration: 'none',
-                  fontWeight: '500',
-                }}
-                to={{
-                  pathname: `/${user.id}/posts`,
-                }}
-              >
-                Your Posts
-              </Link>
-            </OurMenuItem>
-            <OurMenuItem>
-              <Link
-                style={{
-                  fontWeight: '500',
-                  textDecoration: 'none',
-                }}
-                to="/editProfile"
-              >
-                Edit Profile
-              </Link>
-            </OurMenuItem>
-            <OurMenuItem>
-              <Notification
-                userId={user.id}
-                id={props.notificationId}
-                handleClose={handleClose}
-                open={false}
-                anchorEl={props.anchorEl}
-                handleNotificationClick={props.handleNotificationClick}
-                title="Notifications"
-              />
-            </OurMenuItem>
+                        <OurMenuItem>
+                            <Link
+                                style={{
+                                    textDecoration: 'none',
+                                    fontWeight: '500',
+                                }}
+                                to={{
+                                    pathname: `/${user.id}/likes`,
+                                }}
+                            >
+                                Your Likes
+                            </Link>
+                        </OurMenuItem>
+                        <OurMenuItem>
+                            <Link
+                                style={{
+                                    textDecoration: 'none',
+                                    fontWeight: '500',
+                                }}
+                                to={{
+                                    pathname: `/${user.id}/posts`,
+                                }}
+                            >
+                                Your Posts
+                            </Link>
+                        </OurMenuItem>
+                        <OurMenuItem>
+                            <Link
+                                style={{
+                                    fontWeight: '500',
+                                    textDecoration: 'none',
+                                }}
+                                to="/editProfile"
+                            >
+                                Edit Profile
+                            </Link>
+                        </OurMenuItem>
+                        <OurMenuItem>
+                            <Notification
+                                userId={user.id}
+                                id={props.notificationId}
+                                handleClose={handleClose}
+                                open={false}
+                                anchorEl={props.anchorEl}
+                                handleNotificationClick={props.handleNotificationClick}
+                                title="Notifications"
+                            />
+                        </OurMenuItem>
 
-            <OurMenuItem>
-              <Link
-                style={{
-                  fontWeight: '500',
-                  textDecoration: 'none',
-                }}
-                to={{
-                  pathname: `/profile/${user.username}`,
-                }}
-              >
-                Profile
-              </Link>
-            </OurMenuItem>
+                        <OurMenuItem>
+                            <Link
+                                style={{
+                                    fontWeight: '500',
+                                    textDecoration: 'none',
+                                }}
+                                to={{
+                                    pathname: `/profile/${user.username}`,
+                                }}
+                            >
+                                Profile
+                            </Link>
+                        </OurMenuItem>
 
-            <OurMenuItem>
-              <span onClick={props.darkTheme}>Change Theme</span>
-            </OurMenuItem>
+                        <OurMenuItem>
+                            <span onClick={props.darkTheme}>Change Theme</span>
+                        </OurMenuItem>
 
-            <OurMenuItem>
-              <span onClick={props.logOut}>Log Out</span>
-            </OurMenuItem>
-          </>
-        ) : (
-          <>
-            <OurMenuItem style={{ margin: '20px' }}>
-              <Link
-                style={{
-                  color: '#333',
-                  fontWeight: '500',
-                  textDecoration: 'none',
-                }}
-                to="/"
-              >
-                Home
-              </Link>
-            </OurMenuItem>
-            <OurMenuItem style={{ margin: '20px' }}>
-              <Link
-                style={{
-                  color: '#333',
-                  fontWeight: '500',
-                  textDecoration: 'none',
-                }}
-                to="/login"
-              >
-                Login
-              </Link>
-            </OurMenuItem>
-            <OurMenuItem style={{ margin: '20px' }}>
-              <Link
-                style={{
-                  color: '#333',
-                  fontWeight: '500',
-                  textDecoration: 'none',
-                }}
-                to="/register"
-              >
-                Register
-              </Link>
-            </OurMenuItem>
-          </>
-        )}
-      </OurMenu>
-    </Grid>
-  );
+                        <OurMenuItem>
+                            <span onClick={props.logOut}>Log Out</span>
+                        </OurMenuItem>
+                    </>
+                ) : (
+                    <>
+                        <OurMenuItem style={{ margin: '20px' }}>
+                            <Link
+                                style={{
+                                    color: '#333',
+                                    fontWeight: '500',
+                                    textDecoration: 'none',
+                                }}
+                                to="/"
+                            >
+                                Home
+                            </Link>
+                        </OurMenuItem>
+                        <OurMenuItem style={{ margin: '20px' }}>
+                            <Link
+                                style={{
+                                    color: '#333',
+                                    fontWeight: '500',
+                                    textDecoration: 'none',
+                                }}
+                                to="/login"
+                            >
+                                Login
+                            </Link>
+                        </OurMenuItem>
+                        <OurMenuItem style={{ margin: '20px' }}>
+                            <Link
+                                style={{
+                                    color: '#333',
+                                    fontWeight: '500',
+                                    textDecoration: 'none',
+                                }}
+                                to="/register"
+                            >
+                                Register
+                            </Link>
+                        </OurMenuItem>
+                    </>
+                )}
+            </OurMenu>
+        </Grid>
+    );
 }
 
 export default CollapasedMenu;

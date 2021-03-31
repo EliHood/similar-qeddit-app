@@ -13,108 +13,108 @@ import IsAuth from '../hoc/isAuthenticated';
 import SignUpForm from '../forms/signUp/signUp';
 import { userStore } from '../../selectors/selectors';
 import {
-  addEmail, addPassword, addUsername, signUpInit, addPasswordConf,
+    addEmail, addPassword, addUsername, signUpInit, addPasswordConf,
 } from '../../actions/userActions';
 import OurWrapper from '../../common/OurWrapper';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    height: '100vh',
-    width: '100%',
-  },
-  image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
-    backgroundRepeat: 'no-repeat',
-    backgroundColor: theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
+    root: {
+        height: '100vh',
+        width: '100%',
+    },
+    image: {
+        backgroundImage: 'url(https://source.unsplash.com/random)',
+        backgroundRepeat: 'no-repeat',
+        backgroundColor: theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+    },
+    paper: {
+        margin: theme.spacing(8, 4),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing(1),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+    },
 }));
 
 function Register(props: any) {
-  const classes = useStyles();
-  const userData = useSelector(userStore);
-  const dispatch = useDispatch();
-  const signup = (userData: object, history: object) => dispatch(signUpInit(userData, history));
-  const inputData = {
-    addEmail: (email: string) => dispatch(addEmail(email)),
-    addPassword: (password: string) => dispatch(addPassword(password)),
-    addUsername: (username: string) => dispatch(addUsername(username)),
-    addPasswordConf: (passwordConf: string) => dispatch(addPasswordConf(passwordConf)),
-  };
-  const handleInputChange = useInputChange(inputData);
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    const { username, email, password } = userData;
-    const creds = {
-      username,
-      email,
-      password,
+    const classes = useStyles();
+    const userData = useSelector(userStore);
+    const dispatch = useDispatch();
+    const signup = (userData: object, history: object) => dispatch(signUpInit(userData, history));
+    const inputData = {
+        addEmail: (email: string) => dispatch(addEmail(email)),
+        addPassword: (password: string) => dispatch(addPassword(password)),
+        addUsername: (username: string) => dispatch(addUsername(username)),
+        addPasswordConf: (passwordConf: string) => dispatch(addPasswordConf(passwordConf)),
+    };
+    const handleInputChange = useInputChange(inputData);
+    const handleSubmit = (e: any) => {
+        e.preventDefault();
+        const { username, email, password } = userData;
+        const creds = {
+            username,
+            email,
+            password,
+        };
+
+        signup(creds, history);
     };
 
-    signup(creds, history);
-  };
+    const {
+        username, email, password, passwordConf, passwordConfError, usernameError, passwordError, emailError,
+    } = userData;
+    const isEnabled = !(passwordConfError === true && emailError === true && passwordError === true && usernameError === true);
 
-  const {
-    username, email, password, passwordConf, passwordConfError, usernameError, passwordError, emailError,
-  } = userData;
-  const isEnabled = !(passwordConfError === true && emailError === true && passwordError === true && usernameError === true);
+    return (
+        <OurWrapper appBar={props.appBar} appOpen={props.appOpen} appBarShift={props.appBarShift}>
+            <>
+                <Grid container component="main" className={classes.root}>
+                    <CssBaseline />
+                    <Grid item xs={false} sm={4} md={7} className={classes.image} />
+                    <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                        <div className={classes.paper}>
+                            <Avatar className={classes.avatar}>
+                                <GroupIcon />
+                            </Avatar>
+                            <Typography component="h1" variant="h5">
+                                Register
+                            </Typography>
+                            {userData.error && <div>{userData.error}</div>}
 
-  return (
-    <OurWrapper appBar={props.appBar} appOpen={props.appOpen} appBarShift={props.appBarShift}>
-      <>
-        <Grid container component="main" className={classes.root}>
-          <CssBaseline />
-          <Grid item xs={false} sm={4} md={7} className={classes.image} />
-          <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-            <div className={classes.paper}>
-              <Avatar className={classes.avatar}>
-                <GroupIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-                Register
-              </Typography>
-              {userData.error && <div>{userData.error}</div>}
-
-              <SignUpForm
-                submit={handleSubmit}
-                usernameChange={handleInputChange}
-                emailChange={handleInputChange}
-                passwordChange={handleInputChange}
-                passwordConfChange={handleInputChange}
-                username={username}
-                password={password}
-                passwordConf={passwordConf}
-                email={email}
-                usernameError={usernameError}
-                passwordError={passwordError}
-                passwordConfError={passwordConfError}
-                emailError={emailError}
-                disButton={isEnabled}
-              />
-            </div>
-          </Grid>
-        </Grid>
-      </>
-    </OurWrapper>
-  );
+                            <SignUpForm
+                                submit={handleSubmit}
+                                usernameChange={handleInputChange}
+                                emailChange={handleInputChange}
+                                passwordChange={handleInputChange}
+                                passwordConfChange={handleInputChange}
+                                username={username}
+                                password={password}
+                                passwordConf={passwordConf}
+                                email={email}
+                                usernameError={usernameError}
+                                passwordError={passwordError}
+                                passwordConfError={passwordConfError}
+                                emailError={emailError}
+                                disButton={isEnabled}
+                            />
+                        </div>
+                    </Grid>
+                </Grid>
+            </>
+        </OurWrapper>
+    );
 }
 
 export default IsAuth(Register);

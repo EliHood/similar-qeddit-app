@@ -8,30 +8,30 @@ import OurError from '../../common/OurError';
 import OurWrapper from '../../common/OurWrapper';
 
 function Landing(props: any) {
-  usePostsHook();
-  return (
-    <>
-      <OurWrapper appBar={props.appBar} appOpen={props.appOpen} appBarShift={props.appBarShift}>
-        <Typography variant="subtitle1" align="left">
-          Post's from our users
-        </Typography>
+    usePostsHook();
+    return (
+        <>
+            <OurWrapper appBar={props.appBar} appOpen={props.appOpen} appBarShift={props.appBarShift}>
+                <Typography variant="subtitle1" align="left">
+                    Post's from our users
+                </Typography>
 
-        {storeMethods().errPost && <OurError />}
-        <PostList
-          likePost={storeMethods().likePost}
-          deletePost={storeMethods().deletePost}
-          deleteComment={storeMethods().deleteComment}
-          dislikePost={storeMethods().dislikePost}
-          posts={storeMethods().posts}
-          currentUser={storeMethods().user}
-          postComment={storeMethods().postComment}
-          isNotified={storeMethods().isNotified}
-          getNotifications={storeMethods().notifications}
-          editComment={storeMethods().editComment}
-        />
-      </OurWrapper>
-    </>
-  );
+                {storeMethods().errPost && <OurError />}
+                <PostList
+                    likePost={storeMethods().likePost}
+                    deletePost={storeMethods().deletePost}
+                    deleteComment={storeMethods().deleteComment}
+                    dislikePost={storeMethods().dislikePost}
+                    posts={storeMethods().posts}
+                    currentUser={storeMethods().user}
+                    postComment={storeMethods().postComment}
+                    isNotified={storeMethods().isNotified}
+                    getNotifications={storeMethods().notifications}
+                    editComment={storeMethods().editComment}
+                />
+            </OurWrapper>
+        </>
+    );
 }
 export default React.memo(GridHoc(Landing));
 

@@ -16,26 +16,26 @@ type PostFormInterface = {
   disButton: boolean;
 }
 const PostForm = ({
-  onSubmit, handleTitleChange, titleError, bodyError, title, handleContentChange, postContent, disButton,
+    onSubmit, handleTitleChange, titleError, bodyError, title, handleContentChange, postContent, disButton,
 }: PostFormInterface) => (
-  <form onSubmit={onSubmit}>
-    <Typography className="title" style={{ paddingBottom: '20px' }} variant="subtitle1">
-      New Post
-    </Typography>
-    <OurTextField type="post" titleError={titleError} title={title} handleTitleChange={handleTitleChange} />
-    <FormHelperText error id="component-helper-text">
-      {titleError}
-    </FormHelperText>
+    <form onSubmit={onSubmit}>
+        <Typography className="title" style={{ paddingBottom: '20px' }} variant="subtitle1">
+            New Post
+        </Typography>
+        <OurTextField type="post" titleError={titleError} title={title} handleTitleChange={handleTitleChange} />
+        <FormHelperText error id="component-helper-text">
+            {titleError}
+        </FormHelperText>
 
-    <OurTextField type="post-content" bodyError={bodyError} post_content={postContent} handleContentChange={handleContentChange} />
-    <FormHelperText error id="component-helper-text">
-      {bodyError}
-    </FormHelperText>
-    <br />
-    <Button className="butSub" disabled={disButton} variant="outlined" color="primary" type="submit">
-      Submit
-    </Button>
-  </form>
+        <OurTextField type="post-content" bodyError={bodyError} post_content={postContent} handleContentChange={handleContentChange} />
+        <FormHelperText error id="component-helper-text">
+            {bodyError}
+        </FormHelperText>
+        <br />
+        <Button className="butSub" disabled={disButton} variant="outlined" color="primary" type="submit">
+            Submit
+        </Button>
+    </form>
 );
 
 export default PostForm;

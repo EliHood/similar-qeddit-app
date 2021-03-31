@@ -7,10 +7,10 @@ const TheLink = styled(Link)`
     text-decoration: none;
 `;
 const OurLink = (props: any) => (
-  <TheLink {...props}>
-    {' '}
-    {props.title}
-  </TheLink>
+    <TheLink {...props}>
+        {' '}
+        {props.title}
+    </TheLink>
 );
 
 export default OurLink;

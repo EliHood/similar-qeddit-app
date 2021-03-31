@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getUser, logOutInit, initGetNotifications } from './actions/userActions';
@@ -6,7 +7,6 @@ import Router from './Router';
 
 export type routerContainerState = {
   hasError: boolean;
-  messages: any[];
 };
 export type routerContainerProps = {
   getUser: () => void;
@@ -20,47 +20,46 @@ export type routerContainerProps = {
 
 class Nav extends Component<routerContainerProps, routerContainerState> {
   state: routerContainerState = {
-    hasError: false,
-    messages: [],
+      hasError: false,
   };
 
   componentDidMount() {
-    this.props.getUser();
+      this.props.getUser();
   }
 
   componentDidCatch(error, info) {
-    this.setState({
-      hasError: true,
-    });
+      this.setState({
+          hasError: true,
+      });
   }
 
   ourLogOut = (e) => {
-    e.preventDefault();
-    this.props.logOutInit(history);
+      e.preventDefault();
+      this.props.logOutInit(history);
   };
 
   render() {
-    const { hasError } = this.state;
+      const { hasError } = this.state;
 
-    return (
-      <Router
-        darkTheme={this.props.darkTheme}
-        notifications={this.props.initGetNotifications}
-        hasError={hasError}
-        logOut={this.ourLogOut}
-        user={this.props.user.isAuthenticated}
-        {...this.props.user}
-      />
-    );
+      return (
+          <Router
+              darkTheme={this.props.darkTheme}
+              notifications={this.props.initGetNotifications}
+              hasError={hasError}
+              logOut={this.ourLogOut}
+              user={this.props.user.isAuthenticated}
+              {...this.props.user}
+          />
+      );
   }
 }
 const dispatchToProps = (dispatch: any) => ({
-  getUser: () => dispatch(getUser()),
-  logOutInit: (data: object) => dispatch(logOutInit(data)),
-  initGetNotifications: (id: number) => dispatch(initGetNotifications(id)),
+    getUser: () => dispatch(getUser()),
+    logOutInit: (data: object) => dispatch(logOutInit(data)),
+    initGetNotifications: (id: number) => dispatch(initGetNotifications(id)),
 });
 
 const mapStateToProps = (state: any) => ({
-  user: state.user,
+    user: state.user,
 });
 export default connect(mapStateToProps, dispatchToProps)(Nav);

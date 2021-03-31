@@ -5,15 +5,15 @@ import postReducer from './postReducer';
 import authReducer from './userReducer';
 
 const persistConfig = {
-  key: 'root',
-  storage,
-  whitelist: ['notDark'],
+    key: 'root',
+    storage,
+    whitelist: ['notDark'],
 };
 const pesistedReducer = persistReducer(persistConfig, authReducer);
 
 const rootReducer = combineReducers({
-  user: pesistedReducer,
-  post: postReducer,
+    user: pesistedReducer,
+    post: postReducer,
 });
 
 export default rootReducer;

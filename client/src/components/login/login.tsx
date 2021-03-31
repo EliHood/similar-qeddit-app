@@ -24,105 +24,105 @@ export type loginProps = {
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    height: '100vh',
-    width: '100%',
-  },
-  image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
-    backgroundRepeat: 'no-repeat',
-    backgroundColor: theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
+    root: {
+        height: '100vh',
+        width: '100%',
+    },
+    image: {
+        backgroundImage: 'url(https://source.unsplash.com/random)',
+        backgroundRepeat: 'no-repeat',
+        backgroundColor: theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+    },
+    paper: {
+        margin: theme.spacing(8, 4),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing(1),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+    },
 }));
 
 function Login(props: any) {
-  const classes = useStyles();
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const dispatch = useDispatch();
-  const login = (userData: object, history: object) => dispatch(loginInit(userData, history));
-  const user = useSelector(userStore);
+    const classes = useStyles();
+    const [username, setUsername] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const dispatch = useDispatch();
+    const login = (userData: object, history: object) => dispatch(loginInit(userData, history));
+    const user = useSelector(userStore);
 
-  const goBackEmailConfirmation = () => {
-    props.history.goBack();
-  };
-
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    const creds = {
-      username,
-      password,
+    const goBackEmailConfirmation = () => {
+        props.history.goBack();
     };
 
-    login(creds, props.history);
-  };
+    const handleSubmit = (e: any) => {
+        e.preventDefault();
+        const creds = {
+            username,
+            password,
+        };
 
-  return (
-    <OurWrapper appBar={props.appBar} appOpen={props.appOpen} appBarShift={props.appBarShift}>
-      <>
-        <Grid container component="main" className={classes.root}>
-          <CssBaseline />
-          <Grid item xs={false} sm={4} md={7} className={classes.image} />
-          <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-            <div className={classes.paper}>
-              <Avatar className={classes.avatar}>
-                <LockOutlinedIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-                Log In
-              </Typography>
-              {user.error && (
-                <div>
-                  <Alert severity="warning">{user.error}</Alert>
-                </div>
-              )}
-              {user.error.includes('Please activate') && (
-                <div style={{ padding: '20px 0px' }}>
-                  <Typography variant="h6" style={{ cursor: 'pointer' }} onClick={goBackEmailConfirmation}>
-                    {' '}
-                    Back
-                    {' '}
-                  </Typography>
-                </div>
-              )}
+        login(creds, props.history);
+    };
 
-              <LoginForm
-                submit={handleSubmit}
-                username={username}
-                password={password}
-                usernameChange={(e) => setUsername(e.target.value)}
-                passwordChange={(e) => setPassword(e.target.value)}
-              />
-              <div style={{ margin: '60px 0px' }}>
-                <GoogleLoginButton />
-              </div>
-            </div>
-          </Grid>
-        </Grid>
+    return (
+        <OurWrapper appBar={props.appBar} appOpen={props.appOpen} appBarShift={props.appBarShift}>
+            <>
+                <Grid container component="main" className={classes.root}>
+                    <CssBaseline />
+                    <Grid item xs={false} sm={4} md={7} className={classes.image} />
+                    <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                        <div className={classes.paper}>
+                            <Avatar className={classes.avatar}>
+                                <LockOutlinedIcon />
+                            </Avatar>
+                            <Typography component="h1" variant="h5">
+                                Log In
+                            </Typography>
+                            {user.error && (
+                                <div>
+                                    <Alert severity="warning">{user.error}</Alert>
+                                </div>
+                            )}
+                            {user.error.includes('Please activate') && (
+                                <div style={{ padding: '20px 0px' }}>
+                                    <Typography variant="h6" style={{ cursor: 'pointer' }} onClick={goBackEmailConfirmation}>
+                                        {' '}
+                                        Back
+                                        {' '}
+                                    </Typography>
+                                </div>
+                            )}
 
-        {/* </div> */}
-      </>
-    </OurWrapper>
-  );
+                            <LoginForm
+                                submit={handleSubmit}
+                                username={username}
+                                password={password}
+                                usernameChange={(e) => setUsername(e.target.value)}
+                                passwordChange={(e) => setPassword(e.target.value)}
+                            />
+                            <div style={{ margin: '60px 0px' }}>
+                                <GoogleLoginButton />
+                            </div>
+                        </div>
+                    </Grid>
+                </Grid>
+
+                {/* </div> */}
+            </>
+        </OurWrapper>
+    );
 }
 
 export default IsAuth(Login);

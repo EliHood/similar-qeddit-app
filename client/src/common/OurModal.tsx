@@ -10,28 +10,28 @@ import { useTheme } from '@material-ui/core/styles';
 import OurLink from './OurLink';
 
 export default function OurModal(props) {
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-  return (
-    <Dialog fullScreen={fullScreen} open={props.open} onClose={props.handleClose} aria-labelledby="responsive-dialog-title">
-      <DialogTitle id="responsive-dialog-title">You have to be signed in to do that</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          <OurLink
-            style={{ color: '#333' }}
-            to={{
-              pathname: '/login',
-            }}
-            title="Sign In"
-          />
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button autoFocus onClick={props.handleClose} color="primary">
-          Close
-        </Button>
-      </DialogActions>
-    </Dialog>
-  );
+    return (
+        <Dialog fullScreen={fullScreen} open={props.open} onClose={props.handleClose} aria-labelledby="responsive-dialog-title">
+            <DialogTitle id="responsive-dialog-title">You have to be signed in to do that</DialogTitle>
+            <DialogContent>
+                <DialogContentText>
+                    <OurLink
+                        style={{ color: '#333' }}
+                        to={{
+                            pathname: '/login',
+                        }}
+                        title="Sign In"
+                    />
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button autoFocus onClick={props.handleClose} color="primary">
+                    Close
+                </Button>
+            </DialogActions>
+        </Dialog>
+    );
 }

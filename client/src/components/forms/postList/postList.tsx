@@ -7,27 +7,27 @@ import storeHooks from '../../../common/storeHooks';
 import OurLoader from '../../../common/OurLoader';
 
 function PostList(props: any) {
-  const { posts, currentUser } = props;
+    const { posts, currentUser } = props;
 
-  return storeHooks().loading ? (
-    <OurLoader />
-  ) : (
-    <>
-      {posts.length > 0 ? (
-        posts.map((post, i) => (
-          <div key={i} data-testid="post-list">
-            <PostItemContainer post={post} currentUser={currentUser} {...props} />
-          </div>
-        ))
-      ) : (
-        <div data-testid="no-posts">
-          <Grid item md={8}>
-            <Typography>No Posts yet</Typography>
-          </Grid>
-        </div>
-      )}
-    </>
-  );
+    return storeHooks().loading ? (
+        <OurLoader />
+    ) : (
+        <>
+            {posts.length > 0 ? (
+                posts.map((post, i) => (
+                    <div key={i} data-testid="post-list">
+                        <PostItemContainer post={post} currentUser={currentUser} {...props} />
+                    </div>
+                ))
+            ) : (
+                <div data-testid="no-posts">
+                    <Grid item md={8}>
+                        <Typography>No Posts yet</Typography>
+                    </Grid>
+                </div>
+            )}
+        </>
+    );
 }
 
 export default React.memo(PostList);

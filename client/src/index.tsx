@@ -8,11 +8,11 @@ import { store, persitor } from './store';
 import App from './App';
 
 const app = (
-  <Provider store={store}>
-    <PersistGate persistor={persitor}>
-      <App />
-    </PersistGate>
-  </Provider>
+    <Provider store={store}>
+        <PersistGate persistor={persitor}>
+            <App />
+        </PersistGate>
+    </Provider>
 );
 ReactDOM.render(app, document.getElementById('root'));
 
