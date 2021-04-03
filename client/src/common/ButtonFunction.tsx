@@ -5,8 +5,14 @@ import ClearIcon from '@material-ui/icons/Clear'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
 import Typography from '@material-ui/core/Typography'
 import ReplyIcon from '@material-ui/icons/Reply'
+import styled from 'styled-components'
 import storeHooks from './storeHooks'
 import { ButtonFunctionProps } from '../utils/types'
+
+const ButtonSpan = styled.span`
+    cursor: pointer;
+    padding-right: 20px;
+`
 
 const ButtonFunction: React.FC<ButtonFunctionProps> = ({
     type,
@@ -25,17 +31,13 @@ const ButtonFunction: React.FC<ButtonFunctionProps> = ({
     return (
         <>
             {type === 'reply' && (
-                <span
-                    style={{ cursor: 'pointer', paddingRight: '20px' }}
-                    onClick={() => onReply?.()}
-                >
+                <ButtonSpan onClick={() => onReply?.()}>
                     <ReplyIcon color="primary" style={{ margin: '-5px 0px' }} />{' '}
                     <span>Reply</span>
-                </span>
+                </ButtonSpan>
             )}
             {type === 'delete' && (
-                <span
-                    style={{ cursor: 'pointer' }}
+                <ButtonSpan
                     onClick={() => deleteComment(commentId, postId, userId)}
                 >
                     <DeleteOutlineOutlinedIcon
@@ -43,45 +45,35 @@ const ButtonFunction: React.FC<ButtonFunctionProps> = ({
                         color="primary"
                     />{' '}
                     <span>Delete</span>
-                </span>
+                </ButtonSpan>
             )}
             {type === 'edit' && (
-                <span
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => setEditComment?.(true)}
-                >
+                <ButtonSpan onClick={() => setEditComment?.(true)}>
                     <EditIcon style={{ margin: '-5px 0px' }} color="primary" />{' '}
                     <span>Edit</span>
-                </span>
+                </ButtonSpan>
             )}
             {type === 'cancel' && (
-                <span
-                    style={{ cursor: 'pointer', paddingRight: '20px' }}
-                    onClick={() => setEditComment?.(false)}
-                >
+                <ButtonSpan onClick={() => setEditComment?.(false)}>
                     <ClearIcon style={{ margin: '-7px 0px' }} color="primary" />{' '}
                     <span>Cancel</span>
-                </span>
+                </ButtonSpan>
             )}
             {type === 'update' && (
-                <span
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => update?.(comment)}
-                >
+                <ButtonSpan onClick={() => update?.(comment)}>
                     <AddCircleOutlineIcon
                         style={{ margin: '-7px 0px' }}
                         color="primary"
                     />{' '}
                     <span>Update</span>
-                </span>
+                </ButtonSpan>
             )}
             {type === 'deleteReply' && (
                 <Typography
                     style={{ display: 'inline-block', float: 'right' }}
                     align="right"
                 >
-                    <span
-                        style={{ cursor: 'pointer' }}
+                    <ButtonSpan
                         onClick={() =>
                             deleteReply?.(
                                 replyId,
@@ -96,7 +88,7 @@ const ButtonFunction: React.FC<ButtonFunctionProps> = ({
                             color="primary"
                         />{' '}
                         <span>Delete</span>
-                    </span>
+                    </ButtonSpan>
                 </Typography>
             )}
         </>

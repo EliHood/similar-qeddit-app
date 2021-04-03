@@ -1,39 +1,48 @@
-import React, { Fragment } from 'react';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import { LikeButtonPropsType } from '../utils/types';
+import React, { Fragment } from 'react'
+import FavoriteIcon from '@material-ui/icons/Favorite'
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
+import styled from 'styled-components'
+import { LikeButtonPropsType } from '../utils/types'
+
+const LikeContainer = styled.div`
+    cursor: pointer;
+`
+
+const LikeCount = styled.span`
+    padding: 12px;
+`
+const FavIcon = styled(FavoriteIcon)`
+    color: red;
+    cursor: pointer;
+    margin: -7px;
+`
+const FavBorderIcon = styled(FavoriteBorderIcon)`
+    color: red;
+    cursor: pointer;
+    margin: -7px;
+`
 
 const LikeButton: React.FC<LikeButtonPropsType> = ({
-    dislike, postId, like, likeCounts, type,
+    dislike,
+    postId,
+    like,
+    likeCounts,
+    type,
 }) => (
     <>
         {type === 'liked' && (
-            <>
-                <span style={{ cursor: 'pointer' }} onClick={() => dislike?.(postId!)}>
-                    <span style={{ padding: '12px' }}>
-                        Likes
-                        {' '}
-                        {' '}
-                        {likeCounts}
-                    </span>
-                    <FavoriteIcon style={{ color: 'red', cursor: 'pointer', margin: '-7px' }} />
-                </span>
-            </>
+            <LikeContainer onClick={() => dislike?.(postId!)}>
+                <LikeCount>Likes {likeCounts} </LikeCount>
+                <FavIcon />
+            </LikeContainer>
         )}
         {type === 'unliked' && (
-            <>
-                <span onClick={() => like?.(postId!)}>
-                    <span style={{ padding: '12px' }}>
-                        Likes
-                        {' '}
-                        {' '}
-                        {likeCounts}
-                    </span>
-                    <FavoriteBorderIcon style={{ color: 'red', cursor: 'pointer', margin: '-7px' }} />
-                </span>
-            </>
+            <LikeContainer onClick={() => like?.(postId!)}>
+                <LikeCount>Likes {likeCounts} </LikeCount>
+                <FavBorderIcon />
+            </LikeContainer>
         )}
     </>
-);
+)
 
-export default LikeButton;
+export default LikeButton

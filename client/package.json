@@ -54,7 +54,18 @@
     "lint:fix": "eslint --fix \"src/**/*.{ts,tsx}\"",
     "build": "react-scripts build",
     "test": "jest",
+    "test:noWatch": "npm run test -- --watchAll=false",
     "eject": "react-scripts eject"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "eslint --fix"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -76,6 +87,7 @@
     "@testing-library/react": "^10.0.4",
     "@testing-library/react-hooks": "^3.2.1",
     "@types/react": "16.9.9",
+    "@types/styled-components": "^5.1.9",
     "@typescript-eslint/eslint-plugin": "^4.20.0",
     "@typescript-eslint/parser": "^2.16.0",
     "enzyme-adapter-react-16": "^1.15.2",

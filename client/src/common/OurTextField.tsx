@@ -1,27 +1,25 @@
-import React, { Fragment, useState } from 'react';
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import GifIcon from '@material-ui/icons/Gif';
-import TextFieldsIcon from '@material-ui/icons/TextFields';
-import storeHooks from './storeHooks';
+import React, { Fragment, useState } from 'react'
+import TextField from '@material-ui/core/TextField'
+import InputAdornment from '@material-ui/core/InputAdornment'
+import GifIcon from '@material-ui/icons/Gif'
+import TextFieldsIcon from '@material-ui/icons/TextFields'
+import storeHooks from './storeHooks'
+import { FieldType } from '../utils/types'
 
-type FieldType = {
-  type: 'gif-commentfield' | 'post' | 'comment' | 'post-content' | 'edit-comment';
-  handleTitleChange?: (e: any) => void;
-  title?: string;
-  titleError?: boolean | null;
-  comment_body?: string;
-  commentChange?: (e: any) => void;
-  post_content?: string;
-  bodyError?: boolean | null;
-  handleContentChange?: (e: any) => void;
-  setGifSelected?: () => void;
-  selectedUser?: string;
-  setCommentEdit?: (e: any) => void;
-};
-
-const OurTextField: React.FC<FieldType> = ({type,commentChange, comment_body, handleTitleChange, handleContentChange, title, titleError, post_content, bodyError,setCommentEdit, setGifSelected}) => {
-    const { selectedUser } = storeHooks();
+const OurTextField: React.FC<FieldType> = ({
+    type,
+    commentChange,
+    comment_body,
+    handleTitleChange,
+    handleContentChange,
+    title,
+    titleError,
+    post_content,
+    bodyError,
+    setCommentEdit,
+    setGifSelected,
+}) => {
+    const { selectedUser } = storeHooks()
 
     return (
         <>
@@ -56,7 +54,13 @@ const OurTextField: React.FC<FieldType> = ({type,commentChange, comment_body, ha
                     fullWidth
                     InputProps={{
                         startAdornment: (
-                            <InputAdornment style={{ cursor: 'pointer', alignItems: 'center' }} position="start">
+                            <InputAdornment
+                                style={{
+                                    cursor: 'pointer',
+                                    alignItems: 'center',
+                                }}
+                                position="start"
+                            >
                                 <GifIcon onClick={setGifSelected} />
                             </InputAdornment>
                         ),
@@ -103,7 +107,7 @@ const OurTextField: React.FC<FieldType> = ({type,commentChange, comment_body, ha
                 />
             )}
         </>
-    );
-};
+    )
+}
 
-export default OurTextField;
+export default OurTextField

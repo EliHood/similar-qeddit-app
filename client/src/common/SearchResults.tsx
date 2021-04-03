@@ -1,21 +1,39 @@
-import React, { Fragment } from 'react';
-import storehooks from '../common/storeHooks';
-import OurLink from '../common/OurLink';
+import React, { Fragment } from 'react'
+import styled from 'styled-components'
+import storehooks from '../common/storeHooks'
+import OurLink from '../common/OurLink'
 
-type searchResultType = {};
-const SearchResults: React.FC<searchResultType> = (props) => {
-    const { postResults, query } = storehooks();
+const SearchCard = styled.div`
+    width: 30%;
+    padding: 10px;
+    position: absolute;
+    margin-top: 20px;
+    background-color: #fff;
+    border: 1px solid #000;
+`
+const NoPostsCard = styled.div`
+    font-size: 12px;
+    width: 30%;
+    padding: 10px;
+    position: absolute;
+    margin-top: 20px;
+    background-color: #fff;
+    border: 1px solid #000;
+`
+const Gravatar = styled.img`
+    padding: 0px 8px;
+    width: 10px;
+    height: 10px;
+`
+
+const SearchResults: React.FC = () => {
+    const { postResults, query } = storehooks()
 
     return (
         <>
-            {postResults.map((item, index) => (
-                <div
-                    key={index}
-                    style={{
-                        width: '30%', padding: '10px', position: 'absolute', marginTop: '20px', backgroundColor: '#fff', border: '1px solid #000',
-                    }}
-                >
-                    <img style={{ padding: '0px 8px' }} width="10px" height="10px" src={item.author.gravatar} />
+            {postResults.map((item) => (
+                <SearchCard>
+                    <Gravatar src={item.author.gravatar} />
                     <OurLink
                         style={{ fontSize: '12px' }}
                         to={{
@@ -23,18 +41,13 @@ const SearchResults: React.FC<searchResultType> = (props) => {
                         }}
                         title={item.title}
                     />
-                </div>
+                </SearchCard>
             ))}
             {query !== '' && postResults.length === 0 && (
-                <div style={{
-                    fontSize: '12px', width: '30%', padding: '10px', position: 'absolute', marginTop: '20px', backgroundColor: '#fff', border: '1px solid #000',
-                }}
-                >
-                    No Posts Found
-                </div>
+                <NoPostsCard>No Posts Found</NoPostsCard>
             )}
         </>
-    );
-};
+    )
+}
 
-export default SearchResults;
+export default SearchResults

@@ -1,3 +1,5 @@
+import { ReactChildren } from 'react'
+
 export type CommentBottomType = {
   post: {
     Comments: [];
@@ -234,3 +236,36 @@ export type LikeButtonPropsType = {
   dislike?: (id: number) => void;
   like?: (id: number) => void;
 };
+
+export type IMenuItemType = {
+  children: ReactChildren
+}
+export type IUseInputType = {
+  addTitle?: (data:string) => void;
+  addContent?:(data:string) => void;
+  addUsername?:(data:string) => void;
+  addEmail?:(data:string) => void;
+  addPassword?:(data:string) => void;
+  addPasswordConf?:(data:string) => void;
+}
+
+export type FieldType = {
+  type: 'gif-commentfield' | 'post' | 'comment' | 'post-content' | 'edit-comment';
+  handleTitleChange?: (e: any) => void;
+  title?: string;
+  titleError?: boolean | null;
+  comment_body?: string;
+  commentChange?: (e: any) => void;
+  post_content?: string;
+  bodyError?: boolean | null;
+  handleContentChange?: (e: any) => void;
+  setGifSelected?: () => void;
+  selectedUser?: string;
+  setCommentEdit?: (e: any) => void;
+};
+
+export type INavButtonType = {
+  children: ReactChildren
+  onClick?:() => void
+
+}
