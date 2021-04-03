@@ -1,17 +1,32 @@
-import { ReactChildren } from 'react'
+import React, { ReactChildren, ReactNode } from 'react'
+
+export type ICurrentUserType = {
+  id:number
+  username:string
+}
+
+type AuthorType = {
+  gravatar: string
+  username: string
+}
+  
+
+export type CommentType = {
+  comment_body?: string;
+  gifUrl?: string;
+  commentUserId?: number;
+  id?: number;
+  createdAt?: any;
+  author?: AuthorType
+  commentReplies?: []
+};
+
 
 export type CommentBottomType = {
   post: {
     Comments: [];
     id: number;
     userId: number;
-  };
-  currentUser: {
-    user: {
-      username: string;
-      userId: number;
-      gravatar: string;
-    };
   };
   deleteComment: () => void;
   postComment: (data: object) => void;
@@ -111,41 +126,34 @@ export type CommentPropsType = {
   };
 }
 
-export type CommentType = {
-  comment: {
-    gifUrl: string;
-    comment_body: string;
-    createdAt: string;
-  };
-};
+
+export type ReplyType = {
+  createdAt: any;
+  replyBody: string;
+  userId: number;
+  id: number;
+}
+
 
 export type CommentItemPropsType = {
   editComment: (comment) => void;
   onReply: () => void;
-  comment: {
-    comment_body: string;
-    gifUrl: string;
-    userId: number;
-    id: number;
-    createdAt: any;
-  };
-  reply?: {
-    createdAt: any;
-    replyBody: string;
-    userId: number;
-    id: number;
-  } | null;
+  comment:CommentType
+  reply?:ReplyType |  null;
   type: 'comment' | 'reply';
   postId: number;
-  deleteComment: (commentId, postId, userId) => void;
-
-  user: {
-    user: {
-      id: number;
-    };
-    id: number;
-  };
+  deleteComment: (commentId:number, postId:number, userId:number) => void;
 };
+
+export interface CommentAuthorDataInterface {
+    comment: CommentType
+    userId: number
+    isBold: any
+    openModal: () => void
+    handleCloseModal: () => void
+    handleClickOpen: () => void
+    currentUser: Record<string, any>
+}
 
 export type AuthHocPropsType = {
   user?: any;
@@ -189,11 +197,7 @@ export type AuthButtonType = {
       id: number;
     };
   };
-  comment?: {
-    userId: number;
-    id: number;
-    gifUrl: string;
-  };
+  comment?:CommentType;
   postId?: number;
   post?: {
     id: number;
@@ -238,7 +242,7 @@ export type LikeButtonPropsType = {
 };
 
 export type IMenuItemType = {
-  children: ReactChildren
+  children: ReactChildren | ReactNode
 }
 export type IUseInputType = {
   addTitle?: (data:string) => void;
@@ -265,7 +269,62 @@ export type FieldType = {
 };
 
 export type INavButtonType = {
-  children: ReactChildren
+  children: ReactChildren | ReactNode
   onClick?:() => void
+}
 
+interface INavLinkToType{
+  pathname: string
+}
+
+export type INavLinkType = {
+  children: string
+  to: INavLinkToType | string
+}
+
+export interface IMainNavType { 
+  isAuthenticated:boolean;
+  googleAccount:boolean;
+  darkTheme:() => void;
+  logOut:() => void;
+  handleNotificationClick:(event: React.MouseEvent<HTMLButtonElement>) => void
+  notificationId: string | undefined
+  handleClose:() => void
+  open:boolean;
+  anchorEl:HTMLButtonElement | null
+  appOpen?: boolean;
+  setOpen?: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export type IButtonBar = {
+  children: ReactChildren | ReactNode
+}
+
+export interface IDyanmicMenuType extends IMainNavType  {
+  type: 'main-menu' | 'collapsed-menu'
+}
+
+export interface IRouterType {
+  notifications: (userId: number) => void
+  darkTheme:() => void;
+  hasError: boolean
+  logOut: () => void
+  isAuthenticated:boolean;
+  googleAccount: boolean
+}
+
+export interface IPrivateRoute {
+  Component: React.ElementType | ReactNode
+  exact:boolean
+  path:string
+  appOpen: boolean
+  googleAccount: boolean
+  isAuthenticated: boolean
+}
+
+export interface IPostItemContainer{
+  post: any
+  deleteComment:() => void;
+  postComment:() => void;
+  deletePost: (id: number, userId: number) => void;
 }

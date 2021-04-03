@@ -1,125 +1,38 @@
-import React, { Fragment } from 'react';
-import Grid from '@material-ui/core/Grid';
-import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-import Notification from '../../containers/notificationTooltip';
-import menus from './menu.json';
-import NavLink from '../../common/NavLink';
-import NavButton from '../../common/NavButton';
-import Search from '../search/Search';
+import React from 'react'
+import Grid from '@material-ui/core/Grid'
+import { IMainNavType } from '../../utils/types'
+import ButtonBar from '../../common/ButtonBar'
+import DynamicMenu from './DynamicMenu'
 
-const drawerWidth = 210;
-const styles = makeStyles((theme) => ({
-    buttonBar: {
-        [theme.breakpoints.down('md')]: {
-            display: 'none',
-        },
-        margin: '10px',
-        paddingLeft: '16px',
-        right: 0,
-        // position: "relative",
-        width: '100%',
-        background: 'transparent',
-    },
-    appBar: {
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    appBarShift: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-}));
-
-function MainNav(props: any) {
-    const [, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-    const classes = styles();
-
+function MainNav({
+    isAuthenticated,
+    googleAccount,
+    darkTheme,
+    logOut,
+    notificationId,
+    open,
+    anchorEl,
+    handleClose,
+    handleNotificationClick,
+}: IMainNavType) {
     return (
         <Grid item>
-            <div className={classes.buttonBar} id="appbar-collapse">
-                <>
-                    {props.isAuthenticated || props.googleAccount === true ? (
-                        <>
-                            <ul style={{
-                                display: 'flex', flexDirection: 'row', flexWrap: 'wrap-reverse', paddingRight: '20px', justifyContent: 'flex-end', listStyleType: 'none',
-                            }}
-                            >
-                                {menus.menus.map((item, i) => (
-                                    <li key={i} style={{ padding: '0.5rem' }}>
-                                        {item.link !== 'likes' && item.link !== 'posts' && item.link !== 'profile' && item.link !== 'logout' && <NavLink to={`/${item.link}`}>{item.name}</NavLink>}
-                                        {item.link === 'likes' && (
-                                            <NavLink
-                                                to={{
-                                                    pathname: `/${props.user.id}/${item.link}`,
-                                                }}
-                                            >
-                                                {item.name}
-                                            </NavLink>
-                                        )}
-                                        {item.link === 'profile' && (
-                                            <NavLink
-                                                to={{
-                                                    pathname: `/${item.link}/${props.user.username}`,
-                                                }}
-                                            >
-                                                {item.name}
-                                            </NavLink>
-                                        )}
-                                        {item.link === 'posts' && (
-                                            <NavLink
-                                                to={{
-                                                    pathname: `/${props.user.id}/${item.link}`,
-                                                }}
-                                            >
-                                                {item.name}
-                                            </NavLink>
-                                        )}
-                                    </li>
-                                ))}
-
-                                <NavButton>
-                                    <Notification
-                                        userId={props.currentUser.id}
-                                        id={props.notificationId}
-                                        handleClose={props.handleClose}
-                                        open={props.open}
-                                        anchorEl={props.anchorEl}
-                                        handleNotificationClick={props.handleNotificationClick}
-                                        title="Notifications"
-                                    />
-                                </NavButton>
-
-                                <NavButton onClick={props.darkTheme}>Change Theme</NavButton>
-
-                                <NavButton onClick={props.logOut}>Logout</NavButton>
-                            </ul>
-                        </>
-                    ) : (
-                        <>
-                            <ul style={{
-                                display: 'flex', flexDirection: 'row', flexWrap: 'wrap-reverse', paddingRight: '20px', justifyContent: 'flex-end', listStyleType: 'none',
-                            }}
-                            >
-                                {menus.guestMenu.map((item, i) => (
-                                    <li style={{ padding: '0.5rem' }}>
-                                        <NavLink to={`/${item.link}`}>{item.name}</NavLink>
-                                    </li>
-                                ))}
-                            </ul>
-                        </>
-                    )}
-                </>
-            </div>
+            <ButtonBar>
+                <DynamicMenu
+                    isAuthenticated={isAuthenticated}
+                    googleAccount={googleAccount}
+                    darkTheme={darkTheme}
+                    logOut={logOut}
+                    notificationId={notificationId}
+                    open={open}
+                    anchorEl={anchorEl}
+                    handleClose={handleClose}
+                    handleNotificationClick={handleNotificationClick}
+                    type="main-menu"
+                />
+            </ButtonBar>
         </Grid>
-    );
+    )
 }
 
-export default MainNav;
+export default MainNav

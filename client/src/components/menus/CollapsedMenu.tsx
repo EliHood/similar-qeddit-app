@@ -1,163 +1,40 @@
-import React, { Fragment } from 'react';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
-import OurMenu from './Menu';
-import Notification from '../../containers/notificationTooltip';
-import OurMenuItem from '../../common/OurMenuItem';
+import React from 'react'
+import Grid from '@material-ui/core/Grid'
+import OurMenu from './Menu'
+import DynamicMenu from './DynamicMenu'
+import { IMainNavType } from '../../utils/types'
 
-function CollapasedMenu(props: any) {
-    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-    const user = props.currentUser.user ? props.currentUser.user : '';
-
+function CollapasedMenu({
+    isAuthenticated,
+    googleAccount,
+    darkTheme,
+    appOpen,
+    setOpen,
+    logOut,
+    handleClose,
+    handleNotificationClick,
+    open,
+    anchorEl,
+    notificationId,
+}: IMainNavType) {
     return (
         <Grid item>
-            <OurMenu appOpen={props.appOpen} setOpen={props.setOpen}>
-                {props.isAuthenticated || props.googleAccount === true ? (
-                    <>
-                        <OurMenuItem>
-                            <Link
-                                style={{
-                                    fontWeight: '500',
-                                    textDecoration: 'none',
-                                }}
-                                to="/"
-                                color="primary"
-                            >
-                                Home
-                            </Link>
-                        </OurMenuItem>
-
-                        <OurMenuItem>
-                            <Link
-                                style={{
-                                    textDecoration: 'none',
-                                    fontWeight: '500',
-                                }}
-                                to="/dashboard"
-                            >
-                                Dashboard
-                            </Link>
-                        </OurMenuItem>
-
-                        <OurMenuItem>
-                            <Link
-                                style={{
-                                    textDecoration: 'none',
-                                    fontWeight: '500',
-                                }}
-                                to={{
-                                    pathname: `/${user.id}/likes`,
-                                }}
-                            >
-                                Your Likes
-                            </Link>
-                        </OurMenuItem>
-                        <OurMenuItem>
-                            <Link
-                                style={{
-                                    textDecoration: 'none',
-                                    fontWeight: '500',
-                                }}
-                                to={{
-                                    pathname: `/${user.id}/posts`,
-                                }}
-                            >
-                                Your Posts
-                            </Link>
-                        </OurMenuItem>
-                        <OurMenuItem>
-                            <Link
-                                style={{
-                                    fontWeight: '500',
-                                    textDecoration: 'none',
-                                }}
-                                to="/editProfile"
-                            >
-                                Edit Profile
-                            </Link>
-                        </OurMenuItem>
-                        <OurMenuItem>
-                            <Notification
-                                userId={user.id}
-                                id={props.notificationId}
-                                handleClose={handleClose}
-                                open={false}
-                                anchorEl={props.anchorEl}
-                                handleNotificationClick={props.handleNotificationClick}
-                                title="Notifications"
-                            />
-                        </OurMenuItem>
-
-                        <OurMenuItem>
-                            <Link
-                                style={{
-                                    fontWeight: '500',
-                                    textDecoration: 'none',
-                                }}
-                                to={{
-                                    pathname: `/profile/${user.username}`,
-                                }}
-                            >
-                                Profile
-                            </Link>
-                        </OurMenuItem>
-
-                        <OurMenuItem>
-                            <span onClick={props.darkTheme}>Change Theme</span>
-                        </OurMenuItem>
-
-                        <OurMenuItem>
-                            <span onClick={props.logOut}>Log Out</span>
-                        </OurMenuItem>
-                    </>
-                ) : (
-                    <>
-                        <OurMenuItem style={{ margin: '20px' }}>
-                            <Link
-                                style={{
-                                    color: '#333',
-                                    fontWeight: '500',
-                                    textDecoration: 'none',
-                                }}
-                                to="/"
-                            >
-                                Home
-                            </Link>
-                        </OurMenuItem>
-                        <OurMenuItem style={{ margin: '20px' }}>
-                            <Link
-                                style={{
-                                    color: '#333',
-                                    fontWeight: '500',
-                                    textDecoration: 'none',
-                                }}
-                                to="/login"
-                            >
-                                Login
-                            </Link>
-                        </OurMenuItem>
-                        <OurMenuItem style={{ margin: '20px' }}>
-                            <Link
-                                style={{
-                                    color: '#333',
-                                    fontWeight: '500',
-                                    textDecoration: 'none',
-                                }}
-                                to="/register"
-                            >
-                                Register
-                            </Link>
-                        </OurMenuItem>
-                    </>
-                )}
+            <OurMenu appOpen={appOpen} setOpen={setOpen}>
+                <DynamicMenu
+                    isAuthenticated={isAuthenticated}
+                    googleAccount={googleAccount}
+                    darkTheme={darkTheme}
+                    logOut={logOut}
+                    notificationId={notificationId}
+                    open={open}
+                    anchorEl={anchorEl}
+                    handleClose={handleClose}
+                    handleNotificationClick={handleNotificationClick}
+                    type="collapsed-menu"
+                />
             </OurMenu>
         </Grid>
-    );
+    )
 }
 
-export default CollapasedMenu;
+export default CollapasedMenu

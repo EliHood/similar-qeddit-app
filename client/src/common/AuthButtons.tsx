@@ -11,7 +11,6 @@ import { AuthButtonType } from '../utils/types'
 const UnAuthLike = styled.div``
 const AuthButtons = ({
     postId,
-    currentUser,
     writeComment,
     openForm,
     openModal,
@@ -20,24 +19,24 @@ const AuthButtons = ({
     post,
     type = 'post-buttons-modal',
     comment,
-    user,
     onReply,
     setEditComment,
 }: AuthButtonType) => {
-    const { likePost, dislikePost } = storehooks()
+    const { likePost, dislikePost, user } = storehooks()
     const memoizedLike = React.useCallback((id) => likePost(id), [likePost])
     const memoizedDislike = React.useCallback((id) => dislikePost(id), [
         dislikePost,
     ])
+    const checkUser = user === undefined ? {} : user
 
     return (
         <>
             {type === 'comment-buttons' &&
-                (Object.entries(user!).length !== 0 ? (
+                (Object.entries(checkUser).length !== 0 ? (
                     <>
                         {user &&
-                        user.user &&
-                        comment!.userId === user.user.id ? (
+                        user.id &&
+                        comment!.commentUserId === user.id ? (
                             <Typography
                                 style={{
                                     display: 'inline-block',
@@ -48,7 +47,7 @@ const AuthButtons = ({
                                 <ButtonFunction
                                     type="delete"
                                     comment={comment}
-                                    userId={comment!.userId}
+                                    userId={comment!.commentUserId}
                                     postId={postId}
                                     commentId={comment!.id}
                                 />
@@ -61,8 +60,9 @@ const AuthButtons = ({
                             <ButtonFunction type="reply" onReply={onReply} />
                         </Typography>
                         {/* hide edit button if gifUrl */}
-                        {!comment!.gifUrl &&
-                        comment!.userId === user!.user.id ? (
+                        {!comment &&
+                        comment.gifUrl &&
+                        comment.commentUserId === user?.id ? (
                             <>
                                 <Typography
                                     style={{
@@ -83,7 +83,7 @@ const AuthButtons = ({
                 ) : null)}
 
             {type === 'post-buttons' &&
-                (Object.entries(currentUser!).length === 0 ? (
+                (Object.entries(checkUser).length === 0 ? (
                     <>
                         <UnAuthLike onClick={handleClickOpen}>
                             <LikeButton
@@ -120,7 +120,7 @@ const AuthButtons = ({
                 ))}
 
             {type === 'post-buttons-modal' &&
-                (Object.entries(currentUser!).length === 0 ? (
+                (Object.entries(checkUser).length === 0 ? (
                     <>
                         <Button
                             onClick={handleClickOpen}

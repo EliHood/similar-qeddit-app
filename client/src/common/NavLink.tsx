@@ -1,17 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import { INavLinkType } from '../utils/types'
 
-export default function NavLink(props) {
-    return (
-        <Link
-            style={{
-                color: '#fff',
-                textDecoration: 'none',
-                fontSize: '0.85rem',
-            }}
-            {...props}
-        >
-            {props.children}
-        </Link>
-    );
+const CleanLink = styled(Link)`
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.85rem;
+`
+
+export default function NavLink({ children, to }: INavLinkType) {
+    return <CleanLink to={to}>{children}</CleanLink>
 }
