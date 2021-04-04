@@ -1,20 +1,20 @@
-import React, { Fragment } from 'react';
-import { shallow, mount, render } from 'enzyme';
-import NotFound from './404';
+import React from 'react'
+import { mount } from 'enzyme'
+import NotFound from './404'
 
 describe('Should render 404Page', () => {
-    let wrapper;
+    let wrapper
     beforeAll(() => {
-        wrapper = mount(<NotFound />);
-    });
+        wrapper = mount(<NotFound />)
+    })
 
     it('should render 404 page', () => {
-        expect(wrapper).toHaveLength(1);
-    });
+        expect(wrapper).toHaveLength(1)
+    })
     it('should render 404 page', () => {
-        expect(wrapper.find('h4').text()).toContain('No Page Found :(');
-    });
+        expect(wrapper.find('h4').text()).toContain('No Page Found :(')
+    })
     it('should have img', () => {
-        expect(wrapper.find('img')).toHaveLength(1);
-    });
-});
+        expect(wrapper.find('img')).toHaveLength(1)
+    })
+})

@@ -1,3 +1,4 @@
-import { createBrowserHistory } from 'history';
+/* eslint-disable import/prefer-default-export */
+import { createBrowserHistory } from 'history'
 
-export const history = createBrowserHistory({ forceRefresh: true });
+export const history = createBrowserHistory({ forceRefresh: true })

@@ -22,7 +22,8 @@
       "quotes": ["error", "single"],
       "import/extensions": "off",
       "react/state-in-constructor": "off",
-      "camelcase":"off"
+      "camelcase":"off",
+      "no-param-reassign": 0
     }
  
   

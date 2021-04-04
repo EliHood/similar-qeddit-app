@@ -1,28 +1,32 @@
-import React, { Fragment } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import GridHoc from '../hoc/grid';
-import { userConfirmation } from '../../selectors/selectors';
-import { resendEmailConfirmationInit } from '../../actions/userActions';
+import React, { Fragment } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import styled from 'styled-components'
+import GridHoc from '../hoc/grid'
+import { userConfirmation } from '../../selectors/selectors'
+import { resendEmailConfirmationInit } from '../../actions/userActions'
 
-export type emailConfirmation = {
-  location: any;
+export type IEmailConfirmation = {
+    location: any
 }
 
-function EmailConfirmation(props: emailConfirmation) {
-    const dispatch = useDispatch();
-    const user = useSelector(userConfirmation);
-    const resendEmail = () => dispatch(resendEmailConfirmationInit());
-    const emailMessage = user || props.location.state.meta.message;
+const ResendEmailCard = styled.span`
+    cursor: pointer;
+`
+
+function EmailConfirmation({ location }: IEmailConfirmation) {
+    const dispatch = useDispatch()
+    const user = useSelector(userConfirmation)
+    const resendEmail = () => dispatch(resendEmailConfirmationInit())
+    const emailMessage = user || location.state.meta.message
 
     return (
         <>
             <h3>{emailMessage}</h3>
-
-            <span style={{ cursor: 'pointer' }} onClick={() => resendEmail()}>
+            <ResendEmailCard onClick={() => resendEmail()}>
                 Resend Email Confirmation
-            </span>
+            </ResendEmailCard>
         </>
-    );
+    )
 }
 
-export default GridHoc(EmailConfirmation);
+export default GridHoc(EmailConfirmation)

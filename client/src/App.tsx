@@ -1,11 +1,12 @@
-import React from 'react';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
-import { setDark } from './actions/userActions';
-import Nav from './Nav';
-import { userSession } from './utils';
+import React from 'react'
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import { useDispatch, useSelector } from 'react-redux'
+import { setDark } from './actions/userActions'
+import Nav from './Nav'
+import { userSession } from './utils'
+import { getDark } from './selectors/selectors'
 
-userSession.userSession();
+userSession.userSession()
 
 const theme = createMuiTheme({
     palette: {
@@ -16,7 +17,7 @@ const theme = createMuiTheme({
             main: '#000000',
         },
     },
-});
+})
 
 const defaultTheme = createMuiTheme({
     palette: {
@@ -27,7 +28,7 @@ const defaultTheme = createMuiTheme({
             main: '#000000',
         },
     },
-});
+})
 defaultTheme.typography.h6 = {
     fontSize: '0.9rem',
     '@media (min-width:600px)': {
@@ -39,7 +40,7 @@ defaultTheme.typography.h6 = {
     [theme.breakpoints.up('sm')]: {
         fontSize: '1.4rem',
     },
-};
+}
 defaultTheme.typography.h5 = {
     '@media (min-width:600px)': {
         fontSize: '0.9rem',
@@ -47,7 +48,7 @@ defaultTheme.typography.h5 = {
     [theme.breakpoints.up('md')]: {
         fontSize: '1.4rem',
     },
-};
+}
 
 const dark = createMuiTheme({
     palette: {
@@ -58,25 +59,16 @@ const dark = createMuiTheme({
             main: '#000',
         },
     },
-});
+})
 
-function App(props: any) {
-    const darkTheme = () => {
-        props.setDark();
-    };
-
+const App: React.FC = () => {
+    const dispatch = useDispatch()
+    const isDark = useSelector(getDark)
     return (
-        <ThemeProvider theme={props.user.notDark ? defaultTheme : dark}>
-            <Nav darkTheme={darkTheme} />
+        <ThemeProvider theme={isDark ? defaultTheme : dark}>
+            <Nav darkTheme={() => dispatch(setDark())} />
         </ThemeProvider>
-    );
+    )
 }
 
-const mapStateToProps = (state: any) => ({
-    user: state.user,
-});
-const mapDispatchToProps = (dispatch: any) => ({
-    setDark: () => dispatch(setDark()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App

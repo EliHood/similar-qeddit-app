@@ -1,23 +1,35 @@
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import React from 'react';
-import { LoginType } from '../../../utils/types';
-
-type LoginInterface = {
-  submit: (event) => void;
-  username: string;
-  password: string;
-  usernameChange: (event) => void;
-  passwordChange: (event) => void;
-}
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
+import React from 'react'
+import { LoginType } from '../../../utils/types'
 
 const LoginForm = ({
-    submit, username, password, passwordChange, usernameChange,
+    submit,
+    username,
+    password,
+    passwordChange,
+    usernameChange,
 }: LoginType) => (
     <form style={{ width: '100%' }} onSubmit={submit}>
-        <TextField label="Username" style={{ width: '100%' }} name="username" value={username} onChange={usernameChange} margin="normal" />
+        <TextField
+            label="Username"
+            style={{ width: '100%' }}
+            name="username"
+            value={username}
+            onChange={usernameChange}
+            margin="normal"
+        />
         <br />
-        <TextField label="Password" name="password" type="password" style={{ width: '100%' }} className="" value={password} onChange={passwordChange} margin="normal" />
+        <TextField
+            label="Password"
+            name="password"
+            type="password"
+            style={{ width: '100%' }}
+            className=""
+            value={password}
+            onChange={passwordChange}
+            margin="normal"
+        />
         {/*  */}
         <br />
         <br />
@@ -26,6 +38,6 @@ const LoginForm = ({
             Login
         </Button>
     </form>
-);
+)
 
-export default LoginForm;
+export default LoginForm

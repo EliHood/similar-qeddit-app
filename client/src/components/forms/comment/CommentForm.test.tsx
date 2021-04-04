@@ -1,9 +1,7 @@
-import React from 'react';
-import { shallow, mount, render } from 'enzyme';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import { createMount } from '@material-ui/core/test-utils';
-import CommentForm from './CommentForm';
+import React from 'react'
+import TextField from '@material-ui/core/TextField'
+import { createMount } from '@material-ui/core/test-utils'
+import CommentForm from './CommentForm'
 
 const props = {
     comment_body: 'Test',
@@ -11,30 +9,30 @@ const props = {
     commentChange: jest.fn(),
     isGif: '',
     onSubmit: jest.fn(),
-};
+}
 
 describe('<CommentForm/>', () => {
-    let wrapper;
-    let mount;
+    let wrapper
+    let mount
     beforeEach(() => {
-        mount = createMount();
-        wrapper = mount(<CommentForm {...props} />);
-    });
+        mount = createMount()
+        wrapper = mount(<CommentForm {...props} />)
+    })
 
     it('renders the <CommentForm/>', () => {
-        expect(wrapper.exists()).toBe(true);
-    });
+        expect(wrapper.exists()).toBe(true)
+    })
 
     it('should test comment_body props', () => {
-    // console.log(wrapper.find(TextField).debug());
-        const comment_body = 'Test';
-        expect(wrapper.find(TextField).props().value).toBe(comment_body);
-    });
+        // console.log(wrapper.find(TextField).debug());
+        const comment_body = 'Test'
+        expect(wrapper.find(TextField).props().value).toBe(comment_body)
+    })
 
     // when using mount call  .props.onChange instead of simulate(which for shallow )
     it('should test comment_body props', () => {
-    // console.log(wrapper.find(TextField).debug());
-        const comment_body = 'Test';
+        // console.log(wrapper.find(TextField).debug());
+        const comment_body = 'Test'
         wrapper
             .find(TextField)
             .props()
@@ -42,7 +40,7 @@ describe('<CommentForm/>', () => {
                 target: {
                     value: comment_body,
                 },
-            });
-        expect(props.commentChange).toHaveBeenCalled();
-    });
-});
+            })
+        expect(props.commentChange).toHaveBeenCalled()
+    })
+})

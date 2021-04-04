@@ -328,3 +328,64 @@ export interface IPostItemContainer{
   postComment:() => void;
   deletePost: (id: number, userId: number) => void;
 }
+
+export interface ISignUpForm {
+  submit: (e) => void;
+  usernameChange: (e) => void;
+  emailChange: (e) => void;
+  passwordChange: (e) => void;
+  passwordConfChange: (e) => void;
+  passwordConf: string;
+  username: string;
+  password: string;
+  email: string;
+  usernameError: any;
+  passwordError: any;
+  emailError: any;
+  passwordConfError: any;
+  disButton: boolean;
+}
+
+export interface IloginProps {
+  history?: any;
+}
+
+export interface IUserState {
+  isAuthenticated: boolean
+  googleAccount: any
+  emailVerified: boolean
+  error?: string
+  isLoading: boolean
+  profileData: object
+  message: string
+  profilePage: any
+  usernameError: any
+  passwordError: any
+  passwordConfError: any
+  emailError: any
+  email: string
+  password: string
+  passwordConf: string
+  username: string
+  currentUser: object
+  getNotifications: any
+  notDark: boolean
+}
+export interface IPostState {
+  posts: any[];
+  postPage: any;
+  error: any;
+  titleError: any;
+  bodyError: any;
+  title: string;
+  postContent: string;
+  isNotified: boolean;
+  notification: string;
+  isLoading: boolean;
+  searchValue: string;
+  results: any[];
+  searchPageResults: any[];
+  selectedUser: string;
+  mentionedUser: boolean;
+  commenterId: any;
+}

@@ -30,6 +30,7 @@ export const getProfileData = createSelector(
     userSelector,
     (state) => state.profileData
 )
+export const getDark = createSelector(userSelector, (state) => state.notDark)
 
 export const getNotification = createSelector(
     postSelector,
