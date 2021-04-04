@@ -5,6 +5,12 @@ export type ICurrentUserType = {
   username:string
 }
 
+export interface IDefault{
+  error?: string | null
+  isLoading: boolean;
+  history?: any;
+}
+
 type AuthorType = {
   gravatar: string
   username: string
@@ -155,11 +161,13 @@ export interface CommentAuthorDataInterface {
     currentUser: Record<string, any>
 }
 
-export type AuthHocPropsType = {
+export interface AuthDefault {
   user?: any;
-  history?: any;
   initLogin: () => void;
 }
+
+export interface AuthHocPropsType extends AuthDefault, Pick<IDefault, 'history'> {}
+
 export type AuthStateType = {
   errors: object;
 }
@@ -171,12 +179,7 @@ export type ILikesType = {
   deletePostInit: (id: number, userId: number) => void;
   deleteComment: (id: number, postId: number, userId: number) => void;
   postCommentInit: (event: object) => void;
-  titleError?: boolean;
-  bodyError?: boolean;
-  posts: any[];
   error: any[];
-  title: string;
-  postContent: string;
   addTitle: (data: string) => void;
   addContent: (data: string) => void;
   createPostInit: (event: object) => void;
@@ -188,7 +191,7 @@ export type ILikesType = {
   appBar: any;
   appBarShift: any;
   appOpen: boolean;
-}
+} & Pick<IPostState,'posts' | 'postContent' | 'bodyError'| 'titleError' | 'title'>
 
 export type AuthButtonType = {
   type?: 'post-buttons' | 'comment-buttons' | 'post-buttons-modal';
@@ -256,17 +259,14 @@ export type IUseInputType = {
 export type FieldType = {
   type: 'gif-commentfield' | 'post' | 'comment' | 'post-content' | 'edit-comment';
   handleTitleChange?: (e: any) => void;
-  title?: string;
-  titleError?: boolean | null;
   comment_body?: string;
   commentChange?: (e: any) => void;
   post_content?: string;
-  bodyError?: boolean | null;
   handleContentChange?: (e: any) => void;
   setGifSelected?: () => void;
   selectedUser?: string;
   setCommentEdit?: (e: any) => void;
-};
+} & Partial<Pick<IPostState, 'bodyError'| 'titleError' | 'title'>>
 
 export type INavButtonType = {
   children: ReactChildren | ReactNode
@@ -350,12 +350,10 @@ export interface IloginProps {
   history?: any;
 }
 
-export interface IUserState {
+export interface IUserState extends IDefault {
   isAuthenticated: boolean
   googleAccount: any
   emailVerified: boolean
-  error?: string
-  isLoading: boolean
   profileData: object
   message: string
   profilePage: any
@@ -371,17 +369,15 @@ export interface IUserState {
   getNotifications: any
   notDark: boolean
 }
-export interface IPostState {
+export interface IPostState extends IDefault {
   posts: any[];
   postPage: any;
-  error: any;
   titleError: any;
-  bodyError: any;
+  bodyError: boolean | null;
   title: string;
   postContent: string;
   isNotified: boolean;
   notification: string;
-  isLoading: boolean;
   searchValue: string;
   results: any[];
   searchPageResults: any[];
