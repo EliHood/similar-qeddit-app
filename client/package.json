@@ -57,7 +57,16 @@
     "test:noWatch": "npm run test -- --watchAll=false",
     "eject": "react-scripts eject"
   },
-  
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "eslint --fix"
+    ]
+  },
   "eslintConfig": {
     "extends": "react-app"
   },
