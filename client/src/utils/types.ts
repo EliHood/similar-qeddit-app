@@ -9,11 +9,14 @@ export interface IDefault{
   error?: string | null
   isLoading: boolean;
   history?: any;
+  isAuthenticated: boolean
+  googleAccount: any
 }
 
 type AuthorType = {
   gravatar: string
   username: string
+  bio:string
 }
   
 
@@ -39,12 +42,10 @@ export type CommentBottomType = {
 }
 
 export type EditProfileFormType = {
-  bio: string;
-  gravatar: string;
   onSubmit: (e) => void;
   handleBio: (e) => void;
   handleGravatar: (e) => void;
-}
+} & Pick<AuthorType, 'bio' | 'gravatar'>
 
 export type LoginType = {
   submit: (event) => void;
@@ -101,11 +102,6 @@ export type UserPostsType = {
   deletePostInit: (id: number, userId: number) => void;
   deleteComment: (id: number, postId: number, userId: number) => void;
   postCommentInit: (event: object) => void;
-  titleError?: boolean;
-  bodyError?: boolean;
-  error: any[];
-  title: string;
-  postContent: string;
   addTitle: (data: string) => void;
   addContent: (data: string) => void;
   createPostInit: (event: object) => void;
@@ -117,7 +113,8 @@ export type UserPostsType = {
   appBar: any;
   appBarShift: any;
   appOpen: boolean;
-}
+} & Pick<IPostState, 'bodyError' | 'titleError' | 'error' | 'title' | 'postContent'>
+
 export type CommentPropsType = {
   onSubmit: any;
   comment_body: string;
@@ -132,14 +129,12 @@ export type CommentPropsType = {
   };
 }
 
-
 export type ReplyType = {
   createdAt: any;
   replyBody: string;
   userId: number;
   id: number;
 }
-
 
 export type CommentItemPropsType = {
   editComment: (comment) => void;
@@ -282,9 +277,7 @@ export type INavLinkType = {
   to: INavLinkToType | string
 }
 
-export interface IMainNavType { 
-  isAuthenticated:boolean;
-  googleAccount:boolean;
+export type IMainNavType = { 
   darkTheme:() => void;
   logOut:() => void;
   handleNotificationClick:(event: React.MouseEvent<HTMLButtonElement>) => void
@@ -294,7 +287,7 @@ export interface IMainNavType {
   anchorEl:HTMLButtonElement | null
   appOpen?: boolean;
   setOpen?: React.Dispatch<React.SetStateAction<boolean>>
-}
+} & Pick<IDefault, 'isAuthenticated' | 'googleAccount' >
 
 export type IButtonBar = {
   children: ReactChildren | ReactNode
@@ -304,23 +297,19 @@ export interface IDyanmicMenuType extends IMainNavType  {
   type: 'main-menu' | 'collapsed-menu'
 }
 
-export interface IRouterType {
+export type IRouterType = {
   notifications: (userId: number) => void
   darkTheme:() => void;
   hasError: boolean
   logOut: () => void
-  isAuthenticated:boolean;
-  googleAccount: boolean
-}
+} & Pick<IDefault, 'googleAccount' | 'isAuthenticated'>
 
-export interface IPrivateRoute {
+export type IPrivateRoute = {
   Component: React.ElementType | ReactNode
   exact:boolean
   path:string
   appOpen: boolean
-  googleAccount: boolean
-  isAuthenticated: boolean
-}
+} & Pick<IDefault, 'googleAccount' | 'isAuthenticated'>
 
 export interface IPostItemContainer{
   post: any
@@ -351,8 +340,6 @@ export interface IloginProps {
 }
 
 export interface IUserState extends IDefault {
-  isAuthenticated: boolean
-  googleAccount: any
   emailVerified: boolean
   profileData: object
   message: string
