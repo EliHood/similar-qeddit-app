@@ -331,7 +331,7 @@ export interface ISignUpForm {
 
 export type IloginProps = Partial<Pick<IDefault, 'history'>>
 
-export type  IUserState = {
+export type IUserState = {
   emailVerified: boolean
   profileData: object
   message: string
@@ -347,7 +347,7 @@ export type  IUserState = {
   currentUser: object
   getNotifications: any
   notDark: boolean
-} & Pick<IDefault, 'googleAccount' | 'isAuthenticated' | 'error' | 'isLoading'>
+} & Omit<IDefault, 'history'>
 export type IPostState ={
   posts: any[];
   postPage: any;
