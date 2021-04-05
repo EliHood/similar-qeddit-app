@@ -17,7 +17,7 @@ dotenv.config();
 const PORT = process.env.PORT || 5000;
 const app: express.Application = express();
 const httpServer = http.createServer(app);
-// const io = socketIo(httpServer);
+
 /**
  * middlewares
  */
