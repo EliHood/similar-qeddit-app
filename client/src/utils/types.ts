@@ -1,9 +1,5 @@
 import React, { ReactChildren, ReactNode } from 'react'
 
-export type ICurrentUserType = {
-  id:number
-  username:string
-}
 
 export interface IDefault{
   error?: string | null
@@ -11,6 +7,10 @@ export interface IDefault{
   history?: any;
   isAuthenticated: boolean
   googleAccount: any
+}
+
+type withChildren = {
+  children: ReactChildren | ReactNode
 }
 
 type AuthorType = {
@@ -90,10 +90,9 @@ export type RegisterStateType = {
   passErr: string;
 }
 export type TabPanelPropsType = {
-  children?: React.ReactNode;
   index: any;
   value: any;
-}
+} & Partial<withChildren>
 
 export type UserPostsType = {
   match?: any;
@@ -239,9 +238,7 @@ export type LikeButtonPropsType = {
   like?: (id: number) => void;
 };
 
-export type IMenuItemType = {
-  children: ReactChildren | ReactNode
-}
+export type IMenuItemType = Required<withChildren>;
 export type IUseInputType = {
   addTitle?: (data:string) => void;
   addContent?:(data:string) => void;
@@ -264,18 +261,16 @@ export type FieldType = {
 } & Partial<Pick<IPostState, 'bodyError'| 'titleError' | 'title'>>
 
 export type INavButtonType = {
-  children: ReactChildren | ReactNode
   onClick?:() => void
-}
+} & Required<withChildren>
 
 interface INavLinkToType{
   pathname: string
 }
 
 export type INavLinkType = {
-  children: string
   to: INavLinkToType | string
-}
+} & Required<withChildren>
 
 export type IMainNavType = { 
   darkTheme:() => void;
@@ -289,9 +284,7 @@ export type IMainNavType = {
   setOpen?: React.Dispatch<React.SetStateAction<boolean>>
 } & Pick<IDefault, 'isAuthenticated' | 'googleAccount' >
 
-export type IButtonBar = {
-  children: ReactChildren | ReactNode
-}
+export type IButtonBar = Required<withChildren>
 
 export interface IDyanmicMenuType extends IMainNavType  {
   type: 'main-menu' | 'collapsed-menu'
