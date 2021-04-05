@@ -81,7 +81,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 models.sequelize.sync().then(() => {
-  httpServer.listen(PORT, () => {
+  httpServer.listen("0.0.0.0", () => {
     console.log(
       "App is running at http://localhost:%d in %s mode",
       app.get("port"),
