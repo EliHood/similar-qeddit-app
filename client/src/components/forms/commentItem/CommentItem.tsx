@@ -23,12 +23,12 @@ const CommentItem: React.FC<CommentItemPropsType> = ({
     const [editCommentValue, setEditComment] = useState(false)
     const { deleteRep, user } = storeHooks()
     const checkUser = user === undefined ? {} : user
-    const update = (comment) => {
+    const update = (commentData) => {
         const data = {
             comment_body: commentEdit,
-            id: comment.id,
-            postId: comment.postId,
-            userId: comment.userId,
+            id: commentData.id,
+            postId: commentData.postId,
+            userId: commentData.userId,
         }
         editComment(data)
         setEditComment(false)
