@@ -1,6 +1,5 @@
 import React, { ReactChildren, ReactNode } from 'react'
 
-
 export interface IDefault{
   error?: string | null
   isLoading: boolean;
@@ -42,17 +41,17 @@ export type CommentBottomType = {
 }
 
 export type EditProfileFormType = {
-  onSubmit: (e) => void;
-  handleBio: (e) => void;
-  handleGravatar: (e) => void;
+  onSubmit: (e:any) => void;
+  handleBio: (e:any) => void;
+  handleGravatar: (e:any) => void;
 } & Pick<AuthorType, 'bio' | 'gravatar'>
 
 export type LoginType = {
-  submit: (event) => void;
+  submit: (event:any) => void;
   username: string;
   password: string;
-  usernameChange: (event) => void;
-  passwordChange: (event) => void;
+  usernameChange: (event:any) => void;
+  passwordChange: (event:any) => void;
 }
 
 export type ProfilePropsType = {
@@ -136,7 +135,7 @@ export type ReplyType = {
 }
 
 export type CommentItemPropsType = {
-  editComment: (comment) => void;
+  editComment: (comment: any) => void;
   onReply: () => void;
   comment:CommentType
   reply?:ReplyType |  null;
@@ -312,11 +311,11 @@ export interface IPostItemContainer{
 }
 
 export interface ISignUpForm {
-  submit: (e) => void;
-  usernameChange: (e) => void;
-  emailChange: (e) => void;
-  passwordChange: (e) => void;
-  passwordConfChange: (e) => void;
+  submit: (e:any) => void;
+  usernameChange: (e:any) => void;
+  emailChange: (e:any) => void;
+  passwordChange: (e:any) => void;
+  passwordConfChange: (e:any) => void;
   passwordConf: string;
   username: string;
   password: string;
@@ -328,11 +327,11 @@ export interface ISignUpForm {
   disButton: boolean;
 }
 
-export interface IloginProps {
-  history?: any;
-}
 
-export interface IUserState extends IDefault {
+
+export type IloginProps = Partial<Pick<IDefault, 'history'>>
+
+export type  IUserState = {
   emailVerified: boolean
   profileData: object
   message: string
@@ -348,8 +347,8 @@ export interface IUserState extends IDefault {
   currentUser: object
   getNotifications: any
   notDark: boolean
-}
-export interface IPostState extends IDefault {
+} & Pick<IDefault, 'googleAccount' | 'isAuthenticated' | 'error' | 'isLoading'>
+export type IPostState ={
   posts: any[];
   postPage: any;
   titleError: any;
@@ -364,4 +363,4 @@ export interface IPostState extends IDefault {
   selectedUser: string;
   mentionedUser: boolean;
   commenterId: any;
-}
+} & Pick<IDefault, 'isLoading' | 'error'>
