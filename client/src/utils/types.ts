@@ -22,9 +22,9 @@ type AuthorType = {
 export type CommentType = {
   comment_body?: string;
   gifUrl?: string;
-  commentUserId?: number;
   id?: number;
   createdAt?: any;
+  userId?:number
   author?: AuthorType
   commentReplies?: []
 };
@@ -216,7 +216,6 @@ export type ButtonFunctionProps = {
   update?: (data: Record<string, any>) => void;
   postId?: number | any;
   userId?: number | any;
-  commentId?: number | any;
   comment?: any;
   setEditComment?: (boolean: boolean) => void;
   deleteReply?: (replyId?: number, postId?: number, replyUserId?: number, commentId?: number) => void;

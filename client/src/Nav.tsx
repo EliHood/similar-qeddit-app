@@ -44,7 +44,6 @@ class Nav extends Component<routerContainerProps, routerContainerState> {
 
     render() {
         const { hasError } = this.state
-        console.log('sfsffs', this.props)
         return (
             <Router
                 darkTheme={this.props.darkTheme}

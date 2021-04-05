@@ -28,15 +28,13 @@ const AuthButtons = ({
         dislikePost,
     ])
     const checkUser = user === undefined ? {} : user
-
+    const ifGifComment = comment && comment.gifUrl
     return (
         <>
             {type === 'comment-buttons' &&
                 (Object.entries(checkUser).length !== 0 ? (
                     <>
-                        {user &&
-                        user.id &&
-                        comment!.commentUserId === user.id ? (
+                        {user && user.id && comment?.userId === user.id ? (
                             <Typography
                                 style={{
                                     display: 'inline-block',
@@ -47,9 +45,8 @@ const AuthButtons = ({
                                 <ButtonFunction
                                     type="delete"
                                     comment={comment}
-                                    userId={comment!.commentUserId}
+                                    userId={comment?.userId}
                                     postId={postId}
-                                    commentId={comment!.id}
                                 />
                             </Typography>
                         ) : null}
@@ -60,9 +57,7 @@ const AuthButtons = ({
                             <ButtonFunction type="reply" onReply={onReply} />
                         </Typography>
                         {/* hide edit button if gifUrl */}
-                        {!comment &&
-                        comment.gifUrl &&
-                        comment.commentUserId === user?.id ? (
+                        {ifGifComment && comment?.userId === user.id ? null : (
                             <>
                                 <Typography
                                     style={{
@@ -78,7 +73,7 @@ const AuthButtons = ({
                                     />
                                 </Typography>
                             </>
-                        ) : null}
+                        )}
                     </>
                 ) : null)}
 

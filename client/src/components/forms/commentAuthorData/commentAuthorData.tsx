@@ -47,7 +47,7 @@ const CommentAuthorData = ({
                             onClick={handleClickOpen}
                         >
                             {comment.author?.username}
-                            {comment.commentUserId === userId && (
+                            {comment?.userId === userId && (
                                 <span style={{ fontSize: '12px' }}> (OP)</span>
                             )}
                         </span>
@@ -70,7 +70,7 @@ const CommentAuthorData = ({
                             }}
                             title={comment.author?.username}
                         />
-                        {comment.commentUserId === userId && (
+                        {comment?.userId === userId && (
                             <span style={{ fontSize: '12px' }}> (OP)</span>
                         )}
                     </>

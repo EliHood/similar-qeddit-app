@@ -1,6 +1,4 @@
-import React, { Fragment, useState, useCallback } from 'react'
-import Typography from '@material-ui/core/Typography'
-import TextField from '@material-ui/core/TextField'
+import React, { useState, useCallback } from 'react'
 import ReactMarkdown from 'react-markdown/with-html'
 import { Grid } from '@material-ui/core'
 import ButtonFunction from '../../../common/ButtonFunction'
@@ -100,7 +98,7 @@ const CommentItem: React.FC<CommentItemPropsType> = ({
                 type="deleteReply"
                 replyId={reply.id}
                 replyUserId={reply.userId}
-                commentId={comment.id}
+                comment={comment}
                 postId={postId}
                 deleteReply={memoizedDeleteReply}
             />

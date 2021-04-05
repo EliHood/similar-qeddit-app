@@ -20,7 +20,6 @@ const ButtonFunction: React.FC<ButtonFunctionProps> = ({
     update,
     postId,
     userId,
-    commentId,
     comment,
     setEditComment,
     deleteReply,
@@ -38,7 +37,7 @@ const ButtonFunction: React.FC<ButtonFunctionProps> = ({
             )}
             {type === 'delete' && (
                 <ButtonSpan
-                    onClick={() => deleteComment(commentId, postId, userId)}
+                    onClick={() => deleteComment(comment?.id, postId, userId)}
                 >
                     <DeleteOutlineOutlinedIcon
                         style={{ margin: '-5px 0px' }}
@@ -79,7 +78,7 @@ const ButtonFunction: React.FC<ButtonFunctionProps> = ({
                                 replyId,
                                 postId,
                                 replyUserId,
-                                commentId
+                                comment?.id
                             )
                         }
                     >
