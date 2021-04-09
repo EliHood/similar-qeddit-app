@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             defaultValue: 0,
             validate: {
-                min: 0,
+                min: 0
             }
         },
         userId: DataTypes.INTEGER

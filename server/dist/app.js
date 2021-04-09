@@ -20,7 +20,6 @@ dotenv_1.default.config();
 const PORT = process.env.PORT || 5000;
 const app = express_1.default();
 const httpServer = http_1.default.createServer(app);
-// const io = socketIo(httpServer);
 /**
  * middlewares
  */
@@ -76,7 +75,7 @@ if (process.env.NODE_ENV === "production") {
     });
 }
 models_1.default.sequelize.sync().then(() => {
-    httpServer.listen(PORT, () => {
+    httpServer.listen("0.0.0.0", () => {
         console.log("App is running at http://localhost:%d in %s mode", app.get("port"), app.get("env"));
         console.log("  Press CTRL-C to stop\n");
     });

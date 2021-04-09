@@ -32,9 +32,9 @@ export = (sequelize: Sequelize, DataTypes: DataTypes) => {
       likeCounts: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 0,
         validate: {
-          min: 0,
+          min: 0
         }
       },
       userId: DataTypes.INTEGER
