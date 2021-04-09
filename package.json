@@ -8,16 +8,17 @@
     "start": "npm run server",
     "server": "cd server && npm run server",
     "client": "cd ./client && npm start",
-    "startdev": "concurrently --kill-others \"npm run client\" \"npm run server\" ",
-    "build": "concurrently \"cd client && npm run build\"",
     "postinstall": "yarn postinstall:server && yarn postinstall:client",
-    "postinstall:server": "cd server && yarn install --ignore-engines --production=false ",
-    "postinstall:client": "cd client && yarn install --production=false && yarn build"
+    "postinstall:server": "cd server && npm  install",
+    "postinstall:client": "cd client && yarn install"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "concurrently": "^5.0.0",
     "js-levenshtein": "^1.1.6"
+  },
+  "engines": {
+    "node" : ">=8.0.0 <=12.10.0"
   }
 }
