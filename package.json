@@ -8,8 +8,6 @@
     "start": "npm run server",
     "server": "cd server && npm run server",
     "client": "cd ./client && npm start",
-    "startdev": "concurrently --kill-others \"npm run client\" \"npm run server\" ",
-    "build": "concurrently \"cd client && npm run build\"",
     "postinstall": "yarn postinstall:server && yarn postinstall:client",
     "postinstall:server": "cd server && npm  install",
     "postinstall:client": "cd client && yarn install"
