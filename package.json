@@ -10,7 +10,8 @@
     "client": "cd ./client && npm start",
     "postinstall": "yarn postinstall:server && yarn postinstall:client",
     "postinstall:server": "cd server && npm  install",
-    "postinstall:client": "cd client && yarn install"
+    "postinstall:client": "cd client && yarn install",
+    "startdev": "concurrently --kill-others \"npm run client\" \"npm run server\" "
   },
   "author": "",
   "license": "ISC",
