@@ -4,13 +4,17 @@ const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || "development";
-const config = require("../config/database.config");
 const db = {};
 const dotenv = require("dotenv");
 dotenv.config();
 if (process.env.NODE_ENV === "production") {
-    var sequelize = new Sequelize(process.env.DATABASE_URL);
+    var sequelize = new Sequelize(process.env.DATABASE_URL, {
+        dialectOptions: {
+            ssl: {
+                rejectUnauthorized: false
+            }
+        }
+    });
 }
 else {
     console.log(process.env.POSTGRES_DB, process.env.POSTGRES_USER, process.env.PSQL_HOST);
