@@ -22,6 +22,12 @@ if (process.env.NODE_ENV === "development") {
   sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: "sqlite",
     storage: "./session.sqlite",
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      }
+    },
   });
 }
 

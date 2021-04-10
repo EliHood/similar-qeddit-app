@@ -19,6 +19,12 @@ else {
     sequelize = new sequelize_1.default(process.env.DATABASE_URL, {
         dialect: "sqlite",
         storage: "./session.sqlite",
+        dialectOptions: {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false,
+            }
+        },
     });
 }
 const myStore = new SequelizeStore({

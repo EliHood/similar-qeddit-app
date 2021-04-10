@@ -30,14 +30,6 @@ if (process.env.NODE_ENV === "development") {
     // app.use(simulateLatency(50, 1000));
 }
 app.set("port", PORT);
-// app.use(
-//   session({
-//     saveUninitialized: false,
-//     resave: false,
-//     cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }, // 30 days
-//     secret: "nodeauth"
-//   })
-// );
 app.use(cookie_parser_1.default());
 app.use(body_parser_1.default.json({ limit: "5mb" }));
 app.use(body_parser_1.default.urlencoded({ limit: "5mb", extended: true }));
@@ -75,7 +67,7 @@ if (process.env.NODE_ENV === "production") {
     });
 }
 models_1.default.sequelize.sync().then(() => {
-    httpServer.listen("0.0.0.0", () => {
+    httpServer.listen(PORT, () => {
         console.log("App is running at http://localhost:%d in %s mode", app.get("port"), app.get("env"));
         console.log("  Press CTRL-C to stop\n");
     });

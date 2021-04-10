@@ -30,14 +30,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.set("port", PORT);
-// app.use(
-//   session({
-//     saveUninitialized: false,
-//     resave: false,
-//     cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }, // 30 days
-//     secret: "nodeauth"
-//   })
-// );
+
 app.use(cookieParser());
 app.use(bodyParser.json({ limit: "5mb" }));
 app.use(bodyParser.urlencoded({ limit: "5mb", extended: true }));
@@ -81,7 +74,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 models.sequelize.sync().then(() => {
-  httpServer.listen("0.0.0.0", () => {
+  httpServer.listen(PORT, () => {
     console.log(
       "App is running at http://localhost:%d in %s mode",
       app.get("port"),
