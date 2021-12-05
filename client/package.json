@@ -68,6 +68,11 @@
       "eslint --fix"
     ]
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "eslintConfig": {
     "extends": "react-app"
   },
