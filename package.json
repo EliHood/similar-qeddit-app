@@ -3,23 +3,25 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "private": "false",
   "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "start" : "lerna run start --parallel",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run server",
+    "build:watch": "lerna run build:watch --parallel",
     "server": "cd server && npm run server",
     "client": "cd ./client && npm start",
-    "postinstall": "yarn postinstall:server && yarn postinstall:client",
-    "postinstall:server": "cd server && npm  install",
-    "postinstall:client": "cd client && yarn install",
     "startdev": "concurrently --kill-others \"npm run client\" \"npm run server\" "
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "concurrently": "^5.0.0",
-    "js-levenshtein": "^1.1.6"
+    "js-levenshtein": "^1.1.6",
+    "lerna": "^4.0.0",
+    "ts-loader": "^9.2.6"
   },
-  "engines": {
-    "node" : ">=8.0.0 <=12.10.0"
-  }
+  "workspaces": [
+    "./client/packages/*"
+  ]
 }
