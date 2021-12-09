@@ -24,7 +24,8 @@
       "react/state-in-constructor": "off",
       "camelcase":"off",
       "no-param-reassign": 0
-    }
+    },
+    "ignorePatterns": ["*/src/**/*.test.tsx"]
  
   
   }

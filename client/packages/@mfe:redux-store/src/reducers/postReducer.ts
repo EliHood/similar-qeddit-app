@@ -1,6 +1,6 @@
 import produce from 'immer'
 import * as types from '../actionTypes/postActionTypes'
-import { validation } from '../utils'
+import validation from '../utils/validation'
 import { IPostState } from '../types'
 
 const initialState: IPostState = {

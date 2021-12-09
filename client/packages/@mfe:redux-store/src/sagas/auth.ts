@@ -5,7 +5,8 @@ import {
 import * as actionTypes from '../actions/userActions';
 import * as types from '../actionTypes/userActionTypes';
 import api from '../api/api';
-import { sessionData, setAuthToken } from '../utils';
+import { setAuthToken } from '../utils';
+import sessionData from '../utils/sessionData';
 
 export function* registerUser(action: any) {
     try {

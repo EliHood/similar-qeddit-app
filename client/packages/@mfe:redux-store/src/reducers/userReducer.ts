@@ -1,6 +1,7 @@
 import produce from 'immer'
 import * as types from '../actionTypes/userActionTypes'
-import { sessionData, validation } from '../utils'
+import sessionData from '../utils/sessionData'
+import validation  from '../utils/validation'
 import { IUserState } from '../types'
 
 const initialState: IUserState = {

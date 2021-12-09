@@ -54,15 +54,13 @@
     "reselect": "^4.0.0",
     "styled-components": "^5.0.0",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.7.4",
-    "webpack": "^5.64.4",
-    "webpack-dev-server": "^4.6.0"
+    "typescript": "^3.7.4"
   },
   "scripts": {
     "start": "webpack serve",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "lint:fix": "eslint --fix \"src/**/*.{ts,tsx}\"",
-    "build": "webpack",
+    "build": "webpack --config webpack.config.js",
     "build:watch": "webpack watch --config webpack.config.js",
     "test": "jest",
     "test:noWatch": "npm run test -- --watchAll=false",
@@ -131,7 +129,9 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.1.0",
     "tslint-react": "^4.2.0",
-    "webpack-cli": "^4.9.1"
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.6.0"
   },
   "jest": {
     "snapshotSerializers": [
