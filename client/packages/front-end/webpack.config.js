@@ -2,12 +2,11 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/Main.tsx',
+  entry: './src/index.ts',
   mode: 'development',
   output: {
-    filename: '[name]_[hash].bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-    library: 'umd'
+      filename: 'index.js',
+      path: path.resolve(__dirname, 'dist')
   },
   
   module: {
@@ -25,7 +24,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.tsx?$/,
+        test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -36,9 +35,12 @@ module.exports = {
               '@babel/preset-typescript',
             ],
           },
-
-        },
-        
+        },  
+      },
+      {
+        test: /\.(ts|js)x?$/,
+        exclude: /node_modules/,
+        use: ['ts-loader']
       },
     ],
   },
@@ -47,14 +49,17 @@ module.exports = {
       directory: path.join(__dirname, 'public', 'index.html'),
     },
     compress: true,
-    port: 9000,
+    port: 9002,
   },
    plugins: [
-    new HtmlWebpackPlugin(),    
+    new HtmlWebpackPlugin({
+      template: './public/index.html',
+      filename: './index.html'
+   })
   ],
 
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.js', '.ts', '.jsx', '.tsx']
   },
   
 }

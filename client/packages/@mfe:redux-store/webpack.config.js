@@ -37,16 +37,10 @@ module.exports = {
         },
         
       },
-      { test: /\.(ts|js)x?$/, loader: 'ts-loader' },
     ],
   },
   resolve: {
-    extensions: [".js", ".ts", ".jsx"]
+    extensions: [".js", ".ts", ".jsx", '.tsx']
   },
 
-  plugins: [
-    new webpack.ProvidePlugin({
-           process: 'process/browser',
-    }),
-  ]
 }
