@@ -9,3 +9,4 @@ node_modules/
 pgdata
 .env
 /.vscode
+dist/

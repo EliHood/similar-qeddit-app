@@ -22,6 +22,6 @@
     "ts-loader": "^9.2.6"
   },
   "workspaces": [
-    "./client/packages/*"
+    "./packages/*"
   ]
 }
