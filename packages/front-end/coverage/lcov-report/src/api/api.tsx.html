@@ -1,0 +1,190 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for src/api/api.tsx</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/api</a> api.tsx</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">5% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>3/60</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/0</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">1.72% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>1/58</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">9.68% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>3/31</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import Axios from '../ourAxios';
+&nbsp;
+export default {
+  user: {
+    signUp: <span class="fstat-no" title="function not covered" >(u</span>serData: any) =&gt; <span class="cstat-no" title="statement not covered" >Axios.post('/api/v1/users/signup', userData).then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    autoLogin: <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >A</span>xios.get('/api/v1/users/auth').then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    logOut: <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >A</span>xios.get('/api/v1/users/logout').then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    logIn: <span class="fstat-no" title="function not covered" >(u</span>serData: any) =&gt; <span class="cstat-no" title="statement not covered" >Axios.post('/api/v1/users/login', userData).then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    currentUser: <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >A</span>xios.get('/api/v1/users/currentUser').then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    editProfile: <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >A</span>xios.get('/api/v1/users/editProfile').then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    getProfile: <span class="fstat-no" title="function not covered" >(u</span>sername: string) =&gt; <span class="cstat-no" title="statement not covered" >Axios.get(`/api/v1/users/profile/${username}`).then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    followUser: <span class="fstat-no" title="function not covered" >(u</span>sername: string) =&gt; <span class="cstat-no" title="statement not covered" >Axios.post(`/api/v1/users/followUser/${username}`).then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    unfollowUser: <span class="fstat-no" title="function not covered" >(u</span>sername: string) =&gt; <span class="cstat-no" title="statement not covered" >Axios.delete(`/api/v1/users/unfollowUser/${username}`).then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    resendConfirmation: <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >A</span>xios.post('/api/v1/users/resendConfirmation').then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    emailConfirmation: (userId: number, token: number) =&gt; Axios.get(`/api/v1/users/emailConfirmation/${userId}/${token}`).then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span>
+    updateProfile: <span class="fstat-no" title="function not covered" >(u</span>serData: any) =&gt; <span class="cstat-no" title="statement not covered" >Axios.put('/api/v1/users/updateProfile', userData).then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    getNotifications: <span class="fstat-no" title="function not covered" >(i</span>d: number) =&gt; <span class="cstat-no" title="statement not covered" >Axios.get(`/api/v1/notifications/${id}`).then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    markAsRead: <span class="fstat-no" title="function not covered" >(i</span>d: number) =&gt; <span class="cstat-no" title="statement not covered" >Axios.post(`/api/v1/notifications/markAsRead/${id}`).then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+  },
+  post: {
+    createPost: <span class="fstat-no" title="function not covered" >(p</span>ostData: any) =&gt; <span class="cstat-no" title="statement not covered" >Axios.post('/api/v1/posts/createPost', postData).then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    repost: <span class="fstat-no" title="function not covered" >(i</span>d: number, userId: number) =&gt; <span class="cstat-no" title="statement not covered" >Axios.post(`/api/v1/posts/repost/${userId}/${id}`).then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    unrepost: <span class="fstat-no" title="function not covered" >(i</span>d: number, userId: number) =&gt; <span class="cstat-no" title="statement not covered" >Axios.delete(`/api/v1/posts/unRepost/${userId}/${id}`).then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    getPosts: <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >A</span>xios.get('/api/v1/posts/getPosts').then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    likePost: <span class="fstat-no" title="function not covered" >(i</span>d: number) =&gt; <span class="cstat-no" title="statement not covered" >Axios.post(`/api/v1/posts/likePost/${id}`).then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    deletePost: <span class="fstat-no" title="function not covered" >(i</span>d: number, userId: number) =&gt; <span class="cstat-no" title="statement not covered" >Axios.delete(`/api/v1/posts/deletePost/${userId}/${id}`).then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    getPost: <span class="fstat-no" title="function not covered" >(i</span>d: number) =&gt; <span class="cstat-no" title="statement not covered" >Axios.get(`/api/v1/posts/post/${id}`).then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    dislikePost: <span class="fstat-no" title="function not covered" >(i</span>d: number) =&gt; <span class="cstat-no" title="statement not covered" >Axios.post(`/api/v1/posts/dislikePost/${id}`).then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    postComment: <span class="fstat-no" title="function not covered" >(c</span>ommentData: any) =&gt; <span class="cstat-no" title="statement not covered" >Axios.post('/api/v1/posts/postComment', commentData).then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    deleteComment: <span class="fstat-no" title="function not covered" >(i</span>d: number, userId: number) =&gt; <span class="cstat-no" title="statement not covered" >Axios.delete(`/api/v1/posts/deleteComment/${userId}/${id}`).then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    editComment: <span class="fstat-no" title="function not covered" >(i</span>d: number, userId: number, commentData: any) =&gt; <span class="cstat-no" title="statement not covered" >Axios.put(`/api/v1/posts/editComment/${userId}/${id}`, commentData).then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    replyComment: <span class="fstat-no" title="function not covered" >(p</span>ostId: number, commentId: number, replyData: any) =&gt; <span class="cstat-no" title="statement not covered" >Axios.post(`/api/v1/posts/replyComment/${postId}/${commentId}`, replyData).then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    deleteReply: <span class="fstat-no" title="function not covered" >(p</span>ostId: number, commentId: number, userId: number) =&gt; <span class="cstat-no" title="statement not covered" >Axios.delete(`/api/v1/posts/deleteReply/${postId}/${userId}/${commentId}`).then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    searchPosts: <span class="fstat-no" title="function not covered" >(q</span>uery: string) =&gt; <span class="cstat-no" title="statement not covered" >Axios.get(`/api/v1/posts/searchq=${query}`).then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+    searchPostsNull: <span class="fstat-no" title="function not covered" >(q</span>uery: string) =&gt; <span class="cstat-no" title="statement not covered" >Axios.get(`/api/v1/posts/searchq=${query}`).then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; <span class="cstat-no" title="statement not covered" >res.data),</span></span>
+  },
+};
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
+                at Wed Mar 31 2021 11:17:11 GMT-0400 (Eastern Daylight Time)
+            </div>
+        </div>
+        <script src="../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
+    </body>
+</html>
+    
