@@ -5,7 +5,7 @@ import {
 import * as actionTypes from '../actions/userActions';
 import * as types from '../actionTypes/userActionTypes';
 import api from '../api/api';
-import { setAuthToken } from '../utils';
+import {setAuthToken}  from '../utils/setAuthToken';
 import sessionData from '../utils/sessionData';
 
 export function* registerUser(action: any) {
@@ -86,7 +86,7 @@ export function* login(action) {
         const { token } = login.meta;
         console.log(token);
         sessionData.setUserLoggedIn(token);
-        const decoded = jwtDecode(token);
+        const decoded = jwtDecode(token) as any;
         setAuthToken(token);
         console.log('login saga', login.user.email_verified);
 

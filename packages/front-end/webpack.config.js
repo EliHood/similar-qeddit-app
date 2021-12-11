@@ -61,7 +61,8 @@ module.exports = {
    new webpack.DefinePlugin({
     'process': JSON.stringify(process.env),
     'process.env.REACT_APP_SC_ATTR': JSON.stringify('data-styled-fullstack'),
-    'process.env.SC_ATTR': JSON.stringify('data-styled-fullstack')
+    'process.env.SC_ATTR': JSON.stringify('data-styled-fullstack'),
+    'process.env.REACT_APP_SC_DISABLE_SPEEDY': true
   })
   ],
   
