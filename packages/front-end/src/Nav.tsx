@@ -55,7 +55,8 @@ class Nav extends Component<routerContainerProps, routerContainerState> {
 const dispatchToProps = (dispatch: any) => ({
     getUser: () => dispatch(userActions.getUser()),
     logOutInit: (data: object) => dispatch(userActions.logOutInit(data)),
-    initGetNotifications: (id: number) => dispatch(userActions.initGetNotifications(id)),
+    initGetNotifications: (id: number) =>
+        dispatch(userActions.initGetNotifications(id)),
 })
 
 const mapStateToProps = (state: any) => ({

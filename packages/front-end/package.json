@@ -1,12 +1,12 @@
 {
-  "name": "client",
+  "name": "front-end",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.5.1",
     "@material-ui/icons": "^4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.39",
-    "@mfe/redux-store": "/Users/eli/nodework/fullstacktypescript/packages/@mfe:redux-store",
+    "@mfe/redux-store": "/Users/eli/nodework/fullstacktypescript/packages/@mfe/redux-store",
     "@testing-library/jest-dom": "^5.8.0",
     "@testing-library/react": "^10.0.4",
     "@testing-library/react-hooks": "^3.2.1",
@@ -31,6 +31,7 @@
     "lerna": "^4.0.0",
     "moment": "^2.24.0",
     "node": "^14.7.0",
+    "packages": "^0.0.8",
     "prettier": "^2.2.1",
     "pusher-js": "^5.1.1",
     "react": "^16.10.2",

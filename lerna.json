@@ -1,6 +1,7 @@
 { 
   "packages": [
-    "packages/*"
+    "./packages/front-end",
+    "./packages/@mfe/redux-store"
   ],
   "version": "0.0.0",
   "npmClient": "yarn",

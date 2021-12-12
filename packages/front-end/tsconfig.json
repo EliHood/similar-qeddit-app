@@ -1,35 +1,20 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "es6",
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": false,
-    "noEmit": false,
-    "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noImplicitAny": false,
-    "jsx": "react",
-    "outDir": "./dist",
-    "rootDir": "./src"
+    "baseUrl": "./",
+    "jsx": "react"
   },
+  "paths": {
+    "@mfe/redux-store": ["../@mfe/redux-store"]
+  },
+  "references": [{ "path": "../@mfe/redux-store" }],
   "include": [
-    "./src/**/*.ts",  "./src/**/*.tsx", "./*.ts", "./*.tsx"
+    "src"
   ],
 
   "exclude": [
     "./src/**/*.test.ts",
     "./src/**/*.test.tsx",
     "node_modules"
-  ]
+  ],
 }

@@ -8,7 +8,6 @@ import * as serviceWorker from './serviceWorker'
 
 import App from './App'
 
-console.log('this worked')
 const app = (
     <Provider store={store}>
         <PersistGate persistor={persitor}>
