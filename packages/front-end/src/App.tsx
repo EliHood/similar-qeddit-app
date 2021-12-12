@@ -63,6 +63,7 @@ const dark = createMuiTheme({
 const App: React.FC = () => {
     const dispatch = useDispatch()
     const isDark = useSelector(selectors.getDark)
+    console.log('sfsf', isDark)
     return (
         <ThemeProvider theme={isDark ? defaultTheme : dark}>
             <Nav darkTheme={() => dispatch(userActions.setDark())} />
