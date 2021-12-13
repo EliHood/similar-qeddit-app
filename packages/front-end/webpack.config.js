@@ -64,7 +64,8 @@ module.exports = {
     'process': JSON.stringify(process.env),
     'process.env.REACT_APP_SC_ATTR': JSON.stringify('data-styled-fullstack'),
     'process.env.SC_ATTR': JSON.stringify('data-styled-fullstack'),
-    'process.env.REACT_APP_SC_DISABLE_SPEEDY': true
+    'process.env.REACT_APP_SC_DISABLE_SPEEDY': true, 
+    'process.env.REACT_APP_BASE_URL': JSON.stringify('http://localhost:3000')
   })
   ],
   
