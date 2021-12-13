@@ -3,11 +3,11 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { userActions, selectors } from '@mfe/redux-store/src'
 import Nav from './Nav'
+import userSession from './utils/userSession'
 
 console.log('selectors', selectors)
-// import userSession from './utils/userSession'
 
-// userSession.userSession()
+userSession.userSession()
 
 const theme = createMuiTheme({
     palette: {
