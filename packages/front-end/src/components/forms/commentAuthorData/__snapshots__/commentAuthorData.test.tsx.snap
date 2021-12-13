@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should test CommentAuthorData should test <CommentAuthorData/> 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
+>
+  <CommentAuthorData
+    comment={
+      Object {
+        "author": Object {
+          "gravatar": "https://hype.my/wp-content/uploads/2015/02/SpongeBob-SquarePants-Fun-Facts.jpg",
+        },
+      }
+    }
+    currentUser={Object {}}
+    isBold={
+      [MockFunction] {
+        "calls": Array [
+          Array [
+            Object {
+              "author": Object {
+                "gravatar": "https://hype.my/wp-content/uploads/2015/02/SpongeBob-SquarePants-Fun-Facts.jpg",
+              },
+            },
+          ],
+        ],
+        "results": Array [
+          Object {
+            "type": "return",
+            "value": undefined,
+          },
+        ],
+      }
+    }
+  >
+    <img
+      alt="gravatar"
+      height="30"
+      src="https://hype.my/wp-content/uploads/2015/02/SpongeBob-SquarePants-Fun-Facts.jpg"
+      style={
+        Object {
+          "margin": "-10px 0px",
+        }
+      }
+      width="30"
+    />
+    <WithStyles(ForwardRef(Typography))
+      align="left"
+      style={
+        Object {
+          "display": "inline-block",
+          "fontWeight": 700,
+          "margin": "10px 10px",
+          "padding": "0px 0px",
+        }
+      }
+      variant="h6"
+    >
+      <ForwardRef(Typography)
+        align="left"
+        classes={
+          Object {
+            "alignCenter": "MuiTypography-alignCenter",
+            "alignJustify": "MuiTypography-alignJustify",
+            "alignLeft": "MuiTypography-alignLeft",
+            "alignRight": "MuiTypography-alignRight",
+            "body1": "MuiTypography-body1",
+            "body2": "MuiTypography-body2",
+            "button": "MuiTypography-button",
+            "caption": "MuiTypography-caption",
+            "colorError": "MuiTypography-colorError",
+            "colorInherit": "MuiTypography-colorInherit",
+            "colorPrimary": "MuiTypography-colorPrimary",
+            "colorSecondary": "MuiTypography-colorSecondary",
+            "colorTextPrimary": "MuiTypography-colorTextPrimary",
+            "colorTextSecondary": "MuiTypography-colorTextSecondary",
+            "displayBlock": "MuiTypography-displayBlock",
+            "displayInline": "MuiTypography-displayInline",
+            "gutterBottom": "MuiTypography-gutterBottom",
+            "h1": "MuiTypography-h1",
+            "h2": "MuiTypography-h2",
+            "h3": "MuiTypography-h3",
+            "h4": "MuiTypography-h4",
+            "h5": "MuiTypography-h5",
+            "h6": "MuiTypography-h6",
+            "noWrap": "MuiTypography-noWrap",
+            "overline": "MuiTypography-overline",
+            "paragraph": "MuiTypography-paragraph",
+            "root": "MuiTypography-root",
+            "srOnly": "MuiTypography-srOnly",
+            "subtitle1": "MuiTypography-subtitle1",
+            "subtitle2": "MuiTypography-subtitle2",
+          }
+        }
+        style={
+          Object {
+            "display": "inline-block",
+            "fontWeight": 700,
+            "margin": "10px 10px",
+            "padding": "0px 0px",
+          }
+        }
+        variant="h6"
+      >
+        <h6
+          className="MuiTypography-root MuiTypography-h6 MuiTypography-alignLeft"
+          style={
+            Object {
+              "display": "inline-block",
+              "fontWeight": 700,
+              "margin": "10px 10px",
+              "padding": "0px 0px",
+            }
+          }
+        >
+          <span
+            style={
+              Object {
+                "cursor": "pointer",
+                "fontSize": "12px",
+                "fontWeight": undefined,
+                "margin": "0px",
+                "padding": "0px",
+              }
+            }
+          >
+            <span
+              style={
+                Object {
+                  "fontSize": "12px",
+                }
+              }
+            >
+               (OP)
+            </span>
+          </span>
+        </h6>
+      </ForwardRef(Typography)>
+    </WithStyles(ForwardRef(Typography))>
+  </CommentAuthorData>
+</Provider>
+`;
