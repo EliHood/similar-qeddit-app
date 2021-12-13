@@ -1,23 +1,34 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { applyMiddleware, createStore } from 'redux'
+import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction'
+import { persistStore } from 'redux-persist'
+import createSagaMiddleware from 'redux-saga'
 import { Provider } from 'react-redux'
 import './index.css'
 import { PersistGate } from 'redux-persist/lib/integration/react'
-import { store, persitor } from '@mfe/redux-store'
-import * as serviceWorker from './serviceWorker'
-
+import { rootReducer } from '@mfe/redux-store/src/reducers'
 import App from './App'
 
-const app = (
-    <Provider store={store}>
-        <PersistGate persistor={persitor}>
-            <App />
-        </PersistGate>
-    </Provider>
+const sagaMiddleware = createSagaMiddleware()
+export const store = createStore(
+    rootReducer,
+    composeWithDevTools(applyMiddleware(sagaMiddleware))
 )
-ReactDOM.render(app, document.getElementById('root'))
+export const persitor = persistStore(store)
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister()
+export default () => {
+    const app = (
+        <Provider store={store}>
+            <PersistGate persistor={persitor}>
+                <App />
+            </PersistGate>
+        </Provider>
+    )
+    ReactDOM.render(app, document.getElementById('root'))
+}
+
+// // If you want your app to work offline and load faster, you can change
+// // unregister() to register() below. Note this comes with some pitfalls.
+// // Learn more about service workers: https://bit.ly/CRA-PWA
+// serviceWorker.unregister()

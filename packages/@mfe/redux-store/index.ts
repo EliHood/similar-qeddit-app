@@ -1,1 +1,1 @@
-export { postActions, userActions, userActionTypes, postActionTypes, selectors, store, persitor } from './src'
+export { postActions, userActions, userActionTypes, postActionTypes, selectors, sagas} from './src'

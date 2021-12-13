@@ -1,6 +1,7 @@
 import jwt_decode from 'jwt-decode';
-import { store, userActions } from '@mfe/redux-store';
+import { userActions } from '@mfe/redux-store';
 import { setAuthToken } from '@mfe/redux-store/src/utils/setAuthToken'
+import {store} from '../Main'
 import { history } from '../ourHistory';
 
 export default {
