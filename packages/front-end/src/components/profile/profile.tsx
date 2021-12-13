@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, Fragment } from 'react'
-import {selectors, userActions } from '@mfe/redux-store'
+import { selectors, userActions } from '@mfe/redux-store/src'
 import { Button, Typography } from '@material-ui/core'
 import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper'
 import PersonIcon from '@material-ui/icons/Person'
 import { useSelector, useDispatch } from 'react-redux'
 import OurLink from '../../common/OurLink'
-import GridHoc from '../hoc/grid';
+import GridHoc from '../hoc/grid'
 import OurWrapper from '../../common/OurWrapper'
 import { ProfilePropsType } from '../../types'
 

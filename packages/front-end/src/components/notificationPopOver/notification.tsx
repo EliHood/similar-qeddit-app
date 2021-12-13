@@ -1,22 +1,29 @@
-import React, { Fragment, useEffect, useRef } from 'react';
-import Popover from '@material-ui/core/Popover';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import { userActions, selectors } from '@mfe/redux-store';
-import { useSelector } from 'react-redux';
-
+import React, { Fragment, useEffect, useRef } from 'react'
+import Popover from '@material-ui/core/Popover'
+import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider'
+import { userActions, selectors } from '@mfe/redux-store/src'
+import { useSelector } from 'react-redux'
 
 export default function Notification(props: any) {
-    const didMountRef = useRef<Object>();
-    const getNotfications = useSelector(selectors.getNotifications);
+    const didMountRef = useRef<Object>()
+    const getNotfications = useSelector(selectors.getNotifications)
     useEffect(() => {
         if (!didMountRef.current) {
-            didMountRef.current = true;
+            didMountRef.current = true
         } else {
             // console.log("test");
         }
-    }, []);
-    const { title, handleNotificationClick, open, anchorEl, id, handleClose, getNotifications } = props
+    }, [])
+    const {
+        title,
+        handleNotificationClick,
+        open,
+        anchorEl,
+        id,
+        handleClose,
+        getNotifications,
+    } = props
     return (
         <>
             <div style={{ color: '#fff' }} onClick={handleNotificationClick}>
@@ -37,33 +44,51 @@ export default function Notification(props: any) {
                     horizontal: 'center',
                 }}
             >
-                <Typography style={{ padding: '20px' }} color="secondary" variant="h6">
-                    Notifications:
-                    {' '}
+                <Typography
+                    style={{ padding: '20px' }}
+                    color="secondary"
+                    variant="h6"
+                >
+                    Notifications:{' '}
                 </Typography>
                 <Divider />
-                {getNotfications.length > 0 && getNotfications.find((item) => item.status === 'unread') ? (
-                   getNotifications.map((notification, i) => (notification.status === 'unread' ? (
-                        <Fragment key={i}>
+                {getNotfications.length > 0 &&
+                getNotfications.find((item) => item.status === 'unread') ? (
+                    getNotifications.map((notification, i) =>
+                        notification.status === 'unread' ? (
+                            <Fragment key={i}>
+                                <Typography
+                                    onClick={() =>
+                                        userActions.markAsReadInit(
+                                            notification.notificationId
+                                        )
+                                    }
+                                    style={{
+                                        width: '300px',
+                                        cursor: 'pointer',
+                                        padding: '20px',
+                                        backgroundColor: 'rgba(0,0,0,0.08)',
+                                    }}
+                                >
+                                    {notification.body}
+                                </Typography>
+                                <Divider />
+                            </Fragment>
+                        ) : (
                             <Typography
-                                onClick={() => userActions.markAsReadInit(notification.notificationId)}
-                                style={{
-                                    width: '300px', cursor: 'pointer', padding: '20px', backgroundColor: 'rgba(0,0,0,0.08)',
-                                }}
+                                key={i}
+                                style={{ width: '300px', padding: '20px' }}
                             >
                                 {notification.body}
                             </Typography>
-                            <Divider />
-                        </Fragment>
-                    ) : (
-                        <Typography key={i} style={{ width: '300px', padding: '20px' }}>
-                            {notification.body}
-                        </Typography>
-                    )))
+                        )
+                    )
                 ) : (
-                    <Typography style={{ width: '300px', padding: '20px' }}>No Notifications</Typography>
+                    <Typography style={{ width: '300px', padding: '20px' }}>
+                        No Notifications
+                    </Typography>
                 )}
             </Popover>
         </>
-    );
+    )
 }

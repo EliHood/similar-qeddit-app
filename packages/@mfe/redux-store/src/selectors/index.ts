@@ -1,1 +1,1 @@
-export * from './selectors'
+export * as selectors from './selectors'

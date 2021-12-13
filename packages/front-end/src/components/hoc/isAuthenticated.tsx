@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { userActions } from '@mfe/redux-store'
+import { userActions } from '@mfe/redux-store/src'
 import { AuthHocPropsType, AuthStateType } from '../../types'
 
 export default function (WrappedComponent) {

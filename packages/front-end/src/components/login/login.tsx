@@ -1,7 +1,7 @@
 import Typography from '@material-ui/core/Typography'
 import Alert from '@material-ui/lab/Alert'
 import React, { useState, Fragment } from 'react'
-import { userActions, selectors } from '@mfe/redux-store';
+import { userActions, selectors } from '@mfe/redux-store/src'
 import Avatar from '@material-ui/core/Avatar'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Grid from '@material-ui/core/Grid'
@@ -56,7 +56,7 @@ function Login({ history }: IloginProps) {
     const dispatch = useDispatch()
     const login = (userData: object, historyData: object) =>
         dispatch(userActions.loginInit(userData, historyData))
-    const user = useSelector(selectors.userStore);
+    const user = useSelector(selectors.userStore)
 
     const goBackEmailConfirmation = () => {
         history.goBack()

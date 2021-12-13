@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { postActions, selectors, userActions} from '@mfe/redux-store';
+import { postActions, selectors, userActions } from '@mfe/redux-store/src'
 import useNotificationHook from './notificationHook'
 
 function useStoreMethods() {
@@ -8,7 +8,8 @@ function useStoreMethods() {
     const isNotified = useSelector(selectors.getIsNotified)
     const user = useSelector(selectors.getUser)
     const likePost = (id: number) => dispatch(postActions.likePostInit(id))
-    const dislikePost = (id: number) => dispatch(postActions.dislikePostInit(id))
+    const dislikePost = (id: number) =>
+        dispatch(postActions.dislikePostInit(id))
     const deletePost = (id: number, userId: number) =>
         dispatch(postActions.deletePostInit(id, userId))
     const deleteComment = (id: number, postId: number, userId: number) =>
@@ -17,17 +18,23 @@ function useStoreMethods() {
         dispatch(postActions.postCommentInit(commentData))
     const editComment = (commentData: object) =>
         dispatch(postActions.editCommentInit(commentData))
-    const createPost = (postData: object) => dispatch(postActions.createPostInit(postData))
+    const createPost = (postData: object) =>
+        dispatch(postActions.createPostInit(postData))
     const rePost = (id: number, userId: number) =>
         dispatch(postActions.repostPostInit(id, userId))
     const unRepost = (id: number, userId: number) =>
         dispatch(postActions.unrepostPostInit(id, userId))
     const getProfile = () => dispatch(userActions.getUserProfile())
-    const updateProfile = (userData:any) => dispatch(userActions.updateUserProfile(userData))
-    const replyComm = (data: object) => dispatch(postActions.commentReplyInit(data))
-    const deleteRep = (data: object) => dispatch(postActions.deleteReplyInit(data))
-    const searchQ = (query: string) => dispatch(postActions.searchPostsInit(query))
-    const getSearch = (query: string) => dispatch(postActions.getSearchInit(query))
+    const updateProfile = (userData: any) =>
+        dispatch(userActions.updateUserProfile(userData))
+    const replyComm = (data: object) =>
+        dispatch(postActions.commentReplyInit(data))
+    const deleteRep = (data: object) =>
+        dispatch(postActions.deleteReplyInit(data))
+    const searchQ = (query: string) =>
+        dispatch(postActions.searchPostsInit(query))
+    const getSearch = (query: string) =>
+        dispatch(postActions.getSearchInit(query))
     const setSelectedOptionValue = (optionValue: string) =>
         dispatch(postActions.setSelectedUser(optionValue))
     const setMentioned = () => dispatch(postActions.setMentionedUser())
@@ -69,7 +76,7 @@ function useStoreMethods() {
         searchResults,
         isNotified,
         getProfile,
-       setSelectedUser,
+        setSelectedUser,
         getSearch,
         postResults,
         searchQ,

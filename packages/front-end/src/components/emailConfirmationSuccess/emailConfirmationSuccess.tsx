@@ -1,24 +1,25 @@
-import { Alert, AlertTitle } from '@material-ui/lab';
-import React, { useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import GridHoc from '../hoc/grid';
-import { selectors, userActions} from '@mfe/redux-store';
+import { Alert, AlertTitle } from '@material-ui/lab'
+import React, { useEffect, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectors, userActions } from '@mfe/redux-store/src'
+import GridHoc from '../hoc/grid'
 
 function EmailConfirmationSuccess(props) {
-    const didMountRef = useRef();
-    const dispatch = useDispatch();
-    const user = useSelector(selectors.userConfirmation);
-    const error = useSelector(selectors.userError);
-    const emailConfirmation = (payload: object) => dispatch(userActions.emailConfirmationInit(payload));
+    const didMountRef = useRef()
+    const dispatch = useDispatch()
+    const user = useSelector(selectors.userConfirmation)
+    const error = useSelector(selectors.userError)
+    const emailConfirmation = (payload: object) =>
+        dispatch(userActions.emailConfirmationInit(payload))
     useEffect(() => {
         if (!didMountRef.current) {
             // didMountRef.current = true
             // console.log("email confirmation");
-            emailConfirmation(props.match.params);
+            emailConfirmation(props.match.params)
         } else {
-            console.log('this is component didupdate');
+            console.log('this is component didupdate')
         }
-    }, [didMountRef]);
+    }, [didMountRef])
 
     return (
         <div data-testid="message">
@@ -26,9 +27,7 @@ function EmailConfirmationSuccess(props) {
                 <div data-testid="success-message">
                     <Alert severity="success">
                         <AlertTitle>Success</AlertTitle>
-                        {user}
-                        {' '}
-                        <a href="/login">Login</a>
+                        {user} <a href="/login">Login</a>
                     </Alert>
                 </div>
             ) : (
@@ -40,7 +39,7 @@ function EmailConfirmationSuccess(props) {
                 </div>
             )}
         </div>
-    );
+    )
 }
 
-export default GridHoc(EmailConfirmationSuccess);
+export default GridHoc(EmailConfirmationSuccess)

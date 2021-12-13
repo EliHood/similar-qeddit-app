@@ -1,8 +1,10 @@
 import React from 'react'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import { useDispatch, useSelector } from 'react-redux'
-import { userActions, selectors } from '@mfe/redux-store'
+import { userActions, selectors } from '@mfe/redux-store/src'
 import Nav from './Nav'
+
+console.log('selectors', selectors)
 // import userSession from './utils/userSession'
 
 // userSession.userSession()
@@ -63,7 +65,7 @@ const dark = createMuiTheme({
 const App: React.FC = () => {
     const dispatch = useDispatch()
     const isDark = useSelector(selectors.getDark)
-    console.log('sfsf', isDark)
+    console.log('sfsffsffsfs', selectors)
     return (
         <ThemeProvider theme={isDark ? defaultTheme : dark}>
             <Nav darkTheme={() => dispatch(userActions.setDark())} />

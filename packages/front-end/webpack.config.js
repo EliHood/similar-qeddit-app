@@ -10,6 +10,7 @@ module.exports = {
       filename: 'index.js',
       path: path.resolve(__dirname, 'dist')
   },
+  devtool: 'source-map',
   
   module: {
     rules: [
@@ -48,14 +49,15 @@ module.exports = {
   },
   devServer: {
     static: {
-      directory: path.join(__dirname, 'public', 'index.html'),
+      directory: path.join(__dirname, 'dist', 'index.html'),
     },
+    historyApiFallback: true,
     compress: true,
     port: 9002,
   },
    plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index.html',
+      template:  `${__dirname  }/public/index.html`,
       filename: './index.html'
    }),
    new webpack.DefinePlugin({

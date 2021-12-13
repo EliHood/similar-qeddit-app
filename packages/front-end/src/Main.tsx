@@ -17,16 +17,14 @@ export const store = createStore(
 )
 export const persitor = persistStore(store)
 
-export default () => {
-    const app = (
-        <Provider store={store}>
-            <PersistGate persistor={persitor}>
-                <App />
-            </PersistGate>
-        </Provider>
-    )
-    ReactDOM.render(app, document.getElementById('root'))
-}
+const app = (
+    <Provider store={store}>
+        <PersistGate persistor={persitor}>
+            <App />
+        </PersistGate>
+    </Provider>
+)
+ReactDOM.render(app, document.getElementById('root'))
 
 // // If you want your app to work offline and load faster, you can change
 // // unregister() to register() below. Note this comes with some pitfalls.

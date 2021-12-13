@@ -1,9 +1,8 @@
 import React, { Fragment } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { userActions, selectors } from '@mfe/redux-store';
+import { userActions, selectors } from '@mfe/redux-store/src'
 import styled from 'styled-components'
 import GridHoc from '../hoc/grid'
-
 
 export type IEmailConfirmation = {
     location: any
@@ -16,7 +15,8 @@ const ResendEmailCard = styled.span`
 function EmailConfirmation({ location }: IEmailConfirmation) {
     const dispatch = useDispatch()
     const user = useSelector(selectors.userConfirmation)
-    const resendEmail = () => dispatch(userActions.resendEmailConfirmationInit())
+    const resendEmail = () =>
+        dispatch(userActions.resendEmailConfirmationInit())
     const emailMessage = user || location.state.meta.message
 
     return (

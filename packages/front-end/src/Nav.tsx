@@ -1,7 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { userActions } from '@mfe/redux-store'
+import { userActions } from '@mfe/redux-store/src'
 import { history } from './ourHistory'
 import Router from './Router'
 

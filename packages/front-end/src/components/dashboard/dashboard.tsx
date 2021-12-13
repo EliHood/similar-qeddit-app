@@ -1,9 +1,9 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
-import { postActions } from '@mfe/redux-store';
+import { postActions } from '@mfe/redux-store/src'
 import { useDispatch } from 'react-redux'
 import PostForm from '../forms/createPost/createPost'
-import GridHoc from '../hoc/grid';
+import GridHoc from '../hoc/grid'
 import OurTabs from '../tabs/OurTabs'
 import useInputChange from '../../common/handleHook'
 import OurError from '../../common/OurError'
