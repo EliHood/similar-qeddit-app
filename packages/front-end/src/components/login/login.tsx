@@ -69,6 +69,8 @@ function Login() {
             username,
             password,
         }
+
+        console.log('fsfsf', userActions.loginInit(creds, history))
         console.log('ssfsf', creds, history)
         login(creds, history)
     }

@@ -1,16 +1,7 @@
-// NEW CODE: You can also remove the redux-thunk dependency
-import sagas from './sagas';
-export { sagas }
-
-// const sagaMiddleware = createSagaMiddleware();
-// export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
-// export const persitor = persistStore(store);
-
-// sagas.map(sagaMiddleware.run)   
-import {  compose, createStore as createReduxStore } from 'redux';
+import sagas from './sagas';  
+import { createStore as createReduxStore } from 'redux';
 import { applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction'
-import { persistStore } from 'redux-persist'
 import createSagaMiddleware from 'redux-saga'
 import rootReducer from './reducers';
 

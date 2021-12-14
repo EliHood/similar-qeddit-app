@@ -5,7 +5,7 @@ export default {
         signUp: (userData: any) => Axios.post('/api/v1/users/signup', userData).then((res) => res.data),
         autoLogin: () => Axios.get('/api/v1/users/auth').then((res) => res.data),
         logOut: () => Axios.get('/api/v1/users/logout').then((res) => res.data),
-        logIn: (userData: any) => Axios.post('/api/v1/users/login', userData).then((res) => console.log('cehcking',res)),
+        logIn: (userData: any) => Axios.post('users/login', userData).then((res) => console.log('cehcking',res)),
         currentUser: () => Axios.get('/api/v1/users/currentUser').then((res) => res.data),
         editProfile: () => Axios.get('/api/v1/users/editProfile').then((res) => res.data),
         getProfile: (username: string) => Axios.get(`/api/v1/users/profile/${username}`).then((res) => res.data),
