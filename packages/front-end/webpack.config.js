@@ -11,7 +11,7 @@ module.exports = {
       path: path.resolve(__dirname, 'dist')
   },
   devtool: 'source-map',
-  
+ 
   module: {
     rules: [
       {
@@ -54,12 +54,19 @@ module.exports = {
     historyApiFallback: true,
     compress: true,
     port: 9002,
+    proxy: {
+      '/api/*': {
+        target: 'http://localhost:3000'
+      }
+    },
+    host: '0.0.0.0',
   },
    plugins: [
     new HtmlWebpackPlugin({
       template:  `${__dirname  }/public/index.html`,
       filename: './index.html'
    }),
+   
    new webpack.DefinePlugin({
     'process': JSON.stringify(process.env),
     'process.env.REACT_APP_SC_ATTR': JSON.stringify('data-styled-fullstack'),
