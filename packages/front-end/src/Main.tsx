@@ -1,23 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { applyMiddleware, createStore } from 'redux'
-import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction'
 import { persistStore } from 'redux-persist'
-import createSagaMiddleware from 'redux-saga'
 import { Provider } from 'react-redux'
 import './index.css'
 import { PersistGate } from 'redux-persist/lib/integration/react'
-import { rootReducer } from '@mfe/redux-store/src/reducers'
-import { sagas } from '@mfe/redux-store/src'
+import createStore from '@mfe/redux-store/src/store'
 import App from './App'
 
-const sagaMiddleware = createSagaMiddleware()
-export const store = createStore(
-    rootReducer,
-    composeWithDevTools(applyMiddleware(sagaMiddleware))
-)
+export const store = createStore()
+
 export const persitor = persistStore(store)
-sagas.map(sagaMiddleware.run)
 
 const app = (
     <Provider store={store}>

@@ -9,6 +9,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import Paper from '@material-ui/core/Paper'
 import { makeStyles } from '@material-ui/core/styles'
 import { useDispatch, useSelector } from 'react-redux'
+import { history } from '../../ourHistory'
 import LoginForm from '../forms/login/login'
 import IsAuth from '../hoc/isAuthenticated'
 import { GoogleLoginButton } from '../../common/GoogleButton'
@@ -49,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-function Login({ history }: IloginProps) {
+function Login() {
     const classes = useStyles()
     const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
@@ -68,6 +69,7 @@ function Login({ history }: IloginProps) {
             username,
             password,
         }
+        console.log('ssfsf', creds, history)
         login(creds, history)
     }
 

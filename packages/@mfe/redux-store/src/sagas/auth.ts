@@ -31,6 +31,7 @@ export function* registerUser(action: any) {
 export function* getAutoLoginStatus(action) {
     try {
         const login = yield call(api.user.currentUser);
+        console.log('sfsf', api.user.currentUser)
         const { token } = login;
 
         if (login.user.googleId !== null) {
@@ -95,6 +96,8 @@ export function* login(action) {
         }
         yield put(actionTypes.loginSuccess(decoded));
     } catch (err) {
+        console.log('login saga', err);
+
         const errMsg = err.response.data.meta.message;
         yield put(actionTypes.loginFailure(errMsg));
     }

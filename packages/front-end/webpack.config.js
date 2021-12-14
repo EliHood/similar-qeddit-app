@@ -53,10 +53,10 @@ module.exports = {
     },
     historyApiFallback: true,
     compress: true,
-    port: 9002,
+    port: 9003,
     proxy: {
       '/api/*': {
-        target: 'http://localhost:3000'
+        target: 'http://localhost:5000'
       }
     },
     host: '0.0.0.0',
@@ -72,13 +72,16 @@ module.exports = {
     'process.env.REACT_APP_SC_ATTR': JSON.stringify('data-styled-fullstack'),
     'process.env.SC_ATTR': JSON.stringify('data-styled-fullstack'),
     'process.env.REACT_APP_SC_DISABLE_SPEEDY': true, 
-    'process.env.REACT_APP_BASE_URL': JSON.stringify('http://localhost:3000')
+    'process.env.REACT_APP_BASE_URL': JSON.stringify('http://localhost:5000')
   })
   ],
   
 
   resolve: {
-    extensions: ['.js', '.ts', '.jsx', '.tsx']
+    extensions: ['.js', '.ts', '.jsx', '.tsx'],
+    alias: {
+      '@redux-store': path.resolve(__dirname, '../@mfe/redux-store')
+    },
   },
   
 }
