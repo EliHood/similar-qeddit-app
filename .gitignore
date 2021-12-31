@@ -10,3 +10,4 @@ pgdata
 .env
 /.vscode
 dist/
+.DS_Store
