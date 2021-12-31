@@ -10,28 +10,22 @@ import sessionData from '../utils/sessionData';
 
 export function* registerUser(action: any) {
     try {
-        console.log(action);
         const { history } = action;
         const user = yield call(api.user.signUp, action.payload);
-        console.log(user);
         // const token = user.meta.token;
         // setAuthToken(token);
         // sessionData.setUserLoggedIn(token);
         // const decoded = jwtDecode(token);
-        console.log(user);
         yield put(actionTypes.signUpSuccess({}, user));
         history.push({ pathname: '/emailConfirmation', state: user });
     } catch (error) {
-        console.log(error);
         const errMsg = error.response.data.meta.message;
-        console.log(errMsg);
         yield put(actionTypes.signUpFailure(errMsg));
     }
 }
 export function* getAutoLoginStatus(action) {
     try {
         const login = yield call(api.user.currentUser);
-        console.log('sfsf', api.user.currentUser)
         const { token } = login;
 
         if (login.user.googleId !== null) {
@@ -49,7 +43,6 @@ export function* getAutoLoginStatus(action) {
 export function* getUserProfile() {
     try {
         const profile = yield call(api.user.editProfile);
-        console.log(profile);
         yield put(actionTypes.getUserProfileSuccess(profile));
     } catch (error) {
         yield put(actionTypes.getUserProfileFailure(error));
@@ -83,21 +76,15 @@ export function* logOut(action:any) {
 export function* login(action) {
     try {
         const login = yield call(api.user.logIn, action.payload);
-        console.log('checking login', login);
         const { token } = login.meta;
-        console.log(token);
         sessionData.setUserLoggedIn(token);
         const decoded = jwtDecode(token) as any;
         setAuthToken(token);
-        console.log('login saga', login.user.email_verified);
-
         if (login.user.email_verified !== null) {
             localStorage.setItem('email_verified', login.user.email_verified.toString());
         }
         yield put(actionTypes.loginSuccess(decoded));
     } catch (err) {
-        console.log('login saga', err);
-
         const errMsg = err.response.data.meta.message;
         yield put(actionTypes.loginFailure(errMsg));
     }
@@ -106,13 +93,8 @@ export function* login(action) {
 export function* emailConfirmation(action) {
     try {
         const emailConfirmation = yield call(api.user.emailConfirmation, action.payload.userId, action.payload.token);
-
-        console.log('email called', emailConfirmation);
-
         yield put(actionTypes.emailConfirmationSuccess(emailConfirmation));
     } catch (err) {
-        console.log(err.response.data);
-        console.log(err.response.data.meta.message);
         yield put(actionTypes.emailConfirmationFailure(err.response.data.meta.message));
     }
 }
@@ -129,7 +111,6 @@ export function* getProfile(action) {
 export function* followUser(action) {
     try {
         const follow = yield call(api.user.followUser, action.data);
-        console.log(follow);
         yield put(actionTypes.followUserSuccess(follow, action.id));
     } catch (err) {
         yield put(actionTypes.followUserFailure(err));
@@ -139,7 +120,6 @@ export function* followUser(action) {
 export function* unfollowUser(action) {
     try {
         const unfollow = yield call(api.user.unfollowUser, action.data);
-        console.log(unfollow);
         yield put(actionTypes.unfollowUserSuccess(unfollow, action.id));
     } catch (err) {
         yield put(actionTypes.followUserFailure(err));
@@ -149,10 +129,8 @@ export function* unfollowUser(action) {
 export function* resendEmailConfirmation(action) {
     try {
         const resendEmailConfirmation = yield call(api.user.resendConfirmation);
-        console.log(resendEmailConfirmation);
         yield put(actionTypes.resendEmailConfirmationSuccess(resendEmailConfirmation));
     } catch (err) {
-        console.log(err);
         yield put(actionTypes.resendEmailConfirmationFailure(err));
     }
 }
@@ -167,11 +145,8 @@ export function* getNotifications(action) {
 }
 
 export function* markAsRead(action) {
-    console.log(action);
-
     try {
         const mark = yield call(api.user.markAsRead, action.payload);
-        console.log(mark);
         yield put(actionTypes.markAsReadSuccess(mark, action.payload));
     } catch (err) {
         yield put(actionTypes.markAsReadFailure(err));

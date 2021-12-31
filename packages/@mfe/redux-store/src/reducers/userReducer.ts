@@ -38,7 +38,6 @@ const authReducer = (state = initialState, action: any): IUserState =>
                 draft.isAuthenticated = false
                 break
             case types.SIGN_UP_FAILURE:
-                console.log(action)
                 draft.error = action.error
                 break
             case types.GET_USER_SUCCESS:
@@ -52,8 +51,6 @@ const authReducer = (state = initialState, action: any): IUserState =>
                 draft.currentUser = action.payload
                 break
             case types.GET_USER_FAILURE:
-                console.log(action)
-                // console.log(sessionData.getLoginStatus());
                 draft.isAuthenticated = false
                 draft.googleAccount = null
                 draft.currentUser = {}
@@ -64,7 +61,6 @@ const authReducer = (state = initialState, action: any): IUserState =>
                 draft.currentUser = {}
                 break
             case types.LOG_IN_SUCCESS:
-                // console.log("login reducer", action.payload.login.user.email_verified);
                 const loginStatus2 = sessionData.getLoginStatus()
                 const emailVerified2 = sessionData.emailVerifiedStatus()
                 const verified2 = !!(
@@ -79,7 +75,6 @@ const authReducer = (state = initialState, action: any): IUserState =>
                 draft.error = ''
                 break
             case types.LOG_IN_FAILURE:
-                console.log(action.error)
                 draft.error = action.error
                 break
             case types.GET_USER_PROFILE_SUCCESS:
@@ -94,11 +89,9 @@ const authReducer = (state = initialState, action: any): IUserState =>
                 draft.message = action.payload.message
                 break
             case types.UPDATE_USER_PROFILE_FAILURE:
-                console.log(action.error)
                 draft.error = action.error
                 break
             case types.ADD_EMAIL:
-                console.log(validation.validateEmail(action.data))
                 draft.email = action.data
                 draft.emailError = validation.validateEmail(action.data)
                 break
@@ -121,36 +114,28 @@ const authReducer = (state = initialState, action: any): IUserState =>
                 draft.usernameError = validation.validateUsername(action.data)
                 break
             case types.EMAIL_CONFIRMATION_FAILURE:
-                console.log(action)
                 draft.error = action.error
                 draft.emailVerified = false
                 break
             case types.EMAIL_CONFIRMATION_SUCCESS:
-                console.log('email_confirmation', action)
                 draft.message = action.payload.message
                 break
             case types.RESEND_EMAIL_CONFIRMATION_SUCCESS:
-                console.log(action.payload)
                 draft.message = action.payload.meta.message
                 break
             case types.RESEND_EMAIL_CONFIRMATION_FAILURE:
                 draft.error = action.error
                 break
             case types.GET_PROFILE_SUCCESS:
-                console.log(action)
                 draft.profilePage = action.data
                 break
             case types.GET_PROFILE_FAILURE:
-                console.log(action)
                 draft.error = action.error
                 break
             case types.FOLLOW_USER_SUCCESS:
-                console.log(action.payload)
-                console.log(action)
                 const findKey = action.payload.follow.UserFollowers.findIndex(
                     (item:any) => item.followerId === action.id
                 )
-                console.log(findKey)
                 draft.profilePage.UserFollowers = [
                     ...draft.profilePage.UserFollowers,
                     action.payload.follow.UserFollowers[findKey],
@@ -158,12 +143,9 @@ const authReducer = (state = initialState, action: any): IUserState =>
                 draft.profilePage.isFollowing = true
                 break
             case types.FOLLOW_USER_FAILURE:
-                console.log(action)
                 draft.error = action.error
                 break
             case types.UNFOLLOW_USER_SUCCESS:
-                console.log(action)
-                console.log(action.payload.follow.UserFollowers)
                 draft.profilePage.UserFollowers = [
                     ...draft.profilePage.UserFollowers.filter(
                         (item:any) => item.followerId !== action.id
@@ -172,14 +154,12 @@ const authReducer = (state = initialState, action: any): IUserState =>
                 draft.profilePage.isFollowing = false
                 break
             case types.UNFOLLOW_USER_FAILURE:
-                console.log(action)
                 draft.error = action.error
                 break
             case types.GET_NOTIFICATIONS_SUCCESS:
                 draft.getNotifications = action.payload
                 break
             case types.GET_NOTIFICATIONS_FAILURE:
-                console.log(action)
                 draft.error = action.error
                 break
             case types.MARK_AS_READ_SUCCESS:
@@ -191,11 +171,9 @@ const authReducer = (state = initialState, action: any): IUserState =>
                 ]
                 break
             case types.MARK_AS_READ_FAILURE:
-                console.log(action)
                 draft.error = action.error
                 break
             case types.SET_DARK:
-                console.log(action)
                 draft.notDark = !draft.notDark
                 break
             default:

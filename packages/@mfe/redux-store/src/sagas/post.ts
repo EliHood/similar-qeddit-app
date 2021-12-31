@@ -19,14 +19,12 @@ function createEventChannel(pusher: Pusher) {
     return eventChannel((emitter) => {
         const channel = pusher.subscribe('notification');
         channel.bind('my-event', (data: commentType) => {
-            console.log('sdd', data);
             // we need an emitter for notificationSuccess method to work
             emitter(data.body);
 
             toast.success(data.body);
         });
         channel.bind('user-mention', (data: string) => {
-            console.log('sdd usermention', data);
             // we need an emitter for notificationSuccess method to work
             emitter(data);
             toast.info(data);
@@ -63,7 +61,6 @@ export function* commentUpdates() {
 
         while (true) {
             const data = yield take(channel);
-            console.log(data);
             yield put(actionTypes.commentUpdatesSuccess(data));
         }
     } catch (err) {
@@ -110,14 +107,12 @@ export function* createPost(action) {
         const post = yield call(api.post.createPost, action.payload);
         yield put(actionTypes.createPostSuccess(post));
     } catch (error) {
-        console.log(error);
         yield put(actionTypes.createPostFailure(error.response.data.meta.message));
     }
 }
 
 export function* editComment(action) {
     try {
-        console.log(action);
         const data = action.payload;
         const comment = yield call(api.post.editComment, action.payload.id, action.payload.userId, { commentData: action.payload.comment_body });
         yield put(actionTypes.editCommentSuccess({ comment, data }));
@@ -128,25 +123,19 @@ export function* editComment(action) {
 
 export function* likePost(action) {
     try {
-        console.log(action);
         const like = yield call(api.post.likePost, action.payload);
-        console.log(like);
         const id = action.payload;
         yield put(actionTypes.likePostSuccess({ like, id }));
     } catch (error) {
-        console.log(error);
         yield put(actionTypes.likePostFailiure(error.response.data));
     }
 }
 export function* dislikePost(action) {
     try {
-        console.log(action);
         const dislike = yield call(api.post.dislikePost, action.payload);
-        console.log(dislike);
         const id = action.payload;
         yield put(actionTypes.dislikePostSuccess({ dislike, id }));
     } catch (error) {
-        console.log('yrsgdgdgd', error.response.data);
         yield put(actionTypes.dislikePostFailiure(error.response.data));
     }
 }
@@ -177,8 +166,6 @@ export function* postComment(action) {
 
 export function* deleteComment(action) {
     const deleteConfirmation = window.confirm('Are you sure you want to delete your comment ?');
-    console.log(action);
-
     if (deleteConfirmation) {
         try {
             const deleteComment = yield call(api.post.deleteComment, action.payload, action.userId);
@@ -193,7 +180,6 @@ export function* deleteComment(action) {
 
 export function* repostPost(action) {
     try {
-        console.log(action);
         const userId = action.payload;
         const postId = action.id;
         const repost = yield call(api.post.repost, userId, postId);
@@ -204,7 +190,6 @@ export function* repostPost(action) {
 }
 export function* unRepostPost(action) {
     try {
-        console.log(action);
         const userId = action.payload;
         const postId = action.id;
         const repost = yield call(api.post.unrepost, userId, postId);
@@ -270,7 +255,6 @@ export function* searchPageResults(action) {
         const search = yield call(api.post.searchPosts, query);
         yield put(actionTypes.getSearchSuccess(search));
     } catch (err) {
-        console.log('error here', err);
         yield put(actionTypes.getSearchFailure(err));
     }
 }

@@ -43,8 +43,6 @@ const DyanmicMenu: React.FC<IDyanmicMenuType> = ({
     type,
 }) => {
     const { user } = storeHooks()
-
-    console.log('sdsfsf checking', user)
     const authenticatedNavItems = menus.menus.map((item, i) => (
         <UnOrderedListItem>
             {item.link !== 'likes' &&
