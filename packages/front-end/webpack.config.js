@@ -19,6 +19,16 @@ module.exports = {
           use: ['style-loader', 'css-loader'], 
       },
       {
+        test: /node_modules\/vfile\/core\.js/,
+        use: [{
+          loader: 'imports-loader',
+          options: {
+            type: 'commonjs',
+            imports: ['single process/browser process'],
+          },
+        }],
+      },
+      {
         test: /\.(png|jpe?g|gif)$/i,
         use: [
           {
@@ -72,7 +82,8 @@ module.exports = {
     'process.env.REACT_APP_SC_ATTR': JSON.stringify('data-styled-fullstack'),
     'process.env.SC_ATTR': JSON.stringify('data-styled-fullstack'),
     'process.env.REACT_APP_SC_DISABLE_SPEEDY': true, 
-    'process.env.REACT_APP_BASE_URL': JSON.stringify('http://localhost:3001')
+    'process.env.REACT_APP_BASE_URL': JSON.stringify('http://localhost:3001'),
+    'window.process': { cwd: () => '' }
   })
   ],
   

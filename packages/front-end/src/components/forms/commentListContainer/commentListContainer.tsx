@@ -18,6 +18,8 @@ const CommentListContainer: RefForwardingComponent<HTMLDivElement, any> = (
         handleClickOpen,
         handleCloseModal,
         isBold,
+        postId,
+        deleteComment,
     } = props
     const { replyComm, editComment, user } = storeHooks()
     const [replyComment, setReplyComment] = useState(false)
@@ -28,7 +30,7 @@ const CommentListContainer: RefForwardingComponent<HTMLDivElement, any> = (
             const data = {
                 replyBody: addReply,
                 userId: user.id,
-                postId: props.postId,
+                postId,
                 commentId: comment.id,
             }
 
@@ -41,10 +43,8 @@ const CommentListContainer: RefForwardingComponent<HTMLDivElement, any> = (
     // this pass onReply to CommentItem component, when its clicked from commentItem it will call this function which displays
     // the reply Form
     const onReply = React.useCallback(() => {
-        console.log('onreply callback')
         setReplyComment(!replyComment)
     }, [setReplyComment, replyComment])
-
     return (
         <List
             innerRef={ref}
@@ -67,15 +67,15 @@ const CommentListContainer: RefForwardingComponent<HTMLDivElement, any> = (
                     onReply={onReply}
                     type="comment"
                     comment={comment}
-                    postId={props.postId}
-                    deleteComment={props.deleteComment}
+                    postId={postId}
+                    deleteComment={deleteComment}
                     editComment={editComment}
                 />
 
                 {comment.commentReplies.length !== 0 ? (
                     <div style={{ marginLeft: '30px', padding: '20px' }}>
-                        {comment.commentReplies.map((reply, i) => (
-                            <Fragment key={i}>
+                        {comment.commentReplies.map((reply) => (
+                            <Fragment key={comment.id}>
                                 <div style={{ padding: '5px' }}>
                                     <CommentAuthorData
                                         comment={reply}
@@ -91,9 +91,9 @@ const CommentListContainer: RefForwardingComponent<HTMLDivElement, any> = (
                                         reply={reply}
                                         comment={comment}
                                         onReply={onReply}
-                                        postId={props.postId}
-                                        deleteComment={props.deleteComment}
-                                        editComment={props.editComment}
+                                        postId={postId}
+                                        deleteComment={deleteComment}
+                                        editComment={null}
                                     />
                                 </div>
                             </Fragment>

@@ -1,8 +1,7 @@
-import sagas from './sagas';  
-import { createStore as createReduxStore } from 'redux';
-import { applyMiddleware } from 'redux'
+import { createStore as createReduxStore , applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction'
 import createSagaMiddleware from 'redux-saga'
+import sagas from './sagas';  
 import rootReducer from './reducers';
 
 
