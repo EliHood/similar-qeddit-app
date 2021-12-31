@@ -6,6 +6,11 @@ Would need this
 
 https://github.com/EliHood/fullstackbackend
 
+### Instructions
+
+- `yarn run build:watch` 1st window
+- `yarn start` 2nd window
+
 #### Tech Stack
 
 - Docker
