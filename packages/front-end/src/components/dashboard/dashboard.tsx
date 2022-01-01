@@ -17,11 +17,13 @@ const Dashboard: React.FC = () => {
         addContent: (data: string) => dispatch(postActions.addContent(data)),
     }
     const handleInputChange = useInputChange(inputData)
-    const { ourTitle } = storeMethods()
-    const { titleError } = storeMethods()
-    const { ourBodyError } = storeMethods()
-    const { ourPostContent } = storeMethods()
-    const { createPost } = storeMethods()
+    const {
+        ourTitle,
+        titleError,
+        ourPostContent,
+        ourBodyError,
+        createPost,
+    } = storeMethods()
     const onSubmit = (e: any) => {
         e.preventDefault()
         const postData = { ourTitle, ourPostContent }

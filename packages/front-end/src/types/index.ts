@@ -36,7 +36,7 @@ export type CommentBottomType = {
     id: number;
     userId: number;
   };
-  deleteComment: () => void;
+  deleteComment: (commentId:number, postId:number, userId:number) => void;
   postComment: (data: object) => void;
 }
 
@@ -98,7 +98,7 @@ export type UserPostsType = {
   user?: any;
   getPostsInit: () => void;
   deletePostInit: (id: number, userId: number) => void;
-  deleteComment: (id: number, postId: number, userId: number) => void;
+  deleteComment: (commentId:number, postId:number, userId:number) => void;
   postCommentInit: (event: object) => void;
   addTitle: (data: string) => void;
   addContent: (data: string) => void;
@@ -304,9 +304,6 @@ export type IPrivateRoute = {
 
 export interface IPostItemContainer{
   post: any
-  deleteComment:() => void;
-  postComment:() => void;
-  deletePost: (id: number, userId: number) => void;
 }
 
 export interface ISignUpForm {

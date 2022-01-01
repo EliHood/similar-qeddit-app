@@ -8,7 +8,19 @@ import OurError from '../../common/OurError'
 import OurWrapper from '../../common/OurWrapper'
 
 function Landing(props: any) {
-    usePostsHook()
+    const { posts } = usePostsHook()
+    const {
+        likePost,
+        errPost,
+        deletePost,
+        deleteComment,
+        dislikePost,
+        user,
+        postComment,
+        isNotified,
+        notifications,
+        editComment,
+    } = storeMethods()
     return (
         <>
             <OurWrapper
@@ -20,18 +32,18 @@ function Landing(props: any) {
                     Post's from our users
                 </Typography>
 
-                {storeMethods().errPost && <OurError />}
+                {errPost && <OurError />}
                 <PostList
-                    likePost={storeMethods().likePost}
-                    deletePost={storeMethods().deletePost}
-                    deleteComment={storeMethods().deleteComment}
-                    dislikePost={storeMethods().dislikePost}
-                    posts={storeMethods().posts}
-                    currentUser={storeMethods().user}
-                    postComment={storeMethods().postComment}
-                    isNotified={storeMethods().isNotified}
-                    getNotifications={storeMethods().notifications}
-                    editComment={storeMethods().editComment}
+                    likePost={likePost}
+                    deletePost={deletePost}
+                    deleteComment={deleteComment}
+                    dislikePost={dislikePost}
+                    posts={posts}
+                    currentUser={user}
+                    postComment={postComment}
+                    isNotified={isNotified}
+                    getNotifications={notifications}
+                    editComment={editComment}
                 />
             </OurWrapper>
         </>

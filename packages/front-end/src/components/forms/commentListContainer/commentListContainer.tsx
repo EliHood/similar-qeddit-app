@@ -19,9 +19,8 @@ const CommentListContainer: RefForwardingComponent<HTMLDivElement, any> = (
         handleCloseModal,
         isBold,
         postId,
-        deleteComment,
     } = props
-    const { replyComm, editComment, user } = storeHooks()
+    const { replyComm, editComment, deleteComment, user } = storeHooks()
     const [replyComment, setReplyComment] = useState(false)
     const [addReply, setReply] = useState('')
     const replySubmit = React.useCallback(

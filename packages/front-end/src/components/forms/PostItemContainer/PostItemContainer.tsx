@@ -15,12 +15,8 @@ import AuthButtons from '../../../common/AuthButtons'
 import CommentBottom from '../commentbottom/commentBottom'
 import { IPostItemContainer } from '../../../types'
 
-function PostItemContainer({
-    post,
-    postComment,
-    deleteComment,
-    deletePost,
-}: IPostItemContainer) {
+function PostItemContainer({ post }: IPostItemContainer) {
+    const { deleteComment, deletePost, postComment } = storeHooks()
     const [openModal, setOpenModal] = useState(false)
     const { rePost, unRepost, commenterId, user, notifications } = storeHooks()
     const handleClickOpen = React.useCallback(() => {

@@ -19,7 +19,6 @@ const CommentItem: React.FC<CommentItemPropsType> = ({
     postId,
 }) => {
     const [commentEdit, setCommentEdit] = useState('')
-
     const [editCommentValue, setEditComment] = useState(false)
     const { deleteRep, user } = storeHooks()
     const checkUser = user === undefined ? {} : user

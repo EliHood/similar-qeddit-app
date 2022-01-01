@@ -9,16 +9,14 @@ import storeHooks from '../../../common/storeHooks'
 
 const CommentBottom: React.FC<CommentBottomType> = ({
     post: { Comments, userId, id },
-    deleteComment,
-    postComment,
 }) => {
+    const { postComment, deleteComment, user } = storeHooks()
     const [openModal, setOpenModal] = useState(false)
     const [openForm, setOpenForm] = useState(false)
     const [comment_body, setCommentBody] = useState('')
     const [gifUrl, setGifUrl] = useState('')
     const [mentionedUser, setMentionedUser] = useState(false)
     const divRef = React.useRef<any>()
-    const { user } = storeHooks()
     const writeComment = React.useCallback(() => {
         // this is the same as this.setState({ openForm: !this.state.open })
         setOpenForm(!openForm)
