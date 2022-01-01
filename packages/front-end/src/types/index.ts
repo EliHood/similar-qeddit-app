@@ -18,7 +18,19 @@ type AuthorType = {
   bio:string
 }
   
-
+type Events = {
+  deleteComment: (commentId:number, postId:number, userId:number) => void;
+  postComment: (data: object) => void;
+  getPostsInit: () => void;
+  deletePostInit: (id: number, userId: number) => void;
+  postCommentInit: (event: object) => void;
+  addTitle: (data: string) => void;
+  addContent: (data: string) => void;
+  createPostInit: (event: object) => void;
+  likePost: (event: number) => void;
+  dislikePost: (event: number) => void;
+  
+}
 export type CommentType = {
   comment_body?: string;
   gifUrl?: string;
@@ -36,9 +48,7 @@ export type CommentBottomType = {
     id: number;
     userId: number;
   };
-  deleteComment: (commentId:number, postId:number, userId:number) => void;
-  postComment: (data: object) => void;
-}
+} & Pick<Events, 'deleteComment' | 'postComment'>
 
 export type EditProfileFormType = {
   onSubmit: (e:any) => void;
@@ -96,15 +106,6 @@ export type TabPanelPropsType = {
 export type UserPostsType = {
   match?: any;
   user?: any;
-  getPostsInit: () => void;
-  deletePostInit: (id: number, userId: number) => void;
-  deleteComment: (commentId:number, postId:number, userId:number) => void;
-  postCommentInit: (event: object) => void;
-  addTitle: (data: string) => void;
-  addContent: (data: string) => void;
-  createPostInit: (event: object) => void;
-  likePost: (event: number) => void;
-  dislikePost: (event: number) => void;
   isNotified?: boolean;
   notificationInit: () => void;
   notification: string;
@@ -112,6 +113,7 @@ export type UserPostsType = {
   appBarShift: any;
   appOpen: boolean;
 } & Pick<IPostState, 'bodyError' | 'titleError' | 'error' | 'title' | 'postContent'>
+ & Pick<Events, 'postCommentInit' | 'getPostsInit' | 'deleteComment' | 'createPostInit' | 'likePost' | 'dislikePost' | 'addContent' | 'deletePostInit' | 'addTitle'>
 
 export type CommentPropsType = {
   onSubmit: any;
@@ -141,8 +143,7 @@ export type CommentItemPropsType = {
   reply?:ReplyType |  null;
   type: 'comment' | 'reply';
   postId: number;
-  deleteComment: (commentId:number, postId:number, userId:number) => void;
-};
+} & Pick<Events, 'deleteComment'>;
 
 export interface CommentAuthorDataInterface {
     comment: CommentType
@@ -168,16 +169,7 @@ export type AuthStateType = {
 export type ILikesType = {
   match?: any;
   user?: any;
-  getPostsInit: () => void;
-  deletePostInit: (id: number, userId: number) => void;
-  deleteComment: (id: number, postId: number, userId: number) => void;
-  postCommentInit: (event: object) => void;
   error: any[];
-  addTitle: (data: string) => void;
-  addContent: (data: string) => void;
-  createPostInit: (event: object) => void;
-  likePost: (event: number) => void;
-  dislikePost: (event: number) => void;
   isNotified?: boolean;
   notificationInit: () => void;
   notification: string;
@@ -185,6 +177,7 @@ export type ILikesType = {
   appBarShift: any;
   appOpen: boolean;
 } & Pick<IPostState,'posts' | 'postContent' | 'bodyError'| 'titleError' | 'title'>
+& Pick<Events, 'postCommentInit'| 'getPostsInit' | 'deleteComment' | 'createPostInit' | 'likePost' | 'dislikePost' | 'addContent' | 'deletePostInit' | 'addTitle'>
 
 export type AuthButtonType = {
   type?: 'post-buttons' | 'comment-buttons' | 'post-buttons-modal';
