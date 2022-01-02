@@ -7,7 +7,7 @@ import storeHooks from '../../hooks/useStoreHooks'
 import OurLoader from '../../atoms/OurLoader'
 
 function PostList(props: any) {
-    const { posts, currentUser } = props
+    const { posts } = props
     const { loading } = storeHooks()
     return loading ? (
         <OurLoader />
@@ -15,12 +15,8 @@ function PostList(props: any) {
         <>
             {posts.length > 0 ? (
                 posts.map((post, i) => (
-                    <div key={i} data-testid="post-list">
-                        <PostItemContainer
-                            post={post}
-                            currentUser={currentUser}
-                            {...props}
-                        />
+                    <div key={post.id} data-testid="post-list">
+                        <PostItemContainer post={post} />
                     </div>
                 ))
             ) : (

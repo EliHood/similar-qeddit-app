@@ -5,20 +5,7 @@ import usePostsHook from '../../hooks/usePostHook'
 import OurWrapper from '../../atoms/OurWrapper'
 import { UserPostsType } from '../../types'
 
-function UserPosts({
-    appBar,
-    appBarShift,
-    appOpen,
-    dislikePost,
-    postCommentInit,
-    likePost,
-    user,
-    deleteComment,
-    deletePostInit,
-    isNotified,
-    notification,
-    notificationInit,
-}: UserPostsType) {
+function UserPosts({ appBar, appBarShift, appOpen }: UserPostsType) {
     const { posts } = usePostsHook()
     return (
         <>
@@ -27,18 +14,7 @@ function UserPosts({
                 appOpen={appOpen}
                 appBarShift={appBarShift}
             >
-                <PostList
-                    likePost={likePost}
-                    deletePost={deletePostInit}
-                    deleteComment={deleteComment}
-                    dislikePost={dislikePost}
-                    posts={posts}
-                    currentUser={user}
-                    postComment={postCommentInit}
-                    isNotified={isNotified}
-                    getNotifications={notificationInit}
-                    notification={notification}
-                />
+                <PostList posts={posts} />
             </OurWrapper>
         </>
     )

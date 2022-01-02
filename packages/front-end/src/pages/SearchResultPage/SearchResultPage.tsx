@@ -5,38 +5,15 @@ import PostList from '../../organisms/PostList'
 import { SearchResultsPageType } from '../../types'
 
 const SearchResultPage: React.FC<SearchResultsPageType> = ({ location }) => {
-    const {
-        posts,
-        getSearch,
-        likePost,
-        deletePost,
-        deleteComment,
-        dislikePost,
-        postComment,
-        editComment,
-        isNotified,
-        notifications,
-    } = storehooks()
+    const { posts, getSearch } = storehooks()
     const { query } = location.state
-    const { currentUser } = location.state
     useEffect(() => {
         getSearch(query)
     }, [query])
 
     return (
         <>
-            <PostList
-                likePost={likePost}
-                deletePost={deletePost}
-                deleteComment={deleteComment}
-                dislikePost={dislikePost}
-                posts={posts}
-                currentUser={currentUser}
-                postComment={postComment}
-                isNotified={isNotified}
-                getNotifications={notifications}
-                editComment={editComment}
-            />
+            <PostList posts={posts} />
         </>
     )
 }

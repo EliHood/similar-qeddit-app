@@ -16,9 +16,17 @@ import CommentBottom from '../../organisms/CommentBottom'
 import { IPostItemContainer } from '../../types'
 
 function PostItemContainer({ post }: IPostItemContainer) {
-    const { deleteComment, deletePost, postComment } = storeHooks()
     const [openModal, setOpenModal] = useState(false)
-    const { rePost, unRepost, commenterId, user, notifications } = storeHooks()
+    const {
+        rePost,
+        unRepost,
+        commenterId,
+        user,
+        postComment,
+        deleteComment,
+        deletePost,
+        notifications,
+    } = storeHooks()
     const handleClickOpen = React.useCallback(() => {
         setOpenModal(true)
     }, [setOpenModal])

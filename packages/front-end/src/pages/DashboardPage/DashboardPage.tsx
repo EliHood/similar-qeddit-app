@@ -22,6 +22,7 @@ const Dashboard: React.FC = () => {
         titleError,
         ourPostContent,
         ourBodyError,
+        errPost,
         createPost,
     } = storeMethods()
     const onSubmit = (e: any) => {
@@ -37,7 +38,7 @@ const Dashboard: React.FC = () => {
             <OurWrapper>
                 <Grid justify="center" container>
                     <Grid item lg={9} xs={11}>
-                        {storeMethods().errPost && <OurError />}
+                        {errPost && <OurError />}
                         <PostForm
                             title={ourTitle}
                             postContent={ourPostContent}

@@ -8,43 +8,22 @@ import OurError from '../../molecules/OurError'
 import OurWrapper from '../../atoms/OurWrapper'
 
 function Landing(props: any) {
+    const { appBar, appOpen, appBarShift } = props
     const { posts } = usePostsHook()
-    const {
-        likePost,
-        errPost,
-        deletePost,
-        deleteComment,
-        dislikePost,
-        user,
-        postComment,
-        isNotified,
-        notifications,
-        editComment,
-    } = storeMethods()
+    const { errPost } = storeMethods()
     return (
         <>
             <OurWrapper
-                appBar={props.appBar}
-                appOpen={props.appOpen}
-                appBarShift={props.appBarShift}
+                appBar={appBar}
+                appOpen={appOpen}
+                appBarShift={appBarShift}
             >
                 <Typography variant="subtitle1" align="left">
                     Post's from our users
                 </Typography>
 
                 {errPost && <OurError />}
-                <PostList
-                    likePost={likePost}
-                    deletePost={deletePost}
-                    deleteComment={deleteComment}
-                    dislikePost={dislikePost}
-                    posts={posts}
-                    currentUser={user}
-                    postComment={postComment}
-                    isNotified={isNotified}
-                    getNotifications={notifications}
-                    editComment={editComment}
-                />
+                <PostList posts={posts} />
             </OurWrapper>
         </>
     )

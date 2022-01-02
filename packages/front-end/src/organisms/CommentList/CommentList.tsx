@@ -5,7 +5,7 @@ import OurSecondaryButton from '../../molecules/OurSecondaryButton'
 import CommentListContainer from '../CommentListContainer'
 
 function CommentList(props: any, ref: Ref<HTMLDivElement>) {
-    const { comments, userId } = props
+    const { comments, userId, postId } = props
     const [showMore, setShowMore] = useState<number>(2)
     const [openModal, setOpenModal] = useState(false)
     const [showLessFlag, setShowLessFlag] = useState<boolean>(false)
@@ -62,7 +62,7 @@ function CommentList(props: any, ref: Ref<HTMLDivElement>) {
                     handleCloseModal={handleCloseModal}
                     isBold={isBold}
                     handleClickOpen={handleClickOpen}
-                    {...props}
+                    postId={postId}
                 />
             </div>
         ))
@@ -127,7 +127,7 @@ function CommentList(props: any, ref: Ref<HTMLDivElement>) {
                                 handleCloseModal={handleCloseModal}
                                 isBold={isBold}
                                 handleClickOpen={handleClickOpen}
-                                {...props}
+                                postId={postId}
                             />
                         </div>
                     ))}

@@ -5,20 +5,7 @@ import usePostsHook from '../../hooks/usePostHook'
 import OurWrapper from '../../atoms/OurWrapper'
 import { ILikesType } from '../../types'
 
-function LikesPage({
-    appBar,
-    likePost,
-    deleteComment,
-    dislikePost,
-    deletePostInit,
-    notificationInit,
-    user,
-    appBarShift,
-    appOpen,
-    postCommentInit,
-    isNotified,
-    notification,
-}: ILikesType) {
+function LikesPage({ appBar, appBarShift, appOpen }: ILikesType) {
     const { posts } = usePostsHook()
     return (
         <>
@@ -27,18 +14,7 @@ function LikesPage({
                 appOpen={appOpen}
                 appBarShift={appBarShift}
             >
-                <PostList
-                    likePost={likePost}
-                    deletePost={deletePostInit}
-                    deleteComment={deleteComment}
-                    dislikePost={dislikePost}
-                    posts={posts}
-                    currentUser={user}
-                    postComment={postCommentInit}
-                    isNotified={isNotified}
-                    getNotifications={notificationInit}
-                    notification={notification}
-                />
+                <PostList posts={posts} />
             </OurWrapper>
         </>
     )

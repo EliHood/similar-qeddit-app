@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function OurTabs() {
     // calls the posts api once, then we use storeMethods().posts to get the posts from store
     usePostsHook()
+    const { posts, popPosts } = storeMethods()
     const classes = useStyles()
     const [value, setValue] = React.useState(1)
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
@@ -68,34 +69,12 @@ export default function OurTabs() {
 
                 <Grid item xs={12} sm={12} md={12} lg={9}>
                     <TabPanel value={value} index={0}>
-                        <PostList
-                            likePost={storeMethods().likePost}
-                            deletePost={storeMethods().deletePost}
-                            deleteComment={storeMethods().deleteComment}
-                            dislikePost={storeMethods().dislikePost}
-                            posts={storeMethods().popPosts}
-                            currentUser={storeMethods().user}
-                            postComment={storeMethods().postComment}
-                            isNotified={storeMethods().isNotified}
-                            getNotifications={storeMethods().notifications}
-                            editComment={storeMethods().editComment}
-                        />
+                        <PostList posts={popPosts} />
                     </TabPanel>
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={9}>
                     <TabPanel value={value} index={1}>
-                        <PostList
-                            likePost={storeMethods().likePost}
-                            deletePost={storeMethods().deletePost}
-                            deleteComment={storeMethods().deleteComment}
-                            dislikePost={storeMethods().dislikePost}
-                            posts={storeMethods().posts}
-                            currentUser={storeMethods().user}
-                            postComment={storeMethods().postComment}
-                            isNotified={storeMethods().isNotified}
-                            getNotifications={storeMethods().notifications}
-                            editComment={storeMethods().editComment}
-                        />
+                        <PostList posts={posts} />
                     </TabPanel>
                 </Grid>
             </Grid>
