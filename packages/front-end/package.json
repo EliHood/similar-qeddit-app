@@ -15,7 +15,7 @@
     "@types/pusher-js": "3.0.24-alpha",
     "@types/react-dom": "16.9.2",
     "@types/react-redux": "^7.1.4",
-    "axios": "^0.19.0",
+    "axios": "^0.21.2",
     "classnames": "^2.2.6",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
