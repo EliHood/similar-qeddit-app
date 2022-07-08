@@ -29,7 +29,7 @@
     "immer": "^4.0.1",
     "jwt-decode": "^3.1.2",
     "lerna": "^4.0.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "node": "^14.7.0",
     "packages": "^0.0.8",
     "prettier": "^2.2.1",
