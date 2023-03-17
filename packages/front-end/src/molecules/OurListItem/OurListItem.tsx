@@ -1,4 +1,4 @@
-import React, { ReactNode, ReactChildren } from 'react'
+import React, { ReactNode, ReactElement } from 'react'
 import styled from 'styled-components'
 import ListItem from '@material-ui/core/ListItem'
 
@@ -9,7 +9,7 @@ const OurItem = styled(ListItem)`
     border-radius: 4px;
 `
 
-const OurListItem = ({ children }: { children: ReactNode | ReactChildren }) => (
+const OurListItem = ({ children }: { children: ReactNode | ReactElement }) => (
     <OurItem button>{children}</OurItem>
 )
 export default OurListItem

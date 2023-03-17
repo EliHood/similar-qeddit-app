@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { Fragment, useState, Ref } from 'react'
+import React, {forwardRef, useState, Ref } from 'react'
 import Grid from '@material-ui/core/Grid'
 import OurSecondaryButton from '../../molecules/OurSecondaryButton'
 import CommentListContainer from '../CommentListContainer'
@@ -137,7 +137,4 @@ function CommentList(props: any, ref: Ref<HTMLDivElement>) {
     )
 }
 
-export default React.forwardRef(CommentList) as React.RefForwardingComponent<
-    HTMLDivElement,
-    any
->
+export default forwardRef(CommentList);

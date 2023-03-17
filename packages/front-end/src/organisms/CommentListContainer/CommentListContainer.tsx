@@ -1,4 +1,4 @@
-import React, { RefForwardingComponent, useState, Fragment } from 'react'
+import React, { ForwardRefRenderFunction, useState, Fragment } from 'react'
 import List from '@material-ui/core/List'
 import CommentItem from '../CommentItem'
 import ReplyForm from '../../molecules/Reply'
@@ -8,7 +8,7 @@ import CommentAuthorData from '../CommentAuthorData'
 const ourStyle = {
     margin: '15px ',
 }
-const CommentListContainer: RefForwardingComponent<HTMLDivElement, any> = (
+const CommentListContainer: ForwardRefRenderFunction <HTMLDivElement, any> = (
     props,
     ref
 ) => {

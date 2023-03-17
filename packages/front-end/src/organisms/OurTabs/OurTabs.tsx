@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react'
 import Box from '@material-ui/core/Box'
 import { makeStyles, Theme } from '@material-ui/core/styles'
@@ -19,6 +20,7 @@ function TabPanel({ children, index, value, ...other }: TabPanelPropsType) {
             hidden={value !== index}
             id={`simple-tabpanel-${index}`}
             aria-labelledby={`simple-tab-${index}`}
+            // eslint-disable-next-line react/jsx-props-no-spreading
             {...other}
         >
             {value === index && <Box p={3}>{children}</Box>}
@@ -43,12 +45,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 export default function OurTabs() {
-    // calls the posts api once, then we use storeMethods().posts to get the posts from store
-    usePostsHook()
+    usePostsHook();
     const { posts, popPosts } = storeMethods()
     const classes = useStyles()
     const [value, setValue] = React.useState(1)
-    const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    const handleChange = (_, newValue: number) => {
         setValue(newValue)
     }
 

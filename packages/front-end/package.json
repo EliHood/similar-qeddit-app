@@ -6,7 +6,6 @@
     "@material-ui/core": "^4.5.1",
     "@material-ui/icons": "^4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.39",
-    "@mfe/redux-store": "/Users/eli/nodework/fullstacktypescript/packages/@mfe/redux-store",
     "@testing-library/jest-dom": "^5.8.0",
     "@testing-library/react": "^10.0.4",
     "@testing-library/react-hooks": "^3.2.1",
@@ -30,7 +29,6 @@
     "jwt-decode": "^3.1.2",
     "lerna": "^4.0.0",
     "moment": "^2.24.0",
-    "node": "^14.7.0",
     "packages": "^0.0.8",
     "prettier": "^2.2.1",
     "pusher-js": "^5.1.1",
@@ -53,8 +51,7 @@
     "redux-saga": "^1.1.1",
     "reselect": "^4.0.0",
     "styled-components": "^5.0.0",
-    "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.7.4"
+    "tslint-config-prettier": "^1.18.0"
   },
   "scripts": {
     "start": "webpack serve --config webpack.config.js",
@@ -96,8 +93,9 @@
     "@types/classnames": "^2.2.11",
     "@types/enzyme": "^3.10.8",
     "@types/enzyme-adapter-react-16": "^1.0.6",
-    "@types/react": "16.9.9",
-    "@types/react-router-dom": "^5.1.7",
+    "@types/express-serve-static-core": "^4.17.33",
+    "@types/react": "^18.0.28",
+    "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.9",
     "@typescript-eslint/eslint-plugin": "^4.20.0",
     "@typescript-eslint/parser": "^2.16.0",
@@ -116,6 +114,7 @@
     "eslint-plugin-unused-imports": "^0.1.3",
     "html-webpack-plugin": "^5.5.0",
     "husky": "4",
+    "imports-loader": "^4.0.1",
     "lint-staged": "^10.5.4",
     "path": "^0.12.7",
     "process": "^0.11.10",
@@ -128,6 +127,7 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.1.0",
     "tslint-react": "^4.2.0",
+    "typescript": "^4.9.5",
     "webpack": "^5.65.0",
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.6.0"

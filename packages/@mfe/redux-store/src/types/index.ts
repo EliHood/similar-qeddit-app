@@ -1,4 +1,4 @@
-import React, { ReactChildren, ReactNode } from 'react'
+import React, { ReactChildren, ReactElement, ReactNode } from 'react'
 
 export interface IDefault{
   error?: string | null
@@ -9,7 +9,7 @@ export interface IDefault{
 }
 
 type withChildren = {
-  children: ReactChildren | ReactNode
+  children: ReactElement | ReactNode 
 }
 
 type AuthorType = {
