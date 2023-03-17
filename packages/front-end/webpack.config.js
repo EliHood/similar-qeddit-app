@@ -63,7 +63,7 @@ module.exports = {
     },
     historyApiFallback: true,
     compress: true,
-    port: 9003,
+    port: 9002,
     proxy: {
       '/api/v1/*': {
         target: 'http://localhost:3001'
