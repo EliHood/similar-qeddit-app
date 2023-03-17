@@ -1,5 +1,7 @@
 ## FullStack Typescript App(not sure what to name this)
 
+currently being patched...
+
 ### Front End Layer
 
 Would need this
