@@ -1,7 +1,7 @@
 import produce from 'immer'
 import * as types from '../actionTypes/userActionTypes'
 import sessionData from '../utils/sessionData'
-import validation  from '../utils/validation'
+import validation from '../utils/validation'
 import { IUserState } from '../types'
 
 const initialState: IUserState = {
@@ -44,7 +44,7 @@ const authReducer = (state = initialState, action: any): IUserState =>
                 const loginStatus = sessionData.getLoginStatus()
                 const emailVerified = sessionData.emailVerifiedStatus()
                 const verified = !!(
-                    loginStatus == true && emailVerified == true
+                    loginStatus === true && emailVerified === true
                 )
                 draft.isAuthenticated = verified
                 draft.googleAccount = sessionData.googleIdStatus()
@@ -64,7 +64,7 @@ const authReducer = (state = initialState, action: any): IUserState =>
                 const loginStatus2 = sessionData.getLoginStatus()
                 const emailVerified2 = sessionData.emailVerifiedStatus()
                 const verified2 = !!(
-                    loginStatus2 == true && emailVerified2 == true
+                    loginStatus2 === true && emailVerified2 === true
                 )
                 draft.error = ''
                 draft.googleAccount = sessionData.googleIdStatus()
@@ -134,7 +134,7 @@ const authReducer = (state = initialState, action: any): IUserState =>
                 break
             case types.FOLLOW_USER_SUCCESS:
                 const findKey = action.payload.follow.UserFollowers.findIndex(
-                    (item:any) => item.followerId === action.id
+                    (item: any) => item.followerId === action.id
                 )
                 draft.profilePage.UserFollowers = [
                     ...draft.profilePage.UserFollowers,
@@ -148,7 +148,7 @@ const authReducer = (state = initialState, action: any): IUserState =>
             case types.UNFOLLOW_USER_SUCCESS:
                 draft.profilePage.UserFollowers = [
                     ...draft.profilePage.UserFollowers.filter(
-                        (item:any) => item.followerId !== action.id
+                        (item: any) => item.followerId !== action.id
                     ),
                 ]
                 draft.profilePage.isFollowing = false
@@ -164,7 +164,8 @@ const authReducer = (state = initialState, action: any): IUserState =>
                 break
             case types.MARK_AS_READ_SUCCESS:
                 const markKey = state.getNotifications.findIndex(
-                    (notification:any) => notification.notificationId === action.id
+                    (notification: any) =>
+                        notification.notificationId === action.id
                 )
                 draft.getNotifications[markKey].status = [
                     ...action.payload.notifications[markKey].status,

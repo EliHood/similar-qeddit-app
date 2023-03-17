@@ -93,16 +93,13 @@ const postReducer = (state = initialState, action: any): IPostState =>
             case types.POST_COMMENT_FAILURE:
                 draft.error = action.error
                 return
-            case types.DISLIKE_POST_FAILURE:
-                draft.error = action.error
-                return
             case types.ADD_TITLE:
                 draft.title = action.data
                 draft.titleError = validation.validateString(action.data)
                 return
             case types.ADD_CONTENT:
                 draft.postContent = action.data
-                draft.bodyError = validation.validateContent(action.data) 
+                draft.bodyError = validation.validateContent(action.data)
                 return
             case types.EDIT_COMMENT_SUCCESS:
                 const postKey = state.posts.findIndex(

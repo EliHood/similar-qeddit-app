@@ -24,6 +24,7 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.23.1",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "express": "^4.18.2",
     "history": "^4.0.0",
     "immer": "^4.0.1",
     "jwt-decode": "^3.1.2",
@@ -59,7 +60,8 @@
     "lint:fix": "yarn run lint --fix",
     "build": "webpack --config webpack.config.js",
     "build:watch": "webpack watch --config webpack.config.js",
-    "test": "jest"
+    "test": "jest",
+    "server": "node server.js"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [

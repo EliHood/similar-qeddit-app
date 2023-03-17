@@ -3,7 +3,6 @@ import { createSelector } from 'reselect'
 // calling educer postInitialState, so it will have access to initialState properties
 const postSelector = (state: any) => state.post
 const userSelector = (state: any) => state.user
-const postSelectorId = (state: any) => state.post
 
 export const userStore = createSelector(userSelector, (state) => state)
 export const profile = createSelector(postSelector, (state) => state.postPage)
@@ -15,14 +14,15 @@ export const getPosts =
 export const getUserLikedPosts = (params) =>
     createSelector(postSelector, (state) =>
         state.posts.filter((post) =>
-            post.Likes.find((like) => like.userId == params.userId)
+            post.Likes.find((like) => like.userId === params.userId)
         )
     )
 
 export const getUserPosts = (params) =>
     createSelector(postSelector, (state) =>
         state.posts.filter(
-            (post) => post.userId == params.userId || post.RepostedByMe == true
+            (post) =>
+                post.userId === params.userId || post.RepostedByMe === true
         )
     )
 

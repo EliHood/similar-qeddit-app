@@ -23,8 +23,11 @@
         "import/extensions": "off",
         "react/state-in-constructor": "off",
         "camelcase":"off",
-        "no-param-reassign": 0
-        
+        "no-param-reassign": 0,
+        "no-case-declarations":"off",
+        "operator-assignment": "off",
+        "consistent-return": "off",
+        "no-useless-escape":"off"      
       },
       "ignorePatterns": ["*/src/**/*.test.tsx"]
    

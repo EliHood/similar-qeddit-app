@@ -9,7 +9,7 @@
     "start" : "lerna run start --parallel",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:watch": "lerna run build:watch --parallel",
-    "server": "cd server && npm run server",
+    "server": "cd packages/front-end && npm run server",
     "client": "cd ./client && npm start",
     "startdev": "concurrently --kill-others \"npm run client\" \"npm run server\" "
   },
