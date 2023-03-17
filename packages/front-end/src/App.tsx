@@ -1,15 +1,14 @@
 import React from 'react'
 import jwt_decode from 'jwt-decode'
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import { createTheme, ThemeProvider } from '@material-ui/core/styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { userActions, selectors } from '@mfe/redux-store/src'
-import { setAuthToken } from '@mfe/redux-store/src/utils/setAuthToken'
+import setAuthToken from '@mfe/redux-store/src/utils/setAuthToken'
 import Nav from './Nav'
 import { store } from '../src/Main'
 import { history } from './ourHistory'
-import userSession from './utils/userSession'
 
-const theme = createMuiTheme({
+const theme = createTheme({
     palette: {
         primary: {
             main: '#48A9A6',
@@ -20,7 +19,7 @@ const theme = createMuiTheme({
     },
 })
 
-const defaultTheme = createMuiTheme({
+const defaultTheme = createTheme({
     palette: {
         primary: {
             main: '#48A9A6',
@@ -51,7 +50,7 @@ defaultTheme.typography.h5 = {
     },
 }
 
-const dark = createMuiTheme({
+const dark = createTheme({
     palette: {
         primary: {
             main: '#000',
