@@ -11,11 +11,10 @@ const persistConfig = {
 }
 const pesistedReducer = persistReducer(persistConfig, authReducer)
 
- const rootReducer = combineReducers({
+const rootReducer = combineReducers({
     user: pesistedReducer,
     post: postReducer,
 })
 
-export {rootReducer}
-export default rootReducer;
-
+export { rootReducer }
+export default rootReducer

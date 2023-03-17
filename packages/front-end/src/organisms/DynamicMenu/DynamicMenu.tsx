@@ -43,8 +43,8 @@ const DyanmicMenu: React.FC<IDyanmicMenuType> = ({
     type,
 }) => {
     const { user } = storeHooks()
-    const authenticatedNavItems = menus.menus.map((item, i) => (
-        <UnOrderedListItem>
+    const authenticatedNavItems = menus.menus.map((item) => (
+        <UnOrderedListItem key={item.link}>
             {item.link !== 'likes' &&
                 item.link !== 'posts' &&
                 item.link !== 'profile' &&

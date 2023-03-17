@@ -4,8 +4,8 @@ import { createTheme, ThemeProvider } from '@material-ui/core/styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { userActions, selectors } from '@mfe/redux-store/src'
 import setAuthToken from '@mfe/redux-store/src/utils/setAuthToken'
-import Nav from './Nav'
-import { store } from '../src/Main'
+import { Routes } from './navigation'
+import { store } from './bootstrap'
 import { history } from './ourHistory'
 
 const theme = createTheme({
@@ -73,7 +73,7 @@ const App: React.FC = () => {
         // Decode token and get user info and exp
         const token: any = localStorage.getItem('jwtToken')
 
-        if (token !== 'null') {
+        if (token !== 'undefined') {
             const decoded: any = jwt_decode(token)
 
             // console.log(decoded);
@@ -96,7 +96,7 @@ const App: React.FC = () => {
     }
     return (
         <ThemeProvider theme={isDark ? defaultTheme : dark}>
-            <Nav darkTheme={() => dispatch(userActions.setDark())} />
+            <Routes />
         </ThemeProvider>
     )
 }

@@ -26,15 +26,17 @@ export function* getAutoLoginStatus(action) {
     try {
         const autoLogin = yield call(api.user.currentUser)
         const { token, user } = autoLogin
-
-        if (user.googleId !== null) {
-            localStorage.setItem('googleId', user.googleId)
+        console.log('user', user)
+        console.log('tokennnn', token)
+        if (user && user.googleId !== null) {
+            localStorage.setItem('googleId', user?.googleId)
         }
         setAuthToken(token)
         sessionData.setUserLoggedIn(token)
         yield put(actionTypes.getUserSuccess(autoLogin))
     } catch (error) {
         localStorage.clear()
+        console.log('error', error)
         yield put(actionTypes.getUserFailure(error.response.data.message))
     }
 }

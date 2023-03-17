@@ -11,6 +11,7 @@ function Landing(props: any) {
     const { appBar, appOpen, appBarShift } = props
     const { posts } = usePostsHook()
     const { errPost } = storeMethods()
+    
     return (
         <>
             <OurWrapper

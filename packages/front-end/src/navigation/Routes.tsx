@@ -1,61 +1,58 @@
-import React, { Fragment } from 'react'
+import React from 'react'
+import { useDispatch } from 'react-redux'
 import classnames from 'classnames'
 import AppBar from '@material-ui/core/AppBar'
 import Grid from '@material-ui/core/Grid'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import { Route, Router, Redirect, Switch } from 'react-router-dom'
-import Landing from './pages/LandingPage'
-import Dashboard from './pages/DashboardPage'
-import EmailConfirmation from './molecules/EmailConfirmation'
-import EmailConfirmationSuccess from './molecules/EmailConfirmationSuccess'
-import Likes from './pages/LikesPage'
-import Login from './pages/LoginPage'
-import Post from './pages/PostPage'
-import EditProfile from './pages/EditProfilePage'
-import Profile from './pages/ProfilePage'
-import Register from './pages/RegisterPage'
-import { history } from './ourHistory'
+import { userActions } from '@mfe/redux-store'
+import Landing from '../pages/LandingPage'
+import Dashboard from '../pages/DashboardPage'
+import EmailConfirmation from '../molecules/EmailConfirmation'
+import EmailConfirmationSuccess from '../molecules/EmailConfirmationSuccess'
+import Likes from '../pages/LikesPage'
+import Login from '../pages/LoginPage'
+import Post from '../pages/PostPage'
+import EditProfile from '../pages/EditProfilePage'
+import Profile from '../pages/ProfilePage'
+import Register from '../pages/RegisterPage'
+import { history } from '../ourHistory'
 import PrivateRoute from './PrivateRoute'
-import NotFound from './molecules/404'
-import CollapasedMenu from './organisms/CollapsedMenu'
-import MainNav from './organisms/MainNav'
-import useWrapperSlide from './hooks/useWrapperSlide'
-import Search from './molecules/Search'
-import UserPosts from './pages/UserPostsPage'
-import storeHooks from './hooks/useStoreHooks'
-import SearchResults from './molecules/SearchResults'
-import SearchResultPage from './pages/SearchResultPage'
-import { IRouterType } from './types'
+import NotFound from '../molecules/404'
+import CollapasedMenu from '../organisms/CollapsedMenu'
+import MainNav from '../organisms/MainNav'
+import useWrapperSlide from '../hooks/useWrapperSlide'
+import Search from '../molecules/Search'
+import UserPosts from '../pages/UserPostsPage'
+import storeHooks from '../hooks/useStoreHooks'
+import SearchResults from '../molecules/SearchResults'
+import SearchResultPage from '../pages/SearchResultPage'
 
-function MyRouter({
-    notifications,
-    hasError,
-    logOut,
-    darkTheme,
-    isAuthenticated,
-    googleAccount,
-}: IRouterType) {
+function Routes() {
+    const dispatch = useDispatch()
+    const { user } = storeHooks()
+    const logOut = () => dispatch(userActions.logOutInit(history))
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
         null
     )
+
     const { classes, appOpen, appSetOpen } = useWrapperSlide()
-    const { user } = storeHooks()
+
     const open = Boolean(anchorEl)
     const id = open ? 'simple-popover' : undefined
     const handleNotificationClick = (
         event: React.MouseEvent<HTMLButtonElement>
     ) => {
         setAnchorEl(event.currentTarget)
-        notifications(user.id)
+        dispatch(userActions.initGetNotifications(user.id))
     }
 
     const handleClose = React.useCallback(() => {
         setAnchorEl(null)
     }, [setAnchorEl])
-    return hasError ? (
-        <div>Error</div>
-    ) : (
+
+    return (
         <Router history={history}>
             <AppBar
                 position="static"
@@ -87,23 +84,23 @@ function MyRouter({
                         appOpen={appOpen}
                         handleNotificationClick={handleNotificationClick}
                         logOut={logOut}
-                        darkTheme={darkTheme}
-                        isAuthenticated={isAuthenticated}
-                        googleAccount={googleAccount}
+                        darkTheme={() => dispatch(userActions.setDark())}
+                        isAuthenticated={user?.isAuthenticated}
+                        googleAccount={user?.googleAccount}
                         open={open}
                         anchorEl={anchorEl}
                         notificationId={id}
                     />
                     <MainNav
-                        darkTheme={darkTheme}
+                        darkTheme={() => dispatch(userActions.setDark())}
                         logOut={logOut}
                         handleClose={handleClose}
                         open={open}
                         notificationId={id}
                         anchorEl={anchorEl}
                         handleNotificationClick={handleNotificationClick}
-                        isAuthenticated={isAuthenticated}
-                        googleAccount={googleAccount}
+                        isAuthenticated={user?.isAuthenticated}
+                        googleAccount={user?.googleAccount}
                     />
                 </Toolbar>
             </AppBar>
@@ -113,7 +110,8 @@ function MyRouter({
                 <Route
                     path="/login"
                     render={() =>
-                        isAuthenticated === true || googleAccount === true ? (
+                        user?.isAuthenticated === true ||
+                        user?.googleAccount === true ? (
                             <Redirect to="/dashboard" />
                         ) : (
                             <Login />
@@ -123,7 +121,8 @@ function MyRouter({
                 <Route
                     path="/register"
                     render={() =>
-                        isAuthenticated === true || googleAccount === true ? (
+                        user?.isAuthenticated === true ||
+                        user?.googleAccount === true ? (
                             <Redirect to="/dashboard" />
                         ) : (
                             <Register />
@@ -149,40 +148,40 @@ function MyRouter({
                     path="/dashboard"
                     Component={Dashboard}
                     appOpen={appOpen}
-                    googleAccount={googleAccount}
-                    isAuthenticated={isAuthenticated}
+                    googleAccount={user?.googleAccount}
+                    isAuthenticated={user?.isAuthenticated}
                 />
                 <PrivateRoute
                     exact
                     path="/profile/:username"
                     Component={Profile}
                     appOpen={appOpen}
-                    googleAccount={googleAccount}
-                    isAuthenticated={isAuthenticated}
+                    googleAccount={user?.googleAccount}
+                    isAuthenticated={user?.isAuthenticated}
                 />
                 <PrivateRoute
                     exact
                     path="/editProfile"
                     Component={EditProfile}
                     appOpen={appOpen}
-                    googleAccount={googleAccount}
-                    isAuthenticated={isAuthenticated}
+                    googleAccount={user?.googleAccount}
+                    isAuthenticated={user?.isAuthenticated}
                 />
                 <PrivateRoute
                     exact
                     path="/:userId/likes"
                     Component={Likes}
                     appOpen={appOpen}
-                    googleAccount={googleAccount}
-                    isAuthenticated={isAuthenticated}
+                    googleAccount={user?.googleAccount}
+                    isAuthenticated={user?.isAuthenticated}
                 />
                 <PrivateRoute
                     exact
                     path="/:userId/posts"
                     Component={UserPosts}
                     appOpen={appOpen}
-                    googleAccount={googleAccount}
-                    isAuthenticated={isAuthenticated}
+                    googleAccount={user?.googleAccount}
+                    isAuthenticated={user?.isAuthenticated}
                 />
                 <Route path="/post/:id" component={Post} />
 
@@ -192,4 +191,5 @@ function MyRouter({
     )
 }
 
-export default MyRouter
+// eslint-disable-next-line import/prefer-default-export
+export { Routes }

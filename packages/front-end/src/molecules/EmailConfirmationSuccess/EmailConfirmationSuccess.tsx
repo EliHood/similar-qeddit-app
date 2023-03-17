@@ -16,8 +16,6 @@ function EmailConfirmationSuccess(props) {
             // didMountRef.current = true
             // console.log("email confirmation");
             emailConfirmation(props.match.params)
-        } else {
-            console.log('this is component didupdate')
         }
     }, [didMountRef])
 

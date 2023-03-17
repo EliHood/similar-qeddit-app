@@ -24,6 +24,7 @@ const initialState: IPostState = {
 
 const postReducer = (state = initialState, action: any): IPostState =>
     produce(state, (draft) => {
+        console.log('state', state)
         switch (action.type) {
             case types.GET_POSTS_INIT:
                 draft.isLoading = true

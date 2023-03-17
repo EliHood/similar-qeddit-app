@@ -57,11 +57,15 @@ export const userMessage = createSelector(
 )
 
 // will sort through original posts array by highest likeCount in DESC order, showing only 2
-export const getPopPosts = createSelector(postSelector, (state) =>
-    state.posts
-        .filter((item) => item.likeCounts > 1)
-        .sort((a, b) => b.likeCounts - a.likeCounts)
-        .slice(0, 2)
+export const getPopPosts = createSelector(
+    postSelector,
+    (state) =>
+        state &&
+        state?.posts &&
+        state?.posts
+            .filter((item) => item.likeCounts > 1)
+            .sort((a, b) => b.likeCounts - a.likeCounts)
+            .slice(0, 2)
 )
 export const getUser = createSelector(
     userSelector,
