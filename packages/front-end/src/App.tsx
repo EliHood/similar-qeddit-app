@@ -94,6 +94,8 @@ const App: React.FC = () => {
             }
         }
     }
+
+    console.log('window', (window as any)?.runtimeConfig)
     return (
         <ThemeProvider theme={isDark ? defaultTheme : dark}>
             <Routes />

@@ -4,11 +4,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: './src/index.ts',
+  entry: {
+    app:{
+      import: './src/index.ts',
+    },
+  },
   mode: 'development',
   output: {
-      filename: 'index.js',
-      path: path.resolve(__dirname, 'dist')
+      path: path.resolve(__dirname, 'dist'),
+      filename: 'app/[name].[contenthash].js',
+      chunkFilename: 'chunks/[name].[chunkhash].js',
+      assetModuleFilename: 'media/[name][hash][ext][query]'
   },
   devtool: 'source-map',
  

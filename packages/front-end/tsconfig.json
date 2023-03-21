@@ -1,20 +1,17 @@
 {
-  "extends": "../../tsconfig.base.json",
-  "compilerOptions": {
-    "baseUrl": "./",
-    "jsx": "react"
-  },
-  "paths": {
-    "@mfe/redux-store": ["../@mfe/redux-store"]
-  },
-  "references": [{ "path": "../@mfe/redux-store" }],
-  "include": [
-    "src"
-  ],
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "baseUrl": "./",
+        "jsx": "react"
+    },
+    "paths": {
+        "@mfe/redux-store": ["../@mfe/redux-store"]
+    },
+    "references": [
+        { "path": "../@mfe/redux-store" },
+        { "path": "../../types/src" }
+    ],
+    "include": ["src"],
 
-  "exclude": [
-    "./src/**/*.test.ts",
-    "./src/**/*.test.tsx",
-    "node_modules"
-  ],
+    "exclude": ["./src/**/*.test.ts", "./src/**/*.test.tsx", "node_modules"]
 }

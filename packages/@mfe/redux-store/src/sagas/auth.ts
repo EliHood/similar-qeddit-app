@@ -7,6 +7,9 @@ import sessionData from '../utils/sessionData'
 import * as actionTypes from '../actions/userActions'
 import * as types from '../actionTypes/userActionTypes'
 
+// eslint-disable-next-line no-underscore-dangle
+console.log('checvking for window', (window as any)?.runtimeConfig)
+
 export function* registerUser(action: any) {
     try {
         const { history } = action
