@@ -57,13 +57,13 @@
         "tslint-config-prettier": "^1.18.0"
     },
     "scripts": {
-        "start": "webpack serve --config webpack.config.js",
+        "start": "./switch && webpack serve --config webpack.config.js",
         "lint": "eslint \"src/**/*.{ts,tsx}\"",
         "lint:fix": "yarn run lint --fix",
         "build": "webpack --config webpack.config.js",
         "build:watch": "webpack watch --config webpack.config.js",
         "test": "jest",
-        "server": "node server.js"
+        "server": "./switch && node server.js"
     },
     "lint-staged": {
         "*.{js,ts,tsx}": [
