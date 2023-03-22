@@ -14,7 +14,27 @@ We use [zod](https://zod.dev/?id=primitives) to make the config type-safe and to
 
 Unlikely you'll need it, but you can do it by changing the value of `globalVarName` const in the `./src/index.ts` file.
 
-## Writing config
+## Using config in other packages
+
+### Install
+
+Just add the `config` package as a dependency to your package.
+
+`repo_root/packages/my-package/package.json`:
+
+```json
+{
+  ...
+  "dependencies": {
+    "config": "0.0.0"
+  }
+  ...
+}
+```
+
+Then run `npx lerna build` or `yarn run build` in the repo root.
+
+### Writing config
 
 This function should be called once in the frontend app that uses other packages.
 
@@ -26,7 +46,7 @@ writeConfig({
 });
 ```
 
-## Reading config
+### Reading config
 
 ```ts
 import { readConfig } from 'config';
