@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# This script is used to switch between different environments
+
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+envs_path="$script_dir/envs"
+
+function check_first_arg() {
+    if [ -z "$1" ]; then
+        echo "Please provide an environment name"
+        exit 1
+    fi
+}
+
+check_first_arg "$1"
+
+function is_env_exists() {
+    if [ ! -f "$envs_path/$1.json" ]; then
+        echo "Environment $1 does not exist in $envs_path"
+        exit 1
+    fi
+}
+
+is_env_exists "$1"
+
+cp "$envs_path/$1.json" "$script_dir/config.json"

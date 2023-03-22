@@ -1,3 +1,11 @@
+## Switch environment
+
+`./switch <environment>`, e.g. `./switch dev` or `./switch prod`.
+
+Configs are stored in `./envs` directory are named `<environment>.json`.
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
