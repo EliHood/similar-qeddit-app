@@ -6,7 +6,9 @@ It stores the config in the global variable and it's used by other packages to r
 
 ## Change config schema
 
-To change the config schema, you need to edit `Config` type in the `./src/config.ts` file.
+To change the config schema, you need to edit `config` const in the `./src/config.ts` file.
+
+We use [zod](https://zod.dev/?id=primitives) to make the config type-safe and to validate in runtime.
 
 ## Change global variable name where config is stored
 
