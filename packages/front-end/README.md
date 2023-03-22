@@ -2,6 +2,8 @@
 
 You can easilly switch you current environment using `./switch <environment>` command e.g. `./switch dev` or `./switch prod`.
 
+If no environment is specified, the default environment will be `dev`.
+
 Configs are stored in `./envs` directory are named `<environment>.json`.
 
 ---
