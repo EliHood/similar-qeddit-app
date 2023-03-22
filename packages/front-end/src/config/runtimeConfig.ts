@@ -1,5 +1,5 @@
 import { setConfig, validateConfig } from 'config'
-import currentConfig from './config.json'
+import currentConfig from '../../config.json'
 
 // This file is supposed to execute in global browser context
 const validationResult = validateConfig(currentConfig)
