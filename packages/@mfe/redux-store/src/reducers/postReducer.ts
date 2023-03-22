@@ -36,8 +36,8 @@ const postReducer = (state = initialState, action: any): IPostState =>
                 return
             case types.GET_POSTS_FAILURE:
                 draft.isLoading = false
-                draft.error = action.error
-
+                draft.error = action.error.response
+                draft.posts = []
                 return
             case types.CREATE_POST_SUCCESS:
                 draft.posts = [action.payload.post, ...draft.posts]
