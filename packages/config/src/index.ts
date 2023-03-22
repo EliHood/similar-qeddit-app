@@ -32,6 +32,7 @@ export function validateConfig(config: c.Config): ValidationResult<void> {
         c.config.parse(config);
         return { isOk: true, value: undefined };
     } catch (e: unknown) {
+        console.error("Config is invalid: ", e);
         return { isOk: false, message: (e as Error).toString() };
     }
 }
