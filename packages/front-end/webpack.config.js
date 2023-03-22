@@ -85,6 +85,8 @@ module.exports = {
             template: `${__dirname}/public/index.html`,
             filename: './index.html',
             contentBase: path.join(__dirname, 'dist'),
+            chunksSortMode: 'manual',
+            chunks: ['runtimeConfig', 'app'] // runtime config should be populated at the moment of app loading
         }),
 
         new webpack.DefinePlugin({
