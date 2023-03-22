@@ -7,10 +7,7 @@
     "paths": {
         "@mfe/redux-store": ["../@mfe/redux-store"]
     },
-    "references": [
-        { "path": "../@mfe/redux-store" },
-        { "path": "../../types/src" }
-    ],
+    "references": [{ "path": "../@mfe/redux-store" }],
     "include": ["src"],
 
     "exclude": ["./src/**/*.test.ts", "./src/**/*.test.tsx", "node_modules"]

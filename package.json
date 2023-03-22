@@ -24,7 +24,6 @@
   },
   "workspaces": [
     "./packages/front-end",
-    "./packages/@mfe/redux-store",
-    "./packages/types"
+    "./packages/@mfe/redux-store"
   ]
 }

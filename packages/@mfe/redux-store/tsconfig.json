@@ -7,10 +7,8 @@
         "composite": true,
         "strict": false,
         "esModuleInterop": true,
-        "jsx": "react",
-        "typeRoots": ["./node_modules/@types/", "../../types"]
+        "jsx": "react"
     },
-    "references": [{ "path": "../../types" }],
     "include": ["src/**/*"],
     "exclude": ["node_modules", "**/__tests__/*", "**/__e2e__/*"]
 }
