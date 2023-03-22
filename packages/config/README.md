@@ -34,14 +34,14 @@ Just add the `config` package as a dependency to your package.
 
 Then run `npx lerna build` or `yarn run build` in the repo root.
 
-### Writing config
+### Setting config
 
 This function should be called once in the frontend app that uses other packages.
 
 ```ts
-import { writeConfig } from 'config';
+import { setConfig } from 'config';
 
-writeConfig({
+setConfig({
   // your config values
 });
 ```
