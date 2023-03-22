@@ -1,6 +1,6 @@
 ## Switch environment
 
-`./switch <environment>`, e.g. `./switch dev` or `./switch prod`.
+You can easilly switch you current environment using `./switch <environment>` command e.g. `./switch dev` or `./switch prod`.
 
 Configs are stored in `./envs` directory are named `<environment>.json`.
 
