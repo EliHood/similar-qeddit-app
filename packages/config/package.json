@@ -1,0 +1,16 @@
+{
+  "name": "config",
+  "version": "1.0.0",
+  "description": "",
+  "main": "rimraf dist && dist/index.js",
+  "types": "rimraf dist && dist/index.d.ts",
+  "private": false,
+  "license": "ISC",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "rimraf": "^4.4.0",
+    "typescript": "^5.0.2"
+  }
+}
