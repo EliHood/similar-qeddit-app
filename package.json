@@ -1,32 +1,32 @@
 {
-  "name": "fullstacktypescriptproject",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "private": "false",
-  "scripts": {
-    "bootstrap": "lerna bootstrap",
-    "start": "lerna run start --parallel",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "lerna run build --parallel",
-    "build:watch": "lerna run build:watch --parallel",
-    "clean": "lerna clean && rimraf node_modules",
-    "server": "cd packages/front-end && npm run server",
-    "client": "cd ./client && npm start",
-    "startdev": "concurrently --kill-others \"npm run client\" \"npm run server\" "
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "concurrently": "^5.0.0",
-    "js-levenshtein": "^1.1.6",
-    "lerna": "^4.0.0",
-    "ts-loader": "^9.2.6",
-    "rimraf": "^4.4.0"
-  },
-  "workspaces": [
-    "./packages/front-end",
-    "./packages/@mfe/redux-store",
-    "./packages/config"
-  ]
+    "name": "fullstacktypescriptproject",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "private": "false",
+    "scripts": {
+        "bootstrap": "lerna exec yarn install",
+        "start": "lerna run start --parallel",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "lerna run build --parallel",
+        "build:watch": "lerna run build:watch --parallel",
+        "clean": "lerna clean && rimraf node_modules",
+        "server": "cd packages/front-end && npm run server",
+        "client": "cd ./client && npm start",
+        "startdev": "concurrently --kill-others \"npm run client\" \"npm run server\" "
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "concurrently": "^5.0.0",
+        "js-levenshtein": "^1.1.6",
+        "lerna": "^4.0.0",
+        "ts-loader": "^9.2.6",
+        "rimraf": "^4.4.0"
+    },
+    "workspaces": [
+        "./packages/front-end",
+        "./packages/@mfe/redux-store",
+        "./packages/config"
+    ]
 }
