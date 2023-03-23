@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import jwt_decode from 'jwt-decode'
 import { createTheme, ThemeProvider } from '@material-ui/core/styles'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { userActions, selectors } from '@mfe/redux-store/src'
 import setAuthToken from '@mfe/redux-store/src/utils/setAuthToken'
 import { Routes } from './navigation'
 import { store } from './bootstrap'
 import { history } from './ourHistory'
+import { getUser } from '@mfe/redux-store/src/actions/userActions'
 
 const theme = createTheme({
     palette: {
@@ -62,11 +63,14 @@ const dark = createTheme({
 })
 
 const App: React.FC = () => {
-    const dispatch = useDispatch()
     const isDark = useSelector(selectors.getDark)
 
-    // userSession.userSession()
+    useEffect(() => {
+        store.dispatch(getUser())
+    }, [])
+
     if (localStorage.jwtToken) {
+        console.log('JWT CONDITION')
         // console.log("googletoken", localStorage.jwtToken);
         // Set auth token header auth
         setAuthToken(localStorage.jwtToken)
@@ -75,13 +79,11 @@ const App: React.FC = () => {
 
         if (token !== 'undefined') {
             const decoded: any = jwt_decode(token)
-
+            console.log('is this gettring called', decoded)
             // console.log(decoded);
             // Set user and isAuthenticated
             store.dispatch(userActions.loginSuccess(decoded))
-            // store.dispatch(getCurrentUser());
             // this line of code may be unneccessary, because we are calling getUser from Nav component.
-            // store.dispatch(getUser());
             // Check for expired token
             const currentTime = Date.now() / 1000
 

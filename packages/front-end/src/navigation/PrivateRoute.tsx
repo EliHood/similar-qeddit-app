@@ -9,6 +9,8 @@ const PrivateRoute = ({
     exact,
     path,
 }: IPrivateRoute) => {
+    console.log('googleAccount', googleAccount)
+
     if (googleAccount === true) {
         return <Route exact={exact} path={path} component={Component as any} />
     }

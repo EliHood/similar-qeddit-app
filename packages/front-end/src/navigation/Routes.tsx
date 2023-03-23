@@ -31,7 +31,7 @@ import SearchResultPage from '../pages/SearchResultPage'
 
 function Routes() {
     const dispatch = useDispatch()
-    const { user } = storeHooks()
+    const { user, isAuthenticated, isGoogleAccount } = storeHooks()
     const logOut = () => dispatch(userActions.logOutInit(history))
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
         null
@@ -51,7 +51,7 @@ function Routes() {
     const handleClose = React.useCallback(() => {
         setAnchorEl(null)
     }, [setAnchorEl])
-
+    console.log('routes', isGoogleAccount)
     return (
         <Router history={history}>
             <AppBar
@@ -85,8 +85,8 @@ function Routes() {
                         handleNotificationClick={handleNotificationClick}
                         logOut={logOut}
                         darkTheme={() => dispatch(userActions.setDark())}
-                        isAuthenticated={user?.isAuthenticated}
-                        googleAccount={user?.googleAccount}
+                        isAuthenticated={isAuthenticated}
+                        googleAccount={isGoogleAccount}
                         open={open}
                         anchorEl={anchorEl}
                         notificationId={id}
@@ -99,8 +99,8 @@ function Routes() {
                         notificationId={id}
                         anchorEl={anchorEl}
                         handleNotificationClick={handleNotificationClick}
-                        isAuthenticated={user?.isAuthenticated}
-                        googleAccount={user?.googleAccount}
+                        isAuthenticated={isAuthenticated}
+                        googleAccount={isGoogleAccount}
                     />
                 </Toolbar>
             </AppBar>
@@ -110,8 +110,7 @@ function Routes() {
                 <Route
                     path="/login"
                     render={() =>
-                        user?.isAuthenticated === true ||
-                        user?.googleAccount === true ? (
+                        isAuthenticated === true || isGoogleAccount === true ? (
                             <Redirect to="/dashboard" />
                         ) : (
                             <Login />
@@ -121,8 +120,7 @@ function Routes() {
                 <Route
                     path="/register"
                     render={() =>
-                        user?.isAuthenticated === true ||
-                        user?.googleAccount === true ? (
+                        isAuthenticated === true || isGoogleAccount === true ? (
                             <Redirect to="/dashboard" />
                         ) : (
                             <Register />
@@ -148,40 +146,40 @@ function Routes() {
                     path="/dashboard"
                     Component={Dashboard}
                     appOpen={appOpen}
-                    googleAccount={user?.googleAccount}
-                    isAuthenticated={user?.isAuthenticated}
+                    googleAccount={isGoogleAccount}
+                    isAuthenticated={isAuthenticated}
                 />
                 <PrivateRoute
                     exact
                     path="/profile/:username"
                     Component={Profile}
                     appOpen={appOpen}
-                    googleAccount={user?.googleAccount}
-                    isAuthenticated={user?.isAuthenticated}
+                    googleAccount={isGoogleAccount}
+                    isAuthenticated={isAuthenticated}
                 />
                 <PrivateRoute
                     exact
                     path="/editProfile"
                     Component={EditProfile}
                     appOpen={appOpen}
-                    googleAccount={user?.googleAccount}
-                    isAuthenticated={user?.isAuthenticated}
+                    googleAccount={isGoogleAccount}
+                    isAuthenticated={isAuthenticated}
                 />
                 <PrivateRoute
                     exact
                     path="/:userId/likes"
                     Component={Likes}
                     appOpen={appOpen}
-                    googleAccount={user?.googleAccount}
-                    isAuthenticated={user?.isAuthenticated}
+                    googleAccount={isGoogleAccount}
+                    isAuthenticated={isAuthenticated}
                 />
                 <PrivateRoute
                     exact
                     path="/:userId/posts"
                     Component={UserPosts}
                     appOpen={appOpen}
-                    googleAccount={user?.googleAccount}
-                    isAuthenticated={user?.isAuthenticated}
+                    googleAccount={isGoogleAccount}
+                    isAuthenticated={isAuthenticated}
                 />
                 <Route path="/post/:id" component={Post} />
 
