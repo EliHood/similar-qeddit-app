@@ -8,7 +8,7 @@ module.exports = {
         app: {
             import: './src/index.ts',
         },
-        runtimeConfig: './src/config/runtimeConfig.ts',
+        runtimeConfig: './config/runtimeConfig.ts',
     },
     mode: 'development',
     output: {
@@ -107,6 +107,7 @@ module.exports = {
         extensions: ['.js', '.ts', '.jsx', '.tsx'],
         alias: {
             '@redux-store': path.resolve(__dirname, '../@mfe/redux-store'),
+            'config': path.resolve(__filename, '../@core/config')
         },
     },
 }

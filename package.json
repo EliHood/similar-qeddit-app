@@ -27,6 +27,6 @@
     "workspaces": [
         "./packages/front-end",
         "./packages/@mfe/redux-store",
-        "./packages/config"
+        "./packages/@core/config"
     ]
 }

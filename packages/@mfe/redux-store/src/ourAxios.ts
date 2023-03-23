@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 /* eslint-disable import/no-extraneous-dependencies */
 import Axios from 'axios'
-import { getConfig } from 'config';
+import { getConfig } from '@core/config'
 
 const AxiosInstance = Axios.create({
     baseURL: getConfig()?.backendUrl,

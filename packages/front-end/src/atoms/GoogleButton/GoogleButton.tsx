@@ -50,6 +50,7 @@ const useStyles = makeStyles((theme) =>
 const GoogleLoginButton = () => {
     const classes = useStyles({})
 
+    console.log('window', (window as any)?.__env__) // returns undefined
     return (
         <a
             href={`${process.env.REACT_APP_BASE_URL}/api/v1/users/auth/google`}

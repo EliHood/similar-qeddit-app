@@ -5,10 +5,14 @@
         "jsx": "react"
     },
     "paths": {
-        "@mfe/redux-store": ["../@mfe/redux-store"]
+        "@mfe/redux-store": ["../@mfe/redux-store"],
+        "@core/config": ["../@core/config"]
     },
-    "references": [{ "path": "../@mfe/redux-store" }],
-    "include": ["src"],
+    "references": [
+        { "path": "../@mfe/redux-store" },
+        { "path": "../@core/config" }
+    ],
+    "include": ["src", "config"],
 
     "exclude": ["./src/**/*.test.ts", "./src/**/*.test.tsx", "node_modules"]
 }
