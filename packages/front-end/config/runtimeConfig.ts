@@ -1,19 +1,5 @@
 import { setConfig, validateConfig } from '@core/config'
-import currentConfig from '../envs/local.json' // need a way to switch configs based on what environment were on.
-
-/**
- * So maybe a map
- *
- * import {localConfg, prodConfig} from '../envs
- *
- *
- * const currentConfig = {
- *  'local': localConfig,
- *  'prod': prodConfig,
- * }
- *
- * setConfig(currentConfig[whatever logic to determine if user is local or on prod])
- */
+import currentConfig from '../config.json';
 
 // This file is supposed to execute in global browser context
 const validationResult = validateConfig(currentConfig)

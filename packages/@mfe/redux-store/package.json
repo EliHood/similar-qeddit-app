@@ -65,6 +65,7 @@
         "@babel/core": "^7.16.0",
         "@babel/plugin-transform-runtime": "^7.16.4",
         "@babel/polyfill": "^7.12.1",
+        "@core/config": "*",
         "@types/classnames": "^2.2.11",
         "@types/enzyme": "^3.10.8",
         "@types/enzyme-adapter-react-16": "^1.0.6",

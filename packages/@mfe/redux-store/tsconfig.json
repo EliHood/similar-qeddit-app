@@ -9,10 +9,6 @@
         "esModuleInterop": true,
         "jsx": "react"
     },
-    "paths": {
-        "@core/config": ["../../@core/config"]
-    },
-    "references": [{ "path": "../../@core/config" }],
     "include": ["src/**/*"],
     "exclude": ["node_modules", "**/__tests__/*", "**/__e2e__/*"]
 }

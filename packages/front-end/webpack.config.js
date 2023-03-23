@@ -105,9 +105,5 @@ module.exports = {
 
     resolve: {
         extensions: ['.js', '.ts', '.jsx', '.tsx'],
-        alias: {
-            '@redux-store': path.resolve(__dirname, '../@mfe/redux-store'),
-            'config': path.resolve(__filename, '../@core/config')
-        },
     },
 }

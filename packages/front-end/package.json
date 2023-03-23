@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@core/config": "*",
         "@material-ui/core": "^4.5.1",
         "@material-ui/icons": "^4.5.1",
         "@material-ui/lab": "^4.0.0-alpha.39",
@@ -56,7 +57,7 @@
         "tslint-config-prettier": "^1.18.0"
     },
     "scripts": {
-        "start": "./switch && webpack serve --config webpack.config.js",
+        "start": "webpack serve --config webpack.config.js",
         "lint": "eslint \"src/**/*.{ts,tsx}\"",
         "lint:fix": "yarn run lint --fix",
         "build": "webpack --config webpack.config.js",
