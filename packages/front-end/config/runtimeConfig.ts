@@ -1,15 +1,8 @@
 import { setConfig, validateConfig } from '@core/config'
-import currentConfig from './config.json'
+import currentConfig from '../envs/local.json' // need a way to switch configs based on what environment were on.
 
 // This file is supposed to execute in global browser context
 const validationResult = validateConfig(currentConfig)
-declare global {
-    interface Window {
-        __config__: {
-            backendUrl: string
-        }
-    }
-}
 
 // Tes, I know that .isOk === false looks strange,
 // but TypeScript a bit dumb to narrow the type of validation result otherwise.

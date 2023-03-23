@@ -12,7 +12,7 @@
         { "path": "../@mfe/redux-store" },
         { "path": "../@core/config" }
     ],
-    "include": ["src", "config"],
+    "include": ["src", "config", "global.d.ts"],
 
     "exclude": ["./src/**/*.test.ts", "./src/**/*.test.tsx", "node_modules"]
 }
