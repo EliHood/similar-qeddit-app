@@ -1,9 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import Axios from 'axios'
-import 'dotenv/config'
+import { getConfig } from 'config'
 
 const AxiosInstance = Axios.create({
-    baseURL: 'http://localhost:3001/', // localhost:3000
+    baseURL: getConfig()?.backendUrl,
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',

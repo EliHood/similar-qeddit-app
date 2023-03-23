@@ -17,6 +17,7 @@
         "axios": "^0.19.0",
         "classnames": "^2.2.6",
         "cors": "^2.8.5",
+        "config": "0.0.0",
         "enzyme": "^3.11.0",
         "enzyme-adapter-react-16": "^1.15.6",
         "eslint-config-airbnb": "^18.2.1",
@@ -56,13 +57,13 @@
         "tslint-config-prettier": "^1.18.0"
     },
     "scripts": {
-        "start": "webpack serve --config webpack.config.js",
+        "start": "./switch && webpack serve --config webpack.config.js",
         "lint": "eslint \"src/**/*.{ts,tsx}\"",
         "lint:fix": "yarn run lint --fix",
         "build": "webpack --config webpack.config.js",
         "build:watch": "webpack watch --config webpack.config.js",
         "test": "jest",
-        "server": "node server.js"
+        "server": "./switch && node server.js"
     },
     "lint-staged": {
         "*.{js,ts,tsx}": [

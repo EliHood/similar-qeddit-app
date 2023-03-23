@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# This script is used to switch between different environments
+
+set -eo pipefail
+
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+envs_path="$script_dir/envs"
+config_path="$script_dir/config.json"
+
+function check_first_arg() {
+    if [ -z "$1" ]; then
+        if [ -f "$config_path" ]; then
+            echo "Environment name is not provided, but current environment is set. Using current environment."
+            exit 0
+        else
+            echo "Environment name is not provided and current environment isn't set. Defaulting to \"dev\" environment"
+            cp "$envs_path/dev.json" "$script_dir/config.json"
+            exit 0
+        fi
+    fi
+}
+
+check_first_arg "$1"
+
+function is_env_exists() {
+    if [ ! -f "$envs_path/$1.json" ]; then
+        echo "Environment $1 does not exist in $envs_path"
+        exit 1
+    fi
+}
+
+is_env_exists "$1"
+
+cp "$envs_path/$1.json" "$script_dir/config.json"

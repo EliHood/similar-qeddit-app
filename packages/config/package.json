@@ -1,0 +1,20 @@
+{
+  "name": "config",
+  "version": "0.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "private": false,
+  "license": "ISC",
+  "scripts": {
+    "build": "tsc",
+    "prepublish": "rimraf dist && npm run build"
+  },
+  "devDependencies": {
+    "rimraf": "^4.4.0",
+    "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "zod": "^3.21.4"
+  }
+}
