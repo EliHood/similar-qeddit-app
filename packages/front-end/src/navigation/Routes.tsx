@@ -70,7 +70,7 @@ function Routes() {
                             variant="subtitle1"
                             color="secondary"
                         >
-                            TypeScript React
+                            Similar Reddit App
                         </Typography>
                     </Grid>
                     <Grid item lg={8} style={{ flex: 1 }}>

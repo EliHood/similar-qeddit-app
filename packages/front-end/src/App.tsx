@@ -70,7 +70,6 @@ const App: React.FC = () => {
     }, [])
 
     if (localStorage.jwtToken) {
-        console.log('JWT CONDITION')
         // console.log("googletoken", localStorage.jwtToken);
         // Set auth token header auth
         setAuthToken(localStorage.jwtToken)
@@ -79,8 +78,6 @@ const App: React.FC = () => {
 
         if (token !== 'undefined') {
             const decoded: any = jwt_decode(token)
-            console.log('is this gettring called', decoded)
-            // console.log(decoded);
             // Set user and isAuthenticated
             store.dispatch(userActions.loginSuccess(decoded))
             // this line of code may be unneccessary, because we are calling getUser from Nav component.

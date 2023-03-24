@@ -27,6 +27,7 @@ function ProfilePage({
     useEffect(() => {
         if (!didMountRef.current) {
             const { username } = match.params
+            console.log('user path', match.params)
             dispatch(userActions.getProfileInit(username))
         } else {
             // console.log("test");
