@@ -12,16 +12,19 @@
         "clean": "lerna clean && rimraf node_modules",
         "server": "cd packages/front-end && npm run server",
         "client": "cd ./client && npm start",
-        "startdev": "concurrently --kill-others \"npm run client\" \"npm run server\" "
+        "startdev": "concurrently --kill-others \"npm run client\" \"npm run server\" ",
+        "postinstall": "lerna exec yarn install"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
         "concurrently": "^5.0.0",
         "js-levenshtein": "^1.1.6",
-        "lerna": "^6.6.0",
-        "ts-loader": "^9.2.6",
-        "rimraf": "^4.4.0"
+        "lerna": "^4.0.0",
+        "rimraf": "^4.4.0",
+        "ts-loader": "^9.2.6"
     },
-    "workspaces": ["packages/**"]
+    "workspaces": [
+        "packages/**"
+    ]
 }
