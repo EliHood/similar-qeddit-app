@@ -11,6 +11,8 @@
         "build:watch": "lerna run build:watch --parallel",
         "clean": "lerna clean && rimraf node_modules",
         "server": "cd packages/front-end && npm run server",
+        "start:local": "cd ./packages/front-end && ./run --config ./envs/local.json",
+        "start:prod": "cd ./packages/front-end && ./run --config ./envs/prod.json",
         "client": "cd ./client && npm start",
         "startdev": "concurrently --kill-others \"npm run client\" \"npm run server\" ",
         "postinstall": "lerna exec yarn install"
