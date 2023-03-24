@@ -4,6 +4,7 @@
     "private": false,
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
+    "files": ["dist"],
     "devDependencies": {
         "@babel/preset-env": "^7.16.4",
         "@babel/preset-react": "^7.16.0",
