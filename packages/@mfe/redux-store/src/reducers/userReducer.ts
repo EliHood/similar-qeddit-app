@@ -29,7 +29,6 @@ const authReducer = (state = initialState, action: any): IUserState =>
     produce(state, (draft) => {
         switch (action.type) {
             case types.SIGN_UP_SUCCESS:
-                // draft.isAuthenticated = sessionData.getLoginStatus();
                 draft.email = ''
                 draft.password = ''
                 draft.username = ''
