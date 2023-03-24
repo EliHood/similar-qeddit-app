@@ -106,7 +106,7 @@ function Login() {
                                     </Alert>
                                 </div>
                             )}
-                            {user.error.includes('Please activate') && (
+                            {user?.error?.includes('Please activate') && (
                                 <div style={{ padding: '20px 0px' }}>
                                     <Typography
                                         variant="h6"

@@ -6,7 +6,7 @@ const port = process.env.PORT || 3002;
 const app = express();
 app.use(
   cors({
-    origin: 'http://localhost:3002',
+    origin: '*',
     preflightContinue: false,
     credentials: true,
     allowedHeaders: 'X-Requested-With, Content-Type, Authorization',

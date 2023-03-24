@@ -68,16 +68,15 @@ module.exports = {
     },
     devServer: {
         static: {
-            directory: path.join(__dirname, 'dist', 'index.html'),
+            directory: path.join(__dirname, 'public'),
         },
-        historyApiFallback: true,
+        historyApiFallback: {
+            publicPath: '/',
+            disableDotRule: true
+        },
+        allowedHosts: 'all',
         compress: true,
         port: 9002,
-        proxy: {
-            '/api/v1/*': {
-                target: 'http://localhost:3001',
-            },
-        },
         host: '0.0.0.0',
     },
     plugins: [

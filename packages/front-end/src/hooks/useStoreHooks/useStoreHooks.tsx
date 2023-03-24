@@ -57,11 +57,14 @@ function useStoreMethods() {
     const selectedUser = useSelector(selectors.getSelectedUser)
     const mentionedUser = useSelector(selectors.mentionUser)
     const commenterId = useSelector(selectors.getCommenterId)
-
+    const isAuthenticated = useSelector(selectors.isAuthenticated)
+    const isGoogleAccount = useSelector(selectors.isGoogleAccount)
     return {
         posts,
         notifications,
         user,
+        isAuthenticated,
+        isGoogleAccount,
         mentionUsers,
         setSelectedOptionValue,
         setMentioned,

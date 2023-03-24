@@ -69,7 +69,7 @@ function PostItemContainer({ post }: IPostItemContainer) {
                                             }}
                                         />{' '}
                                         Repost from
-                                        {post.author.username}
+                                        {post.author?.username}
                                     </Typography>
                                 </>
                             ) : null}
@@ -110,10 +110,10 @@ function PostItemContainer({ post }: IPostItemContainer) {
                     >
                         <OurLink
                             to={{
-                                pathname: `/profile/${post.author.username}`,
+                                pathname: `/profile/${post.author?.username}`,
                                 state: { post },
                             }}
-                            title={post.author.username}
+                            title={post.author?.username}
                         />
                     </Typography>
                     {/* <Typography align="right" variant="body1">

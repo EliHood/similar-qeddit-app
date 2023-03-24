@@ -7,6 +7,14 @@ const userSelector = (state: any) => state.user
 export const userStore = createSelector(userSelector, (state) => state)
 export const profile = createSelector(postSelector, (state) => state.postPage)
 
+export const isAuthenticated = createSelector(
+    userStore,
+    (state) => state.isAuthenticated
+)
+export const isGoogleAccount = createSelector(
+    userStore,
+    (state) => state.googleAccount
+)
 export const getPosts =
     // this gets all posts
     createSelector(postSelector, (state) => state.posts)

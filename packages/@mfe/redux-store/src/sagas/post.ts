@@ -87,7 +87,6 @@ export function* getNotification() {
 export function* getPosts() {
     try {
         const posts = yield call(api.post.getPosts) // call api from axios express back end
-        console.log('posts', posts)
         if (typeof posts === 'string') {
             return
         }
