@@ -1,6 +1,5 @@
 import Axios from '../ourAxios'
 
-console.log('windoww in api', window)
 export default {
     user: {
         signUp: (userData: any) =>

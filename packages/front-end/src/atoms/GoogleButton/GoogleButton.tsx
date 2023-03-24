@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) =>
 
 const GoogleLoginButton = () => {
     const classes = useStyles({})
-    console.log('does this render the config', window?.__config__)
+
     return (
         <a
             href={`${window?.__config__.backendUrl}/api/v1/users/auth/google`}

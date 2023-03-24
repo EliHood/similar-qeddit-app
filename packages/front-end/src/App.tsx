@@ -70,7 +70,6 @@ const App: React.FC = () => {
     }, [])
 
     if (localStorage.jwtToken) {
-        // console.log("googletoken", localStorage.jwtToken);
         // Set auth token header auth
         setAuthToken(localStorage.jwtToken)
         // Decode token and get user info and exp

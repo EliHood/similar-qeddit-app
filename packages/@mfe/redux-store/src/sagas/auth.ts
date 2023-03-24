@@ -7,9 +7,6 @@ import sessionData from '../utils/sessionData'
 import * as actionTypes from '../actions/userActions'
 import * as types from '../actionTypes/userActionTypes'
 
-// eslint-disable-next-line no-underscore-dangle
-console.log('checvking for window', (window as any)?.runtimeConfig)
-
 export function* registerUser(action: any) {
     try {
         const { history } = action
@@ -29,8 +26,7 @@ export function* getAutoLoginStatus(action) {
     try {
         const autoLogin = yield call(api.user.currentUser)
         const { token, user } = autoLogin
-        console.log('user', user)
-        console.log('tokennnn', token)
+
         if (user && user.googleId !== null) {
             localStorage.setItem('googleId', user?.googleId)
         }
@@ -39,7 +35,6 @@ export function* getAutoLoginStatus(action) {
         yield put(actionTypes.getUserSuccess(autoLogin))
     } catch (error) {
         localStorage.clear()
-        console.log('error', error)
         yield put(actionTypes.getUserFailure(error.response.data.message))
     }
 }
@@ -82,19 +77,23 @@ export function* logOut(action: any) {
 export function* login(action) {
     try {
         const autoLogin = yield call(api.user.logIn, action.payload)
-        const { token, user } = autoLogin.meta
+        const {
+            meta: { token },
+            user,
+        } = autoLogin
         sessionData.setUserLoggedIn(token)
         const decoded = jwtDecode(token) as any
         setAuthToken(token)
-        if (user.email_verified !== null) {
+        if (user?.email_verified !== null) {
             localStorage.setItem(
                 'email_verified',
                 user.email_verified.toString()
             )
         }
+        // localStorage.setItem('email_verified', user.email_verified.toString())
         yield put(actionTypes.loginSuccess(decoded))
     } catch (err) {
-        const errMsg = err.response.data.meta.message
+        const errMsg = err?.response?.data?.meta?.message
         yield put(actionTypes.loginFailure(errMsg))
     }
 }
