@@ -3,12 +3,13 @@
     "version": "0.0.1",
     "description": "",
     "main": "dist/index.js",
+    "files": ["dist"],
     "types": "dist/index.d.ts",
     "private": false,
     "license": "ISC",
     "scripts": {
-        "build": "tsc",
-        "prepublish": "rimraf dist && npm run build"
+        "build": "rimraf dist && tsc",
+        "prepublish": "npm run build"
     },
     "devDependencies": {
         "rimraf": "^4.4.0",

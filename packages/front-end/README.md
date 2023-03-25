@@ -1,10 +1,8 @@
-## Switch environment
+## Specify app config
 
-You can easilly switch you current environment using `./switch <environment>` command e.g. `./switch dev` or `./switch prod`.
+You can easilly specify the app config by running `./run --config ./envs/prod.json`.
 
-If no environment is specified, the default environment will be `dev`.
-
-Configs are stored in `./envs` directory are named `<environment>.json`.
+If no config specified, the default will be `./envs/local.json`.
 
 ---
 

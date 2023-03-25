@@ -1,18 +1,13 @@
 {
     "extends": "../../../tsconfig.base.json",
     "compilerOptions": {
-        "outDir": "dist",
-        "rootDir": "./",
-        "baseUrl": "./",
-        "composite": true,
+        "outDir": "./dist",
+        "rootDir": "./src",
         "strict": false,
+        "declaration": true,
         "esModuleInterop": true,
         "jsx": "react"
     },
-    "paths": {
-        "@core/config": ["../../@core/config"]
-    },
-    "references": [{ "path": "../../@core/config" }],
-    "include": ["src/**/*"],
+    "include": ["src"],
     "exclude": ["node_modules", "**/__tests__/*", "**/__e2e__/*"]
 }
