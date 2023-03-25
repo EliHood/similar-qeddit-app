@@ -4,10 +4,10 @@ import { createTheme, ThemeProvider } from '@material-ui/core/styles'
 import { useSelector } from 'react-redux'
 import { userActions, selectors } from '@mfe/redux-store/src'
 import setAuthToken from '@mfe/redux-store/src/utils/setAuthToken'
-import { Routes } from './navigation'
+import { getUser } from '@mfe/redux-store/src/actions/userActions'
+import { Navbar, Routes } from './navigation'
 import { store } from './bootstrap'
 import { history } from './ourHistory'
-import { getUser } from '@mfe/redux-store/src/actions/userActions'
 
 const theme = createTheme({
     palette: {
@@ -96,6 +96,7 @@ const App: React.FC = () => {
     return (
         <ThemeProvider theme={isDark ? defaultTheme : dark}>
             <Routes />
+            <Navbar />
         </ThemeProvider>
     )
 }

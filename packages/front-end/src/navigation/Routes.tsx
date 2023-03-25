@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { useDispatch } from 'react-redux'
 import classnames from 'classnames'
 import AppBar from '@material-ui/core/AppBar'
 import Grid from '@material-ui/core/Grid'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import { Route, Router, Redirect, Switch } from 'react-router-dom'
+import {
+    Route,
+    Routes as RouterRoutes,
+    BrowserRouter,
+    Navigate,
+} from 'react-router-dom'
+
 import { userActions } from '@mfe/redux-store'
 import Landing from '../pages/LandingPage'
 import Dashboard from '../pages/DashboardPage'
@@ -18,7 +24,6 @@ import EditProfile from '../pages/EditProfilePage'
 import Profile from '../pages/ProfilePage'
 import Register from '../pages/RegisterPage'
 import { history } from '../ourHistory'
-import PrivateRoute from './PrivateRoute'
 import NotFound from '../molecules/404'
 import CollapasedMenu from '../organisms/CollapsedMenu'
 import MainNav from '../organisms/MainNav'
@@ -28,6 +33,38 @@ import UserPosts from '../pages/UserPostsPage'
 import storeHooks from '../hooks/useStoreHooks'
 import SearchResults from '../molecules/SearchResults'
 import SearchResultPage from '../pages/SearchResultPage'
+
+// type RoutesMap = {
+//     isProtected: boolean
+//     routeName: string
+//     element?: JSX.Element | ReactElement
+//     redirectTo?: string
+// }
+
+type AuthPrivateRouteType = {
+    isAuthenticated: boolean
+    isGoogleAccount: boolean
+    children: ReactElement
+    isProtected: boolean
+    redirectTo: string
+}
+
+export function AuthPrivateRoute({
+    children,
+    isProtected,
+    redirectTo,
+    isAuthenticated,
+    isGoogleAccount,
+}: AuthPrivateRouteType): ReactElement {
+    /**
+     * If validate token callback fails, and if route is protected redirect to some unathorized route like a login.
+     */
+    const isAuthed = isAuthenticated || isGoogleAccount
+    if (isProtected && isAuthed) {
+        return children
+    }
+    return <Navigate to={redirectTo} />
+}
 
 function Routes() {
     const dispatch = useDispatch()
@@ -51,141 +88,111 @@ function Routes() {
     const handleClose = React.useCallback(() => {
         setAnchorEl(null)
     }, [setAnchorEl])
-    console.log('routes', isGoogleAccount)
+
+    const routes = [
+        {
+            routeName: '/dashboard',
+            isProtected: true,
+            element: <Dashboard />,
+            redirectTo: '/login',
+        },
+        {
+            routeName: '/',
+            isProtected: false,
+            element: <Landing />,
+            redirectTo: '/',
+        },
+        {
+            routeName: '/register',
+            isProtected: false,
+            element: <Register />,
+            redirectTo: '/',
+        },
+        {
+            routeName: '/login',
+            isProtected: false,
+            element: <Login />,
+            redirectTo: '/',
+        },
+        {
+            routeName: '/emailConfirmation',
+            isProtected: false,
+            element: <EmailConfirmation />,
+            redirectTo: '/',
+        },
+        {
+            routeName: '/emailConfirmationSuccess/:userId/:token',
+            isProtected: false,
+            element: <EmailConfirmation />,
+            redirectTo: '/',
+        },
+        {
+            routeName: '/emailConfirmationSuccess/:userId/:token',
+            isProtected: false,
+            element: <EmailConfirmationSuccess />,
+            redirectTo: '/',
+        },
+        {
+            routeName: '/editProfile',
+            isProtected: true,
+            element: <EditProfile />,
+            redirectTo: '/login',
+        },
+        {
+            routeName: '/profile/:username',
+            isProtected: true,
+            element: <Profile />,
+            redirectTo: '/login',
+        },
+        {
+            routeName: '/:userId/likes',
+            isProtected: true,
+            element: <Likes />,
+            redirectTo: '/login',
+        },
+        {
+            routeName: '/:userId/posts',
+            isProtected: true,
+            element: <UserPosts />,
+            redirectTo: '/login',
+        },
+        {
+            routeName: '/post/:id',
+            isProtected: true,
+            element: <Post />,
+            redirectTo: '/login',
+        },
+        {
+            routeName: '*',
+            isProtected: false,
+            element: <NotFound />,
+            redirectTo: '/',
+        },
+    ]
+
     return (
-        <Router history={history}>
-            <AppBar
-                position="static"
-                className={classnames(
-                    (classes.appBar,
-                    {
-                        [classes.appBarShift]: appOpen,
-                    })
+        <BrowserRouter>
+            <RouterRoutes>
+                {routes.map(
+                    ({ isProtected, routeName, element, redirectTo }) => (
+                        <Route
+                            key={routeName}
+                            path={routeName}
+                            element={
+                                <AuthPrivateRoute
+                                    isProtected={isProtected}
+                                    redirectTo={redirectTo}
+                                    isAuthenticated={isAuthenticated}
+                                    isGoogleAccount={isGoogleAccount}
+                                >
+                                    {element}
+                                </AuthPrivateRoute>
+                            }
+                        />
+                    )
                 )}
-            >
-                <Toolbar style={{ height: '1px' }}>
-                    <Grid item lg={2} style={{ flex: 1 }}>
-                        <Typography
-                            style={{ color: '#fff' }}
-                            variant="subtitle1"
-                            color="secondary"
-                        >
-                            Similar Reddit App
-                        </Typography>
-                    </Grid>
-                    <Grid item lg={8} style={{ flex: 1 }}>
-                        <Search />
-                        <SearchResults />
-                    </Grid>
-
-                    <CollapasedMenu
-                        handleClose={handleClose}
-                        setOpen={appSetOpen}
-                        appOpen={appOpen}
-                        handleNotificationClick={handleNotificationClick}
-                        logOut={logOut}
-                        darkTheme={() => dispatch(userActions.setDark())}
-                        isAuthenticated={isAuthenticated}
-                        googleAccount={isGoogleAccount}
-                        open={open}
-                        anchorEl={anchorEl}
-                        notificationId={id}
-                    />
-                    <MainNav
-                        darkTheme={() => dispatch(userActions.setDark())}
-                        logOut={logOut}
-                        handleClose={handleClose}
-                        open={open}
-                        notificationId={id}
-                        anchorEl={anchorEl}
-                        handleNotificationClick={handleNotificationClick}
-                        isAuthenticated={isAuthenticated}
-                        googleAccount={isGoogleAccount}
-                    />
-                </Toolbar>
-            </AppBar>
-
-            <Switch>
-                <Route exact path="/" render={() => <Landing />} />
-                <Route
-                    path="/login"
-                    render={() =>
-                        isAuthenticated === true || isGoogleAccount === true ? (
-                            <Redirect to="/dashboard" />
-                        ) : (
-                            <Login />
-                        )
-                    }
-                />
-                <Route
-                    path="/register"
-                    render={() =>
-                        isAuthenticated === true || isGoogleAccount === true ? (
-                            <Redirect to="/dashboard" />
-                        ) : (
-                            <Register />
-                        )
-                    }
-                />
-                <Route
-                    path="/emailConfirmation"
-                    component={EmailConfirmation}
-                />
-
-                <Route
-                    exact
-                    path="/search/posts"
-                    component={SearchResultPage}
-                />
-                <Route
-                    path="/emailConfirmationSuccess/:userId/:token"
-                    component={EmailConfirmationSuccess}
-                />
-                <PrivateRoute
-                    exact
-                    path="/dashboard"
-                    Component={Dashboard}
-                    appOpen={appOpen}
-                    googleAccount={isGoogleAccount}
-                    isAuthenticated={isAuthenticated}
-                />
-                <PrivateRoute
-                    exact
-                    path="/profile/:username"
-                    Component={Profile}
-                    appOpen={appOpen}
-                    googleAccount={isGoogleAccount}
-                    isAuthenticated={isAuthenticated}
-                />
-                <PrivateRoute
-                    exact
-                    path="/editProfile"
-                    Component={EditProfile}
-                    appOpen={appOpen}
-                    googleAccount={isGoogleAccount}
-                    isAuthenticated={isAuthenticated}
-                />
-                <PrivateRoute
-                    exact
-                    path="/:userId/likes"
-                    Component={Likes}
-                    appOpen={appOpen}
-                    googleAccount={isGoogleAccount}
-                    isAuthenticated={isAuthenticated}
-                />
-                <PrivateRoute
-                    exact
-                    path="/:userId/posts"
-                    Component={UserPosts}
-                    appOpen={appOpen}
-                    googleAccount={isGoogleAccount}
-                    isAuthenticated={isAuthenticated}
-                />
-                <Route path="/post/:id" component={Post} />
-
-                <Route component={NotFound} />
-            </Switch>
-        </Router>
+            </RouterRoutes>
+        </BrowserRouter>
     )
 }
 

@@ -38,7 +38,8 @@ function useStoreMethods() {
     const setSelectedOptionValue = (optionValue: string) =>
         dispatch(postActions.setSelectedUser(optionValue))
     const setMentioned = () => dispatch(postActions.setMentionedUser())
-    const setSelectedUser = () => dispatch(postActions.setSelectedUser)
+    const setSelectedUser = (payload) =>
+        dispatch(postActions.setSelectedUser(payload))
     const ourTitle = useSelector(selectors.title)
     const titleError = useSelector(selectors.getTitleError)
     const ourBodyError = useSelector(selectors.getBodyError)
