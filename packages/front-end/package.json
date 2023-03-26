@@ -48,7 +48,7 @@
         "react-redux": "^8.0.5",
         "react-router": "^6.9.0",
         "react-router-dom": "^6.9.0",
-        "react-toastify": "^5.5.0",
+        "react-toastify": "^9.1.2",
         "redux": "^4.0.5",
         "redux-devtools-extension": "^2.13.8",
         "redux-persist": "^6.0.0",

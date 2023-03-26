@@ -20,7 +20,8 @@ const CommentBody: React.FC<CommentType> = ({
             {gifUrl === '' && (
                 <ReactMarkdown
                     className="markdownStyle"
-                    source={comment_body}
+                    // eslint-disable-next-line react/no-children-prop
+                    children={comment_body}
                 />
             )}
         </div>
