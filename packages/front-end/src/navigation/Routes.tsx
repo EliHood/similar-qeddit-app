@@ -1,16 +1,12 @@
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactElement, ReactNode, Suspense } from 'react'
 import { useDispatch } from 'react-redux'
 import {
     Route,
-    Link,
     Routes as RouterRoutes,
     BrowserRouter,
-    Navigate,
+    useNavigate,
 } from 'react-router-dom'
-
 import { userActions } from '@mfe/redux-store'
-import Landing from '../pages/LandingPage'
-import Dashboard from '../pages/DashboardPage'
 import EmailConfirmation from '../molecules/EmailConfirmation'
 import EmailConfirmationSuccess from '../molecules/EmailConfirmationSuccess'
 import Likes from '../pages/LikesPage'
@@ -19,45 +15,41 @@ import Post from '../pages/PostPage'
 import EditProfile from '../pages/EditProfilePage'
 import Profile from '../pages/ProfilePage'
 import Register from '../pages/RegisterPage'
-import { history } from '../ourHistory'
 import NotFound from '../molecules/404'
 import useWrapperSlide from '../hooks/useWrapperSlide'
 import Search from '../molecules/Search'
-import UserPosts from '../pages/UserPostsPage'
 import storeHooks from '../hooks/useStoreHooks'
 // import SearchResults from '../molecules/SearchResults'
 // import SearchResultPage from '../pages/SearchResultPage'
 
-// type RoutesMap = {
-//     isProtected: boolean
-//     routeName: string
-//     element?: JSX.Element | ReactElement
-//     redirectTo?: string
-// }
+/**
+ * Lazy loading these...
+ */
+const Dashboard = React.lazy(() => import('../pages/DashboardPage'))
+const UserPosts = React.lazy(() => import('../pages/UserPostsPage'))
+const Landing = React.lazy(() => import('../pages/LandingPage'))
 
 type AuthPrivateRouteType = {
     isAuthenticated: boolean
     isGoogleAccount: boolean
     children: ReactElement
     isProtected: boolean
-    redirectTo: string
+    protectGuardPath: string
+    routeName: string
 }
 
 export function AuthPrivateRoute({
     children,
     isProtected,
-    redirectTo,
+    protectGuardPath,
     isAuthenticated,
     isGoogleAccount,
-}: AuthPrivateRouteType): ReactElement {
-    /**
-     * If validate token callback fails, and if route is protected redirect to some unathorized route like a login.
-     */
+    routeName,
+}: AuthPrivateRouteType): any {
     const isAuthed = isAuthenticated || isGoogleAccount
-    console.log('isAuthed', isAuthed)
-    console.log('isProtet', isProtected)
-    if (isProtected && !isAuthed) {
-        return <Navigate to={redirectTo} />
+    const navigate = useNavigate()
+    if (isProtected && isAuthed === null) {
+        navigate(protectGuardPath)
     }
     return children
 }
@@ -65,7 +57,6 @@ export function AuthPrivateRoute({
 function Routes({ children }: { children: ReactNode }) {
     const dispatch = useDispatch()
     const { user, isAuthenticated, isGoogleAccount } = storeHooks()
-    const logOut = () => dispatch(userActions.logOutInit(history))
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
         null
     )
@@ -90,106 +81,114 @@ function Routes({ children }: { children: ReactNode }) {
             routeName: '/dashboard',
             isProtected: true,
             element: <Dashboard />,
-            redirectTo: '/login',
+            protectGuardPath: '/login',
         },
         {
             routeName: '/',
             isProtected: false,
             element: <Landing />,
-            redirectTo: '/',
+            protectGuardPath: '/',
         },
         {
             routeName: '/register',
             isProtected: false,
             element: <Register />,
-            redirectTo: '/',
+            protectGuardPath: '/',
         },
         {
             routeName: '/login',
             isProtected: false,
             element: <Login />,
-            redirectTo: '/',
+            protectGuardPath: '/',
         },
         {
             routeName: '/emailConfirmation',
             isProtected: false,
             element: <EmailConfirmation />,
-            redirectTo: '/',
+            protectGuardPath: '/',
         },
         {
             routeName: '/emailConfirmationSuccess/:userId/:token',
             isProtected: false,
             element: <EmailConfirmation />,
-            redirectTo: '/',
+            protectGuardPath: '/',
         },
         {
             routeName: '/emailConfirmationSuccess/:userId/:token',
             isProtected: false,
             element: <EmailConfirmationSuccess />,
-            redirectTo: '/',
+            protectGuardPath: '/',
         },
         {
             routeName: '/editProfile',
             isProtected: true,
             element: <EditProfile />,
-            redirectTo: '/login',
+            protectGuardPath: '/login',
         },
         {
             routeName: '/profile/:username',
             isProtected: true,
             element: <Profile />,
-            redirectTo: '/login',
+            protectGuardPath: '/login',
         },
         {
             routeName: '/:userId/likes',
             isProtected: true,
             element: <Likes />,
-            redirectTo: '/login',
+            protectGuardPath: '/login',
         },
         {
             routeName: '/:userId/posts',
             isProtected: true,
             element: <UserPosts />,
-            redirectTo: '/login',
+            protectGuardPath: '/login',
         },
         {
             routeName: '/post/:id',
             isProtected: true,
             element: <Post />,
-            redirectTo: '/login',
+            protectGuardPath: '/login',
         },
         {
             routeName: '*',
             isProtected: false,
             element: <NotFound />,
-            redirectTo: '/',
+            protectGuardPath: '/',
         },
     ]
 
     return (
-        <BrowserRouter basename="/">
-            {children}
-            <RouterRoutes>
-                {routes.map(
-                    ({ isProtected, routeName, element, redirectTo }) => (
-                        <Route
-                            key={routeName}
-                            path={routeName}
-                            element={
-                                <AuthPrivateRoute
-                                    isProtected={isProtected}
-                                    redirectTo={redirectTo}
-                                    isAuthenticated={isAuthenticated}
-                                    isGoogleAccount={isGoogleAccount}
-                                >
-                                    {element}
-                                </AuthPrivateRoute>
-                            }
-                        />
-                    )
-                )}
-            </RouterRoutes>
-        </BrowserRouter>
+        <Suspense fallback={<div>Loading ... </div>}>
+            <BrowserRouter>
+                {children}
+                <RouterRoutes>
+                    {routes.map(
+                        ({
+                            isProtected,
+                            routeName,
+                            element,
+                            protectGuardPath,
+                        }) => (
+                            <Route
+                                key={routeName}
+                                path={routeName}
+                                element={
+                                    <AuthPrivateRoute
+                                        routeName={routeName}
+                                        isProtected={isProtected}
+                                        protectGuardPath={protectGuardPath}
+                                        isAuthenticated={isAuthenticated}
+                                        isGoogleAccount={isGoogleAccount}
+                                    >
+                                        {element}
+                                    </AuthPrivateRoute>
+                                }
+                            />
+                        )
+                    )}
+                </RouterRoutes>
+            </BrowserRouter>
+        </Suspense>
     )
 }
 

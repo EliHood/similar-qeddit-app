@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux'
 import { userActions, selectors } from '@mfe/redux-store/src'
 import setAuthToken from '@mfe/redux-store/src/utils/setAuthToken'
 import { getUser } from '@mfe/redux-store/src/actions/userActions'
-import { Link } from 'react-router-dom'
 import { Navbar, Routes } from './navigation'
 import { store } from './bootstrap'
 import { history } from './ourHistory'
@@ -80,6 +79,7 @@ const App: React.FC = () => {
             const decoded: any = jwt_decode(token)
             // Set user and isAuthenticated
             store.dispatch(userActions.loginSuccess(decoded))
+
             // this line of code may be unneccessary, because we are calling getUser from Nav component.
             // Check for expired token
             const currentTime = Date.now() / 1000

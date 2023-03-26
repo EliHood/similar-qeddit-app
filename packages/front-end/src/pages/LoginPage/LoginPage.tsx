@@ -1,14 +1,16 @@
 import Typography from '@material-ui/core/Typography'
 import Alert from '@material-ui/lab/Alert'
-import React, { useState, Fragment } from 'react'
-import { userActions, selectors } from '@mfe/redux-store/src'
+import React, { useState, useEffect } from 'react'
+import { userActions } from '@mfe/redux-store/src'
 import Avatar from '@material-ui/core/Avatar'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Grid from '@material-ui/core/Grid'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Paper from '@material-ui/core/Paper'
 import { makeStyles } from '@material-ui/core/styles'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import storeHooks from '../../hooks/useStoreHooks'
 import { history } from '../../ourHistory'
 import LoginForm from '../../molecules/Login'
 import IsAuth from '../../hoc/isAuthenticated'
@@ -51,12 +53,19 @@ const useStyles = makeStyles((theme) => ({
 
 function Login() {
     const classes = useStyles()
+    const navigate = useNavigate()
     const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const dispatch = useDispatch()
     const login = (userData: object, historyData: object) =>
         dispatch(userActions.loginInit(userData, historyData))
-    const user = useSelector(selectors.userStore)
+    const { user, isAuthenticated, isGoogleAccount } = storeHooks()
+
+    useEffect(() => {
+        if (isAuthenticated || isGoogleAccount) {
+            navigate('/dashboard')
+        }
+    }, [isAuthenticated, isGoogleAccount])
 
     const goBackEmailConfirmation = () => {
         history.goBack()
@@ -99,7 +108,7 @@ function Login() {
                             <Typography component="h1" variant="h5">
                                 Log In
                             </Typography>
-                            {user.error && (
+                            {user?.error && (
                                 <div>
                                     <Alert severity="warning">
                                         {user.error}
