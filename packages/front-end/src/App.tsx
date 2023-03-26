@@ -95,8 +95,8 @@ const App: React.FC = () => {
 
     return (
         <ThemeProvider theme={isDark ? defaultTheme : dark}>
-            <Routes />
-            <Navbar />
+            {/* <Routes /> */}
+            {/* <Navbar /> */}
         </ThemeProvider>
     )
 }
