@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom/client'
 import { persistStore } from 'redux-persist'
 import { Provider } from 'react-redux'
 import './index.css'
@@ -11,14 +11,16 @@ export const store = createStore()
 
 export const persitor = persistStore(store)
 
-const app = (
+const NewApp = (
     <Provider store={store}>
         <PersistGate persistor={persitor}>
             <App />
         </PersistGate>
     </Provider>
 )
-ReactDOM.render(app, document.getElementById('root'))
+
+const root = ReactDOM.createRoot(document.getElementById('root'))
+root.render(NewApp)
 
 // // If you want your app to work offline and load faster, you can change
 // // unregister() to register() below. Note this comes with some pitfalls.

@@ -287,7 +287,7 @@ export type INavLinkType = {
 } & Required<withChildren>
 
 export type IMainNavType = {
-    darkTheme: () => void
+    darkTheme?: () => void
     logOut: () => void
     handleNotificationClick: (
         event: React.MouseEvent<HTMLButtonElement>

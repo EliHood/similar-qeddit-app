@@ -1,5 +1,6 @@
+/* eslint-disable react/no-children-prop */
 import React, { useState, useCallback } from 'react'
-import ReactMarkdown from 'react-markdown/with-html'
+import ReactMarkdown from 'react-markdown'
 import { Grid } from '@material-ui/core'
 import ButtonFunction from '../../molecules/ButtonFunction'
 import storeHooks from '../../hooks/useStoreHooks'
@@ -110,7 +111,7 @@ const CommentItem: React.FC<CommentItemPropsType> = ({
                         <div data-testid="reply-body">
                             <ReactMarkdown
                                 className="markdownStyle"
-                                source={reply?.replyBody}
+                                children={reply?.replyBody}
                             />
                         </div>
                         {Object.entries(checkUser).length !== 0

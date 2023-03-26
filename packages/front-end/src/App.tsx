@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { userActions, selectors } from '@mfe/redux-store/src'
 import setAuthToken from '@mfe/redux-store/src/utils/setAuthToken'
 import { getUser } from '@mfe/redux-store/src/actions/userActions'
+import { Link } from 'react-router-dom'
 import { Navbar, Routes } from './navigation'
 import { store } from './bootstrap'
 import { history } from './ourHistory'
@@ -95,8 +96,9 @@ const App: React.FC = () => {
 
     return (
         <ThemeProvider theme={isDark ? defaultTheme : dark}>
-            {/* <Routes /> */}
-            {/* <Navbar /> */}
+            <Routes>
+                <Navbar />
+            </Routes>
         </ThemeProvider>
     )
 }
