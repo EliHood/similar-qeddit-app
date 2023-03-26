@@ -17,7 +17,7 @@ function EmailConfirmation({ location }: IEmailConfirmation) {
     const user = useSelector(selectors.userConfirmation)
     const resendEmail = () =>
         dispatch(userActions.resendEmailConfirmationInit())
-    const emailMessage = user || location.state.meta.message
+    const emailMessage = user || location?.state?.meta?.message
 
     return (
         <>

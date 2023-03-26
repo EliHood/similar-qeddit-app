@@ -59,7 +59,7 @@ function Login() {
     const dispatch = useDispatch()
     const login = (userData: object, historyData: object) =>
         dispatch(userActions.loginInit(userData, historyData))
-    const { user, isAuthenticated, isGoogleAccount } = storeHooks()
+    const { user, userErr, isAuthenticated, isGoogleAccount } = storeHooks()
 
     useEffect(() => {
         if (isAuthenticated || isGoogleAccount) {
@@ -108,14 +108,12 @@ function Login() {
                             <Typography component="h1" variant="h5">
                                 Log In
                             </Typography>
-                            {user?.error && (
+                            {userErr && (
                                 <div>
-                                    <Alert severity="warning">
-                                        {user.error}
-                                    </Alert>
+                                    <Alert severity="warning">{userErr}</Alert>
                                 </div>
                             )}
-                            {user?.error?.includes('Please activate') && (
+                            {userErr.includes('Please activate') && (
                                 <div style={{ padding: '20px 0px' }}>
                                     <Typography
                                         variant="h6"
