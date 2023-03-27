@@ -23,6 +23,7 @@ function getArgValue(arg) {
 function showHelp() {
     console.log('This script runs the application with the specified config.\n');
     console.log('Usage: ./run --config ./envs/local.json\n');
+    console.log('Use: --dev flag to run the app in development mode\n');
     console.log(`Default config: ${defaultConfig}\n`);
 }
 
@@ -42,7 +43,11 @@ function run() {
     fs.copyFileSync(srcConfig, targetConfig);
 
     // Start the app
-    const child = spawn('npm', ['start'], { stdio: 'inherit' });
+    const command = process.argv.includes('--dev') ?
+     ['npm', ['start']] :
+     ['node', [path.join(__dirname, 'server.js')]];
+
+    const child = spawn(command[0], command[1], { stdio: 'inherit' });
 
     // Handle graceful shutdown
     process.on('SIGTERM', () => child.kill('SIGTERM'));

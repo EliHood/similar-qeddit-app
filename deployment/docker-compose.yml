@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  frontend:
+    volumes:
+      - $PWD/../packages/front-end/envs/prod.json:/config.json
+    ports:
+      - 3002:3002
+
+  nginx:
+    image: nginx:1.23.3
+    volumes:
+      - $PWD/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - frontend
+    ports:
+      - 80:80
