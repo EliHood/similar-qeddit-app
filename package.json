@@ -7,8 +7,8 @@
     "scripts": {
         "start": "lerna run start --parallel",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "lerna run build --parallel",
-        "build:watch": "lerna run build:watch --parallel",
+        "build": "lerna run build",
+        "build:watch": "lerna run build:watch",
         "clean": "lerna clean && rimraf node_modules",
         "server": "cd packages/front-end && npm run server",
         "start:local": "cd ./packages/front-end && ./run --config ./envs/local.json",

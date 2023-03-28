@@ -5,7 +5,6 @@ set -euo pipefail
 script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 git_root=$(git rev-parse --show-toplevel)
 docker_image=$(${script_dir}/get-docker-image.sh)
-echo "docker image ${docker_image}"
 
 echo "Building docker image $docker_image"
 

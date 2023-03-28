@@ -5,11 +5,10 @@ services:
     restart: always
     volumes:
       - $PWD/../packages/front-end/envs/prod.json:/config.json
-    ports:
-      - 3002:3002
 
   nginx:
     image: nginx:1.23.3
+    restart: always
     volumes:
       - $PWD/nginx/conf.d:/etc/nginx/conf.d
     depends_on:

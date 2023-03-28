@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
 set -euo pipefail
 
 echo "Starting an application..."
@@ -8,4 +9,6 @@ echo "BUILD_REV: $BUILD_REV"
 echo "BUILD_TIME: $BUILD_TIME"
 echo ""
 
-./run --config /config.json
+script_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+$script_dir/packages/front-end/run --config /config.json
