@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eo pipefail
+set -euo pipefail
 
 script_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 source $script_dir/config/config.env
@@ -10,20 +10,8 @@ echo "Current branch: ${git_branch}"
 
 echo "Deploying the current branch \"${git_branch}\" to AWS"
 
-vars="VM_SSH_KEY VM_GIT_ROOT"
-function validate_env() {
-	for var in $vars; do
-		if [ -z "${!var}" ]; then
-			echo "ERROR: $var is not set"
-			exit 1
-		fi
-	done
-}
-
-validate_env
-
 if [[ "${git_branch}" == "develop" ]]; then
-	vm_host="ec2-3-239-65-122.compute-1.amazonaws.com"
+	vm_host="ec2-user@ec2-3-239-65-122.compute-1.amazonaws.com"
 else
 	echo "Not deployment configuration found for branch: ${git_branch}"
 	exit 0

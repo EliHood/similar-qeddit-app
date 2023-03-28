@@ -2,19 +2,20 @@ FROM node:18.14.2-alpine
 
 WORKDIR /app
 
-# By installing dependencies first, we can cache them in separate Docker layers.
-# Dependencies are changed less often than source code, so this will speed up builds.
-COPY package.json .
-COPY yarn.lock .
-RUN yarn install
+COPY ./lerna.json .
+COPY ./package.json .
+COPY ./yarn.lock .
+COPY ./tsconfig.base.json .
+COPY ./packages .
 
-COPY . .
-COPY ./deployment/docker/entrypoint.sh .
+RUN yarn
 
 RUN yarn build
 
 ENV PORT=3002
 EXPOSE 3002
+
+COPY ./deployment/docker/entrypoint.sh .
 
 HEALTHCHECK CMD curl --fail http://0.0.0.0:3002 || exit 1
 

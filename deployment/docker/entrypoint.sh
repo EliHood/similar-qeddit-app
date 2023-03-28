@@ -1,5 +1,5 @@
 #!/bin/sh
-set -eo pipefail
+set -euo pipefail
 
 echo "Starting an application..."
 echo ""
