@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -exuo pipefail
+set -euo pipefail
 
 script_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 source $script_dir/config/config.env
@@ -22,7 +22,7 @@ mkdir -p ~/.ssh && echo "${VM_SSH_KEY}" >~/.ssh/vm_ssh_key && chmod 600 ~/.ssh/v
 
 echo "Running deployment commands on VM"
 
-vm_command_populate_env="cd ${VM_GIT_ROOT} && pwd && ls -la && source ./deployment/config/populate.sh"
+vm_command_populate_env="cd ${VM_GIT_ROOT} && source ./deployment/config/populate.sh"
 vm_command_pull_latest_changes="cd $VM_GIT_ROOT && git reset --hard HEAD && git checkout $git_branch && git pull origin $git_branch"
 vm_command_restart_docker_compose="cd $VM_GIT_ROOT/deployment && docker-compose pull && make restart"
 vm_command_docker_prune="docker image prune -f"
