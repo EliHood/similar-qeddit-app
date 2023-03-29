@@ -1,6 +1,10 @@
-## Specify app config
+## Start the application
 
-You can easilly specify the app config by running `./run --config ./envs/prod.json`.
+Use `./run` script to start the application.
+
+Use `./run --dev` flag to run the application in development mode. This way the webpack dev server will be used instead of `./server.js`.
+
+You can specify the app config by running `./run --config ./envs/prod.json`.
 
 If no config specified, the default will be `./envs/local.json`.
 
