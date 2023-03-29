@@ -31,4 +31,4 @@ app.get('/*', (req, res) => {
   console.log('Running server');
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
-app.listen(port, '127.0.0.1');
+app.listen(port);
