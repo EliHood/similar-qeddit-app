@@ -1,57 +1,69 @@
 #!/usr/bin/env node
 
-const path = require('path');
-const fs = require('fs');
-const { spawn } = require('child_process');
+const path = require('path')
+const fs = require('fs')
+const { spawn } = require('child_process')
 
-const defaultConfig = './envs/local.json';
+const defaultConfig = './envs/local.json'
+const isDev = process.argv.includes('--dev')
 
 function getArgValue(arg) {
-    const argIndex = process.argv.indexOf(arg);
+    const argIndex = process.argv.indexOf(arg)
     if (argIndex === -1) {
-        return undefined;
+        return undefined
     }
 
-    const argValue = process.argv[argIndex + 1];
+    const argValue = process.argv[argIndex + 1]
     if (argValue === undefined) {
-        return undefined;
+        return undefined
     }
 
-    return argValue;
+    return argValue
 }
 
 function showHelp() {
-    console.log('This script runs the application with the specified config.\n');
-    console.log('Usage: ./run --config ./envs/local.json\n');
-    console.log('Use: --dev flag to run the app in development mode\n');
-    console.log(`Default config: ${defaultConfig}\n`);
+    console.log('This script runs the application with the specified config.\n')
+    console.log('Usage: ./run --config ./envs/local.json\n')
+    console.log('Use: --dev flag to run the app in development mode\n')
+    console.log(`Default config: ${defaultConfig}\n`)
+}
+
+function writeConfig() {
+    const configFilePath = path.resolve(
+        __dirname,
+        getArgValue('--config') || defaultConfig
+    )
+    console.log('Running app with the config:', configFilePath);
+
+    const configFileContent = fs.readFileSync(configFilePath, 'utf8');
+
+    const runtimeConfigPath = isDev
+        ? path.resolve(__dirname, './public/runtimeConfig.js')
+        : path.resolve(__dirname, './dist/runtimeConfig.js')
+    const runtimeConfigContent = `window.__config__ = ${configFileContent}`
+
+    fs.writeFileSync(runtimeConfigPath, runtimeConfigContent);
 }
 
 function run() {
     // Show help if --help is passed
     if (process.argv.includes('--help')) {
-        showHelp();
-        process.exit(0);
+        showHelp()
+        process.exit(0)
     }
 
-    const srcConfig = path.resolve(__dirname, getArgValue('--config') || defaultConfig);
-    const targetConfig = path.resolve(__dirname, 'config.json');
-
-    console.log('Running app with the config:', srcConfig);
-
-    // Copy the config to the root of the app
-    fs.copyFileSync(srcConfig, targetConfig);
+    writeConfig()
 
     // Start the app
-    const command = process.argv.includes('--dev') ?
-     ['npm', ['start']] :
-     ['node', [path.join(__dirname, 'server.js')]];
+    const command = isDev
+        ? ['npm', ['start']]
+        : ['node', [path.join(__dirname, 'server.js')]]
 
-    const child = spawn(command[0], command[1], { stdio: 'inherit' });
+    const child = spawn(command[0], command[1], { stdio: 'inherit' })
 
     // Handle graceful shutdown
-    process.on('SIGTERM', () => child.kill('SIGTERM'));
-    process.on('SIGINT', () => child.kill('SIGINT'));
+    process.on('SIGTERM', () => child.kill('SIGTERM'))
+    process.on('SIGINT', () => child.kill('SIGINT'))
 }
 
-run();
+run()

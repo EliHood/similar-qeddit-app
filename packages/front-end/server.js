@@ -28,7 +28,8 @@ app.use('/health', (_, res) => {
     return res.status(200).send(JSON.stringify(statusInfo, null, 4))
 });
 app.get('/*', (req, res) => {
-  console.log('Running server');
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
-app.listen(port);
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});

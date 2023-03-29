@@ -7,8 +7,7 @@ module.exports = {
     entry: {
         app: {
             import: './src/index.ts',
-        },
-        runtimeConfig: './config/runtimeConfig.ts',
+        }
     },
     mode: 'development',
     output: {
@@ -85,7 +84,7 @@ module.exports = {
             filename: './index.html',
             contentBase: path.join(__dirname, 'dist'),
             chunksSortMode: 'manual',
-            chunks: ['runtimeConfig', 'app'] // runtime config should be populated at the moment of app loading
+            chunks: ['app']
         }),
 
         new webpack.DefinePlugin({
