@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  frontend:
+    image: ${FRONTEND_DOCKER_IMAGE}
+    restart: always
+    volumes:
+      - $PWD/../packages/front-end/envs/prod.json:/config.json
+
+  nginx:
+    image: nginx:1.23.3
+    restart: always
+    volumes:
+      - $PWD/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - frontend
+    ports:
+      - 80:80

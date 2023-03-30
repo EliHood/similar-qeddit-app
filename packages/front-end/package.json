@@ -66,7 +66,7 @@
         "build": "webpack --config webpack.config.js",
         "build:watch": "webpack watch --config webpack.config.js",
         "test": "jest",
-        "server": "node server.js"
+        "server": "./run --config ./envs/local.json"
     },
     "lint-staged": {
         "*.{js,ts,tsx}": [
