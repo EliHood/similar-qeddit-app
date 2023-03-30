@@ -59,7 +59,7 @@ function Login() {
     const dispatch = useDispatch()
     const login = (userData: object, historyData: object) =>
         dispatch(userActions.loginInit(userData, historyData))
-    const { user, userErr, isAuthenticated, isGoogleAccount } = storeHooks()
+    const { userErr, isAuthenticated, isGoogleAccount } = storeHooks()
 
     useEffect(() => {
         if (isAuthenticated || isGoogleAccount) {
