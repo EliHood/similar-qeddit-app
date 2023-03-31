@@ -37,10 +37,9 @@
         "typescript": "^4.9.5"
     },
     "scripts": {
-        "start": "tsc --watch",
         "lint": "eslint \"src/**/*.{ts,tsx}\"",
         "lint:fix": "eslint --fix \"src/**/*.{ts,tsx}\"",
-        "build:watch": "tsc --watch",
+        "build:watch": "rimraf dist && tsc --watch",
         "build": "rimraf dist && tsc",
         "test": "jest",
         "test:noWatch": "npm run test -- --watchAll=false",

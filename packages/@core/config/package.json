@@ -9,6 +9,7 @@
     "license": "ISC",
     "scripts": {
         "build": "rimraf dist && tsc",
+        "build:watch": "rimraf dist && tsc --watch",
         "prepublish": "npm run build"
     },
     "devDependencies": {
