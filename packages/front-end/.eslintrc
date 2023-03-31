@@ -29,7 +29,8 @@
         "no-param-reassign": 0,
         "react/no-unescaped-entities": 0,
         "react/destructuring-assignment": 0,
-        "no-shadow": 0
+        "no-shadow": 0,
+        "no-underscore-dangle": 0
     },
     "ignorePatterns": ["*/src/**/*.test.tsx"]
 }
