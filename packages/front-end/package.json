@@ -58,15 +58,14 @@
         "tslint-config-prettier": "^1.18.0"
     },
     "scripts": {
-        "start": "webpack serve --config webpack.config.js",
+        "start": "./run --dev --config ./envs/local.json",
         "start:local": "./run --config ./envs/local.json",
         "start:prod": "./run --config ./envs/prod.json",
         "lint": "eslint \"src/**/*.{ts,tsx}\"",
         "lint:fix": "yarn run lint --fix",
         "build": "webpack --config webpack.config.js",
-        "build:watch": "webpack watch --config webpack.config.js",
-        "test": "jest",
-        "server": "./run --config ./envs/local.json"
+        "serve": "webpack serve --config webpack.config.js",
+        "test": "jest"
     },
     "lint-staged": {
         "*.{js,ts,tsx}": [

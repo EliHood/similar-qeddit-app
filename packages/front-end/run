@@ -56,7 +56,7 @@ function run() {
 
     // Start the app
     const command = isDev
-        ? ['npm', ['start']]
+        ? ['npm', ['run', 'serve']]
         : ['node', [path.join(__dirname, 'server.js')]]
 
     const child = spawn(command[0], command[1], { stdio: 'inherit' })
