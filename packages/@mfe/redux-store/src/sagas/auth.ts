@@ -9,14 +9,11 @@ import * as types from '../actionTypes/userActionTypes'
 
 export function* registerUser(action: any) {
     try {
-        const { history } = action
+        const { navigate } = action
         const user = yield call(api.user.signUp, action.payload)
-        // const token = user.meta.token;
-        // setAuthToken(token);
-        // sessionData.setUserLoggedIn(token);
-        // const decoded = jwtDecode(token);
         yield put(actionTypes.signUpSuccess({}, user))
-        history.push({ pathname: '/emailConfirmation', state: user })
+        navigate('/emailConfirmation', {state: user})
+
     } catch (error) {
         const errMsg = error.response.data.meta.message
         yield put(actionTypes.signUpFailure(errMsg))

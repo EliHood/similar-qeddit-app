@@ -1,5 +1,6 @@
 import Typography from '@material-ui/core/Typography'
-import React, { Fragment } from 'react'
+import Alert from '@material-ui/lab/Alert'
+import React from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { makeStyles } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
@@ -8,6 +9,7 @@ import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectors, userActions } from '@mfe/redux-store'
+import { useNavigate } from 'react-router-dom'
 import { history } from '../../ourHistory'
 import useInputChange from '../../hooks/useInputChangeHook'
 import IsAuth from '../../hoc/isAuthenticated'
@@ -43,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
         width: '100%', // Fix IE 11 issue.
         marginTop: theme.spacing(1),
     },
+    error: {
+        margin: '1em 0'
+    },
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
@@ -51,9 +56,10 @@ const useStyles = makeStyles((theme) => ({
 function RegisterPage(props: any) {
     const classes = useStyles()
     const userData = useSelector(selectors.userStore)
+    const navigate = useNavigate()
     const dispatch = useDispatch()
-    const signup = (userInfo: object, historyInfo: object) =>
-        dispatch(userActions.signUpInit(userInfo, historyInfo))
+    const signup = (userInfo: object, navigate: any) =>
+        dispatch(userActions.signUpInit(userInfo, navigate))
     const inputData = {
         addEmail: (email: string) => dispatch(userActions.addEmail(email)),
         addPassword: (password: string) =>
@@ -73,7 +79,7 @@ function RegisterPage(props: any) {
             password,
         }
 
-        signup(creds, history)
+        signup(creds, navigate)
     }
 
     const {
@@ -92,6 +98,8 @@ function RegisterPage(props: any) {
         passwordError === true &&
         usernameError === true
     )
+    const isPasswordNonMatched =
+        password !== passwordConf ? 'Password Don\'t Match' : false
     const { appBar, appBarShift, appOpen } = props
     return (
         <OurWrapper appBar={appBar} appOpen={appOpen} appBarShift={appBarShift}>
@@ -121,7 +129,22 @@ function RegisterPage(props: any) {
                             <Typography component="h1" variant="h5">
                                 Register
                             </Typography>
-                            {userData.error && <div>{userData.error}</div>}
+
+                            <Grid
+                                item
+                                xs={8}
+                                className={classes.error}
+                            >
+                                {userData.error ||
+                                    (isPasswordNonMatched && (
+
+                                        <Alert severity="warning">
+                                            {userData.error ||
+                                                isPasswordNonMatched}
+                                        </Alert>
+
+                                    ))}
+                            </Grid>
 
                             <SignUpForm
                                 submit={handleSubmit}
@@ -143,7 +166,7 @@ function RegisterPage(props: any) {
                     </Grid>
                 </Grid>
             </>
-        </OurWrapper>
+        </OurWrapper >
     )
 }
 

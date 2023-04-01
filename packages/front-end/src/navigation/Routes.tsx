@@ -7,8 +7,8 @@ import {
     useNavigate,
 } from 'react-router-dom'
 import { userActions } from '@mfe/redux-store'
-import EmailConfirmation from '../molecules/EmailConfirmation'
-import EmailConfirmationSuccess from '../molecules/EmailConfirmationSuccess'
+import EmailConfirmation from '../pages/EmailConfirmationPage'
+import EmailConfirmationSuccess from '../pages/EmailConfirmationSuccessPage'
 import Likes from '../pages/LikesPage'
 import Login from '../pages/LoginPage'
 import Post from '../pages/PostPage'

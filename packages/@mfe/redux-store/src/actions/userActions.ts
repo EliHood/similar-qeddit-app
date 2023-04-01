@@ -34,10 +34,10 @@ export const resendEmailConfirmationFailure = (error: object) => ({
     error,
 });
 
-export const signUpInit = (payload: object, history: object) => ({
+export const signUpInit = (payload: object, navigate: any) => ({
     type: userActionTypes.SIGN_UP_INIT,
     payload,
-    history,
+    navigate
 });
 
 export const signUpSuccess = (payload: object, user: object) => ({

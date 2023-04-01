@@ -9,5 +9,5 @@
         "jsx": "react"
     },
     "include": ["src"],
-    "exclude": ["node_modules", "**/__tests__/*", "**/__e2e__/*"]
+    "exclude": ["node_modules", "**/__tests__/*", "**/__e2e__/*", "./src/**/*.test.ts"]
 }
