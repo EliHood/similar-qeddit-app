@@ -11,8 +11,7 @@ services:
     restart: always
     volumes:
       - $PWD/nginx/conf.d:/etc/nginx/conf.d
-      - $PWD/nginx/tls:/tls-fullchain.crt
-      - $PWD/nginx/tls:/tls-private.key
+      - $PWD/nginx/tls:/tls
     depends_on:
       - frontend
     ports:
