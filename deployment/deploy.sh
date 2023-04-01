@@ -11,7 +11,7 @@ echo "Current branch: ${git_branch}"
 echo "Deploying the current branch \"${git_branch}\" to AWS"
 
 if [[ "${git_branch}" == "develop" ]]; then
-	vm_host="ec2-user@ec2-3-239-65-122.compute-1.amazonaws.com"
+	vm_host="ec2-user@ec2-54-242-189-161.compute-1.amazonaws.com"
 else
 	echo "Not deployment configuration found for branch: ${git_branch}"
 	exit 0
