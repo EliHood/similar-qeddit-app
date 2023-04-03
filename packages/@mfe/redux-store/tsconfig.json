@@ -1,6 +1,7 @@
 {
     "extends": "../../../tsconfig.base.json",
     "compilerOptions": {
+        "baseUrl": "./",
         "outDir": "./dist",
         "rootDir": "./src",
         "strict": false,
@@ -8,6 +9,11 @@
         "esModuleInterop": true,
         "jsx": "react"
     },
-    "include": ["src"],
-    "exclude": ["node_modules", "**/__tests__/*", "**/__e2e__/*", "./src/**/*.test.ts"]
+    "include": ["src", "config"],
+    "exclude": [
+        "node_modules",
+        "**/__tests__/*",
+        "**/__e2e__/*",
+        "./src/**/*.test.ts"
+    ]
 }
