@@ -1,4 +1,4 @@
-## FullStack Typescript App(not sure what to name this)
+### Similar Queddit App
 
 currently being patched...
 
@@ -6,47 +6,48 @@ currently being patched...
 
 Would need this
 
-https://github.com/EliHood/fullstackbackend
+https://github.com/EliHood/similar-qeddit-service
 
 ### Instructions
 
-- `yarn run build:watch` 1st window
-- `yarn start` 2nd window
+-   `yarn install`
+-   `yarn compile:watch` Secondary window/tab
+-   `yarn start` Primary window/tab
 
 #### Tech Stack
 
-- Docker
-- React(tsx) (some React Hooks)
-- TypeScript
-- Redux
-- Redux Saga
-- Sequelize
-- Pusher
+-   Docker
+-   React(tsx) (some React Hooks)
+-   TypeScript
+-   Redux
+-   Redux Saga
+-   Sequelize
+-   Pusher
 
 #### Functionalies
 
-- Sign Up
-- Repost
-- Search Posts
-- Sign Up Validations
-- Mention Users
-- Log in
-- Google Oauth login
-- Log Out
-- Comment Replies
-- Like A Post
-- Unlike A Post
-- Add Comment to a Post
-- Email Confirmation
-- Edit Profile
-- Comment Notifications
-- Follower User/Unfollow User
+-   Sign Up
+-   Repost
+-   Search Posts
+-   Sign Up Validations
+-   Mention Users
+-   Log in
+-   Google Oauth login
+-   Log Out
+-   Comment Replies
+-   Like A Post
+-   Unlike A Post
+-   Add Comment to a Post
+-   Email Confirmation
+-   Edit Profile
+-   Comment Notifications
+-   Follower User/Unfollow User
 
 #### For executing Docker(have your env variables set up)
 
-- `docker exec -it database psql -U postgres -c "CREATE DATABASE elitypescript"`
+-   `docker exec -it database psql -U postgres -c "CREATE DATABASE elitypescript"`
 
-- `docker-compose up --build --force-recreate`
+-   `docker-compose up --build --force-recreate`
 
 ### login
 
