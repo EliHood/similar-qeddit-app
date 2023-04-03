@@ -110,12 +110,6 @@ function Routes({ children }: { children: ReactNode }) {
         {
             routeName: '/emailConfirmationSuccess/:userId/:token',
             isProtected: false,
-            element: <EmailConfirmation />,
-            protectGuardPath: '/',
-        },
-        {
-            routeName: '/emailConfirmationSuccess/:userId/:token',
-            isProtected: false,
             element: <EmailConfirmationSuccess />,
             protectGuardPath: '/',
         },

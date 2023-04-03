@@ -12,8 +12,7 @@ export function* registerUser(action: any) {
         const { navigate } = action
         const user = yield call(api.user.signUp, action.payload)
         yield put(actionTypes.signUpSuccess({}, user))
-        navigate('/emailConfirmation', {state: user})
-
+        navigate('/emailConfirmation', { state: user })
     } catch (error) {
         const errMsg = error.response.data.meta.message
         yield put(actionTypes.signUpFailure(errMsg))
@@ -100,12 +99,14 @@ export function* emailConfirmation(action) {
         const callEmailConfirmation = yield call(
             api.user.emailConfirmation,
             action.payload.userId,
-            action.payload.token
+            action.payload.parsedToken
         )
         yield put(actionTypes.emailConfirmationSuccess(callEmailConfirmation))
     } catch (err) {
         yield put(
-            actionTypes.emailConfirmationFailure(err.response.data.meta.message)
+            actionTypes.emailConfirmationFailure(
+                err.response?.data?.meta?.message
+            )
         )
     }
 }
