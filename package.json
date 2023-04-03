@@ -9,7 +9,7 @@
         "start:local": "cd ./packages/front-end && yarn run start:local",
         "start:prod": "cd ./packages/front-end && yarn run start:prod",
         "build": "lerna run build",
-        "build:watch": "lerna run build:watch",
+        "compile:watch": "lerna run build:watch --parallel",
         "clean": "lerna clean && rimraf node_modules",
         "postinstall": "lerna exec yarn install"
     },
