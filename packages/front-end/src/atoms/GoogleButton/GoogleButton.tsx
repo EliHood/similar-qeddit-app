@@ -52,7 +52,7 @@ const GoogleLoginButton = () => {
 
     return (
         <a
-            href={`${window?.__config__.backendUrl}/backend/api/v1/users/auth/google`}
+            href={`${window.location.origin}/backend/api/v1/users/auth/google`}
             className={classes.button}
         >
             <div className={classes.wrapper}>
