@@ -1,4 +1,5 @@
 const express = require('express');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const cors = require('cors');
 const path = require('path');
 
@@ -14,6 +15,16 @@ app.use(
     exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
   })
 );
+
+/** Proxy all requests to /backend to the backend service */
+app.use(
+    '/backend',
+    createProxyMiddleware({
+        target: process.env.BACKEND_URL,
+        pathRewrite: { '^/backend': '' },
+    })
+)
+
 app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/health', (_, res) => {

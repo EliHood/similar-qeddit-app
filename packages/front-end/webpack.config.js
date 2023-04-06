@@ -7,7 +7,7 @@ module.exports = {
     entry: {
         app: {
             import: './src/index.ts',
-        }
+        },
     },
     mode: 'development',
     output: {
@@ -71,7 +71,13 @@ module.exports = {
         },
         historyApiFallback: {
             publicPath: '/',
-            disableDotRule: true
+            disableDotRule: true,
+        },
+        proxy: {
+            '/backend': {
+                target: process.env.BACKEND_URL,
+                pathRewrite: { '^/backend': '' },
+            },
         },
         allowedHosts: 'all',
         compress: true,
@@ -84,7 +90,7 @@ module.exports = {
             filename: './index.html',
             contentBase: path.join(__dirname, 'dist'),
             chunksSortMode: 'manual',
-            chunks: ['app']
+            chunks: ['app'],
         }),
 
         new webpack.DefinePlugin({

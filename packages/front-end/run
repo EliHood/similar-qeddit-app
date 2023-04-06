@@ -3,6 +3,7 @@
 const path = require('path')
 const fs = require('fs')
 const { spawn } = require('child_process')
+const { snakeCase, mapKeys } = require('lodash')
 
 const defaultConfig = './envs/local.json'
 const isDev = process.argv.includes('--dev')
@@ -28,21 +29,29 @@ function showHelp() {
     console.log(`Default config: ${defaultConfig}\n`)
 }
 
-function writeConfig() {
+function getConfigFileContent() {
     const configFilePath = path.resolve(
         __dirname,
         getArgValue('--config') || defaultConfig
     )
-    console.log('Running app with the config:', configFilePath);
+    console.log('Running app with the config:', configFilePath)
 
-    const configFileContent = fs.readFileSync(configFilePath, 'utf8');
+    return fs.readFileSync(configFilePath, 'utf8')
+}
 
+function writeConfig() {
+    const configFileContent = getConfigFileContent()
     const runtimeConfigPath = isDev
         ? path.resolve(__dirname, './public/runtimeConfig.js')
         : path.resolve(__dirname, './dist/runtimeConfig.js')
     const runtimeConfigContent = `window.__config__ = ${configFileContent}`
 
-    fs.writeFileSync(runtimeConfigPath, runtimeConfigContent);
+    fs.writeFileSync(runtimeConfigPath, runtimeConfigContent)
+}
+
+function configToEnv() {
+    const config = JSON.parse(getConfigFileContent())
+    return mapKeys(config, (_, key) => snakeCase(key).toUpperCase())
 }
 
 function run() {
@@ -59,7 +68,13 @@ function run() {
         ? ['npm', ['run', 'serve']]
         : ['node', [path.join(__dirname, 'server.js')]]
 
-    const child = spawn(command[0], command[1], { stdio: 'inherit' })
+    const child = spawn(command[0], command[1], {
+        stdio: 'inherit',
+        env: {
+            ...process.env,
+            ...configToEnv()
+        },
+    })
 
     // Handle graceful shutdown
     process.on('SIGTERM', () => child.kill('SIGTERM'))
