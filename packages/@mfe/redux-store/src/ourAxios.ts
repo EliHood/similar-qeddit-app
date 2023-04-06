@@ -4,7 +4,7 @@ import Axios from 'axios'
 import { getConfig } from '@core/config'
 
 const AxiosInstance = Axios.create({
-    baseURL: getConfig()?.backendUrl,
+    baseURL: getConfig()?.publicUrl + '/backend',
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',

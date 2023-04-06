@@ -1,3 +1,4 @@
 {
+    "publicUrl": "http://localhost:3002",
     "backendUrl": "http://localhost:3001"
 }
