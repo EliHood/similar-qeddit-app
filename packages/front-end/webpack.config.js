@@ -81,7 +81,7 @@ module.exports = {
         },
         allowedHosts: 'all',
         compress: true,
-        port: 9002,
+        port: 3002,
         host: '0.0.0.0',
     },
     plugins: [
