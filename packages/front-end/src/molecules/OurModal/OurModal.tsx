@@ -12,7 +12,6 @@ import OurLink from '../OurLink'
 export default function OurModal(props) {
     const theme = useTheme()
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
-    console.log('props', props)
     return (
         <Dialog
             fullScreen={fullScreen}
