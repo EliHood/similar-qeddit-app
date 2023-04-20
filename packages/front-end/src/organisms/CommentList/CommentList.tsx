@@ -1,11 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, {forwardRef, useState, Ref } from 'react'
+import React, { forwardRef, useState, Ref } from 'react'
 import Grid from '@material-ui/core/Grid'
 import OurSecondaryButton from '../../molecules/OurSecondaryButton'
 import CommentListContainer from '../CommentListContainer'
 
 function CommentList(props: any, ref: Ref<HTMLDivElement>) {
-    const { comments, userId, postId } = props
+    const { comments, userId, postId, opId } = props
     const [showMore, setShowMore] = useState<number>(2)
     const [openModal, setOpenModal] = useState(false)
     const [showLessFlag, setShowLessFlag] = useState<boolean>(false)
@@ -54,8 +54,9 @@ function CommentList(props: any, ref: Ref<HTMLDivElement>) {
 
     const showMoreComments = () =>
         filterComments.map((comment, i) => (
-            <div data-testid={`comment-show-more-${i}`} key={i}>
+            <div data-testid={`comment-show-more-${i}`} key={comment.id}>
                 <CommentListContainer
+                    opId={opId}
                     ref={ref}
                     comment={comment}
                     openModal={openModal}
@@ -119,8 +120,9 @@ function CommentList(props: any, ref: Ref<HTMLDivElement>) {
                 <>
                     {/* filter based on first comment  */}
                     {filterComments.map((comment, i) => (
-                        <div key={i} ref={ref} className="comment">
+                        <div key={comment.id} ref={ref} className="comment">
                             <CommentListContainer
+                                opId={opId}
                                 ref={ref}
                                 comment={comment}
                                 openModal={openModal}

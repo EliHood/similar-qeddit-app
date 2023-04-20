@@ -101,6 +101,7 @@ const CommentBottom: React.FC<CommentBottomType> = ({
                 Comments
             </Typography>
             <CommentList
+                opId={userId}
                 ref={divRef}
                 user={user}
                 deleteComment={deleteComment}

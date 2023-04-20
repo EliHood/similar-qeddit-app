@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 
 export interface IDefault {
     error?: string | null
@@ -158,6 +158,7 @@ export type CommentItemPropsType = {
 } & Pick<Events, 'deleteComment'>
 
 export interface CommentAuthorDataInterface {
+    opId: number
     comment: CommentType
     userId: number
     isBold: any

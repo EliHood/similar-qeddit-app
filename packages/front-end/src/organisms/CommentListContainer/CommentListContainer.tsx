@@ -8,12 +8,13 @@ import CommentAuthorData from '../CommentAuthorData'
 const ourStyle = {
     margin: '15px ',
 }
-const CommentListContainer: ForwardRefRenderFunction <HTMLDivElement, any> = (
+const CommentListContainer: ForwardRefRenderFunction<HTMLDivElement, any> = (
     props,
     ref
 ) => {
     const {
         comment,
+        opId,
         openModal,
         handleClickOpen,
         handleCloseModal,
@@ -21,6 +22,7 @@ const CommentListContainer: ForwardRefRenderFunction <HTMLDivElement, any> = (
         postId,
     } = props
     const { replyComm, editComment, deleteComment, user } = storeHooks()
+
     const [replyComment, setReplyComment] = useState(false)
     const [addReply, setReply] = useState('')
     const replySubmit = React.useCallback(
@@ -51,6 +53,7 @@ const CommentListContainer: ForwardRefRenderFunction <HTMLDivElement, any> = (
             data-testid="comment-list-container"
         >
             <CommentAuthorData
+                opId={opId}
                 currentUser={user}
                 comment={comment}
                 openModal={openModal}
@@ -77,6 +80,7 @@ const CommentListContainer: ForwardRefRenderFunction <HTMLDivElement, any> = (
                             <Fragment key={comment.id}>
                                 <div style={{ padding: '5px' }}>
                                     <CommentAuthorData
+                                        opId={opId}
                                         comment={reply}
                                         currentUser={user}
                                         openModal={openModal}

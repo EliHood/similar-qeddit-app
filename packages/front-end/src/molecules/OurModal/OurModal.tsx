@@ -12,7 +12,7 @@ import OurLink from '../OurLink'
 export default function OurModal(props) {
     const theme = useTheme()
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
-
+    console.log('props', props)
     return (
         <Dialog
             fullScreen={fullScreen}
@@ -35,7 +35,7 @@ export default function OurModal(props) {
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button autoFocus onClick={props.handleClose} color="primary">
+                <Button autoFocus={false} onClick={props.handleClose} color="primary">
                     Close
                 </Button>
             </DialogActions>

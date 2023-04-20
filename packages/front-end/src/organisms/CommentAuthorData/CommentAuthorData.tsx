@@ -1,4 +1,6 @@
-import React, { Fragment } from 'react'
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import OurLink from '../../molecules/OurLink'
 import OurModal from '../../molecules/OurModal'
@@ -6,7 +8,7 @@ import { CommentAuthorDataInterface } from '../../types'
 
 const CommentAuthorData = ({
     comment,
-    isBold,
+    opId,
     currentUser,
     openModal,
     handleCloseModal,
@@ -16,6 +18,7 @@ const CommentAuthorData = ({
     const isReply =
         comment.commentReplies !== undefined ? '-10px 15px' : '-10px 0px'
     const checkUser = currentUser === undefined ? {} : currentUser
+
     return (
         <>
             <img
@@ -46,8 +49,8 @@ const CommentAuthorData = ({
                             }}
                             onClick={handleClickOpen}
                         >
-                            {comment.author?.username}
-                            {comment?.userId === userId && (
+                            {comment?.author?.username}
+                            {opId === comment.userId && (
                                 <span style={{ fontSize: '12px' }}> (OP)</span>
                             )}
                         </span>
@@ -70,7 +73,7 @@ const CommentAuthorData = ({
                             }}
                             title={comment.author?.username}
                         />
-                        {comment?.userId === userId && (
+                        {opId === comment.userId && (
                             <span style={{ fontSize: '12px' }}> (OP)</span>
                         )}
                     </>

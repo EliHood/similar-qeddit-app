@@ -9,6 +9,7 @@ import OurLoader from '../../atoms/OurLoader'
 function PostList(props: any) {
     const { posts } = props
     const { loading } = storeHooks()
+    console.log('posts', posts);
     return loading ? (
         <OurLoader />
     ) : (
